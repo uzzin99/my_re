@@ -95,7 +95,7 @@
 		</div>
 	</div>
 </div>
-나는 장유진
+나는 장jkjk
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
