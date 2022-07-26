@@ -27,180 +27,275 @@ public class BoardController {
 
 	private final iBoard brd;
 	private final iComments cmt;
-		
-		@RequestMapping(value = "/home", method = RequestMethod.GET)
-		public String home(HttpServletRequest req, Model model) {
-			HttpSession session = req.getSession();
-			//session.setAttribute("userid", (String)session.getAttribute("userid"));
-			model.addAttribute("userid", session.getAttribute("userid"));
-			System.out.println(brd.selPage());
-			model.addAttribute("page",brd.selPage());
-			System.out.println(session.getAttribute("crtpage"));
-			model.addAttribute("crtpage",session.getAttribute("crtpage"));
-			
-			return "board/Boardhome";
+
+	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	public String home(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		//session.setAttribute("userid", (String)session.getAttribute("userid"));
+		model.addAttribute("userid", session.getAttribute("userid"));
+		System.out.println(brd.selPage());
+		model.addAttribute("page",brd.selPage());
+		if(session.getAttribute("crtpage")==null) {
+			session.setAttribute("crtpage",1);
 		}
-		@ResponseBody
-		@RequestMapping(value = "/selBrd", method = RequestMethod.POST,produces="application/text;charset=utf-8")
-		public String doSel(HttpServletRequest req) {
-			HttpSession session = req.getSession();
-			int page=1;
-			if(!(req.getParameter("page")==null)) {
-				page = Integer.parseInt(req.getParameter("page"));
-				session.setAttribute("crtpage", page);
-				System.out.println(page);
-			}
-			int page1 = ((page-1)*10)+1;
-			int page2 = page*10;
-			ArrayList<boardDTO> arBrd=brd.selBrd(page1,page2);
-			JSONArray ja=new JSONArray();
-			for(int i=0;i<arBrd.size();i++) {
-				boardDTO bdto = arBrd.get(i);
-				JSONObject jo = new JSONObject();
-				jo.put("seq",bdto.getBSeqno());
-				jo.put("writer",bdto.getWriter());
-				jo.put("date",bdto.getBDate());
-				jo.put("title",bdto.getTitle());
-				jo.put("views",bdto.getViews());
-				ja.add(jo);
-			}
-			return ja.toJSONString();
+		if(session.getAttribute("selType")==null) {
+			session.setAttribute("selType","all");
 		}
-		@RequestMapping(value = "/show", method = RequestMethod.GET,produces="application/text;charset=utf-8")
-		public String goShow(HttpServletRequest req, Model model) {
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			HttpSession session = req.getSession();
-			model.addAttribute("userid", session.getAttribute("userid"));
-			model.addAttribute("seq",seq);
-			return "board/showBoard";
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("selType",session.getAttribute("selType"));
+		System.out.println(session.getAttribute("crtpage"));
+		model.addAttribute("crtpage",session.getAttribute("crtpage"));
+
+		return "board/Boardhome";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/selBrd", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doSel(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		int page=1;
+		if(!(req.getParameter("page")==null)) {
+			page = Integer.parseInt(req.getParameter("page"));
+			session.setAttribute("crtpage", page);
+			System.out.println(page);
 		}
-		@RequestMapping(value = "/viewUp", method = RequestMethod.GET,produces="application/text;charset=utf-8")
-		public String doViewUp(HttpServletRequest req) {
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			brd.viewUp(seq);
-			return "";
+		int page1 = ((page-1)*10)+1;
+		int page2 = page*10;
+		ArrayList<boardDTO> arBrd;
+		if(Integer.parseInt(req.getParameter("orderBy"))==1) {
+			arBrd=brd.selBrd(page1,page2);
+			session.setAttribute("searchStatus", Integer.parseInt(req.getParameter("orderBy")));
 		}
-		@ResponseBody
-		@RequestMapping(value = "/selBD", method = RequestMethod.POST,produces="application/text;charset=utf-8")
-		public String doShow(HttpServletRequest req) {
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			boardDTO bDTO=brd.showBrd(seq);
-			JSONArray ja=new JSONArray();
+		else{
+			arBrd=brd.selBrd_view(page1,page2);
+			session.setAttribute("searchStatus", Integer.parseInt(req.getParameter("orderBy")));
+		}
+		JSONArray ja=new JSONArray();
+		for(int i=0;i<arBrd.size();i++) {
+			boardDTO bdto = arBrd.get(i);
 			JSONObject jo = new JSONObject();
-			jo.put("seq",bDTO.getBSeqno());
-			jo.put("writer",bDTO.getWriter());
-			jo.put("date",bDTO.getBDate());
-			jo.put("content", bDTO.getContent());
-			jo.put("title",bDTO.getTitle());
-			jo.put("views",bDTO.getViews());
+			jo.put("seq",bdto.getBSeqno());
+			jo.put("writer",bdto.getWriter());
+			jo.put("date",bdto.getBDate());
+			jo.put("title",bdto.getTitle());
+			jo.put("views",bdto.getViews());
 			ja.add(jo);
-			return ja.toJSONString();
 		}
-		@RequestMapping(value = "/newpost", method = RequestMethod.GET,produces="application/text;charset=utf-8")
-		public String doNewBoard(HttpServletRequest req, Model model) {
-			return "board/newBoard";
-		}
-		@RequestMapping(value = "/addBoard", method = RequestMethod.POST,produces="application/text;charset=utf-8")
-		public String doAddBD(HttpServletRequest req) {
-			HttpSession session = req.getSession();
-			String writer =(String) session.getAttribute("userid");
-			String title = req.getParameter("title");
-			String content = req.getParameter("editordata");
-			System.out.println("����= "+content);
-			brd.addBD(title, content, writer);
-			return "redirect:/home";
-		}
-		@RequestMapping(value = "/delBD", method = RequestMethod.GET,produces="application/text;charset=utf-8")
-		public String doDelBD(HttpServletRequest req) {
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			brd.delBD(seq);
-			return "redirect:/home";
-		}
-		@RequestMapping(value = "/upBD", method = RequestMethod.GET,produces="application/text;charset=utf-8")
-		public String goUpdateBD(HttpServletRequest req, Model model) {
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			boardDTO bDTO=brd.showBrd(seq);
-			model.addAttribute("seq",bDTO.getBSeqno());
-			model.addAttribute("writer",bDTO.getWriter());
-			model.addAttribute("date",bDTO.getBDate());
-			model.addAttribute("content",bDTO.getContent());
-			model.addAttribute("title",bDTO.getTitle());
-			return "board/updateBoard";
-		}
-		@RequestMapping(value = "/updateBoard", method = RequestMethod.POST,produces="application/text;charset=utf-8")
-		public String doUpdateBD(HttpServletRequest req, Model model) {
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			String content = req.getParameter("editordata");
-			String title = req.getParameter("title");
-			brd.updateBD(title, content,seq);
-			return "redirect:/home";
-		}
-		@ResponseBody
-		@RequestMapping(value = "/addDat", method = RequestMethod.POST,produces="application/text;charset=utf-8")
-		public String doAddComments(HttpServletRequest req, Model model) {
-			HttpSession session = req.getSession();
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			String content = req.getParameter("content");
-			String writer =(String) session.getAttribute("userid");
-			cmt.addCmt(seq, content, writer);
-			return "0";
-		}
-		@ResponseBody
-		@RequestMapping(value = "/selCmt", method = RequestMethod.POST,produces="application/text;charset=utf-8")
-		public String doSelComments(HttpServletRequest req, Model model) {
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			ArrayList<commentDTO> arCDTO = cmt.selCmt(seq);
-			JSONArray ja=new JSONArray();
-			for(int i=0;i<arCDTO.size();i++) {
-				commentDTO CDTO = arCDTO.get(i);
-				JSONObject jo = new JSONObject();
-				jo.put("seqCmt", CDTO.getCSeqno());
-				jo.put("content",CDTO.getContent());
-				jo.put("deep",CDTO.getDeep());
-				jo.put("writer",CDTO.getWriter());
-				jo.put("date",CDTO.getCDate());
-				ja.add(jo);
+		return ja.toJSONString();
+	}
+	@RequestMapping(value = "/show", method = RequestMethod.GET,produces="application/text;charset=utf-8")
+	public String goShow(HttpServletRequest req, Model model) {
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		HttpSession session = req.getSession();
+		model.addAttribute("userid", session.getAttribute("userid"));
+		model.addAttribute("seq",seq);
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+		return "board/showBoard";
+	}
+	@RequestMapping(value = "/viewUp", method = RequestMethod.GET,produces="application/text;charset=utf-8")
+	public String doViewUp(HttpServletRequest req) {
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		brd.viewUp(seq);
+		return "";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/selBD", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doShow(HttpServletRequest req) {
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		boardDTO bDTO=brd.showBrd(seq);
+		JSONArray ja=new JSONArray();
+		JSONObject jo = new JSONObject();
+		ArrayList<boardDTO> pnBD=brd.PNBD(seq);
+		for(int i=0;i<pnBD.size();i++) {
+			boardDTO pndto = pnBD.get(i);
+			jo.put("seq"+i,pndto.getBSeqno());
+			jo.put("writer"+i,pndto.getWriter());
+			jo.put("date"+i,pndto.getBDate());
+			jo.put("content"+i, pndto.getContent());
+			jo.put("title"+i,pndto.getTitle());
+			jo.put("views"+i,pndto.getViews());
+			if(i==1) {
+				jo.put("seq2",pndto.getBSeqno());
+				jo.put("writer2",pndto.getWriter());
+				jo.put("date2",pndto.getBDate());
+				jo.put("content2", pndto.getContent());
+				jo.put("title2",pndto.getTitle());
+				jo.put("views2",pndto.getViews());
 			}
-			return ja.toJSONString();
 		}
-		@ResponseBody
-		@RequestMapping(value = "/delCmt", method = RequestMethod.POST,produces="application/text;charset=utf-8")
-		public String doDelCmt(HttpServletRequest req) {
-			int seq = Integer.parseInt(req.getParameter("seq"));
-			int bdseq = Integer.parseInt(req.getParameter("bdseq"));
-			cmt.delCmt(seq);
-			return "0";
+		jo.put("seq",bDTO.getBSeqno());
+		jo.put("writer",bDTO.getWriter());
+		jo.put("date",bDTO.getBDate());
+		jo.put("content", bDTO.getContent());
+		jo.put("title",bDTO.getTitle());
+		jo.put("views",bDTO.getViews());
+		ja.add(jo);
+		return ja.toJSONString();
+	}
+	@RequestMapping(value = "/newpost", method = RequestMethod.GET,produces="application/text;charset=utf-8")
+	public String doNewBoard(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+		return "board/newBoard";
+	}
+	@RequestMapping(value = "/addBoard", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doAddBD(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		String writer =(String) session.getAttribute("userid");
+		model.addAttribute("userid", writer);
+		String title = req.getParameter("title");
+		String content = req.getParameter("editordata");
+		int type = Integer.parseInt(req.getParameter("btype"));
+		//System.out.println("내용= "+content);
+		System.out.println("타입="+type);
+		brd.addBD(title, content, writer,type);
+		return "redirect:/home";
+	}
+	@RequestMapping(value = "/delBD", method = RequestMethod.GET,produces="application/text;charset=utf-8")
+	public String doDelBD(HttpServletRequest req) {
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		brd.delBD(seq);
+		return "redirect:/home";
+	}
+	@RequestMapping(value = "/upBD", method = RequestMethod.GET,produces="application/text;charset=utf-8")
+	public String goUpdateBD(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		boardDTO bDTO=brd.showBrd(seq);
+		model.addAttribute("seq",bDTO.getBSeqno());
+		model.addAttribute("writer",bDTO.getWriter());
+		model.addAttribute("date",bDTO.getBDate());
+		model.addAttribute("content",bDTO.getContent());
+		model.addAttribute("title",bDTO.getTitle());
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+		return "board/updateBoard";
+	}
+	@RequestMapping(value = "/updateBoard", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doUpdateBD(HttpServletRequest req, Model model) {
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		String content = req.getParameter("editordata");
+		String title = req.getParameter("title");
+		brd.updateBD(title, content,seq);
+		return "redirect:/home";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/addDat", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doAddComments(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		String content = req.getParameter("content");
+		String writer =(String) session.getAttribute("userid");
+		cmt.addCmt(seq, content, writer);
+		return "0";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/selCmt", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doSelComments(HttpServletRequest req, Model model) {
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		ArrayList<commentDTO> arCDTO = cmt.selCmt(seq);
+		JSONArray ja=new JSONArray();
+		for(int i=0;i<arCDTO.size();i++) {
+			commentDTO CDTO = arCDTO.get(i);
+			JSONObject jo = new JSONObject();
+			jo.put("seqCmt", CDTO.getCSeqno());
+			jo.put("content",CDTO.getContent());
+			jo.put("deep",CDTO.getDeep());
+			jo.put("writer",CDTO.getWriter());
+			jo.put("date",CDTO.getCDate());
+			ja.add(jo);
 		}
-		@ResponseBody
-		@RequestMapping(value = "/addRep", method = RequestMethod.POST,produces="application/text;charset=utf-8")
-		public String doAddReply(HttpServletRequest req, Model model) {
-			HttpSession session = req.getSession();
-			int bSeq = Integer.parseInt(req.getParameter("bSeq"));
-			int pSeq = Integer.parseInt(req.getParameter("pSeq"));
-			int deep = Integer.parseInt(req.getParameter("deep"))+1;
-			String content = req.getParameter("content");
-			String writer =(String) session.getAttribute("userid");
-			cmt.addRep(pSeq, bSeq, content, writer, deep);
-			return "0";
+		return ja.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "/delCmt", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doDelCmt(HttpServletRequest req) {
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		int bdseq = Integer.parseInt(req.getParameter("bdseq"));
+		cmt.delCmt(seq);
+		return "0";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/addRep", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doAddReply(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		int bSeq = Integer.parseInt(req.getParameter("bSeq"));
+		int pSeq = Integer.parseInt(req.getParameter("pSeq"));
+		int deep = Integer.parseInt(req.getParameter("deep"))+1;
+		String content = req.getParameter("content");
+		String writer =(String) session.getAttribute("userid");
+		cmt.addRep(pSeq, bSeq, content, writer, deep);
+		return "0";
+	}
+	@ResponseBody
+	@RequestMapping(value = "/selRep", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doSelReply(HttpServletRequest req, Model model) {
+		int pSeq = Integer.parseInt(req.getParameter("pSeq"));
+		ArrayList<commentDTO> arCDTO = cmt.selRep(pSeq);
+		JSONArray ja=new JSONArray();
+		for(int i=0;i<arCDTO.size();i++) {
+			commentDTO CDTO = arCDTO.get(i);
+			JSONObject jo = new JSONObject();
+			jo.put("seqCmt", CDTO.getCSeqno());
+			jo.put("content",CDTO.getContent());
+			jo.put("deep",CDTO.getDeep());
+			jo.put("writer",CDTO.getWriter());
+			jo.put("date",CDTO.getCDate());
+			ja.add(jo);
 		}
-		@ResponseBody
-		@RequestMapping(value = "/selRep", method = RequestMethod.POST,produces="application/text;charset=utf-8")
-		public String doSelReply(HttpServletRequest req, Model model) {
-			int pSeq = Integer.parseInt(req.getParameter("pSeq"));
-			ArrayList<commentDTO> arCDTO = cmt.selRep(pSeq);
-			JSONArray ja=new JSONArray();
-			for(int i=0;i<arCDTO.size();i++) {
-				commentDTO CDTO = arCDTO.get(i);
-				JSONObject jo = new JSONObject();
-				jo.put("seqCmt", CDTO.getCSeqno());
-				jo.put("content",CDTO.getContent());
-				jo.put("deep",CDTO.getDeep());
-				jo.put("writer",CDTO.getWriter());
-				jo.put("date",CDTO.getCDate());
-				ja.add(jo);
-			}
-			return ja.toJSONString();
+		return ja.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value="/searchTitle",produces="application/text;charset=utf-8")
+	public String Search(HttpServletRequest req, Model model, HttpServletRequest request) {
+		HttpSession session = req.getSession();
+		String title = req.getParameter("word");
+		String type;
+		if(title=="") {
+			type="all";
+		}else {
+			type="title";
 		}
+		int page=1;
+		if(!(req.getParameter("page")==null)) {
+			page = Integer.parseInt(req.getParameter("page"));
+			session.setAttribute("crtpage", page);
+			System.out.println(page);
+		}
+		ArrayList<boardDTO> arBrd;
+		int page1 = ((page-1)*10)+1;
+		int page2 = page*10;
+		if(Integer.parseInt(req.getParameter("orderBy"))==1) {
+			arBrd = brd.selBDTitle(title,page1,page2);
+			session.setAttribute("searchStatus", Integer.parseInt(req.getParameter("orderBy")));
+		}
+		else {
+			arBrd = brd.selBDTitleView(title,page1,page2);
+			session.setAttribute("searchStatus", Integer.parseInt(req.getParameter("orderBy")));
+		}
+		//System.out.println("정렬 번호="+req.getParameter("orderBy"));
+		JSONArray ja=new JSONArray();
+		int cntPage = brd.searchBDTitle(title);
+		for(int i=0;i<arBrd.size();i++) {
+			boardDTO bdto = arBrd.get(i);
+			JSONObject jo = new JSONObject();
+			jo.put("seq",bdto.getBSeqno());
+			jo.put("writer",bdto.getWriter());
+			jo.put("date",bdto.getBDate());
+			jo.put("title",bdto.getTitle());
+			jo.put("views",bdto.getViews());
+			jo.put("page",cntPage);
+			jo.put("selType",type);
+			ja.add(jo);
+		}
+		//model.addAttribute("page",ibd.searchBD_title(title));
+		System.out.println(title);
+		System.out.println(brd.searchBDTitle(title));
+		System.out.println(ja.toJSONString());
+		return ja.toJSONString();
+	}
 //		@ResponseBody
 //		@RequestMapping(value="/menulist",produces="application/text;charset=utf-8")
 //		public String doList() {
