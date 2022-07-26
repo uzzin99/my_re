@@ -25,144 +25,23 @@
 
     <title>Menu</title>
 </head>
-<!-- <style>
-	* {
-		font-family: 'GongGothicMedium';
-	}
-	/* 가게정보 */
-	table {
-		width: 100%;
-		text-align: center;
-		background-color: #ccc;
-		border-radius: 15px;
-	}
-	td {
-		width: 30%;
-	}
-	input {
-		border:none;
-		background: #gray;
-		border-radius: 3px;
-	}
-	.sImg {
-		width: 200px;
-		height: 150px;
-	}
-
-	/* 탭 */
-	.tab {
-		margin-left: auto;
-		margin-right: auto;
-		text-align: center;
-	}
-
-	input[type="radio"] {
-		display: none;
-	}
-
-	input[type="radio"]+label {
-		display: inline-block;
-		background: #ccc;
-		color: #999;
-		font-size: 15px;
-		cursor: pointer;
-		font-family: 'GongGothicMedium';
-		border-radius: 3px;
-		width: 100px;
-		height: 30px;
-
-	}
-
-	input[type="radio"]:checked+label {
-		background: #aaa;
-		color: #000;
-	}
-
-	.conbox {
-		width: 60%;
-		height: 170px;
-		display: none;
-		border-radius: 15px;
-		background-color: #999;
-		margin-left: 20px;
-		margin-top: 20px;
-	}
-
-	input[id="tab01"]:checked~.con1 {
-		display: block;
-	}
-
-	input[id="tab02"]:checked~.con2 {
-		display: block;
-	}
-
-	input[id="tab03"]:checked~.con3 {
-		display: block;
-	}
-
-	/* 밑에 이미지 */
-	.menuImg {
-		width: 150px;
-		height: 130px;
-	}
-
-	#a input:read-only {
-		margin-top: 17px;
-		margin-right: 5px;
-		width: 60%;
-		height: 30px;
-	}
-
-	#a img {
-		float: left;
-		margin-top: 17px;
-		margin-left: 20px;
-	}
-
-	#b input {
-		margin-top: 7px;
-		margin-right: 5px;
-		width: 15%;
-	}
-
-	#b img {
-		float: right;
-		margin-top: 17px;
-		margin-right: 20px;
-	}
-
-	/* 폰트 */
-	@font-face {
-    font-family: 'GongGothicMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-	}
-</style> -->
-
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
-        <a href="#">🛒</a>
         <c:if test="${userinfo == '' }">
-            <p align=right><a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+            <p align=right><a href="#">🛒</a>&nbsp;<a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+                <p align=right><a href="#">🛒</a>&nbsp;<a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+                <p align=right><a href="#">🛒</a>&nbsp;<a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
             </c:if>
         </c:if>
-
-        <!--  <input type="button" onclick=location.href='login'>Login
-         <input type="button" onclick=location.href='signin'>Logout -->
     </div>
-
-
     <p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 
