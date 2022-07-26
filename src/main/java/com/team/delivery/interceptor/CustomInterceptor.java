@@ -28,6 +28,7 @@ public class CustomInterceptor implements HandlerInterceptor {
         	response.sendRedirect("/login");
         	return false;
         }else {
+
         	return true;
         }
 	}
