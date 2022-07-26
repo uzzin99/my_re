@@ -38,58 +38,79 @@ public class MenuStoreController {
 	private final iMenuStore ims;
 
 	private String upLoadDirectory="C:\\Users\\admin\\Downloads\\delivery\\delivery\\src\\main\\resources\\static\\upload";
-	
 
-	
+
+
 	@RequestMapping("/s_up")
 	public String doS_up(HttpServletRequest req, Model model) {
 		HttpSession session=req.getSession();
 		model.addAttribute("userinfo",session.getAttribute("userid"));
+
+		ArrayList<stypeVO> ar=ims.sType();
+		model.addAttribute("list",ar);
 		return "member/storeUp";
 	}
 		
-	@ResponseBody
-	@RequestMapping(value="/mtp", produces="application/json;charset=UTF-8")
-	public String doMtp() {
-		ArrayList<stypeVO> arsvo=ims.sType();
-			
-		JSONArray ja=new JSONArray();
-		for(int i=0;i<arsvo.size();i++) {
-			stypeVO list=arsvo.get(i);
-			JSONObject jo=new JSONObject();
-			jo.put("sType", list.getSType());
-			jo.put("typeName", list.getTypeName());
-			ja.add(jo);
-		}
-		return ja.toJSONString();
-	}
-		
+//	@ResponseBody
+//	@RequestMapping(value="/mtp", produces="application/json;charset=UTF-8")
+//	public String doMtp() {
+//		ArrayList<stypeVO> arsvo=ims.sType();
+//
+//		JSONArray ja=new JSONArray();
+//		for(int i=0;i<arsvo.size();i++) {
+//			stypeVO list=arsvo.get(i);
+//			JSONObject jo=new JSONObject();
+//			jo.put("sType", list.getSType());
+//			jo.put("typeName", list.getTypeName());
+//			ja.add(jo);
+//		}
+//		return ja.toJSONString();
+//	}
 
-	@ResponseBody
-	@RequestMapping(value="/store", method=RequestMethod.POST, produces="application/json;charset=UTF-8")
-	public String doStore(HttpServletRequest req) {
-		String mId=req.getParameter("sid");
-		String sName=req.getParameter("sname");
+
+	@RequestMapping(value="/store", method=RequestMethod.POST)
+	public String doStore(HttpServletRequest req, @RequestParam("file") MultipartFile file) {
+		String s_id=req.getParameter("sid");
+		String s_name=req.getParameter("sname");
 		String postcode=req.getParameter("post");
-		String sAddress=req.getParameter("saddress");
-		String detailAddress=req.getParameter("sdetail");
-		String extraAddress=req.getParameter("sextra");
+		String storeAds=req.getParameter("saddress");
+		String detailAds=req.getParameter("sdetail");
+		String extraAds=req.getParameter("sextra");
 		String s_num=req.getParameter("snum");
-		String sMobile=req.getParameter("stel");
-		int sType=Integer.parseInt(req.getParameter("smenu"));
-		String sImg=req.getParameter("simg");
+		String s_mobile=req.getParameter("stel");
+		int s_type=Integer.parseInt(req.getParameter("smenu"));
 
-		ims.insertStore(mId, sName, postcode, sAddress, detailAddress, extraAddress, s_num, sMobile, sType, sImg);
-			
-		return "0";
+		String uploadFileName = file.getOriginalFilename();
+		System.out.println("file="+uploadFileName+",menuname="+s_name);
+
+		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("/")+1); //문자열 자르기
+		System.out.println("upload="+uploadFileName);
+
+		UUID uuid=UUID.randomUUID(); //랜덤이름생성
+		System.out.println("uuid="+uuid);
+
+		uploadFileName=uuid.toString() + "_" + uploadFileName; //랜덤이름_업로드파일명
+		System.out.println("uploadFileName="+uploadFileName);
+
+		File f= new File(upLoadDirectory,uploadFileName);
+		try {
+			if(uploadFileName!=null) {
+				file.transferTo(f); //파일 폴더에 저장
+			}
+			ims.insertStore(s_id, s_name, postcode, storeAds, detailAds, extraAds, s_num, s_mobile, s_type, uploadFileName);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "resirect:/main";
 	}
 		
 	@RequestMapping("/s_info")
 	public String doSinfo() {
 		return "member/storeinfo";
 	}
-		
-		
+
 	@RequestMapping("/m_up")
 	public String doMup(HttpServletRequest req, Model model) {
 		HttpSession session=req.getSession();
@@ -138,7 +159,7 @@ public class MenuStoreController {
 	
 	
 	
-	@RequestMapping(value="/menu")
+	@RequestMapping(value="/menu", method=RequestMethod.POST)
 	public String doMenu(HttpServletRequest req, @RequestParam("file") MultipartFile file) {
 		String name=req.getParameter("menuname");
 		int price=Integer.parseInt(req.getParameter("menuprice"));
