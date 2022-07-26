@@ -4,9 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
+@Slf4j
+@Component
 public class CustomInterceptor implements HandlerInterceptor {
 
 	@Override
@@ -22,7 +25,7 @@ public class CustomInterceptor implements HandlerInterceptor {
         System.out.println(mvo);
         
         if(mvo == null) {
-        	response.sendRedirect("/delivery/login");
+        	response.sendRedirect("/login");
         	return false;
         }else {
         	return true;

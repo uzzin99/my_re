@@ -25,7 +25,8 @@
   <!-- <link href="main.css" rel="stylesheet" type="text/css" /> -->
   <link href="css/main.css" rel="stylesheet" type="text/css" />
   <link href="css/base.css" rel="stylesheet" type="text/css" />
-	<title>Main</title>
+
+  <title>Main</title>
 </head>
 <style>
 a:hover{
@@ -38,14 +39,14 @@ a:hover{
   <header>
 	  <div class="login">
 		<c:if test="${userinfo == '' }">
-			<p align=right><a href="#">🛒</a><a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+          <p align=right><a href="#">🛒</a> <a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
 		</c:if>
 		<c:if test="${userinfo != '' }">
 			<c:if test="${userType == '손님' }">
-				<p align=right><a href="#">🛒</a><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+             <p align=right><a href="#">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
 			</c:if>
 			<c:if test="${userType == '사장님' }">
-				<p align=right><a href="#">🛒</a><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+              <p align=right><a href="#">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
 			</c:if>
 		</c:if>
       

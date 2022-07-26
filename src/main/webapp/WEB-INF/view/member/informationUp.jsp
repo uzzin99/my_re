@@ -31,17 +31,12 @@
 <!-- 여기가 헤드 -->
 <header>
 	<div class="login">
-		<c:if test="${userinfo == '' }">
-			<p align=right><a href="#">🛒</a>&nbsp;<a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
-		</c:if>
-		<c:if test="${userinfo != '' }">
 			<c:if test="${userType == '손님' }">
-				<p align=right><a href="#">🛒</a>&nbsp;<a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a><a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
 			</c:if>
 			<c:if test="${userType == '사장님' }">
-				<p align=right><a href="#">🛒</a>&nbsp;<a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a><a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
 			</c:if>
-		</c:if>
 	</div>
 	<p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
