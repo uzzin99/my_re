@@ -30,18 +30,12 @@
 <!-- 여기가 헤드 -->
 <header>
 	<div class="login">
-		<a href="#">🛒</a>
-		<c:if test="${userinfo == '' }">
-			<p align=right><a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
-		</c:if>
-		<c:if test="${userinfo != '' }">
 			<c:if test="${userType == '손님' }">
-				<p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a><a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
 			</c:if>
 			<c:if test="${userType == '사장님' }">
-				<p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a><a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
 			</c:if>
-		</c:if>
 
 		<!--  <input type="button" onclick=location.href='login'>Login
          <input type="button" onclick=location.href='signin'>Logout -->

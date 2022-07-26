@@ -22,6 +22,104 @@
 	}
 </style>
 <body>
+<header>
+	<div class="login">
+		<a href="#">🛒</a>
+		<c:if test="${userinfo == null}">
+			<p align=right><a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+		</c:if>
+		<c:if test="${userinfo != '' }">
+			<c:if test="${userType == '손님' }">
+				<p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+			</c:if>
+			<c:if test="${userType == '사장님' }">
+				<p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+			</c:if>
+		</c:if>
+
+		<!--  <input type="button" onclick=location.href='login'>Login
+         <input type="button" onclick=location.href='signin'>Logout -->
+	</div>
+
+
+	<p align="center" onclick=location.href='main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
+</header>
+
+<!-- 여기가 네비바 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Menu</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Home</a>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+					   data-bs-toggle="dropdown" aria-expanded="false">
+						배달&포장
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<li><a class="dropdown-item" href="store?type=1">한식</a></li>
+						<li><a class="dropdown-item" href="store?type=2">중식</a></li>
+						<li><a class="dropdown-item" href="store?type=3">일식</a></li>
+						<li><a class="dropdown-item" href="store?type=4">양식</a></li>
+						<li><a class="dropdown-item" href="store?type=5">치킨</a></li>
+						<li><a class="dropdown-item" href="store?type=6">피자</a></li>
+						<li><a class="dropdown-item" href="store?type=7">분식</a></li>
+						<li><a class="dropdown-item" href="store?type=8">디저트</a></li>
+						<li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
+						<li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
+						<li><a class="dropdown-item" href="store?type=11">아시안</a></li>
+						<li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+					</ul>
+				</li>
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+					   data-bs-toggle="dropdown" aria-expanded="false">
+						홀예약
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<li><a class="dropdown-item" href="store?type=1">한식</a></li>
+						<li><a class="dropdown-item" href="store?type=2">중식</a></li>
+						<li><a class="dropdown-item" href="store?type=3">일식</a></li>
+						<li><a class="dropdown-item" href="store?type=4">양식</a></li>
+						<li><a class="dropdown-item" href="store?type=5">치킨</a></li>
+						<li><a class="dropdown-item" href="store?type=6">피자</a></li>
+						<li><a class="dropdown-item" href="store?type=7">분식</a></li>
+						<li><a class="dropdown-item" href="store?type=8">디저트</a></li>
+						<li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
+						<li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
+						<li><a class="dropdown-item" href="store?type=11">아시안</a></li>
+						<li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+					</ul>
+
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+					   data-bs-toggle="dropdown" aria-expanded="false">
+						게시판
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
+						<li><a class="dropdown-item" href="#">Q&A</a></li>
+						<li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+		<input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
+		<button class="btn btn-outline-dark" type="submit">Search</button>
+	</form>
+</nav>
+<section>
 <table class="board">
 <tr><td>제목:</td><td><input type=text id=title name=title readonly></td></tr>
 <tr><td>작성자:</td><td><input type=text id=writer name=writer readonly></td></tr>
@@ -35,9 +133,12 @@
 </table>
 <table border="1px solid" id="cmtList" style="width:675px;justify-content: space-between;">
 </table>
+<div id="PNdiv">
+</div>
 <br>
 <input type=button id=btnExit value='목록으로 돌아가기'>
 <input type=text id=uid hidden>
+</section>
 </body>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
@@ -45,17 +146,22 @@ $(document)
 .ready(function(){
 	selectBD();
 	selCmt();
+	console.log('${userid}');
 })
 .on('click','#btnPut',function(){
-	$.ajax({
-		type:'post',dataType:'json',
-		url:'addDat',
-		data:'seq='+${seq}+'&content='+$('#dat').val(),
-		success:function(data){
-			$('#dat').val('');
-			selCmt();
-		}
-	})
+	if('${userid}'=="") {
+		alert('로그인 한 유저만 사용가능합니다.')
+	}else{
+		$.ajax({
+			type:'post',dataType:'json',
+			url:'addDat',
+			data:'seq='+${seq}+'&content='+$('#dat').val(),
+			success:function(data){
+				$('#dat').val('');
+				selCmt();
+			}
+		})
+	}
 })
 .on('click','#reply',function(){
 	if($(this).closest('tr').next('tr').attr('style')=="display:none"){
@@ -103,7 +209,7 @@ $(document)
 })
 .on('click','#btnExit',function(){
 	console.log('clicked');
-	document.location='/delivery/home';
+	document.location='/home';
 })
 function selectBD(){
 	$.ajax({
@@ -117,6 +223,8 @@ function selectBD(){
 			$('#joindate').val(brd['date']);
 			$('#content').append(brd['content']);
 			$('title').text(brd['title']);
+			$('#PNdiv').append('<a id=prev href=show?seq='+brd['seq0']+'>'+brd['title0']+'</a><hr>'
+					+'<a id=next href=show?seq='+brd['seq2']+'>'+brd['title2']+'</a>')
 		}
 	})
 }

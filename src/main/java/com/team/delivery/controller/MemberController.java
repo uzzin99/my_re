@@ -94,7 +94,10 @@ public class MemberController {
 		@RequestMapping("/signUp/deliveryUp")
 		public String doDeliveryUp(HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
-			
+
+			model.addAttribute("userinfo",session.getAttribute("userid"));
+			model.addAttribute("userType",session.getAttribute("userType"));
+
 			mDTO mdto=ime.userList((String)session.getAttribute("userid"));
 			model.addAttribute("mdto",mdto);
 			
@@ -132,7 +135,10 @@ public class MemberController {
 		@RequestMapping("/signUp/informationUp")
 		public String doInformationUp(HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
-			
+
+			model.addAttribute("userinfo",session.getAttribute("userid"));
+			model.addAttribute("userType",session.getAttribute("userType"));
+
 			mDTO mdto=ime.userList((String)session.getAttribute("userid"));
 			model.addAttribute("mdto",mdto);
 			
@@ -158,9 +164,7 @@ public class MemberController {
 			HttpSession session=request.getSession();
 
 			int check=ime.checkId((String)session.getAttribute("userid"), pwd);
-			System.out.println("��й�ȣüũ"+String.valueOf(check));
-			
-			
+
 			return String.valueOf(check);
 		}
 		
@@ -177,6 +181,9 @@ public class MemberController {
 		@RequestMapping("/signUp")
 		public String dosignUp(HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
+
+			model.addAttribute("userinfo",session.getAttribute("userid"));
+			model.addAttribute("userType",session.getAttribute("userType"));
 			
 			mDTO mdto=ime.userList((String)session.getAttribute("userid"));
 			model.addAttribute("mdto",mdto);
@@ -191,8 +198,6 @@ public class MemberController {
 		    StoreDTO sVO = ims.selStore((String)session.getAttribute("userid"));
 		    model.addAttribute("sVO",sVO);
 		      
-		    model.addAttribute("userType",session.getAttribute("userType"));
-			
 			return "member/signUp";
 		}
 		

@@ -65,31 +65,31 @@
 			<tr>
 				<td>배송지명</td>
 				<td>
-					<input type=text name=newname id=newname value='${list.dName }'>
+					<input type=text name=newname id=newname value='${list.DName }'>
 				</td>
 			</tr>
 			<tr>
 				<td>연락처</td>
 				<td>
-					<input type="text" id=newmobile name=newmobile value='${list.dMobile }' maxlength=11>
+					<input type="text" id=newmobile name=newmobile value='${list.DMobile }' maxlength=11>
 				</td>
 			</tr>
 			<tr>
 				<td rowspan="3">주소</td>
 				<td>
-					<input type="text" id=postcode name=postcode value='${list.mPostcode }' style="width:80px">&nbsp;
+					<input type="text" id=postcode name=postcode value='${list.MPostcode }' style="width:80px">&nbsp;
 					<input type="button" id=btnAddress value="우편번호찾기">
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input type=text id=address name=address value='${list.mAddress }' readonly>
+					<input type=text id=address name=address value='${list.MAddress }' readonly>
 				</td>
 			</tr>
 			<tr>
 				<td>
-					<input type="text" id=detailAddress name=detailAddress value='${list.mDetailAddress }'>
-					<input type="text" id=extraAddress name=extraAddress  readonly value='${list.mExtraAddress }'>
+					<input type="text" id=detailAddress name=detailAddress value='${list.MDetailAddress }'>
+					<input type="text" id=extraAddress name=extraAddress  readonly value='${list.MExtraAddress }'>
 				</td>
 			</tr>
 			<tr>
@@ -101,7 +101,7 @@
 			</tr>
 		</table>
 		<br>
-		<input type=hidden name=se value=${list.dSeqno }>
+		<input type=hidden name=se value=${list.DSeqno }>
 		<input type=button id=cle value='닫기'> &nbsp;
 		<input type=submit id=btnSave value='수정'>
 	</form>
