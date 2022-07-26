@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.delivery.mappers.iMenuStore">
+
+<!-- <select>
+<![CDATA[
+]]>	
+</select> -->
+
+<!-- 메뉴타입 목록 -->
+<select id="sType" resultType="com.team.delivery.DTO.stypeVO">
+	select s_type, type_name from s_type
+</select>
+
+<!-- 가게 등록 -->
+<insert id="insertStore">
+insert into store values(store_seq.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},
+						#{param6},#{param7},#{param8},#{param9},#{param10})
+</insert>
+
+<!-- 매뉴 등록 -->
+<insert id="insertmenu">
+	insert into menu values(menu_seq.nextval, #{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+</insert>
+
+<!-- 메뉴리스트 -->
+<select id="selectMenulit" resultType="com.team.delivery.DTO.StoreDTO">
+	select menu_seqno, s_se, menu_name, menu_price, menu_ex, menu_img, menu_cal from menu where s_se=#{param1} order by menu_seqno
+</select>
+
+<!-- 메뉴수정하기 -->
+<select id="updateMenuList" resultType="com.team.delivery.DTO.StoreDTO">
+	select menu_name, menu_price, menu_ex, menu_img, menu_cal from menu where menu_seqno=#{param1} and s_se=#{param2}
+</select>
+<update id="modifyMenu">
+	update menu set menu_name=#{param1}, menu_price=#{param2}, menu_ex=#{param3}, menu_cal=#{param4} 
+				where menu_seqno=#{param5} and s_se=#{param6}
+</update>
+<update id="modifyimage">
+	update menu set menu_img=#{param1} where menu_seqno=#{param2} and s_se=#{param3}
+</update>
+
+<!-- 메뉴삭제 -->
+<delete id="deleteMenu">
+	delete from menu where menu_seqno=#{param1} and s_se=#{param2}
+</delete>
+
+<!-- 가게 존재여부 -->
+<select id="cntStore" resultType="int">
+   select count(*) from store where m_id = #{param1}
+</select>
+<select id="selStore" resultType="com.team.delivery.DTO.StoreDTO">
+   select * from store where m_id = #{param1}
+</select>
+
+</mapper>

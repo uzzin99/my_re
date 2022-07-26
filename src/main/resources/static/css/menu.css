@@ -1,0 +1,168 @@
+@charset "EUC-KR";
+* {
+    font-family: 'GongGothicMedium';
+}
+
+/* ��Ʈ */
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+span {
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+} 
+
+/* �������� */
+table {
+    width: 100%;
+    text-align: center;
+    background-color: #f8f9fa;
+    margin: auto;
+    border-bottom: 1px solid #c4c2c2;
+}
+td {
+    width: 30%;
+}
+table input {
+    background-color: #f8f9fa;
+    
+}
+
+input {
+    border:none;
+    border-radius: 3px;
+}
+.s_img {
+    width: 200px;
+    height: 150px;
+}
+
+/* �� (�޴�,����,��������)*/
+.tab {
+    margin-left: 50px;
+    text-align: center;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label {
+    display: inline-block;
+    background-color: #f1f1f1;
+    color: #999;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: 'GongGothicMedium';
+    border-radius: 3px;
+    width: 100px;
+    height: 30px;
+}
+
+input[type="radio"]:checked+label {
+    background: linear-gradient(to top, #39c0c0 40%, transparent 30%);
+    background-color: #f1f1f1 ;
+    color: #000;
+}
+
+.conbox {
+    width: 750px;
+    height: 170px;
+    display: none;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.conbox input {
+    background-color: #f1f1f1;
+}
+
+input[id="tab01"]:checked~.con1 {
+    display: block;
+}
+
+input[id="tab02"]:checked~.con2 {
+    display: block;
+}
+
+input[id="tab03"]:checked~.con3 {
+    display: block;
+}
+
+/* �޴�,���� �̹��� */
+.menu_img {
+    width: 150px;
+    height: 130px;
+}
+
+#a input {
+    margin-top: 17px;
+    margin-right: 5px;
+    width: 60%;
+    height: 30px;
+}
+
+#a img {
+    float: left;
+    margin-top: 17px;
+    margin-left: 20px;
+}
+
+#b input {
+    margin-top: 7px;
+    margin-right: 5px;
+    width: 15%;
+}
+
+#b img {
+    float: right;
+    margin-top: 17px;
+    margin-right: 20px;
+}
+.cart { 
+    width: 350px;
+    height: 500px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    float: right;
+    margin-right: 50px;
+    margin-top: 30px;
+}
+
+#cart_header {
+    height: 5%;
+    text-align: center;
+}
+#cart_body {
+    height: 70%;
+    border-top: 1px solid #c4c2c2;
+}
+#cart_footer {
+    height: 25%;
+    text-align: right;
+    margin-top: 2.5px;
+    border-top: 1px solid #c4c2c2;
+}
+
+.cart_body_menu {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    /* background-color: #999; */
+}
+
+.cart input {
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 7px;
+    width: 150px;
+    height: 20px;
+    background-color: #fff;
+}
+
+

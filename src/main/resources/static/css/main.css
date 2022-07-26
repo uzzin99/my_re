@@ -1,0 +1,339 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#wrap {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    width: 100%;
+    height: 120px;
+    background-color: #FFFFFF;
+}
+
+nav {
+    width: 100%;
+    height: 50px;
+    border-top : 1px solid #c4c2c2;
+    border-bottom: 1px solid #c4c2c2;
+}
+
+section {
+    float: left;
+    width: 100%;
+    height: 750px;
+    background-color: #f8f9fa;
+    /* background-image: url('https://i.pinimg.com/236x/22/18/37/22183786744b98b92080db78180a5f6d.jpg'); */
+}
+
+footer {
+    clear: both;
+    width: 100%;
+    height: 120px;
+    background-color:#f1f1f1 ;
+    border-top: 1px solid #c4c2c2;
+
+}
+
+
+/* 화면 너비 0 ~ 1200px */
+@media (max-width: 1220px) {
+    #wrap {
+        width: 95%;
+    }
+}
+
+/* 화면 너비 0 ~ 768px */
+@media (max-width: 768px) {
+    #wrap {
+        width: 100%;
+    }
+}
+
+/* 화면 너비 0 ~ 480px */
+@media (max-width: 480px) {
+    #wrap {
+        width: 100%;
+    }
+
+    header {
+        height: 100px;
+    }
+
+    nav {
+        height: 100px;
+    }
+
+    section {
+        float: none;
+        width: 100%;
+        height: 600px;
+    }
+}
+
+/* 폰트 */
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 헤드 */
+.login {
+    text-align: right;
+    font-family: 'GongGothicMedium';
+    font-size: 20px;
+    color: #39c0c0;
+}
+
+/* 네비바 */
+nav {
+    font-family: 'GongGothicMedium';
+    
+}
+
+/* 섹션 */
+/* 섹션 폰트 */
+.todaymenu {
+    color: #000000;
+    background: #FFFFFF;
+    text-shadow: 2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0, 0, 0, 0.15);
+    font-family: GongGothicMedium;
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+    font-size: 25px;
+}
+
+/* 슬라이더,회원가입 */
+.parent {
+    width: 100%;
+    margin: 10px auto;
+}
+
+.slider-div {
+    width: 70%;
+    /* background-color: #39c0c0;  */
+    margin-left: 10px;
+    padding: 20px 20px;
+    float: left;
+}
+
+.item {
+    width: 80%;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.login2 {
+    font-family: 'GongGothicMedium';
+    /* margin-left: 100px; */
+    font-size: 13px;
+    color: gray;
+    /* background-color: #39c0c0; */
+    border-collapse: separate;
+    border-radius: 5px;
+    /* text-align: center; */
+    width: 20%;
+    height: 150px;
+    float: left;
+    margin-left: 5%;
+}
+
+/* 메뉴 카테고리 */
+.Kategorie {
+    float: left;
+    width: 100%;
+}
+
+.mainmenu {
+    font-family: 'GongGothicMedium';
+    width: 30%;
+    margin-left: 20px;
+    text-align: left;
+    color: #333333;
+    text-shadow: 2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0, 0, 0, 0.15);
+    float: left;
+    /* background-color: #39c0c0;  */
+}
+
+table {
+    width: 100%;
+
+}
+
+th,
+td {
+    text-align: center;
+}
+
+.three {
+    float: left;
+    width: 33%;
+}
+
+/* 탭메뉴 */
+.tab {
+    float: left;
+    width: 30%;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label {
+    display: inline-block;
+    background: #ccc;
+    color: #999;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: 'GongGothicMedium';
+    border-radius: 3px;
+    width: auto;
+    height: 20px;
+    
+}
+
+input[type="radio"]:checked+label {
+    background: #aaa;
+    color: #000;
+}
+
+.conbox {
+    width: 100%;
+    height: 240px;
+    background: #aaa;
+    /* margin: 0 auto; */
+    display: none;
+    border-radius: 8px;
+    margin-left: 30px;
+    /* float: left; */
+    /* clear: both; */
+
+}
+
+input[id="tab01"]:checked~.con1 {
+    display: block;
+}
+
+input[id="tab02"]:checked~.con2 {
+    display: block;
+}
+
+input[id="tab03"]:checked~.con3 {
+    display: block;
+}
+
+/* 카드 애니메이션 css */
+.container {
+    width: 30%;
+    height: 240px;
+    margin-left: 50px;
+    position: relative;
+    cursor: pointer;
+    perspective: 100rem;
+    float: left;
+}
+
+.card {
+    /*webkit을 사용해야지 사파리에서도 정상적으로 동작함*/
+    width: 100%;
+    height: 240px;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-perspective: 0;
+    -webkit-transition: 1s;
+    backface-visibility: hidden;
+    /*뒷면 숨기기*/
+    visibility: visible;
+    transition: 1s;
+    border-radius: 10px;
+}
+
+.front {
+    position: absolute;
+    /* background: blanchedalmond; */
+    transform: rotateY(0deg);
+}
+
+.back {
+    /* background: orange; */
+    transform: rotateY(-180deg);
+}
+
+.container:hover .front {
+    transform: rotateY(180deg);
+    /*y축을 기준으로 180도까지회전*/
+}
+
+.container:hover .back {
+    transform: rotateY(0deg);
+    /*y축을 기준으로 0도 까지회전*/
+}
+
+.cardimg {
+    width: 100%;
+    height: 240px;
+    border-radius: 10px;
+}
+
+/* 비디오  CSS*/
+.video-container {
+    margin-top:20px;
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    
+}
+
+.video-container iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+/* 푸터 */
+.footer {
+    text-align: center;
+    padding-top: 20px;
+    /* background-color: #f8f9fa; */
+}
+
+.footer li {
+    position: relative;
+    display: inline;
+    padding: 0 7px 10px;
+    white-space: nowrap;
+    font-size: 13px;
+}
+
+.footer li:before {
+    content: '';
+    width: 1px;
+    height: 12px;
+    background-color: #ababab;
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+
+.footer li:first-child:before {
+    width: 0;
+}
+
+.footer address {
+    padding-top: 15px;
+}
+
+a {
+    color : rgb(66, 66, 66);
+    text-decoration-line : none;
+}
+
+a:hover {
+    color: black;
+    text-decoration: underline;
+}

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.delivery.mappers.iBoard">
+<select id="selBrd" resultType="com.team.delivery.DTO.boardDTO">
+	select * from (
+	select a.*,rownum as num from (
+	select board.* from board order by b_date desc
+	) a order by num) b 
+	where b.num between #{param1} and #{param2} order by b.num
+</select>
+<select id="showBrd" resultType="com.team.delivery.DTO.boardDTO">
+	select b_seqno,title,content,writer,b_date,views from board where b_seqno=#{param1}
+</select>
+<select id="selPage" resultType="int">
+	select count(*) cnt from board
+</select>
+<insert id="addBD">
+	insert into board values(test_sq.nextval,#{param1},#{param2},#{param3},to_char(current_date,'YYYY-MM-DD HH24:MI:SS'),0)
+</insert>
+<update id="viewUp">
+	 update board set views = views+1 where b_seqno=#{param1}
+</update>
+<delete id="delBD">
+	delete from board where b_seqno=#{param1}
+</delete>
+<update id="updateBD">
+	 update board set title=#{param1},content=#{param2} where b_seqno=#{param3}
+</update>
+</mapper>

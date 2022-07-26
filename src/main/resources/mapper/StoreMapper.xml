@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.team.delivery.mappers.iStore">
+
+<!-- 가게리스트 음식종류(한식,양식 등등)별로 나눠서 다시 해야함~~ -->
+<!-- 가게리스트 -->
+<select id="liststore" resultType="com.team.delivery.DTO.StoreDTO">
+	select * from store where s_type = #{param1}
+</select>
+
+<!-- 가게의 메뉴리스트 -->
+<select id="menutable" resultType="com.team.delivery.DTO.StoreDTO">
+	select a.menu_seqno, a.s_se, b.s_name, a.menu_name, a.menu_price, a.menu_ex, a.menu_img, a.menu_cal
+	from menu a, store b
+	where b.s_seqno=#{param1}
+	and a.s_se = b.s_seqno
+</select>
+
+<!-- 가게검색 -->
+<select id="searchtable" resultType="com.team.delivery.DTO.StoreDTO" parameterType="String">
+	select *
+	from store
+	where s_name like '%'||#{param1}||'%'
+</select>
+	
+<!-- 가게리뷰리스트 -->
+<select id="reviewlist"  resultType="com.team.delivery.DTO.StoreDTO">
+	select b.s_name, a.m_id, a. r_content, a.r_date, a.score
+	from review a,  store b
+	where b.s_seqno=#{param1}
+	and a.s_seqno = b.s_seqno
+</select>
+
+<!-- 메뉴 상세페이지 -->
+<select id="listMenuDetail" resultType="com.team.delivery.DTO.StoreDTO">
+	select * from menu where menu_seqno=#{param1} and s_se=#{param2}
+</select>
+</mapper>

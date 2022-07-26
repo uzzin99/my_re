@@ -1,0 +1,72 @@
+/* 폰트 */
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+section {
+    font-family: 'GongGothicMedium';
+    background-color: #f8f9fa;
+}
+
+.error {
+    color:red;
+    font-size: 12px;
+}
+
+/* 비밀번호 확인창 */
+#pwdCheck {
+    /* display:none; */
+    display:block;
+    margin-top: 100px;
+}
+
+.pwdCheck_logo {
+    font-size: 30px;
+    width: 250px;
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+}
+
+#pwdCheck input {
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid #c4c2c2;
+}
+
+#btnCheck {
+    width: 300px;
+    height: 50px;
+    color: black;
+}
+
+/* 정보수정창 */
+#information {
+    display:none;
+    /* display:block; */
+    margin-top: 100px;
+}
+
+.information_logo {
+    font-size: 30px;
+    width: 200px;
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+}
+
+#information table input {
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid #c4c2c2;
+    
+}
+
+#btnInformation {
+    width: 400px;
+    height: 50px;
+    border-radius: 5px;
+    border: 2px solid #c4c2c2;
+}
+

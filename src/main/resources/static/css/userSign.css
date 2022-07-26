@@ -1,0 +1,65 @@
+/* 폰트 */
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.error {
+    font-size: 15px;
+    color: red;
+}
+
+h1 {
+    color: black;
+    font-size: 40px;
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+    width: 250px;
+    /* text-shadow: -1px 0 gray, 0 1px gray, 1px 0 gray, 0 -1px gray; */
+}
+
+section {
+    font-family: 'GongGothicMedium';
+    background-color: #f8f9fa;
+    font-size: 20px;
+}
+
+section input {
+    border: 0px;
+    background-color: #f8f9fa;
+    font-size: 20px;
+
+}
+
+tr {
+    border-bottom : 2px solid #c4c2c2;
+    height: 40px;
+}
+
+.box {
+    color: black;
+    font-size: 30px;
+    background-color: #c4c2c2;
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+    /* border-radius: 5px; */
+    width: 150px;
+}
+
+.check {
+    border: 1px solid #c4c2c2;
+    border-radius: 5px;
+    width: 100px;
+}
+
+section input:placeholder-shown {
+	font-size: 15px;
+    height: 30px;
+    width: 300px;
+}
+
+.address {
+    border: 1px solid #c4c2c2;
+    border-radius: 5px;
+    width: 150px;
+}
