@@ -88,6 +88,15 @@ footer {
     font-size: 20px;
     color: #39c0c0;
 }
+.login a {
+    color: #39c0c0;
+}
+
+.login a:hover {
+    text-direction: none !important;
+    color: #39c0c0;
+
+}
 ._logo {
     width: 300px;
     height: 150px;

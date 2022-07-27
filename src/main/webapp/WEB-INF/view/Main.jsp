@@ -177,7 +177,7 @@ a:hover{
       <div class="mainmenu">
         <table><br>
           <tr>
-            <td><img src="../food2/한식.png">
+            <td><img src="/resources/MainLogo/한식.png">
               <p>한식</p>
             </td>
             <td><img src="../food2/중식.png">
