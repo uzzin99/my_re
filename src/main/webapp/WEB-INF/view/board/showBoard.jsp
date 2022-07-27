@@ -8,6 +8,7 @@
 <title>title</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<link href="css/base.css" rel="stylesheet" type="text/css" />
 </head>
 <style>
 	table td{
@@ -16,29 +17,59 @@
 	#cmtList{
 		text-align:center;
 	}
-	#content{
-		width:600px;
+	#board > *, #cmtdiv > table{
+		text-align:center;
+		width:800px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	#boardInfo{
+		height: 100px;
+		background: #cccccc;
+		border-top: #333333 solid 5px;
+		border-bottom: #333333 solid 1px;
+	}
+	#boardContent{
 		height:450px;
 	}
+	#TWD{
+		margin: 20px 20px 40px 40px;
+	}
+	#TWD b{
+		font-size: larger;
+	}
+	#conPadding{
+		margin: 20px 20px 40px 40px;
+	}
+	textarea{
+		width: 100%;
+		height: 100%;
+	}
+	#repbox , #datbox{
+		padding: 10px 5px 10px 10px;
+	}
+
+	/*#content{*/
+	/*	width:600px;*/
+	/*	height:450px;*/
+	/*}*/
 </style>
 <body>
 <header>
 	<div class="login">
-		<a href="#">🛒</a>
+
 		<c:if test="${userinfo == null}">
-			<p align=right><a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+			<p align=right><a href="#">🛒</a> <a onclick=location.href='/login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
 		</c:if>
 		<c:if test="${userinfo != '' }">
 			<c:if test="${userType == '손님' }">
-				<p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 			<c:if test="${userType == '사장님' }">
-				<p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 		</c:if>
 
-		<!--  <input type="button" onclick=location.href='login'>Login
-         <input type="button" onclick=location.href='signin'>Logout -->
 	</div>
 
 
@@ -120,19 +151,31 @@
 	</form>
 </nav>
 <section>
-<table class="board">
-<tr><td>제목:</td><td><input type=text id=title name=title readonly></td></tr>
-<tr><td>작성자:</td><td><input type=text id=writer name=writer readonly></td></tr>
-<tr><td>작성일자:</td><td><input type=text id=joindate name=joindate readonly></td></tr>
-<tr><td style="vertical-align:top;">내용:</td><td><div id=content></div></td></tr>
-</table>
+	<div id="board">
+		<div id="boardInfo">
+
+		</div>
+		<div id="boardContent">
+
+		</div>
+	</div>
+
+<%--<table class="board">--%>
+<%--<tr><td>제목:</td><td><input type=text id=title name=title readonly></td></tr>--%>
+<%--<tr><td>작성자:</td><td><input type=text id=writer name=writer readonly></td></tr>--%>
+<%--<tr><td>작성일자:</td><td><input type=text id=joindate name=joindate readonly></td></tr>--%>
+<%--<tr><td style="vertical-align:top;">내용:</td><td><div id=content></div></td></tr>--%>
+<%--</table>--%>
 <br>
-<table>
-	<tr><td><textarea name=dat id=dat rows=3 cols=76></textarea></td>
-	<td><input type=button id=btnPut value='댓글달기' style="width:80px;height:50px"></td></tr>
-</table>
-<table border="1px solid" id="cmtList" style="width:675px;justify-content: space-between;">
-</table>
+	<div id="cmtdiv">
+		<table>
+			<tr><td id="datbox"><textarea name=dat id=dat></textarea></td>
+				<td style="width:90px;height:60px"><input type=button id=btnPut value='댓글달기' class='btn btn-sm' style="width:80px;height:50px"></td></tr>
+		</table>
+		<table border="1px solid" id="cmtList" style="width:675px;justify-content: space-between;">
+		</table>
+	</div>
+
 <div id="PNdiv">
 </div>
 <br>
@@ -218,6 +261,8 @@ function selectBD(){
 		data:'seq='+${seq},
 		success:function(data){
 			let brd = data[0];
+			$('#boardInfo').append('<div id="TWD"><b>'+brd['title']+'</b><br>'+brd['writer']+brd['date']+'</div>');
+			$('#boardContent').append('<div id=conPadding>'+brd['content']+'</div>');
 			$('#title').val(brd['title']);
 			$('#writer').val(brd['writer']);
 			$('#joindate').val(brd['date']);
@@ -238,10 +283,10 @@ function selCmt(){
 			$('#cmtList').empty();
 			for(i=0;i<data.length;i++) {
 				var cmt = data[i];
-				$('#cmtList').append("<table id='"+cmt['seqCmt']+"' style='width:675px;'><tr>"
+				$('#cmtList').append("<table id='"+cmt['seqCmt']+"' style='width:798px;'><tr>"
 							+"<td style='width:100px;'>"+cmt['writer']
-							+"</td><td style='width:350px;'>"+cmt['content']+"</td><td style='width:150px;'>"
-							+cmt['date']+"</td><td><div class='dropdown'>"
+							+"</td><td>"+cmt['content']+"</td><td style='width:150px;'>"
+							+cmt['date']+"</td><td style='width: 89px;'><div style='width: 89px;' class='dropdown'>"
 							+"<a class='btn btn-secondary dropdown-toggle btn-sm' href='#' role='button'" 
 							+"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
 							+"&nbsp;&nbsp;&nbsp;메뉴&nbsp;&nbsp;&nbsp;</a>"
@@ -251,8 +296,8 @@ function selCmt(){
 						  	+"</ul></div></td></tr>"
 						  	+"<tr style='display:none' class='replyWdw'><td hidden>"
 							+cmt['seqCmt']+"</td><td hidden>"
-							+cmt['deep']+"</td><td colspan=3><textarea cols=71></textarea></td>"
-							+"<td><input type=button class='btn btn-sm' value='답글달기' id='addRep'></td>"
+							+cmt['deep']+"</td><td id='repbox' colspan=3><textarea></textarea></td>"
+							+"<td><input type=button class='btn btn-sm' style="width:80px;height:50px" value='답글달기' id='addRep'></td>"
 						  	+"</tr></table>");
 				selReply(cmt['seqCmt']);
 			}

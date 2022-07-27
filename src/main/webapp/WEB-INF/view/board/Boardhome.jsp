@@ -6,26 +6,69 @@
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+	<link href="css/base.css" rel="stylesheet" type="text/css" />
 	<title>게시판 목록</title>
 </head>
+<style>
+	#word{
+		font-size: 16px;
+		width: 325px;
+		height: 36px;
+		padding: 10px;
+		border: 0px;
+		outline: none;
+		float: left;
+	}
+	#SearchDiv{
+		margin-left:auto;
+		margin-right:auto;
+		justify-content: center;
+		height: 40px;
+		width: 500px;
+		border: 1px solid #1b5ac2;
+		background: #FFFFFF;
+	}
+	#btnSearch{
+		width: 50px;
+		height: 100%;
+		border: 0px;
+		background: #1b5ac2;
+		outline: none;
+		float: right;
+		color: #FFFFFF;
+	}
+	#brdTable{
+		margin-left:auto;
+		margin-right:auto;
+		width:700px;
+	}
+	#BoardMain{
+		width:800px;
+		margin:auto;
+		text-align: center;
+	}
+	#SearchDiv select{
+		float: right;
+		height: 38px;
+		font-size: 16px;
+	}
+</style>
 <body>
 <header>
 	<div class="login">
-		<a href="#">🛒</a>
+
 		<c:if test="${userinfo == null}">
-			<p align=right><a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+			<p align=right><a href="#">🛒</a> <a onclick=location.href='/login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
 		</c:if>
 		<c:if test="${userinfo != '' }">
 			<c:if test="${userType == '손님' }">
-				<p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 			<c:if test="${userType == '사장님' }">
-				<p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 		</c:if>
 
-		<!--  <input type="button" onclick=location.href='login'>Login
-         <input type="button" onclick=location.href='signin'>Logout -->
 	</div>
 
 
@@ -107,8 +150,8 @@
 	</form>
 </nav>
 <section>
-<div style="width:800px;margin:auto;">
-	<table align=center class="table table-sm table-hover" style="width:700px">
+<div id="BoardMain">
+	<table id="brdTable" class="table table-sm table-hover">
 		<thead>
 		<tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
 		</thead>
@@ -116,13 +159,16 @@
 		</tbody>
 
 	</table>
-	<div align=center>
-		<input type=text name=word id=word><input type=button id=btnSearch value=검색>
-		<select id=orderBy>
-			<option value=1>시간순</option>
-			<option value=2>조회수순</option>
-		</select>
+	<div>
+		<div align=center id="SearchDiv">
+			<input type=text name=word id=word><input type=button id=btnSearch value=검색>
+			<select id=orderBy>
+				<option value=1>시간순</option>
+				<option value=2>조회수순</option>
+			</select>
+		</div>
 	</div>
+		<br>
 	<input type=text id=selType value="${selType}" hidden>
 	<input type=number id="maxpage" value="${page}" hidden>
 	<input type=number id="page" value="${crtpage}" hidden>
@@ -131,8 +177,8 @@
 		<ul id="PageList" class="pagination justify-content-center">
 		</ul>
 	</nav>
-	<a href='newpost'>새글쓰기</a> <a href='test2'>결제테스트로 이동</a>
 </div>
+	<a href='newpost'>새글쓰기</a> <a href='test2'>결제테스트로 이동</a>
 </section>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
