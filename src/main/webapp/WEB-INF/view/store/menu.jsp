@@ -25,30 +25,32 @@
 
     <title>Menu</title>
 </head>
+
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
         <c:if test="${userinfo == '' }">
-            <p align=right><a href="#">🛒</a>&nbsp;<a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+            <p align=right><a href="#">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a href="#">🛒</a>&nbsp;<a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+                <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a href="#">🛒</a>&nbsp;<a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+                <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
+
     <p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 
 <!-- 여기가 네비바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Menu</a>
+        <a class="navbar-brand" href="/main">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -56,7 +58,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Menu</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -162,7 +164,7 @@
 			</div> --%>
 			
 		<c:forEach var="i" items="${mlist }">
-			<div class="conbox con1">
+			<div class="conbox con1" onclick=location.href='/store/menuDetail?mSe=${i.menuSeqno}&sSe=${i.SSe}'>
 				<div id="a">
 					<img class="menuImg" src="${i.menuImg }">
 					<input readonly type="text" value="${i.menuName }">
@@ -197,32 +199,7 @@
 		</c:forEach>
 		
 		<div class="conbox con3">컨텐츠탭 내용03</div>
-	</div>
 
-	<div class="cart"><br>
-		<div id="cart_header"><span>🛒장바구니🛒</span></div>
-
-		<div id="cart_body">
-			<div class="cart_body_menu">
-				<input readonly type="text" value="${i.menuName }">
-				
-				<input type='button' style="width: 25px; float: right;" value='x'/>
-				
-				<input readonly type="text"  value="${i.menuPrice }원">
-				
-				<div style="float: right;">
-					<input type='button' style="width: 20px; display: inline-block;" onclick='count("minus")' value='-'/>
-					<input readonly type="text" style="width: 20px; display: inline-block;" value="13">
-					<input type='button' style="width: 20px; display: inline-block;" onclick='count("plus")' value='+'/>
-				</div>
-			</div>
-		</div>
-
-		<div id="cart_footer">
-			<span>총 주문금액</span><input readonly type="text"  value="${i.menuName }"><br>
-			<span>배달팁</span><input readonly type="text"  value="${i.menuName }"><br>
-			<span>결제예정금액</span><input readonly type="text"  value="${i.menuName }">
-		</div>
 	</div>
   </section>
 
@@ -251,7 +228,10 @@
 </body>
 <script>
 $(document)
-      
+    $(".conbox con1").on("click",function (){
+
+    })
+
 </script>
 </html>
 

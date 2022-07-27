@@ -23,47 +23,50 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
   <!-- base css -->
   <!-- <link href="base.css" rel="stylesheet" type="text/css" /> -->
-  <link href="css/base.css" rel="stylesheet" type="text/css" />
+  <link href="/css/base.css" rel="stylesheet" type="text/css" />
   <!-- 섹션 css -->
   <!-- <link href="page10.css" rel="stylesheet" type="text/css" /> -->
-  <link href="css/store.css" rel="stylesheet" type="text/css" />
+  <link href="/css/store.css" rel="stylesheet" type="text/css" />
   <title>Search</title>
 </head>
-<!-- <style>
-form {
-	text-align: center;
-}
+<style>
+  a:hover {
+    cursor:pointer;
+  }
 
-div {
-	text-align: "center";
-}
-</style> -->
+</style>
 <body>
   <!-- 전체 화면 값 -->
   <div id="wrap" class="wrap mx-auto"></div>
   <!-- 여기가 헤드 -->
   <header>
     <div class="login">
-      <a href="#">🛒</a>
-      <input type="button">Login
-      <input type="button">Logout
+
+      <c:if test="${userType == '손님' }">
+        <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+      </c:if>
+      <c:if test="${userType == '사장님' }">
+        <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+      </c:if>
+
     </div>
 
-    <p align="center"><img src="../sidebar_img/배민로고3.png"></p>
+
+    <p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
   </header>
 
   <!-- 여기가 네비바 -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Menu</a>
+      <a class="navbar-brand" href="/main">Home</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" aria-current="page" href="#">Menu</a>
           </li>
 
           <li class="nav-item dropdown">
@@ -72,17 +75,18 @@ div {
               배달&포장
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">한식</a></li>
-              <li><a class="dropdown-item" href="#">중식</a></li>
-              <li><a class="dropdown-item" href="#">양식</a></li>
-              <li><a class="dropdown-item" href="#">치킨</a></li>
-              <li><a class="dropdown-item" href="#">피자</a></li>
-              <li><a class="dropdown-item" href="#">분식</a></li>
-              <li><a class="dropdown-item" href="#">디저트</a></li>
-              <li><a class="dropdown-item" href="#">족발/보쌈</a></li>
-              <li><a class="dropdown-item" href="#">고기/구이</a></li>
-              <li><a class="dropdown-item" href="#">아시안</a></li>
-              <li><a class="dropdown-item" href="#">패스트푸드</a></li>
+              <li><a class="dropdown-item" href="store?type=1">한식</a></li>
+              <li><a class="dropdown-item" href="store?type=2">중식</a></li>
+              <li><a class="dropdown-item" href="store?type=3">일식</a></li>
+              <li><a class="dropdown-item" href="store?type=4">양식</a></li>
+              <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
+              <li><a class="dropdown-item" href="store?type=6">피자</a></li>
+              <li><a class="dropdown-item" href="store?type=7">분식</a></li>
+              <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
+              <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
+              <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
+              <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
+              <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
             </ul>
           </li>
 
@@ -92,17 +96,18 @@ div {
               홀예약
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">한식</a></li>
-              <li><a class="dropdown-item" href="#">중식</a></li>
-              <li><a class="dropdown-item" href="#">양식</a></li>
-              <li><a class="dropdown-item" href="#">치킨</a></li>
-              <li><a class="dropdown-item" href="#">피자</a></li>
-              <li><a class="dropdown-item" href="#">분식</a></li>
-              <li><a class="dropdown-item" href="#">디저트</a></li>
-              <li><a class="dropdown-item" href="#">족발/보쌈</a></li>
-              <li><a class="dropdown-item" href="#">고기/구이</a></li>
-              <li><a class="dropdown-item" href="#">아시안</a></li>
-              <li><a class="dropdown-item" href="#">패스트푸드</a></li>
+              <li><a class="dropdown-item" href="store?type=1">한식</a></li>
+              <li><a class="dropdown-item" href="store?type=2">중식</a></li>
+              <li><a class="dropdown-item" href="store?type=3">일식</a></li>
+              <li><a class="dropdown-item" href="store?type=4">양식</a></li>
+              <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
+              <li><a class="dropdown-item" href="store?type=6">피자</a></li>
+              <li><a class="dropdown-item" href="store?type=7">분식</a></li>
+              <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
+              <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
+              <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
+              <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
+              <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
             </ul>
 
           <li class="nav-item dropdown">
@@ -110,16 +115,15 @@ div {
               data-bs-toggle="dropdown" aria-expanded="false">
               게시판
             </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">사장님</a></li>
-              <li><a class="dropdown-item" href="#">손님</a></li>
-              <li><a class="dropdown-item" href="#">Q&A</a></li>
-              <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
-            </ul>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
+            <li><a class="dropdown-item" href="#">Q&A</a></li>
+            <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+          </ul>
           </li>
         </ul>
       </div>
-
+    </div>
       <form class="d-flex" name="formsearch" method="post" action="store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
@@ -139,10 +143,10 @@ div {
 	%>
 
     <c:forEach var="i" items="${list }">
-      <div class="s_box" onclick=location.href='/delivery/store/menu?sSeqno=${i.sSeqno }'>
+      <div class="s_box" onclick=location.href='store/menu?sSeqno=${i.SSeqno }'>
         <div class="s_list">
-            <img class="menuImg" src="${s.menuImg }" style="float: left;">
-            <p align="center"><input readonly type="text" class="sName" value="${i.sName }"></p>
+            <img class="menuImg" src="${i.menuImg }" style="float: left;">
+            <p align="center"><input readonly type="text" class="sName" value="${i.SName }"></p>
             <span>별점</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="⭐⭐⭐"><br>
             <span>최소주문</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="2,0000"><br>
             <span>소요시간</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="30~40분">
@@ -150,10 +154,10 @@ div {
       </div>
     </c:forEach>
     <c:forEach var="i" items="${list }">
-      <div class="s_box" onclick=location.href='/delivery/store/menu?sSeqno=${i.sSeqno }'>
+      <div class="s_box" onclick=location.href='store/menu?sSeqno=${i.SSeqno }'>
         <div class="s_list">
-            <img class="menuImg" src="${s.menuImg }" style="float: left;">
-            <p align="center"><input readonly type="text" class="sName" value="${i.sName }"></p>
+            <img class="menuImg" src="${i.menuImg }" style="float: left;">
+            <p align="center"><input readonly type="text" class="sName" value="${i.SName }"></p>
             <span>별점</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="⭐⭐⭐"><br>
             <span>최소주문</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="2,0000"><br>
             <span>소요시간</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="30~40분">

@@ -4,6 +4,7 @@ package com.team.delivery.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,26 +34,38 @@ public class StoreController {
 			Model model) {
 
 		StoreDTO menudetail=store.listMenuDetail(mSe, sSe);
-		model.addAttribute("detail",menudetail);
+		model.addAttribute("menu",menudetail);
 		return "store/menuDetail";
 	}
 	
 	@RequestMapping("/store/menu")
-	public String Menu(@RequestParam int sSeqno, Model model) {
+	public String Menu(@RequestParam int sSeqno,
+					   HttpServletRequest request, Model model) {
+
+		HttpSession session=request.getSession();
+
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
 
 		ArrayList<StoreDTO> menulist = store.menutable(sSeqno);
 		model.addAttribute("mlist",menulist);
 		ArrayList<StoreDTO> reviewlist = store.reviewlist(sSeqno);
 		model.addAttribute("rlist", reviewlist);
+
 		return "store/menu";
 	}
 	
 	@GetMapping("/store")
-	public String doStore(@RequestParam("type") int type, Model model) {
-		log.info("type = {}", type);
+	public String doStore(@RequestParam("type") int type, HttpServletRequest request, Model model) {
+
+		HttpSession session=request.getSession();
+
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+
 		ArrayList<StoreDTO> storelist = store.liststore(type);
 		model.addAttribute("list", storelist);
-		log.info("list = {}",storelist);
+
 		return "store/store";
 	}
 	
@@ -61,6 +74,7 @@ public class StoreController {
 
 		ArrayList<StoreDTO> searchlist = store.searchtable(sName);
 		model.addAttribute("list", searchlist);
+
 		return "search";
 	}
 }

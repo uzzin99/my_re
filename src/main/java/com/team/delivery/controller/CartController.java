@@ -7,12 +7,14 @@ import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.team.delivery.DTO.cartDTO;
 import com.team.delivery.mappers.iCart;
-
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
@@ -23,62 +25,44 @@ public class CartController {
 	private final iCart ica;
 
 
-	@RequestMapping(value = "/cart/add", method = RequestMethod.GET)
-	public String addCart(cartDTO cart, HttpServletRequest request) {
+	@RequestMapping(value = "/cart/add", method = RequestMethod.POST)
+	@ResponseBody
+	public String addCart(cartDTO cart,
+						  @RequestParam("mSe") int mSe,
+						  @RequestParam("sSe") int sSe,
+						  @RequestParam("menuCnt") int cnt,
+						  HttpServletRequest request, Model model) {
 		HttpSession session=request.getSession();
 
-		String mId = "kim";
-		int mSe = 5;
-		int count = 1;
-		int sSe = 23;
-		
+		String mId = (String) session.getAttribute("userid");
+
 		cartDTO cartdto = new cartDTO();
 		cartdto.setMId(mId);
 		cartdto.setSSe(sSe);
 		cartdto.setMSe(mSe);
-		cartdto.setMenuCnt(count);
-		
-		
+		cartdto.setMenuCnt(cnt);
+		log.info("sql실행전={}", mId);
+		//추가 전 로그인 확인하기 만들기!!!!!
 		cartDTO checkCart = ica.checkCart(cartdto);
-		
+		log.info("sql실행 후 if문 들어가기전");
 		if(checkCart != null) {
-			System.out.println(2);
-			//return 2;
+			return Integer.toString(2);
 		}else {
 			try {
 				int a = ica.addCart(cartdto);
-				System.out.println(a);
+				return Integer.toString(a);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
-				
-		return "store/cart";
+			return Integer.toString(5);
 	}
 	
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public String cart() {
-//		String mId = "kim";
-//		int mSe = 22;
-//		int count = 2;
-//		int sSe = 23;
-//		
-//		cartDTO cart = new cartDTO();
-//		cart.setmId(mId);
-//		cart.setsSe(sSe);
-//		cart.setmSe(mSe);
-//		cart.setmenuCnt(count);
-//		
-//		CartMapper mapper = sqlSession.getMapper(CartMapper.class);
-//		try {
-//			mapper.addCart(cart);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
+
 		return "store/cart";
 	}
 	

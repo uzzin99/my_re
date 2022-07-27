@@ -12,7 +12,13 @@
 </head>
 <body>
 장바구니 이동 전 메뉴 상세페이지 입니다!!!!!!!!!!!!
-${detail.menuName }
+${menu.menuName }
+${menu.menuSeqno }
+${menu.SSe }
+${menu.menuPrice }
+${menu.menuEx }
+${menu.menuImg }
+${menu.menuCal }
 	<div class="button">
 		<div class="button_quantity">
 			주문수량
@@ -55,11 +61,11 @@ $(".btn_cart").on("click", function(e){
 	})
 });
 	
-	
+
 // 서버로 전송할 데이터
 const form = {
-		mId : '${member.mId}',
-		mSe : '${menu.mSe}',
+		sSe : '${menu.SSe}',
+		mSe : '${menu.menuSeqno}',
 		menuCnt : ''
 }
 
