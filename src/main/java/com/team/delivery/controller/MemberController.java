@@ -233,7 +233,13 @@ public class MemberController {
 		}
 		
 		@RequestMapping("/login")
-		public String doLogin() {
+		public String doLogin(HttpServletRequest request, Model model) {
+
+			HttpSession session=request.getSession();
+
+			model.addAttribute("userinfo",session.getAttribute("userid"));
+			model.addAttribute("userType",session.getAttribute("userType"));
+
 			return "member/login";
 		}
 		
