@@ -53,7 +53,7 @@ $(document)
 	});
 })
 .on('click','#btnList',function(){
-	document.location='/delivery/home'
+	document.location='/home'
 })
 </script>
 </html>

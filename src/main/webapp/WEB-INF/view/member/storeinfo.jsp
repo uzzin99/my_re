@@ -29,7 +29,6 @@
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
-        <a href="#">🛒</a>
         <c:if test="${userinfo == '' }">
             <p align=right><a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
@@ -41,12 +40,7 @@
                 <p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
         </c:if>
-
-        <!--  <input type="button" onclick=location.href='login'>Login
-         <input type="button" onclick=location.href='signin'>Logout -->
     </div>
-
-
     <p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 

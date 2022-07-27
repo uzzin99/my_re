@@ -49,8 +49,6 @@ td {
       </c:if>
     </c:if>
   </div>
-
-
   <p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 

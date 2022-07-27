@@ -38,7 +38,6 @@ a:hover{
   <!-- 여기가 헤드 -->
   <header>
 	  <div class="login">
-
 		<c:if test="${userinfo == '' }">
           <p align=right><a href="#">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
 		</c:if>

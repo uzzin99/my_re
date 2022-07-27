@@ -37,17 +37,13 @@
 <!-- 여기가 헤드 -->
 <header>
 	<div class="login">
-
 			<c:if test="${userType == '손님' }">
 				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 			<c:if test="${userType == '사장님' }">
 				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
-
 	</div>
-
-
 	<p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 
