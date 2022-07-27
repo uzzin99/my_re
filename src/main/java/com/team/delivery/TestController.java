@@ -54,7 +54,7 @@ public class TestController {
 	@RequestMapping("/test")
 	public String test(Model model) {
 		iMenuStore ifresh=sqlSession.getMapper(iMenuStore.class);
-		StoreDTO mvo=ifresh.updateMenuList(127, "2");
+		StoreDTO mvo=ifresh.updateMenuList(127, 2);
 		model.addAttribute("m",mvo);
 		return "test";
 	}
