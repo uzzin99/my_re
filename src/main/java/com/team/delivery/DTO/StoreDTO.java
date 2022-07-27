@@ -21,7 +21,7 @@ public class StoreDTO {
 	private int sType;
 	private String sImg;
 	private int menuSeqno;
-	private String sSe;
+	private int sSe;
 	private String menuName;
 	private int menuPrice;
 	private String menuEx;

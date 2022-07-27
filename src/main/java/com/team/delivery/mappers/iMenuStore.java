@@ -11,18 +11,18 @@ public interface iMenuStore {
 
 	ArrayList<stypeVO> sType();
 	
-	void insertStore(String mId, String sName, String post, String sAddress, String s_detailaddress,
+	void insertStore(String mId, String sName, String post, String sAddress, String sdetailaddress,
 					String sExtraaddress, String s_bsNum, String sMobile,int sType, String sImg);
 	
-	void insertmenu(String sSeq, String name, int price, String ex, String img, String cal);
+	void insertMenu(int sSeq, String name, int price, String ex, String img, String cal);
 	
-	ArrayList<StoreDTO> selectMenulit(String sSe);
+	ArrayList<StoreDTO> selectMenuList(int sSeq);
 	
-	StoreDTO updateMenuList(int mSeq, String sSeq);
-	void modifyMenu(String name, int price, String ex, String cal, int mSeq, String sSeq);
-	void modifyimage(String img, int mSeq, String sSeq);
+	StoreDTO updateMenuList(int mSeq, int sSeq);
+	void modifyMenu(String name, int price, String ex, String cal, int mSeq, int sSeq);
+	void modifyImage(String img, int mSeq, int sSeq);
 	
-	void deleteMenu(int mSeq, String sSeq);
+	void deleteMenu(int mSeq, int sSeq);
 
 	int cntStore(String mId);
 				

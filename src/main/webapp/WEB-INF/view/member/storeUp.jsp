@@ -26,9 +26,9 @@
     <form action=store method='POST' enctype="multipart/form-data">
         <div class ="name-box">
             <span><h3>가게등록하기</h3></span>
-            <input type=text id=m_id value="${userinfo}">
+            <input type=text id=member_id name=member_id value="${userinfo}">
         </div>
-        <p>가게 이름</p><input type=text id=storename />
+        <p>가게 이름</p><input type=text id=storename name=storename />
         <p>가게 주소</p>
         <input type="text" id=postcode name=postcode placeholder="우편번호" style="width:80px">&nbsp;
         <input type="button" id=btnAddress value="우편번호찾기"><br>
@@ -36,9 +36,9 @@
         <input type="text" id=detailAddress name=detailAddress placeholder="상세주소">
         <input type="text" id=extraAddress name=extraAddress placeholder="참고항목" readonly>
 
-        <p>사업자등록번호</p><input tpe=text id=num />
-        <p>가게 전화번호</p><input tpe=text id=tele />
-        <p>메뉴타입</p><select id=menutype>
+        <p>사업자등록번호</p><input tpe=text id=storenum name="storenum"/>
+        <p>가게 전화번호</p><input tpe=text id=storetel name="storetel"/>
+        <p>메뉴타입</p><select id=menutype name="menutype">
         <option value=0></option>
         <c:forEach var="li" items="${list}">
             <option value="${li.SType}">${li.typeName}</option>
