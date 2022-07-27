@@ -25,6 +25,12 @@
 	<link href="/css/informationUp.css" rel="stylesheet" type="text/css" />
 	<title>informationUp</title>
 </head>
+<style>
+	a:hover {
+		cursor:pointer;
+	}
+
+</style>
 <body>
 
 <div id="wrap" class="wrap mx-auto"></div>
@@ -33,14 +39,12 @@
 	<div class="login">
 
 			<c:if test="${userType == '손님' }">
-				<p align=right><a href="#">🛒</a><a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 			<c:if test="${userType == '사장님' }">
-				<p align=right><a href="#">🛒</a><a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 
-		<!--  <input type="button" onclick=location.href='login'>Login
-         <input type="button" onclick=location.href='signin'>Logout -->
 	</div>
 
 
@@ -50,7 +54,7 @@
 <!-- 여기가 네비바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Menu</a>
+		<a class="navbar-brand" href="/main">Home</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -58,7 +62,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
+					<a class="nav-link active" aria-current="page" href="#">Menu</a>
 				</li>
 
 				<li class="nav-item dropdown">
@@ -116,7 +120,7 @@
 			</ul>
 		</div>
 	</div>
-	<form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+	<form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
 		<input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
 		<button class="btn btn-outline-dark" type="submit">Search</button>
 	</form>

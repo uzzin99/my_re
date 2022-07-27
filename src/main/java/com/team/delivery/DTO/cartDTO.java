@@ -19,9 +19,5 @@ public class cartDTO {
 	private int saleprice;
 	private int totalprice;
 	
-	public cartDTO() {
-	}
-
-	
 }
 

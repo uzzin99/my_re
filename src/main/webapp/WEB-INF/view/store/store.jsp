@@ -21,10 +21,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
   <!-- base css -->
-  <!-- <link href="base.css" rel="stylesheet" type="text/css" /> -->
   <link href="css/base.css" rel="stylesheet" type="text/css" />
   <!-- 섹션 css -->
-  <!-- <link href="page11.css" rel="stylesheet" type="text/css" /> -->
   <link href="css/store.css" rel="stylesheet" type="text/css" />
 <title>Store</title>
 </head>
@@ -39,21 +37,17 @@ td {
 <!-- 여기가 헤드 -->
 <header>
   <div class="login">
-    <a href="#">🛒</a>
     <c:if test="${userinfo == '' }">
-      <p align=right><a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+      <p align=right><a href="#">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
     </c:if>
     <c:if test="${userinfo != '' }">
       <c:if test="${userType == '손님' }">
-        <p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+        <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
       </c:if>
       <c:if test="${userType == '사장님' }">
-        <p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+        <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
       </c:if>
     </c:if>
-
-    <!--  <input type="button" onclick=location.href='login'>Login
-     <input type="button" onclick=location.href='signin'>Logout -->
   </div>
 
 
@@ -63,7 +57,7 @@ td {
 <!-- 여기가 네비바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Menu</a>
+    <a class="navbar-brand" href="/main">Home</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -71,7 +65,7 @@ td {
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="#">Menu</a>
         </li>
 
         <li class="nav-item dropdown">
@@ -157,7 +151,7 @@ td {
             <span>소요시간</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="30~40분">
         </div>
       </div>
-    </c:forEach>
+    </c:forEach><br>
   </section>
 
   <footer id="footer">

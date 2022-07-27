@@ -31,14 +31,14 @@
     <div class="login">
         <a href="#">🛒</a>
         <c:if test="${userinfo == '' }">
-            <p align=right><a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+            <p align=right><a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+                <p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+                <p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
         </c:if>
 
@@ -53,7 +53,7 @@
 <!-- 여기가 네비바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Menu</a>
+        <a class="navbar-brand" href="/main">Home</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -61,7 +61,7 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Menu</a>
                 </li>
 
                 <li class="nav-item dropdown">
@@ -119,7 +119,7 @@
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>

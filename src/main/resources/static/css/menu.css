@@ -11,6 +11,16 @@
     font-style: normal;
 }
 
+section {
+    overflow: auto;
+    font-family: 'GongGothicMedium';
+    background-color: #f8f9fa;
+}
+/*section 안의 스크롤바 숨기기*/
+section::-webkit-scrollbar {
+    display: none;
+}
+
 span {
     background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
 } 

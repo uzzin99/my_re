@@ -9,7 +9,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new CustomInterceptor())
                 .order(1)
-                .addPathPatterns("/signUp","/s_info")
+                .addPathPatterns("/signUp","/s_info","/cart")
                 .excludePathPatterns();
     }
 }

@@ -129,7 +129,7 @@ public class MemberController {
 			
 			ime.updateLogin(name,mobile,email,(String)session.getAttribute("userid"));
 			
-			return "member/signUp";
+			return "redirect:/signUp";
 		}
 		
 		@RequestMapping("/signUp/informationUp")
@@ -148,9 +148,12 @@ public class MemberController {
 		@ResponseBody
 		@RequestMapping(value="/signUp/pwdNew", method=RequestMethod.POST)
 		public String pwdNew(@RequestParam("pwd") String pwd,
-				HttpServletRequest request) {
+				HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
-			
+
+			model.addAttribute("userinfo",session.getAttribute("userid"));
+			model.addAttribute("userType",session.getAttribute("userType"));
+
 			ime.updatePwd(pwd, (String)session.getAttribute("userid"));
 			
 			return Integer.toString(1);
@@ -171,7 +174,10 @@ public class MemberController {
 		@RequestMapping("/signUp/checkpwd")
 		public String doCheckPwd(HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
-			
+
+			model.addAttribute("userinfo",session.getAttribute("userid"));
+			model.addAttribute("userType",session.getAttribute("userType"));
+
 			mDTO mdto=ime.userList((String)session.getAttribute("userid"));
 			model.addAttribute("mdto",mdto);
 			
@@ -250,7 +256,6 @@ public class MemberController {
 				@RequestParam("useremail") String mail,
 				@RequestParam("mType") int type) {
 			
-
 			ime.addMember(id,pwd,name,mobile,type,postcode,address,detailaddress,extraaddress,mail);
 			ime.addDelivery(id, address, postcode, detailaddress, extraaddress,name,mobile);
 			
@@ -266,13 +271,24 @@ public class MemberController {
 		}
 		
 		@RequestMapping("/userSign")
-		public String userSign(@RequestParam("Sign") String type, Model model) {
+		public String userSign(@RequestParam("Sign") String type,
+							   HttpServletRequest request, Model model) {
+			HttpSession session=request.getSession();
+
+			model.addAttribute("userinfo",session.getAttribute("userid"));
+			model.addAttribute("userType",session.getAttribute("userType"));
+
 			model.addAttribute("type",type);
 			return "member/userSign";
 		}
 		
 		@RequestMapping("/signin")
-		public String doSignin() {
+		public String doSignin(HttpServletRequest request, Model model) {
+			HttpSession session=request.getSession();
+
+			model.addAttribute("userinfo",session.getAttribute("userid"));
+			model.addAttribute("userType",session.getAttribute("userType"));
+
 			return "member/signin";
 		}
 }

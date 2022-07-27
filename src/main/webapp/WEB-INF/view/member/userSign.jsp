@@ -19,6 +19,8 @@
 	<!-- Slick 불러오기 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https:/6/cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+	<%--다음주소찾기 API--%>
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
 	<!-- css -->
@@ -32,21 +34,17 @@
 <!-- 여기가 헤드 -->
 <header>
 	<div class="login">
-		<a href="#">🛒</a>
 		<c:if test="${userinfo == '' }">
-			<p align=right><a onclick=location.href='login'>Login</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+			<p align=right><a href="#">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
 		</c:if>
 		<c:if test="${userinfo != '' }">
 			<c:if test="${userType == '손님' }">
-				<p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 			<c:if test="${userType == '사장님' }">
-				<p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>Logout</a></p>
+				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 		</c:if>
-
-		<!--  <input type="button" onclick=location.href='login'>Login
-         <input type="button" onclick=location.href='signin'>Logout -->
 	</div>
 
 
@@ -56,7 +54,7 @@
 <!-- 여기가 네비바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Menu</a>
+		<a class="navbar-brand" href="/main">Home</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -64,7 +62,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
+					<a class="nav-link active" aria-current="page" href="#">Menu</a>
 				</li>
 
 				<li class="nav-item dropdown">
@@ -122,7 +120,7 @@
 			</ul>
 		</div>
 	</div>
-	<form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+	<form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
 		<input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
 		<button class="btn btn-outline-dark" type="submit">Search</button>
 	</form>
@@ -132,11 +130,11 @@
 	<div align="center"><br><br>
 		<h1>회원가입<span>🙆‍♀️</span></h1><br>
 		<form id=frmAdduser method=post action="usersign">
-			<c:if test="${type == 'userSign'}">
-				<input type="hidden" id=m_type name=m_type value="3">
+			<c:if test="${type == '손님 회원가입'}">
+				<input type="hidden" name=mType value="3">
 			</c:if>
-			<c:if test="${type == 'bossSign'}">
-				<input type="hidden" id=m_type name=m_type value="2">
+			<c:if test="${type == '사장님 회원가입'}">
+				<input type="hidden" name=mType value="2">
 			</c:if>
 			<table class="section_table" align="center">
 				<tr>
