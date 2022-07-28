@@ -148,8 +148,9 @@
                     <div onclick=location.href='s_info'>
                         <table class="storeIntro"><br><br>
                             <tr>
-                                <td rowspan=4 class="img" align="center">
-                                    <c:if test="${sVO.SImg==null}">이미지를 넣어주세요 </c:if>${sVO.SImg}
+                                <td rowspan=3 class="img" style="width: 250px;" align="center">
+                                    <c:if test="${sVO.SImg==null}"><a href="#">이미지 등록하기</a> </c:if>
+                                    <c:if test="${sVO.SImg!=null}"><img id=logoImg src='/image/${sVO.SImg}'></c:if>
                                 </td>
                                 <td style="width: 100px;">가게명</td>
                                 <td style="width: 450px;">${sVO.SName}</td>

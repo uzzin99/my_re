@@ -19,7 +19,10 @@
 insert into store values(store_seq.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},
 						#{param6},#{param7},#{param8},#{param9},#{param10})
 </insert>
-
+<!--가게로고추가하기-->
+<update id="updateLogo">
+	update store set s_img=#{param1} where s_seqno=#{param2}
+</update>
 <!-- 매뉴 등록 -->
 <insert id="insertMenu">
 	insert into menu values(menu_seq.nextval, #{param1},#{param2},#{param3},#{param4},#{param5},#{param6})

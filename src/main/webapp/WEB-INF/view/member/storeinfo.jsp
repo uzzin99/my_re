@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,14 +32,14 @@
 <header>
     <div class="login">
         <c:if test="${userinfo == '' }">
-            <p align=right><a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+            <p align=right><a href="#">🛒</a><a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="#">🛒</a><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="#">🛒</a><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
@@ -122,18 +124,36 @@
 <section>
     <div align="center">
         <h2>내 가게 정보📌</h2><br>
+<%--        <input type=hidden name="managername" value="${sVO.mId}">--%>
+        <input type=hidden name="storeseq" value="${sVO.SSeqno}">
         <table>
             <tr>
-                <td>이름</td><td>$</td>
+                <td style="width:200px">상호명</td><td>${sVO.SName}</td>
             </tr>
             <tr>
-                <td>사업자 번호</td><td>$</td>
+                <td style="width:200px">가게 주소</td><td>${sVO.SAddress} ${sVO.SDetailaddress}, ${sVO.SExtraaddress}(${sVO.SPostcode})</td>
             </tr>
             <tr>
-                <td>전화번호</td><td>$</td>
+                <td style="width:200px">사업자등록번호</td><td>${sVO.bsNum}</td>
             </tr>
             <tr>
-                <td>타입</td><td>$</td>
+                <td style="width:200px">전화번호</td><td>${sVO.SMobile}</td>
+            </tr>
+            <tr>
+                <td style="width:200px">타입</td><td>${sVO.SType}</td>
+            </tr>
+            <tr>
+                <td style="width:200px">가게로고이미지</td>
+                <c:if test="${sVO.SImg!=null}">
+                    <td>${sVO.SImg}</td>
+                </c:if>
+                <c:if test="${sVO.SImg==null}"><%--가게 로고 등록하기--%>
+                    <form action="sImg_mo" method="POST"  enctype="multipart/form-data">
+                        <td colspan="2"><input type="file" id="sfile" name="sfile">
+                                        <input type="submit" id="storeimg" name="storeimg" value="로고등록">
+                                        <input type="text" id="s_seq" name="s_seq" value="${sVO.SSeqno}"></td>
+                    </form>
+                </c:if>
             </tr>
         </table><br>
         <input type=button id=btnReturn value="돌아가기" method='get' onclick="location.href='signUp'">

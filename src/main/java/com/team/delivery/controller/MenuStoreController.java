@@ -51,7 +51,7 @@ public class MenuStoreController {
 		return "member/storeUp";
 	}
 
-	@RequestMapping(value = "/store", method = RequestMethod.POST)
+	@RequestMapping(value = "/storeAdd", method = RequestMethod.POST)
 	public String doStore(HttpServletRequest req, @RequestParam("file") MultipartFile file) {
 		String s_id = req.getParameter("member_id");
 		String s_name = req.getParameter("storename");
@@ -64,35 +64,67 @@ public class MenuStoreController {
 		int s_type = Integer.parseInt(req.getParameter("menutype"));
 
 		String uploadFileName = file.getOriginalFilename();
-		System.out.println("file=" + uploadFileName + ",menuname=" + s_name);
-
+		//System.out.println("file=" + uploadFileName + ",menuname=" + s_name);
 		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("/") + 1); //문자열 자르기
-		System.out.println("upload=" + uploadFileName);
-
+		//System.out.println("upload=" + uploadFileName);
 		UUID uuid = UUID.randomUUID(); //랜덤이름생성
-		System.out.println("uuid=" + uuid);
-
+		//System.out.println("uuid=" + uuid);
 		uploadFileName = uuid.toString() + "_" + uploadFileName; //랜덤이름_업로드파일명
-		System.out.println("uploadFileName=" + uploadFileName);
+		//System.out.println("uploadFileName=" + uploadFileName);
 
 		File f = new File(upLoadDirectory2, uploadFileName);
+		String[]  str=uploadFileName.split("_");
 		try {
-			if (uploadFileName != null) {
-				file.transferTo(f); //파일 폴더에 저장
+			if(str.length==2){
+				ims.insertStore(s_id, s_name, postcode, storeAds, detailAds, extraAds, s_num, s_mobile, s_type, uploadFileName);
+				file.transferTo(f);
+			}else if(str.length==1){
+				String img="";
+				ims.insertStore(s_id, s_name, postcode, storeAds, detailAds, extraAds, s_num, s_mobile, s_type, img);
 			}
-			ims.insertStore(s_id, s_name, postcode, storeAds, detailAds, extraAds, s_num, s_mobile, s_type, uploadFileName);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "resirect:/main";
+		return "redirect:/signUp";
 	}
 
 	@RequestMapping("/s_info")
-	public String doSinfo() {
+	public String doSinfo(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		model.addAttribute("userinfo", session.getAttribute("userid"));
+		StoreDTO sVO = ims.selStore((String) session.getAttribute("userid"));
+		model.addAttribute("sVO", sVO);
 		return "member/storeinfo";
 	}
+
+	//가게 로고 수정하기(나중에 넣기)
+	@RequestMapping(value = "/sImg_mo", method = RequestMethod.POST)
+	public String doSImgmo(HttpServletRequest req, @RequestParam("sfile") MultipartFile file) {
+		int sSe=Integer.parseInt(req.getParameter("s_seq"));
+		//System.out.println("sSe="+sSe);
+		String storelogo = file.getOriginalFilename();
+		storelogo = storelogo.substring(storelogo.lastIndexOf("/") + 1); //문자열 자르기
+		UUID uuid = UUID.randomUUID(); //랜덤이름생성
+		storelogo = uuid.toString() + "_" + storelogo; //랜덤이름_업로드파일명
+
+		File f = new File(upLoadDirectory2, storelogo);
+		String[]  str=storelogo.split("_");
+		try {
+			if(str.length==2){
+				ims.updateLogo(storelogo, sSe);
+				file.transferTo(f);
+			}
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/signUp";
+	}
+
+
 
 	@RequestMapping("/m_up")
 	public String doMup(HttpServletRequest req, Model model) {
@@ -104,7 +136,7 @@ public class MenuStoreController {
 	}
 
 
-	@RequestMapping(value = "/menu", method = RequestMethod.POST)
+	@RequestMapping(value = "/menuAdd", method = RequestMethod.POST)
 	public String doMenu(HttpServletRequest req, @RequestParam("file") MultipartFile file) {
 		String name = req.getParameter("menuname");
 		int price = Integer.parseInt(req.getParameter("menuprice"));
