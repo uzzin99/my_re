@@ -5,108 +5,111 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<meta charset="UTF-8">
+	<link href="/css/dvList.css" rel="stylesheet" type="text/css" />
 <title>Delivery add/update</title>
 </head>
 <body>
-<div id="dvList">
-	<h5>배송지 정보 상세</h5>
-	<!-- 추가 -->
-	<c:if test="${list == '' }">
-	<form method=get action="addDelivery">
-		<table>
-			<tr>
-				<td>배송지명</td>
-				<td>
-					<input type=text name=newname id=newname>
-				</td>
-			</tr>
-			<tr>
-				<td>연락처</td>
-				<td>
-					<input type="text" id=newmobile name=newmobile maxlength=11  placeholder="010부터 입력하세요">
-				</td>
-			</tr>
-			<tr>
-				<td rowspan="3">주소</td>
-				<td>
-					<input type="text" id=postcode name=postcode placeholder="우편번호" style="width:80px">&nbsp;
-					<input type="button" id=btnAddress value="우편번호찾기">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" id=address name=address placeholder="주소" readonly>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" id=detailAddress name=detailAddress placeholder="상세주소">
-					<input type="text" id=extraAddress name=extraAddress placeholder="참고항목" readonly>
-				</td>
-			</tr>
-			<tr>
-				<td>기본배송지</td>
-				<td>
-					<input type=checkbox id=default>기본 배송지로 설정
-					<input type=hidden name=checked>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<input type=button id=cle value='닫기'> &nbsp;
-		<input type=submit id=btnSave value='저장'>
-	</form>
-	</c:if>
-	<!-- 수정 -->
-	<c:if test="${list != '' }">
-	<form method=get action="upDelivery">
-		<table>
-			<tr>
-				<td>배송지명</td>
-				<td>
-					<input type=text name=newname id=newname value='${list.DName }'>
-				</td>
-			</tr>
-			<tr>
-				<td>연락처</td>
-				<td>
-					<input type="text" id=newmobile name=newmobile value='${list.DMobile }' maxlength=11>
-				</td>
-			</tr>
-			<tr>
-				<td rowspan="3">주소</td>
-				<td>
-					<input type="text" id=postcode name=postcode value='${list.MPostcode }' style="width:80px">&nbsp;
-					<input type="button" id=btnAddress value="우편번호찾기">
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type=text id=address name=address value='${list.MAddress }' readonly>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<input type="text" id=detailAddress name=detailAddress value='${list.MDetailAddress }'>
-					<input type="text" id=extraAddress name=extraAddress  readonly value='${list.MExtraAddress }'>
-				</td>
-			</tr>
-			<tr>
-				<td>기본배송지</td>
-				<td>
-					<input type=checkbox id=default>기본 배송지로 설정
-					<input type=hidden name=checked>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<input type=hidden name=se value=${list.DSeqno }>
-		<input type=button id=cle value='닫기'> &nbsp;
-		<input type=submit id=btnSave value='수정'>
-	</form>
-	</c:if>
-</div>
+<section>
+	<div id="dvList">
+		<h2 align="center">배송지 정보 상세</h2>
+		<!-- 추가 -->
+		<c:if test="${list == '' }">
+			<form method=get action="addDelivery">
+				<table>
+					<tr>
+						<td>배송지명</td>
+						<td>
+							<input type=text name=newname id=newname>
+						</td>
+					</tr>
+					<tr>
+						<td>연락처</td>
+						<td>
+							<input type="text" id=newmobile name=newmobile maxlength=11  placeholder="010부터 입력하세요">
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="3">주소</td>
+						<td>
+							<input type="text" id=postcode name=postcode placeholder="우편번호" style="width:80px">&nbsp;
+							<input type="button" id=btnAddress value="우편번호찾기">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" id=address name=address placeholder="주소" readonly>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" id=detailAddress name=detailAddress placeholder="상세주소">
+							<input type="text" id=extraAddress name=extraAddress placeholder="참고항목" readonly>
+						</td>
+					</tr>
+					<tr>
+						<td>기본배송지</td>
+						<td>
+							<input type=checkbox id=default><span>기본 배송지로 설정</span>
+							<input type=hidden name=checked>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<input type=button id=cle value='닫기'> &nbsp;
+				<input type=submit id=btnSave value='저장'>
+			</form>
+		</c:if>
+		<!-- 수정 -->
+		<c:if test="${list != '' }">
+			<form method=get action="upDelivery">
+				<table>
+					<tr>
+						<td>배송지명</td>
+						<td>
+							<input type=text name=newname id=newname value='${list.DName }'>
+						</td>
+					</tr>
+					<tr>
+						<td>연락처</td>
+						<td>
+							<input type="text" id=newmobile name=newmobile value='${list.DMobile }' maxlength=11>
+						</td>
+					</tr>
+					<tr>
+						<td rowspan="3">주소</td>
+						<td>
+							<input type="text" id=postcode name=postcode value='${list.MPostcode }' style="width:80px">&nbsp;
+							<input type="button" id=btnAddress value="우편번호찾기">
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type=text id=address name=address value='${list.MAddress }' readonly>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<input type="text" id=detailAddress name=detailAddress value='${list.MDetailAddress }'>
+							<input type="text" id=extraAddress name=extraAddress  readonly value='${list.MExtraAddress }'>
+						</td>
+					</tr>
+					<tr>
+						<td>기본배송지</td>
+						<td>
+							<input type=checkbox id=default><span>기본 배송지로 설정</span>
+							<input type=hidden name=checked>
+						</td>
+					</tr>
+				</table>
+				<br>
+				<input type=hidden name=se value=${list.DSeqno }>
+				<input type=button id=cle value='닫기'> &nbsp;
+				<input type=submit id=btnSave value='수정'>
+			</form>
+		</c:if>
+	</div>
+</section>
 
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>

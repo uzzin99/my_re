@@ -203,7 +203,7 @@ public class MemberController {
 
 		    StoreDTO sVO = ims.selStore((String)session.getAttribute("userid"));
 		    model.addAttribute("sVO",sVO);
-		      
+
 			return "member/signUp";
 		}
 		
@@ -237,9 +237,17 @@ public class MemberController {
 				model.addAttribute("ch","<h5>등록되지 않은 계정입니다.</h5>");
 				return "member/login";
 			}
-			return "redirect:/main";
+
+			Object destination = session.getAttribute("destination");
+			String redirect = destination != null ? (String) destination : (String) "/main";
+
+			return "redirect:"+redirect;
 		}
-		
+
+		@RequestMapping("/errorLogin")
+		public String errorLogin(HttpServletRequest request, Model model) {
+			return "member/errorLogin";
+		}
 		@RequestMapping("/login")
 		public String doLogin(HttpServletRequest request, Model model) {
 
