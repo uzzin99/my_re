@@ -216,15 +216,23 @@ public class MemberController {
 			HttpSession session=request.getSession();
 			
 			int check=ime.checkId(id, pwd);
-			
+
+
 			if(check == 1) {
-				int checkType=ime.checkType(id, pwd);
-				if(checkType == 3) {
+				session.setAttribute("userid", id);
+
+				mDTO profile=ime.profile(id, pwd);
+
+				session.setAttribute("mName",profile.getMName());
+				session.setAttribute("mAddress",profile.getMAddress());
+				session.setAttribute("mDetailaddress",profile.getMDetailAddress());
+				session.setAttribute("mExtraaddress",profile.getMExtraAddress());
+
+				if(profile.getMType() == 3) {
 					session.setAttribute("userType", "손님");
-				}else if(checkType == 2) {
+				}else if(profile.getMType() == 2) {
 					session.setAttribute("userType", "사장님");
 				}
-				session.setAttribute("userid", id);
 			}else {
 				model.addAttribute("ch","<h5>등록되지 않은 계정입니다.</h5>");
 				return "member/login";

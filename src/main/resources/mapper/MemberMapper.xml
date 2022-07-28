@@ -19,8 +19,8 @@
 <select id="checkId" resultType="int">
 	select count(*) cnt from member where m_id=#{param1} and m_pwd=#{param2}
 </select>
-<select id="checkType" resultType="int">
-	select m_type from member where m_id=#{param1} and m_pwd=#{param2}
+<select id="profile" resultType="com.team.delivery.DTO.mDTO">
+	select * from member where m_id=#{param1} and m_pwd=#{param2}
 </select>
 
 <!-- 회원정보수정 -->
