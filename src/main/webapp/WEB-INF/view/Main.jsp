@@ -23,39 +23,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
   <!-- css -->
   <!-- <link href="main.css" rel="stylesheet" type="text/css" /> -->
-  <link href="css/main.css" rel="stylesheet" type="text/css" />
-  <link href="css/base.css" rel="stylesheet" type="text/css" />
+  <link href="/css/main.css" rel="stylesheet" type="text/css" />
+  <link href="/css/base.css" rel="stylesheet" type="text/css" />
 
   <title>Main</title>
 </head>
 <style>
 a:hover{
-	cursor:pointer; 
+	cursor:pointer;
 }
 </style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
   <!-- 여기가 헤드 -->
   <header>
-	  <div class="login">
-		<c:if test="${userinfo == '' }">
-          <p align=right><a href="#">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
-		</c:if>
-		<c:if test="${userinfo != '' }">
-			<c:if test="${userType == '손님' }">
-             <p align=right><a href="#">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
-			</c:if>
-			<c:if test="${userType == '사장님' }">
-              <p align=right><a href="#">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
-			</c:if>
-		</c:if>
-      
-     <!--  <input type="button" onclick=location.href='login'>Login
-      <input type="button" onclick=location.href='signin'>Logout -->
-    </div>
-    
- 
- <p align="center" onclick=location.href='main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
+  <p align="center" onclick=location.href='main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
   </header>
 
   <!-- 여기가 네비바 -->
@@ -150,13 +132,60 @@ a:hover{
         </div>
       </div>
 
-      <div class="login2" float="left">
+<%--      <div class="login2" float="left">
         <p>로그인을 해주세요</p>
         <p align=center><input type="button" class="btn btn-primary"
             value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;배달의민족 로그인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></p>
         <p style="display:inline;">🔒아이디.비밀번호 찾기</p>
         <p style="display:inline; float: right;">회원가입</p>
       </div>
+    </div>--%>
+    <div>
+      <c:if test="${userinfo == '' }">
+        <div class="login2" float="left">
+          <p>로그인을 해주세요</p>
+          <p align=center><input type="button" class="btn btn-primary" onclick=location.href='login'
+                                 value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;배달의민족 로그인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></p>
+          <p style="display:inline;">🔒아이디.비밀번호 찾기</p>
+          <p style="display:inline; float: right;" onclick=location.href='signin'>회원가입</p>
+        </div>
+      </c:if>
+
+        <c:if test="${userType == '손님' }">
+          <div class="login3" float="left">
+            <p style="float: left;" onclick=location.href='signUp'>${mName} 님🍮</p>
+            <p style="float: right;"><a href='logout' align="right">로그아웃</a></p>
+            <p align="center"><button class="addressbutton" onclick=location.href='signUp/deliveryUp'>
+                   ${mAddress },<br>
+                   ${mExtraaddress } ${mDetailaddress}
+                  </button></p>
+            <p style="display:inline; float: right;"><a href="#">예약목록📄</a></p>
+            <p style="display:inline; float: right;"><a href="#">장바구니🛒&nbsp;&nbsp;</a></p>
+            <p style="display:inline; float: right;"><a href="#">찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
+          </div>
+        </c:if>
+        <c:if test="${userType == '사장님' }">
+          <c:if test="${cntStore == 0}">
+            <div class="login4" float="left">
+            <p style="float: left;" onclick=location.href='signUp'>${mName} 님👩‍🍳</p>
+            <p style="float: right;"><a href='logout' align="right">로그아웃</a></p>
+            <p align="center" onclick=location.href='s_up'><button class="addressbutton">
+              <a style="background: linear-gradient(to top, #39c0c0 30%, transparent 30%);">
+                등록된 가게가 없습니다.<br> 가게를 등록해 주세요.</a>
+              </button></p>
+            </div>
+          </c:if>
+          <c:if test="${cntStore == 1}">
+            <div class="login4" float="left">
+              <p style="float: left;" onclick=location.href='signUp'>${mName} 님👩‍🍳</p>
+              <p style="float: right;"><a href='logout' align="right">로그아웃</a></p>
+              <p align="center" onclick=location.href='s_info'><button class="addressbutton">
+                <a><span style="background: linear-gradient(to top, #39c0c0 30%, transparent 30%);">
+                    내 가게:</span>&nbsp;&nbsp;${sVO.SName}</a>
+              </button></p>
+            </div>
+        </c:if>
+        </c:if>
     </div>
 
     <div class="Kategorie"><br>
@@ -177,45 +206,45 @@ a:hover{
       <div class="mainmenu">
         <table><br>
           <tr>
-            <td><img src="/resources/MainLogo/한식.png">
+            <td onclick=location.href='store?type=1'><img src="/MainLogo/한식.png">
               <p>한식</p>
             </td>
-            <td><img src="../food2/중식.png">
+            <td onclick=location.href='store?type=2'><img src="/MainLogo/중식.png">
               <p>중식</p>
             </td>
-            <td><img src="../food2/일식.png">
+            <td onclick=location.href='store?type=3'><img src="/MainLogo/일식.png">
               <p>일식</p>
             </td>
-            <td><img src="../food2/양식.png">
+            <td onclick=location.href='store?type=4'><img src="/MainLogo/양식.png">
               <p>양식</p>
             </td>
           </tr>
           <tr>
-            <td><img src="../food2/치킨.png">
+            <td onclick=location.href='store?type=5'><img src="/MainLogo/치킨.png">
               <p>치킨</p>
             </td>
-            <td><img src="../food2/피자.png">
+            <td onclick=location.href='store?type=6'><img src="/MainLogo/피자.png">
               <p>피자</p>
             </td>
-            <td><img src="../food2/분식.png">
+            <td onclick=location.href='store?type=7'><img src="/MainLogo/분식.png">
               <p>분식</p>
             </td>
-            <td><img src="../food2/디저트.png">
+            <td onclick=location.href='store?type=8'><img src="/MainLogo/디저트.png">
               <p>디저트</p>
             </td>
           </tr>
           <tr>
-            <td><img src="../food2/족발.png">
-              <p>족발</p>
+            <td onclick=location.href='store?type=9'><img src="/MainLogo/족발.png">
+              <p>족발/보쌈</p>
             </td>
-            <td><img src="../food2/고기.png">
-              <p>고기</p>
+            <td honclick=location.href='store?type=10'><img src="/MainLogo/고기.png">
+              <p>고기/구이</p>
             </td>
-            <td><img src="../food2/아시아.png">
-              <p>아시아</p>
+            <td onclick=location.href='store?type=11'><img src="/MainLogo/아시안.png">
+              <p>아시안</p>
             </td>
-            <td><img src="../food2/햄버거.png">
-              <p>햄버거</p>
+            <td onclick=location.href='store?type=12'><img src="/MainLogo/햄버거.png">
+              <p>패스트푸드</p>
             </td>
           </tr>
         </table>
@@ -228,7 +257,7 @@ a:hover{
         <label for="tab02">Q&A</label>
         <input type="radio" name="tabmenu" id="tab03">
         <label for="tab03">자주묻는질문</label>
-      
+
         <div class="conbox con1">컨텐츠탭 내용01</div>
         <div class="conbox con2">컨텐츠탭 내용02</div>
         <div class="conbox con3">컨텐츠탭 내용03</div>
@@ -246,22 +275,8 @@ a:hover{
           </p>
         </div>
       </div>
-    </div>
 
-    <!-- <div class="live">
-      <div style="margin-left: 20px; float: left; width: 32%;"><br>
-        <sapn class="todaymenu">배민 쇼핑 라이브🎁</span>
       </div>
-
-      <div style="float: left; width: 60%;"><br>
-        <sapn class="todaymenu">배민 쇼핑 라이브🎁</span>
-      </div> -->
-
-      <!-- <div class="video-container">
-        <iframe width="100" height="150" src="https://www.youtube.com/embed/36JvP5pw3po" title="[배달의민족 2.0] 우리는 본래 같은 민족이었다 (full ver.)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>   
-    </div> -->
-    
     </div>
   </section>
 
@@ -291,8 +306,8 @@ a:hover{
 <script>
   $(document)
   $('#slider-div').slick({
-    slide: 'div',        //슬라이드 되어야 할 태그 ex) div, li 
-    infinite: true,     //무한 반복 옵션     
+    slide: 'div',        //슬라이드 되어야 할 태그 ex) div, li
+    infinite: true,     //무한 반복 옵션
     slidesToShow: 4,        // 한 화면에 보여질 컨텐츠 개수
     slidesToScroll: 1,        //스크롤 한번에 움직일 컨텐츠 개수
     speed: 100,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
@@ -305,7 +320,7 @@ a:hover{
     prevArrow: "<button type='button' class='slick-prev'></button>",        // 이전 화살표 모양 설정
     nextArrow: "<button type='button' class='slick-next'>Next</button>",        // 다음 화살표 모양 설정
     dotsClass: "slick-dots",     //아래 나오는 페이지네이션(점) css class 지정
-    draggable: true,     //드래그 가능 여부 
+    draggable: true,     //드래그 가능 여부
     responsive: [ // 반응형 웹 구현 옵션
       {
         breakpoint: 960, //화면 사이즈 960px
@@ -321,7 +336,7 @@ a:hover{
       }
     ]
   });
-  
+
   function randomImg(){
 	  $.ajax({
 			type:'post',dataType:'json',
@@ -336,7 +351,7 @@ a:hover{
 							+date[0]+"</td><td><a href='/ajax/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
 							+brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
 							+"<div class='dropdown'>"
-							+"<a class='btn btn-info dropdown-toggle btn-sm' href='#' role='button'" 
+							+"<a class='btn btn-info dropdown-toggle btn-sm' href='#' role='button'"
 							+"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
 							+"메뉴</a>"
 							+"<ul class='dropdown-menu' aria-labelledby='dropdownMenuLink'>"

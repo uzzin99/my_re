@@ -29,7 +29,7 @@ public interface iMember {
 	
 	int checkId(String mId,
 			String mPwd);
-	int checkType(String mId,
+	mDTO profile(String mId,
 			String mPwd);
 	
 	mDTO userList(String mId);
