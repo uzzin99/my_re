@@ -99,8 +99,8 @@
 		<!-- 메뉴 등록 & 수정 -->
 		<form action="menu" method="post" enctype="multipart/form-data">
 			<span><h3>메뉴 등록하기</h3></span>
-			<input type=text id=s_seq name=sSeq value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
-			<input type=text id="m_seq" name="mSeq" value="0">
+			<input type=hidden id=s_seq name=sSeq value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
+			<input type=hidden id="m_seq" name="mSeq" value="0">
 			<p>메뉴이름</p><input type=text id=menuname name=menuname >
 			<p>가격</p><input type=number id=menuprice name=menuprice min=0>원
 			<p>칼로리</p><input type=number id=menukcal name=menukcal min=0>kcal
@@ -120,8 +120,8 @@
 
 		<!-- 이미지만 수정하기 -->
 		<form action="img_mo" method="post" enctype="multipart/form-data">
-			<input type=text id=s_seq2 name=sSeq2 value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
-			<input type=text id="m_seq2" name="mSeq2" value="0">
+			<input type=hidden id=s_seq2 name=sSeq2 value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
+			<input type=hidden id="m_seq2" name="mSeq2" value="0">
 			<input type=file id=img_mo name=file2 style="display:none;">&nbsp;&nbsp;
 			<input type="hidden" id="title" name="title">
 			<input type=submit id=btnMo value="사진 수정하기" style="display:none;">
@@ -132,7 +132,7 @@
 	<!-- 등록된 메뉴리스트 불러오기 -->
 	<div id="list-box">
 		<span><h3>메뉴목록</h3></span>
-		<input type=text id="s_seq3" name="sSeq3" value="${sVO.SSeqno}">
+		<input type=hidden id="s_seq3" name="sSeq3" value="${sVO.SSeqno}">
 		<div id="menu-box">
 <%--			<c:forEach var="mls" items="${mlist}">
 				<div class="a">
@@ -266,12 +266,12 @@ function loadmenulist(){
 						+jo['m_ex']+"</td></tr>"; */
 					console.log(jo['m_img']);
 					str+="<div class=a>";
-					str+="<img src='@{upload/"+jo['m_img']+"}' style='width:100px;height:100px;float:left;'>";
+					str+="<img src=/image/"+jo['m_img']+" style='width:100px;height:100px;float:left;'>";
 					str+="<p>메뉴이름: "+jo['mName']+"</p>";
 					str+="<p>가격: "+jo['m_price']+" 원</p>";
 					str+="<p>칼로리: "+jo['m_cal']+" kcal</p>";
 					str+="<p>설명: "+jo['m_ex']+"</p>";
-					str+="<p><input type=button id=btnSel value=선택><input type=text id=mse value='"+jo['mSeq']+"'></p></div><br>";
+					str+="<p><input type=button id=btnSel value=선택><input type=hidden id=mse value='"+jo['mSeq']+"'></p></div><br>";
 				}
 				$('#menu-box').append(str);
 			}
