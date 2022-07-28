@@ -13,7 +13,7 @@ public interface iMenuStore {
 	
 	void insertStore(String mId, String sName, String post, String sAddress, String sdetailaddress,
 					String sExtraaddress, String s_bsNum, String sMobile,int sType, String sImg);
-	
+
 	void insertMenu(int sSeq, String name, int price, String ex, String img, String cal);
 	
 	ArrayList<StoreDTO> selectMenuList(int sSeq);
@@ -27,4 +27,6 @@ public interface iMenuStore {
 	int cntStore(String mId);
 				
 	StoreDTO selStore(String mId);
+
+	void updateLogo(String img, int sSe);
 }

@@ -35,7 +35,7 @@ section div {
 }
 
 section div a {
-    border-bottom: 1px solid #c4c2c2;
+    border-bottom: 2px solid #c4c2c2;
 }
 
 section a:hover {
@@ -64,3 +64,9 @@ h2 {
     height: 200px;
     /* border: 1px solid gray; */
 }
+
+#logoImg{
+    width: 150px;
+    height: 150px;
+}
+

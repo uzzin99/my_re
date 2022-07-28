@@ -1,12 +1,8 @@
 package com.team.delivery.DTO;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
-@Getter
-@Setter
+@Data
 public class StoreDTO {
 
 	private int sSeqno;
@@ -14,7 +10,7 @@ public class StoreDTO {
 	private String sName;
 	private String sPostcode;
 	private String sAddress;
-	private String sDetalladdress;
+	private String sDetailaddress;
 	private String sExtraaddress;
 	private String bsNum;
 	private String sMobile;
