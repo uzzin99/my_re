@@ -41,14 +41,16 @@ span {
     margin-top: 20px;
     border: 1px solid #c4c2c2;
     float: left;
+    cursor:pointer;
 }
 
 .s_list input{
     background-color: #f1f1f1 ;
     border: none;
+    cursor:pointer;
 } 
 
-.menu_img {
+.sImg {
     width: 150px;
     height: 130px;
     margin-left: 20px;

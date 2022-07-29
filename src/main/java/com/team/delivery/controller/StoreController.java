@@ -39,7 +39,7 @@ public class StoreController {
 	}
 	
 	@RequestMapping("/store/menu")
-	public String Menu(@RequestParam int sSeqno,
+	public String Menu(@RequestParam("sSeqno") int sSeqno,
 					   HttpServletRequest request, Model model) {
 
 		HttpSession session=request.getSession();

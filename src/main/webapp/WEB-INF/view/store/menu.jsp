@@ -32,14 +32,14 @@
 <header>
     <div class="login">
         <c:if test="${userinfo == '' }">
-            <p align=right><a href="#">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+            <p align=right><a href="cart.jsp">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="cart.jsp">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="cart.jsp">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
@@ -67,18 +67,18 @@
                         배달&포장
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/store?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/store?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/store?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/store?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/store?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/store?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/store?type=12">패스트푸드</a></li>
                     </ul>
                 </li>
 
@@ -135,12 +135,6 @@
 				<p>최근리뷰 228 | 최근사장님댓글 0</p>
 				<p>전화 | 찜 | 공유</p>
 			</td>
-			<!-- <td style="text-align: right;">
-				<p><span>최소주문금액</span>&nbsp;<input type=text></p>
-				<p><span>결제방법</span>&nbsp;<input type=text value="바로결제, 만나서결제"></p>
-				<P><span>배달시간</span>&nbsp;<input type=text></P>
-				<p><span>배달팁</span>&nbsp;<input type=text></p>
-			</td> -->
 		</tr>
 	</table>
 
@@ -152,21 +146,10 @@
 		<input type="radio" name="tabmenu" id="tab03">
 		<label for="tab03">가게정보</label>
 
-<%-- 		<div class="conbox con1">
-				<c:forEach var="i" items="${mlist }">
-				<div id="a" onclick="window.open('menuDetail?mSe=${i.menuSeqno }&sSe=${i.sSe }','메뉴상세페이지','width=600px,height=700px,scrollbars=yes,resizable=no')">
-					<img class="menuImg" src="${i.menuImg }">
-					<input readonly type="text" value="${i.menuName }">
-					<input readonly type="text" value="${i.menuPrice }원">
-					<input readonly type="text" value="${i.menuCal }kcal">
-				</div>
-			</c:forEach>
-			</div> --%>
-			
 		<c:forEach var="i" items="${mlist }">
-			<div class="conbox con1" onclick=location.href='/store/menuDetail?mSe=${i.menuSeqno}&sSe=${i.SSe}'>
+			<div class="conbox con1" onclick=openPop(${i.menuSeqno},${i.SSe})>
 				<div id="a">
-					<img class="menuImg" src="${i.menuImg }">
+					<img class="menuImg" src="/image/${i.menuImg }">
 					<input readonly type="text" value="${i.menuName }">
 					<input readonly type="text" value="${i.menuPrice }원">
 					<input readonly type="text" value="${i.menuCal }kcal">
@@ -174,22 +157,10 @@
 			</div>
 		</c:forEach>
 
-<%-- 			<div class="conbox con2">
-		<c:forEach var="i" items="${rlist }">
-				<div id="b">
-					<img class="menuImg" src="${i.menuImg }">
-					<input readonly type="text" style="float: left; margin-left: 20px;" value="${i.mId }"><br>
-					<input readonly type="text" style="float: right; margin-right: 25px;" value="${i.score }">
-					<input readonly type="text" style="float: right;" value="${i.rDate }"><br>
-					<input readonly type="textarea" value="${i.rContent }" style="width: 70%; height: 80px;">
-				</div>
-			</div>
-		</c:forEach> --%>
-		
 		<c:forEach var="i" items="${rlist }">
 			<div class="conbox con2">
 				<div id="b">
-					<img class="menuImg" src="${i.menuImg }">
+					<img class="menuImg" src="/image/${i.menuImg }">
 					<input readonly type="text" style="float: left; margin-left: 20px;" value="${i.MId}"><br>
 					<input readonly type="text" style="float: right; margin-right: 25px;" value="${i.score }">
 					<input readonly type="text" style="float: right;" value="${i.RDate }"><br>
@@ -228,10 +199,9 @@
 </body>
 <script>
 $(document)
-    $(".conbox con1").on("click",function (){
-
-    })
-
+function openPop(mse,sse){
+   window.open('/store/menuDetail?mSe='+mse+'&sSe='+sse,'menuDetail','width=600px,height=700px,scrollbars=yes,resizable=no');
+}
 </script>
 </html>
 

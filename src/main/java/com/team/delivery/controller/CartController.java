@@ -16,6 +16,8 @@ import com.team.delivery.mappers.iCart;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+
 
 @Controller
 @Slf4j
@@ -43,26 +45,37 @@ public class CartController {
 		cartdto.setMenuCnt(cnt);
 		log.info("sql실행전={}", mId);
 		//추가 전 로그인 확인하기 만들기!!!!!
-		cartDTO checkCart = ica.checkCart(cartdto);
-		log.info("sql실행 후 if문 들어가기전");
-		if(checkCart != null) {
-			return Integer.toString(2);
-		}else {
-			try {
-				int a = ica.addCart(cartdto);
-				return Integer.toString(a);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
+		if(mId==null){
 			return Integer.toString(5);
+		}else {
+			cartDTO checkCart = ica.checkCart(cartdto);
+			log.info("sql실행 후 if문 들어가기전");
+			if (checkCart != null) {
+				return Integer.toString(2);
+			} else {
+				try {
+					int a = ica.addCart(cartdto);
+					return Integer.toString(a);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		}
+			return Integer.toString(3);
 	}
 	
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	public String cart() {
-
+	public String cart(HttpServletRequest request, Model model) {
+		HttpSession session=request.getSession();
+		String mid=(String) session.getAttribute("userid");
+		if(mid != null) {
+			ArrayList<cartDTO> cart = ica.listCart(mid);
+			model.addAttribute("cart", cart);
+		}else{
+			return "member/errorLogin";
+		}
 		return "store/cart";
 	}
 	

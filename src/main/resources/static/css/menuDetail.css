@@ -1,0 +1,79 @@
+/* 폰트 */
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    background-color: #f8f9fa;
+}
+section {
+    font-family: 'GongGothicMedium';
+
+}
+
+section table {
+    font-size: 18px;
+    color: #707070;
+
+}
+
+tr{
+    height: 40px;
+}
+
+td{
+    border-bottom: 1px solid #c4c2c2;
+}
+.button_quantity{
+    margin-top: 8px;
+    margin-bottom: 6px;
+}
+input{
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid #c4c2c2;
+    margin-bottom: 5px;
+}
+
+span{
+    font-size: 18px;
+    color: #707070;
+}
+
+.menuImg{
+    height: 230px;
+    width: 230px;
+}
+
+.quantity_input{
+    width:100px;
+}
+
+.plus_btn, .minus_btn{
+    width: 28px;
+    height: 28px;
+    color: #707070;
+    font-size: 18px;
+}
+
+.btn_cart, .btn_buy{
+    width: 130px;
+    height: 30px;
+    color: #707070;
+    font-family: 'GongGothicMedium';
+}
+
+input[type="button"]:hover {
+    color: black;
+}
+
+
+.btn_cel{
+    width: 260px;
+    height: 30px;
+    color: #707070;
+    font-family: 'GongGothicMedium';
+}

@@ -24,7 +24,7 @@
     <!-- base css -->
     <link href="css/base.css" rel="stylesheet" type="text/css" />
     <!-- 섹션 css -->
-    <link href="css/store.css" rel="stylesheet" type="text/css" />
+    <link href="css/cart.css" rel="stylesheet" type="text/css" />
 <title>Cart</title>
 </head>
 <body>
@@ -33,14 +33,14 @@
 <header>
     <div class="login">
         <c:if test="${userinfo == '' }">
-            <p align=right><a href="#">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+            <p align=right><a href="cart.jsp">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="cart.jsp">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="cart.jsp">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
@@ -124,29 +124,32 @@
 </nav>
 
 <section>
-    <div class="cart"><br>
-        <div id="cart_header"><span>🛒장바구니🛒</span></div>
+    <div class="cart" align="center"><br>
+        <div id="cart_header"><span class="cartname">🛒장바구니🛒</span></div>
+        <c:forEach var="i" items='${cart}'>
+            <div id="cart_body"><br>
+                <div class="cart_body_menu" style="float: left; margin-left:350px">
+                    <input readonly type="text" value="${i.menuName}">
 
-        <div id="cart_body">
-            <div class="cart_body_menu">
-                <input readonly type="text" value="">
+                    <input readonly type="text"  value="${i.menuPrice}" >
 
-                <input type='button' style="width: 25px; float: right;" value='x'/>
+                    <div style="float: right; margin-left: 10px;">
+                        <input type='button' style="display: inline-block;" class="minus_btn" value='-'/>
+                        <input readonly type="text" style="display: inline-block;" class="quantity_input" value="${i.menuCnt}">
+                        <input type='button' style="display: inline-block;" class="plus_btn" value='+'/>
+                        <input type='button' class="del_btn" value='x'/>
 
-                <input readonly type="text"  value="">원
-
-                <div style="float: right;">
-                    <input type='button' style="width: 20px; display: inline-block;" onclick='count("minus")' value='-'/>
-                    <input readonly type="text" style="width: 20px; display: inline-block;" value="13">
-                    <input type='button' style="width: 20px; display: inline-block;" onclick='count("plus")' value='+'/>
+                    </div>
                 </div>
             </div>
+        </c:forEach>
+        <div id="cart_footer" style="clear: both;"><br>
+            <p><span> 총 주문금액</span>&nbsp;<input readonly type="text"  value=""></p>
+            <p><span> 배달팁</span>&nbsp;<input readonly type="text"  value=""></p>
+            <p><span> 결제예정금액</span>&nbsp;<input readonly type="text"  value=""></p>
         </div>
-
-        <div id="cart_footer">
-            <span>총 주문금액</span><input readonly type="text"  value=""><br>
-            <span>배달팁</span><input readonly type="text"  value=""><br>
-            <span>결제예정금액</span><input readonly type="text"  value="">
+        <div class="button_set">
+            <input type="button" class="btn_buy" value="주문하기">
         </div>
     </div>
 </section>
@@ -174,4 +177,19 @@
     </div>
 </footer>
 </body>
+<script>
+    $(document)
+
+    //수량 버튼 조작
+    let quantity = $(".quantity_input").val();
+    $(".plus_btn").on("click",function(){
+        $(".quantity_input").val(++quantity);
+    })
+    $(".minus_btn").on("click",function(){
+        if(quantity > 1){
+            $(".quantity_input").val(--quantity);
+        }
+    })
+
+</script>
 </html>

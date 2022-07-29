@@ -9,6 +9,10 @@ section {
     font-family: 'GongGothicMedium';
 }
 
+h7{
+    color: red;
+}
+
 h4{
     font-size: 30px;
     width: 400px;
