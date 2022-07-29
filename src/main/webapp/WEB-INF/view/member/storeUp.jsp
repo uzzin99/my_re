@@ -128,28 +128,28 @@
                 <input type=hidden id=member_id name=member_id value="${userinfo}"><br>
             </div>
             <div class="insert-box">
-            <p>가게 이름 <input type=text id=storename name=storename /></p>
-            <p>가게 주소</p>
-            <input type="text" id=postcode name=postcode placeholder="우편번호" style="width:80px">&nbsp;
-            <input type="button" id=btnAddress value="우편번호찾기"><br>
-            <input type="text" id=address name=address placeholder="주소" readonly><br>
-            <input type="text" id=detailAddress name=detailAddress placeholder="상세주소">
-            <input type="text" id=extraAddress name=extraAddress placeholder="참고항목" readonly>
+                <p><span class="span">상호 명</span> <input type=text id=storename name=storename /></p>
+                <p><span class="span">가게 주소</span><input type="text" id=postcode name=postcode placeholder="우편번호" style="width:80px">&nbsp;
+                <input type="button" id=btnAddress value="우편번호찾기"></p>
+                <p><span class="span"></span><input type="text" id=address name=address placeholder="주소" readonly></p>
+                <p><span class="span"></span><input type="text" id=detailAddress name=detailAddress placeholder="상세주소">&nbsp;
+                <input type="text" id=extraAddress name=extraAddress placeholder="참고항목" readonly></p>
 
-            <p>사업자등록번호 <input tpe=text id=storenum name="storenum"/></p>
-            <p>가게 전화번호 <input tpe=text id=storetel name="storetel"/></p>
-            <p>메뉴타입 <select id=menutype name="menutype"></p>
-                            <option value=0></option>
-                            <c:forEach var="li" items="${list}">
-                                <option value="${li.SType}">${li.typeName}</option>
-                            </c:forEach>
-                        </select>
-            <p>가게 로고 등록하기</p>
-            <input type=file id=s_img name="file"><br><br>
+                <p><span class="span">사업자등록번호</span> <input type=text id=storenum name="storenum"/></p>
+                <p><span class="span">가게 전화번호</span> <input type=text id=storetel name="storetel"/></p>
+                <p><span class="span">메뉴타입</span> <select id=menutype name="menutype">
+                                                        <option value=0>타입선택</option>
+                                                        <c:forEach var="li" items="${list}">
+                                                            <option value="${li.SType}">${li.typeName}</option>
+                                                        </c:forEach>
+                                                    </select></p>
+                <p><span class="span">가게 로고 등록하기</span>
+                    <label for="s_img" id="imgbtn">로고선택</label>
+                    <input type=file id=s_img name="file"></p>
             </div>
             <div class="submit-box">
-            <input type=submit id=btnUp value="등록하기" onclick=location.href='signUp'>&nbsp;&nbsp;
-            <input type="button" id="btnReturn" value="돌아가기" >
+                <input type=submit id=btnUp value="등록하기" onclick=location.href='signUp'>&nbsp;&nbsp;
+                <input type="button" id="btnReturn" value="돌아가기" >
             </div>
         </form>
     </div>
@@ -183,44 +183,30 @@
 <script>
 $(document)
 .ready(function(){
-
 })
 
-//가게 등록하기
-/* .on('click','#btnUp',function(){
-    let sid=$('#m_id').val();
-    let sname=$('#storename').val();
-    let post=$('#postcode').val();
-    let saddress=$('#address').val();
-    let sdetail=$('#detailAddress').val();
-    let sextra=$('#extraAddress').val();
-    let snum=$('#num').val();
-    let stel=$('#tele').val();
-    let smenu=$('#menutype option:selected').val();
-    let simg=$('#s_img').val();
+//가게 등록하기버튼
+.on('click','#btnUp',function() {
+    if ($('#storename').val() == '') {
+        alert("상호명을 입력해주세요.");
+        return false;
+    } else if ($('#address') == '') {
+        alert("가게 주소를 입력해 주세요.");
+        return false;
+    } else if ($('#detailAddress') == ''){
+        alert("가게 상세주소를 입력해 주세요.");
+        return false;
+    } else if ($('#storenum') == ''){
+        alert("사업자등록번호를 입력해 주세요.");
+        return false;
+    } else if ($('#storetel') == ''){
+        alert("가게 전화번호를 입력해 주세요.");
+        return false;
+    }
 
-    console.log("sid=["+sid+"], sname=["+sname+"], post["+post+"], saddress=["+saddress
-                +"], sdetail=["+sdetail+"], sextra=["+sextra+"], snum=["+snum+"], stel=["+stel
-                +"], smenu=["+smenu+"]"+"simg=["+simg+"]");
-    $.ajax({
-        url:'store', type:'post', dataType:'json',
-        data:{sid:sid, sname:sname, post:post, saddress:saddress, sdetail:sdetail,
-              sextra:sextra, snum:snum, stel:stel, smenu:smenu, simg:simg},
-        success: function(){
-            sid=$('#m_id').val('');
-            sname=$('#storename').val('');
-            post=$('#postcode').val('');
-            saddress=$('#address').val('');
-            sdetail=$('#detailAddress').val('');
-            sextra=$('#extraAddress').val('');
-            snum=$('#num').val('');
-            stel=$('#tele').val('');
-            smenu=$('#menutype option:selected').remove();
-            simg=$('#s_img').val('');
-            // 메인화면으로 이동하기
-}
+
+
 })
-}) */
 
 .on('click','#btnAddress',function(){
     roadMap();
@@ -269,23 +255,5 @@ function roadMap(){
         }
     }).open();
 }
-
-//메뉴타입선택
-/* function loadstype(){
-    $.ajax({
-        url:'mtp', data:'', dataType:'json', type:'post',
-        success: function(data){
-            $('#menutype').empty();
-            $('#menutype').append('<option value=0></option>');
-            let str='';
-            for(let i=0;i<data.length;i++){
-                console.log(data);
-                let jo=data[i];
-                str+='<option value='+jo['s_type']+'>'+jo['type_name']+'</option>';
-            }
-            $('#menutype').append(str);
-        }
-    })
-} */
 </script>
 </html>

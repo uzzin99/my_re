@@ -7,9 +7,12 @@
     font-weight: normal;
     font-style: normal;
 }
-
+section{
+    height: 100%;
+}
+/*전체크기 지정 시작*/
 #container{
-    margin: 50px 50px 0 50px;
+    margin: 0 0 5% 15%;
 }
 #container input[type="text"], input[type="number"]{
     border: none;
@@ -17,38 +20,130 @@
     height: 20px;
     font-size: 16px;
 }
-
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
 #container input[type="number"]{
     text-align: right;
 }
+/*전체크기 지정 끝*/
 
+/*메뉴등록하기 시작*/
 #menuUp-box{
     float:left;
-    width:500px;
+    width:450px;
     height:400px;
-   /* padding-left: 50px;*/
     outline:none;
 }
 
-#list-box {
-    float: left;
-    width: 450px;
-    height: 600px;
-    /* padding-left: 50px;*/
+/*이미지 업로드 버튼 시작*/
+.filebox label, .imgMo-box label {
+    display: inline-block;
+    padding: .5em .75em;
+    color: #999;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: 5px;
+}
+.filebox input[type="file"], .imgMo-box input[type="file"] {  /* 파일 필드 숨기기 */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}
+/*이미지 업로드 버튼 끝*/
+h3 {
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+    width: 180px;
+    margin-top: 100px;
+}
+#menuex{
+    width:230px;
+    height:40px;
+    resize:none;
+    vertical-align: middle;
+}
+.btndiv, .back{
+    width: 300px;
+    text-align: center;
+}
+.btndiv input{
+    height: 30px;
+    width: 50px;
+    border-radius: 5px;
+    border: 1px solid #c4c2c2;
+}
+.back input{
+    height: 50px;
+    width: 250px;
+    border-radius: 5px;
+    border: 1px solid #c4c2c2;
+}
+#btnMo{
+    height: 30px;
+    width: 100px;
+    border-radius: 5px;
+    border: 1px solid #c4c2c2;
 }
 
+
+/*메뉴등록하기 끝*/
+
+/*메뉴목록 시작*/
+#list-box {
+    display: inline-block;
+    /*float: left;*/
+    width: 450px;
+    height: 600px;
+    margin-left: 10px;
+}
 #menu-box{
     overflow:scroll;
-    width:500px;
+    width:450px;
     height:500px;
     flex-direction: column;
     overflow-x: hidden;
+}
+.a{
+    width:400px;
+    height:120px;
+    display: block;
+    padding: 10px 0 10px 30px;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+}
+.a img{
+    padding: 0 10px 0 0;
+}
+.a p{
+    font-size: 12px;
+    line-height: 2px;
+    display: flex;
+}
+.a input{
+    height: 30px;
+    width: 50px;
+    border-radius: 5px;
+    border: 1px solid #c4c2c2;
+    color: #707070;
+    font-size: 12px;
+}
+.span{
+    display: inline-block;
+    width: 100px;
+    height: 20px;
+    text-align: center;
 }
 
 /* 스크롤바 디자인 시작 */
@@ -63,89 +158,3 @@ input[type="number"]::-webkit-inner-spin-button {
     border-radius: 10px;
 }
 /* 스크롤바 디자인 끝 */
-
-.a{
-    width:400px;
-    height:120px;
-    display: block;
-    padding: 10px 0 10px 30px;
-    border-radius: 15px;
-    background-color: #f1f1f1;
-}
-
-.a > img{
-    padding: 0 10px 0 0;
-}
-.a > p{
-    font-size: 12px;
-    line-height: 2px;
-    display: flex;
-}
-
-.back{
-    width: 100%;
-}
-
-.span{
-    display: inline-block;
-    width: 100px;
-    height: 20px;
-    text-align: center;
-}
-
-#menuex{
-   margin-left:30px;
-    width:230px;
-    height:40px;
-    resize:none;
-}
-/*메뉴 등록&수정시 버튼*/
-.filebox label {
-    display: inline-block;
-    padding: .5em .75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: .25em;
-}
-
-.filebox input[type="file"] {  /* 파일 필드 숨기기 */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip:rect(0,0,0,0);
-    border: 0;
-}
-/*이미지만 수정시 버튼*/
-.imgMo-box label{
-    display: inline-block;
-    padding: .5em .75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: .25em;
-}
-
-.imgMo-box input[type="file"] {  /* 파일 필드 숨기기 */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip:rect(0,0,0,0);
-    border: 0;
-}

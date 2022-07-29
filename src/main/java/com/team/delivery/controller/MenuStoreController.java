@@ -38,7 +38,7 @@ public class MenuStoreController {
 	private final iMenuStore ims;
 
 	private String upLoadDirectory = "C:\\Users\\admin\\Downloads\\delivery\\delivery\\src\\main\\resources\\static\\upload";
-	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
+	private String upLoadDirectory2 = "\\delivery\\src\\main\\resources\\static\\image";
 
 
 	@RequestMapping("/s_up")
