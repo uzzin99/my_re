@@ -129,42 +129,46 @@
 				<input type=hidden id=s_seq name=sSeq value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
 				<input type=hidden id="m_seq" name="mSeq" value="0">
 				<p><span class="span">메뉴이름</span>  <input type=text id=menuname name=menuname ></p>
-				<p><span class="span">가격</span>  <input type=number id=menuprice name=menuprice min=0> 원</p>
-				<p><span class="span">칼로리</span>  <input type=number id=menukcal name=menukcal min=0> kcal</p>
-				<p><span class="span">설명</span></p>
-				<textarea id=menuex name=menuex maxlength=20 placeholder="최대 20자"></textarea>
+				<p><span class="span">가격</span>  <input type=number id=menuprice name=menuprice min=0 placeholder="0"> 원</p>
+				<p><span class="span">칼로리</span>  <input type=number id=menukcal name=menukcal min=0 placeholder="0"> kcal</p>
+				<p><span class="span">설명</span>
+				<textarea id=menuex name=menuex maxlength=20 placeholder="최대 20자"></textarea></p>
 
 				<div class=filebox>
-					<p><span class="span">메뉴이미지</span>
+					<p><span class="span" id="menu_img">메뉴이미지</span>
 					<label for="m_img" id="imgbtn">업로드</label><input type=file id=m_img name=file>
 					<input type="hidden" id="hdFName"></p>
-				</div><br>
-
+				</div>
+				<div class="btndiv">
 				<input type=submit id=btnIn value="추가">&nbsp;&nbsp;
 				<input type=button id=btnReset value="비우기">&nbsp;&nbsp;
 				<input type=button id=btnDelete value="삭제">
+				</div>
 			</form>
+			<br>
 
 			<!-- 이미지만 수정하기 -->
 			<div class="imgMo-box">
 				<form action="img_mo" method="post" enctype="multipart/form-data">
+					<p><span class="span" id="menu_img2" >이미지 변경</span>
 					<input type=hidden id=s_seq2 name=sSeq2 value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
 					<input type=hidden id="m_seq2" name="mSeq2" value="0">
-					<label for="img_mo" id="imgbtn2" style="display:none;">업로드</label><input type=file id=img_mo name=file2">&nbsp;&nbsp;
+					<label for="img_mo" id="imgbtn2" ">업로드</label>&nbsp;&nbsp;
+					<input type=file id=img_mo name=file2>
 					<input type="hidden" id="title" name="title">
-					<input type=submit id=btnMo value="사진 수정하기" style="display:none;">
+					<input type=submit id=btnMo value="사진 수정하기" ></p>
 				</form>
+			</div>
+			<div class="back">
+				<input type=button id=btnReturn value="돌아가기" method='get' onclick="location.href='s_info'">
 			</div>
 		</div>
 		<!-- 등록된 메뉴리스트 불러오기 -->
 		<div id="list-box">
-			<span><h3>메뉴목록</h3></span>
+			<span><h3>메뉴 목록</h3></span>
 			<input type=hidden id="s_seq3" name="sSeq3" value="${sVO.SSeqno}">
 			<div id="menu-box"></div><!-- 메뉴리스트 생성 -->
 		</div>
-	</div>
-	<div class="back">
-		<input type=button id=btnReturn value="돌아가기" method='get' onclick="location.href='s_info'">
 	</div>
 </section>
 <%--푸터--%>
@@ -196,28 +200,40 @@
 $(document)
 .ready(function(){
 	loadmenulist();
+	// $('#btnMo').hide();
+	// $('#imgbtn2').hide();
+	// $('#menu_img2').hide();
+	$('.imgMo-box').hide();
+
 })
 
 //비우기 버튼
 .on('click','#btnReset',function(){
 	$('#menuname').val('');
-	$('#menuprice').val(0);
-	$('#menukcal').val(0);
+	$('#menuprice').val('');
+	$('#menukcal').val('');
 	$('#menuex').val('');
 	$('#m_img').text('');
 	$('#btnIn').val('추가');
 	$('#m_seq').val(0);
 	$('#m_seq2').val('');
-	$('#btnMo').hide();
+
+	// $('#btnMo').hide();
+	// $('#imgbtn2').hide();
+	// $('#menu_img2').hide();
+	$('.imgMo-box').hide();
 	$('#imgbtn').show();
-	$('#imgbtn2').hide();
+	$('#menu_img').show();
 })
 
 //수정 전 데이터 불러오기
 .on('click','#btnSel',function(){
-	$('#imgbtn2').show();
-	$('#btnMo').show();
+	// $('#btnMo').show();
+	// $('#imgbtn2').show();
+	// $('#menu_img2').show();
+	$('.imgMo-box').show();
 	$('#imgbtn').hide();
+	$('#menu_img').hide();
 	//$('#img-box').append($('#img_mo').show(),$('#btnMo').show()); //폼태그 안에 넣으면 그에 해당하는 폼이 동작됨
 
 	var m_seq=$(this).parent().find('input:eq(1)').val();
@@ -240,10 +256,9 @@ $(document)
 	})
 })
 
-
-//수정버튼 누르기
-.on('click','#btnIn',function(){
-	if($('#btnIn').val()=='수정'){
+//추가&수정버튼 누르기
+.on('click','#btnIn',function() {
+	if(('#btnIn').val()=='수정'){
 		if(!confirm("매뉴를 수정 하시겠습니까?")) return false;
 	}else{
 		if(!confirm("메뉴를 등록 하시겠습니까?")) return false;
@@ -254,16 +269,16 @@ $(document)
 .on('click','#btnMo', function(){
 	if(!confirm("이미지를 수정 하시겠습니까?")) return false;
 	loadmenulist();
-	console.log("m_seq2="+$('#m_seq2').val()+"/s_seq2="+$('#s_seq2').val());
+	//console.log("m_seq2="+$('#m_seq2').val()+"/s_seq2="+$('#s_seq2').val());
 })
 
 //메뉴삭제하기
-.on('click','#btnDelete',function(){
+.on('click','#btnDelete,#btnDelete2',function(){
 	//console.log("delete=>s_seq["+$('#s_seq').val()+"], m_seq["+$('#m_seq').val()+"]");
 	let s_seq=$('#s_seq').val();
 	let m_seq=$('#m_seq').val();
 	let filename=$('#title').val();
-	console.log("file name="+filename);
+	//console.log("file name="+filename);
 
 	if(!confirm("선택한 메뉴를 삭제하시겠습니까?")) return false;
 	document.location="delete?mSe="+m_seq+"&sSe="+s_seq+"&deleteFile="+filename;
@@ -289,12 +304,12 @@ function loadmenulist(){
 					let jo=data[i];
 					//console.log(jo['m_img']);
 					str+="<div class=a>";
-					str+="<img src=/image/"+jo['m_img']+" style='width:100px;height:100px;float:left;'>";
+					str+="<img src='/image/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
 					str+="<p>메뉴이름: "+jo['mName']+"</p>";
 					str+="<p>가격: "+jo['m_price']+" 원</p>";
 					str+="<p>칼로리: "+jo['m_cal']+" kcal</p>";
 					str+="<p>설명: "+jo['m_ex']+"</p>";
-					str+="<p><input type=button id=btnSel value=선택><input type=hidden id=mse value='"+jo['mSeq']+"'></p></div><br>";
+					str+="<input type=button id=btnSel value=선택><input type=hidden id=mse value='"+jo['mSeq']+"'></div><br>";
 				}
 				$('#menu-box').append(str);
 			}
