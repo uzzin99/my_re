@@ -18,7 +18,7 @@
 	date{
 		font-size: smaller;
 	}
-	#cmtdiv{
+	#cmtdiv,#btnBack{
 		width:800px;
 		margin-left:auto;
 		margin-right:auto;
@@ -194,7 +194,7 @@
 	<div id="PNdiv">
 	</div>
 	<br>
-	<div>
+	<div id="btnBack">
 		<input type=button id=btnExit value='목록으로 돌아가기'>
 	</div>
 	<input type=text id=uid hidden>
@@ -232,6 +232,8 @@
 			})
 			.on('click','#reply',function(){
 				console.log('clicked')
+				$(this).closest('div').next('div').find('#addRep').val('답글달기')
+				//$('#addRep').val('답글달기');
 				if($(this).closest('div').next('div').css('display')=="none"){
 					console.log('in1')
 					$('.replyWdw').css('display',"none")
@@ -252,31 +254,47 @@
 				}
 				else{
 					if($(this).prev('textarea').val()==""){
-						alert('댓글 내용이 필요합니다.')
+						alert('내용이 필요합니다.')
 						return false;
 					}
 					else{
-						$.ajax({
-							type:'post',dataType:'json',
-							url:'addRep',
-							data:'bSeq='+${seq}+'&content='+$(this).prev('textarea').val()
-									+'&pSeq='+$(this).attr('name')
-									+'&deep='+$(this).next('input').val(),
-							success:function(data){
-								console.log('리플 달기 성공(?)');
-								$('#rep').text('');
-								selCmt();
-							}
-						})
+						if($('#addRep').val()=='답글달기'){
+							$.ajax({
+								type:'post',dataType:'json',
+								url:'addRep',
+								data:'bSeq='+${seq}+'&content='+$(this).prev('textarea').val()
+										+'&pSeq='+$(this).attr('name')
+										+'&deep='+$(this).next('input').val(),
+								success:function(data){
+									console.log('리플 달기 성공(?)');
+									$('#rep').text('');
+									selCmt();
+								}
+							})
+						}
+						else{
+							$.ajax({
+								type:'post',dataType:'json',
+								url:'upCmt',
+								data:'seq='+$(this).closest('div').parent().attr('id')+${seq}+'&content='+$(this).prev('textarea').val(),
+								success:function(data){
+									console.log('댓글 수정 성공(?)');
+									$('#rep').text('');
+									selCmt();
+								}
+							})
+						}
 					}
 				}
 			})
 			.on('click','#delCmt',function(){
-				if($(this).closest('tr').find('td:eq(0)').text()=='${userid}'){
+				console.log('seq='+$(this).closest('div').parent().attr('id'));
+				console.log('writer='+$(this).closest('div').find('b').text());
+				if($(this).closest('div').find('b').text()=='${userid}'){
 					$.ajax({
 						type:'post',dataType:'json',
 						url:'delCmt',
-						data:'seq='+$(this).closest('table').attr('id')+'&bdseq='+${seq},
+						data:'seq='+$(this).closest('div').parent().attr('id')+'&bdseq='+${seq},
 						success:function(data){
 							selCmt();
 						}
@@ -290,6 +308,19 @@
 			.on('click','#btnExit',function(){
 				console.log('clicked');
 				document.location='/home';
+			})
+			.on('click','#upCmt',function(){
+				$(this).closest('div').next('div').find('#addRep').val('수정하기')
+				//$('#addRep').val('수정하기');
+				if($(this).closest('div').next('div').css('display')=="none"){
+					console.log('in1')
+					$('.replyWdw').css('display',"none")
+					$(this).closest('div').next('div').css('display',"block")
+				}
+				else{
+					console.log('in2')
+					$(this).closest('div').next('div').css('display',"none")
+				}
 			})
 	function selectBD(){
 		$.ajax({
@@ -336,13 +367,13 @@
 					// 		+cmt['deep']+"</td><td id='repbox' colspan=3><textarea placeholder='답글을 입력해 주세요'></textarea></td>"
 					// 		+"<td><input type=button class='btn btn-sm' style='width:80px;height:50px;' value='답글달기'  id='addRep'></td>"
 					// 		+"</tr></table>");
-					$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right;width: 800px;border: 1px solid red;'
+					$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right;width: 800px;border: 1px solid black;'
 							+'padding-left: 10px;padding-right: 10px;">'
-							+'<b style="font-size: larger">'+cmt['writer']
-							+'</b><a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
+							+'<b style="font-size: larger">'+cmt['writer']+'</b>'
+							+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
 							+cmt['content']+'<br>'
-							+'<span style="float: right"><a>수정</a>*<a>삭제</a>*<a id=reply>댓글달기</a></span></div>'
-							+'<div class=replyWdw style="float: right;width: 800px;border: 1px solid red;display: none">'
+							+'<span style="float: right"><a id="upCmt">수정</a>*<a id="delCmt">삭제</a>*<a id=reply>댓글달기</a></span></div>'
+							+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: 1px solid black;display: none">'
 							+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
 							+'<input type=button class="btn btn-sm" style="width:80px;'
 							+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'
@@ -363,13 +394,13 @@
 				for(i=0;i<data.length;i++) {
 					var cmt = data[i];
 					var adw = 800-(20*cmt['deep'])
-					$('#'+pSeq).after('<div id='+cmt['seqCmt']+'><div style="float: right;width: '+adw+'px;border: 1px solid red;'
+					$('#'+pSeq).after('<div id='+cmt['seqCmt']+'><div style="float: right;width: '+adw+'px;border: 1px solid black;'
 							+'padding-left: 10px;padding-right: 10px;">'
-							+'<b style="font-size: larger">'+cmt['writer']
-							+'</b><a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
+							+'<b style="font-size: larger">'+cmt['writer']+'</b>'
+							+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
 							+cmt['content']+'<br>'
-							+'<span style="float: right"><a>수정</a>*<a>삭제</a>*<a id=reply>댓글달기</a></span></div>'
-							+'<div class=replyWdw style="float: right;width: '+adw+'px;border: 1px solid red;display: none">'
+							+'<span style="float: right"><a id="upCmt">수정</a>*<a id="delCmt">삭제</a>*<a id=reply>댓글달기</a></span></div>'
+							+'<div id="repbox" class=replyWdw style="float: right;width: '+adw+'px;border: 1px solid black;display: none">'
 							+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
 							+'<input type=button class="btn btn-sm" style="width:80px;'
 							+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'

@@ -12,4 +12,5 @@ public interface iComments {
 	void delCmt(int seq);
 	void addRep(int pSe,int bSe,String content,String writer,int deep);
 	ArrayList<commentDTO> selRep(int seq);
+	void upCmt(String comment, int seq);
 }
