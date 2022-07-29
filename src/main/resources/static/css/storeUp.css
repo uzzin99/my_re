@@ -10,13 +10,69 @@ section {
 }
 
 .store-box{
-    margin: 50px 100px 0 100px;
-    width: 500px;
+    margin-left: 30%;
+    width: 600px;
+    display: flex;
+    justify-content: center;
 }
 
-#store-box input[type="text"]{
+.store-box input[type="text"]{
     border: none;
     outline: none;
     height: 30px;
     font-size: 16px;
 }
+.name-box h3 {
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+    width: 180px;
+    margin-top: 100px;
+}
+.span{
+    display: inline-block;
+    width: 150px;
+    height: 20px;
+    text-align: center;
+}
+
+
+/*버튼 모양 디자인 시작*/
+#btnAddress{ /*우편번호찾기*/
+    height: 30px;
+    width: 150px;
+    border-radius: 5px;
+    border: 1px solid #c4c2c2;
+}
+#imgbtn{ /*로고선택*/
+    display: inline-block;
+    padding: .5em .75em;
+    color: #8a8a8a;
+    font-size: inherit;
+    line-height: normal;
+    vertical-align: middle;
+    background-color: #fdfdfd;
+    cursor: pointer;
+    border: 1px solid #ebebeb;
+    border-bottom-color: #e2e2e2;
+    border-radius: 5px;
+}
+#s_img{  /* 파일 필드 숨기기 */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip:rect(0,0,0,0);
+    border: 0;
+}
+.submit-box{
+    text-align: center;
+}
+.submit-box input{ /*등록하기*/
+    height: 30px;
+    width: 150px;
+    border-radius: 5px;
+    border: 1px solid #c4c2c2;
+}
+/*버튼 모양 디자인 끝*/
+

@@ -237,7 +237,7 @@ a:hover{
             <td onclick=location.href='store?type=9'><img src="/MainLogo/족발.png">
               <p>족발/보쌈</p>
             </td>
-            <td honclick=location.href='store?type=10'><img src="/MainLogo/고기.png">
+            <td onclick=location.href='store?type=10'><img src="/MainLogo/고기.png">
               <p>고기/구이</p>
             </td>
             <td onclick=location.href='store?type=11'><img src="/MainLogo/아시안.png">

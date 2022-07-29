@@ -192,6 +192,14 @@ public class BoardController {
 		return "0";
 	}
 	@ResponseBody
+	@RequestMapping(value = "/upCmt", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doUpdateComments(HttpServletRequest req, Model model) {
+		int seq = Integer.parseInt(req.getParameter("seq"));
+		String content = req.getParameter("content");
+		cmt.upCmt(content,seq);
+		return "0";
+	}
+	@ResponseBody
 	@RequestMapping(value = "/selCmt", method = RequestMethod.POST,produces="application/text;charset=utf-8")
 	public String doSelComments(HttpServletRequest req, Model model) {
 		int seq = Integer.parseInt(req.getParameter("seq"));
@@ -296,21 +304,111 @@ public class BoardController {
 		System.out.println(ja.toJSONString());
 		return ja.toJSONString();
 	}
-//		@ResponseBody
-//		@RequestMapping(value="/menulist",produces="application/text;charset=utf-8")
-//		public String doList() {
-//			iMenu menu = sqlSession.getMapper(iMenu.class);
-//			ArrayList<Menu> arMenu = menu.getList();
-//			JSONArray ja=new JSONArray();
-//			for(int i=0;i<arMenu.size();i++) {
-//				Menu mdto = arMenu.get(i);
-//				JSONObject jo = new JSONObject();
-//				jo.put("seqno",mdto.getSeqno());
-//				jo.put("name",mdto.getName());
-//				jo.put("price",mdto.getPrice());
-//				ja.add(jo);
-//			}
-//			System.out.println(ja.toJSONString());
-//			return ja.toJSONString();
-//		}
+
+	@RequestMapping(value = "/QnA", method = RequestMethod.GET)
+	public String goQnA(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		//session.setAttribute("userid", (String)session.getAttribute("userid"));
+		model.addAttribute("userid", session.getAttribute("userid"));
+		System.out.println(brd.selQnAPage());
+		model.addAttribute("page",brd.selQnAPage());
+		if(session.getAttribute("crtpage")==null) {
+			session.setAttribute("crtpage",1);
+		}
+		if(session.getAttribute("selType")==null) {
+			session.setAttribute("selType","all");
+		}
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("selType",session.getAttribute("selType"));
+		System.out.println(session.getAttribute("crtpage"));
+		model.addAttribute("crtpage",session.getAttribute("crtpage"));
+
+		return "board/QnABoard";
+	}
+
+	@ResponseBody
+	@RequestMapping(value = "/selQnABrd", method = RequestMethod.POST,produces="application/text;charset=utf-8")
+	public String doQnASel(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		int page=1;
+		if(!(req.getParameter("page")==null)) {
+			page = Integer.parseInt(req.getParameter("page"));
+			session.setAttribute("crtpage", page);
+			System.out.println(page);
+		}
+		int page1 = ((page-1)*10)+1;
+		int page2 = page*10;
+		ArrayList<boardDTO> arBrd;
+		if(Integer.parseInt(req.getParameter("orderBy"))==1) {
+			arBrd=brd.selQnABrd(page1,page2);
+			session.setAttribute("searchStatus", Integer.parseInt(req.getParameter("orderBy")));
+		}
+		else{
+			arBrd=brd.selQnABrd_views(page1,page2);
+			session.setAttribute("searchStatus", Integer.parseInt(req.getParameter("orderBy")));
+		}
+		JSONArray ja=new JSONArray();
+		for(int i=0;i<arBrd.size();i++) {
+			boardDTO bdto = arBrd.get(i);
+			JSONObject jo = new JSONObject();
+			jo.put("seq",bdto.getBSeqno());
+			jo.put("writer",bdto.getWriter());
+			jo.put("date",bdto.getBDate());
+			jo.put("title",bdto.getTitle());
+			jo.put("views",bdto.getViews());
+			ja.add(jo);
+		}
+		return ja.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value="/searchQnATitle",produces="application/text;charset=utf-8")
+	public String SearchQnA(HttpServletRequest req, Model model, HttpServletRequest request) {
+		HttpSession session = req.getSession();
+		String title = req.getParameter("word");
+		String type;
+		if(title=="") {
+			type="all";
+		}else {
+			type="title";
+		}
+		int page=1;
+		if(!(req.getParameter("page")==null)) {
+			page = Integer.parseInt(req.getParameter("page"));
+			session.setAttribute("crtpage", page);
+			System.out.println(page);
+		}
+		ArrayList<boardDTO> arBrd;
+		int page1 = ((page-1)*10)+1;
+		int page2 = page*10;
+		if(Integer.parseInt(req.getParameter("orderBy"))==1) {
+			arBrd = brd.selQnATitle(title,page1,page2);
+			session.setAttribute("searchStatus", Integer.parseInt(req.getParameter("orderBy")));
+		}
+		else {
+			arBrd = brd.selQnATitleView(title,page1,page2);
+			session.setAttribute("searchStatus", Integer.parseInt(req.getParameter("orderBy")));
+		}
+		//System.out.println("정렬 번호="+req.getParameter("orderBy"));
+		JSONArray ja=new JSONArray();
+		int cntPage = brd.searchQnATitle(title);
+		for(int i=0;i<arBrd.size();i++) {
+			boardDTO bdto = arBrd.get(i);
+			JSONObject jo = new JSONObject();
+			jo.put("seq",bdto.getBSeqno());
+			jo.put("writer",bdto.getWriter());
+			jo.put("date",bdto.getBDate());
+			jo.put("title",bdto.getTitle());
+			jo.put("views",bdto.getViews());
+			jo.put("page",cntPage);
+			jo.put("selType",type);
+			ja.add(jo);
+		}
+		//model.addAttribute("page",ibd.searchBD_title(title));
+		System.out.println(title);
+		System.out.println(brd.searchQnATitle(title));
+		System.out.println(ja.toJSONString());
+		return ja.toJSONString();
+	}
+
 }
