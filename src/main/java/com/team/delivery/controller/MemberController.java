@@ -234,7 +234,7 @@ public class MemberController {
 					session.setAttribute("userType", "사장님");
 				}
 			}else {
-				model.addAttribute("ch","<h5>등록되지 않은 계정입니다.</h5>");
+				model.addAttribute("ch","<h7>등록되지 않은 계정입니다.</h7>");
 				return "member/login";
 			}
 

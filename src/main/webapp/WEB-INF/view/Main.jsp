@@ -160,7 +160,7 @@ a:hover{
                    ${mExtraaddress } ${mDetailaddress}
                   </button></p>
             <p style="display:inline; float: right;"><a href="#">예약목록📄</a></p>
-            <p style="display:inline; float: right;"><a href="#">장바구니🛒&nbsp;&nbsp;</a></p>
+            <p style="display:inline; float: right;"><a href="cart">장바구니🛒&nbsp;&nbsp;</a></p>
             <p style="display:inline; float: right;"><a href="#">찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
           </div>
         </c:if>
@@ -361,7 +361,7 @@ a:hover{
 				}
 			}
 		})
-	  $('#slider-div').append('<div><img class="item" src="../food3/음식1.jpg"></div>')
+	  $('#slider-div').append('<div><img class="item" src="/image/"></div>')
   }
 </script>
 </html>

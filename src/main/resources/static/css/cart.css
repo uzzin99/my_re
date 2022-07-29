@@ -1,0 +1,75 @@
+* {
+    font-family: 'GongGothicMedium';
+}
+
+/* 폰트 */
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+section {
+    overflow: auto;
+    font-family: 'GongGothicMedium';
+    background-color: #f8f9fa;
+
+}
+/*section 안의 스크롤바 숨기기*/
+section::-webkit-scrollbar {
+    display: none;
+}
+
+input{
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid #c4c2c2;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+span {
+    font-size: 20px;
+    background: linear-gradient(to top, #39c0c0 40%, transparent 30%);
+}
+
+.cartname{
+    font-size: 30px;
+    background: linear-gradient(to top, #39c0c0 40%, transparent 30%);
+}
+
+#cart_footer span {
+    text-align: right;
+}
+
+.quantity_input{
+    width:40px;
+}
+
+.plus_btn, .minus_btn{
+    width: 25px;
+    height: 25px;
+    color: #707070;
+    font-size: 15px;
+}
+
+.del_btn{
+    width: 25px;
+    height: 25px;
+    border: 2px solid #f8f9fa;
+    background-color: #c4c2c2;
+    color: #707070;
+    font-size: 13px;
+}
+
+.btn_buy{
+    width: 400px;
+    height: 50px;
+    color: #707070;
+}
+
+input[type="button"]:hover {
+    color: black;
+}

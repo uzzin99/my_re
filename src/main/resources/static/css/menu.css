@@ -50,7 +50,6 @@ input {
     height: 150px;
 }
 
-/* �� (�޴�,����,��������)*/
 .tab {
     margin-left: 50px;
     text-align: center;
@@ -104,10 +103,13 @@ input[id="tab03"]:checked~.con3 {
     display: block;
 }
 
-/* �޴�,���� �̹��� */
 .menu_img {
     width: 150px;
     height: 130px;
+}
+
+#a{
+    cursor:pointer;
 }
 
 #a input {
@@ -175,4 +177,7 @@ input[id="tab03"]:checked~.con3 {
     background-color: #fff;
 }
 
-
+.menuImg{
+    width: 150px;
+    height: 150px;
+}
