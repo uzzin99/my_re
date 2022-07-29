@@ -18,4 +18,7 @@
 <select id="selRep" resultType="com.team.delivery.DTO.commentDTO">
 	select c_seqno,p_se,b_se,content,writer,c_date,deep,groupno from comments where p_se=#{param1} order by c_date
 </select>
+<update id="upCmt">
+	update comments set content=#{param1} where c_seqno=#{param2}
+</update>
 </mapper>
