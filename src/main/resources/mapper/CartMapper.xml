@@ -34,4 +34,9 @@
 <select id="checkCart" parameterType="com.team.delivery.DTO.cartDTO" resultType="com.team.delivery.DTO.cartDTO">
 	select * from cart where m_id=#{mId} and m_se=#{mSe}
 </select>
+
+<!--  장바구니 확인(같은가게만 주문 가능함)	-->
+	<select id="checkStore" parameterType="com.team.delivery.DTO.cartDTO" resultType="int">
+		select count(*) cnt from cart where m_id=#{mId} and s_se=#{sSe}
+	</select>
 </mapper>
