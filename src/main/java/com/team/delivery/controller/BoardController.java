@@ -33,7 +33,7 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		//session.setAttribute("userid", (String)session.getAttribute("userid"));
 		model.addAttribute("userid", session.getAttribute("userid"));
-		System.out.println(brd.selPage());
+		//System.out.println("page="+brd.selPage());
 		model.addAttribute("page",brd.selPage());
 		if(session.getAttribute("crtpage")==null) {
 			session.setAttribute("crtpage",1);
@@ -44,7 +44,7 @@ public class BoardController {
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 		model.addAttribute("selType",session.getAttribute("selType"));
-		System.out.println(session.getAttribute("crtpage"));
+		System.out.println("현재 페이지="+session.getAttribute("crtpage"));
 		model.addAttribute("crtpage",session.getAttribute("crtpage"));
 
 		return "board/Boardhome";
@@ -57,7 +57,7 @@ public class BoardController {
 		if(!(req.getParameter("page")==null)) {
 			page = Integer.parseInt(req.getParameter("page"));
 			session.setAttribute("crtpage", page);
-			System.out.println(page);
+			System.out.println("page="+page);
 		}
 		int page1 = ((page-1)*10)+1;
 		int page2 = page*10;
@@ -106,7 +106,18 @@ public class BoardController {
 		boardDTO bDTO=brd.showBrd(seq);
 		JSONArray ja=new JSONArray();
 		JSONObject jo = new JSONObject();
+		jo.put("seq",bDTO.getBSeqno());
+		jo.put("type",bDTO.getBtype());
+		jo.put("writer",bDTO.getWriter());
+		jo.put("date",bDTO.getBDate());
+		jo.put("content", bDTO.getContent());
+		jo.put("title",bDTO.getTitle());
+		jo.put("views",bDTO.getViews());
+		System.out.println("게시글 타입="+bDTO.getBtype());
 		ArrayList<boardDTO> pnBD=brd.PNBD(seq);
+		if(bDTO.getBtype() != 1){
+			pnBD=brd.PNBD2(seq);
+		}
 		for(int i=0;i<pnBD.size();i++) {
 			boardDTO pndto = pnBD.get(i);
 			jo.put("seq"+i,pndto.getBSeqno());
@@ -124,12 +135,6 @@ public class BoardController {
 				jo.put("views2",pndto.getViews());
 			}
 		}
-		jo.put("seq",bDTO.getBSeqno());
-		jo.put("writer",bDTO.getWriter());
-		jo.put("date",bDTO.getBDate());
-		jo.put("content", bDTO.getContent());
-		jo.put("title",bDTO.getTitle());
-		jo.put("views",bDTO.getViews());
 		ja.add(jo);
 		return ja.toJSONString();
 	}
@@ -143,7 +148,13 @@ public class BoardController {
 	@RequestMapping(value = "/addBoard", method = RequestMethod.POST,produces="application/text;charset=utf-8")
 	public String doAddBD(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
-		String writer =(String) session.getAttribute("userid");
+		String writer = (String) session.getAttribute("userid");
+		if (session.getAttribute("userType")=="손님") {
+			writer += " 🍮";
+		}
+		else if (session.getAttribute("userType")=="사장님") {
+			writer += " 👩‍🍳";
+		}
 		model.addAttribute("userid", writer);
 		String title = req.getParameter("title");
 		String content = req.getParameter("editordata");
@@ -164,6 +175,7 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		int seq = Integer.parseInt(req.getParameter("seq"));
 		boardDTO bDTO=brd.showBrd(seq);
+		model.addAttribute("type",bDTO.getBtype());
 		model.addAttribute("seq",bDTO.getBSeqno());
 		model.addAttribute("writer",bDTO.getWriter());
 		model.addAttribute("date",bDTO.getBDate());
@@ -188,6 +200,12 @@ public class BoardController {
 		int seq = Integer.parseInt(req.getParameter("seq"));
 		String content = req.getParameter("content");
 		String writer =(String) session.getAttribute("userid");
+		if (session.getAttribute("userType")=="손님") {
+			writer += " 🍮";
+		}
+		else if (session.getAttribute("userType")=="사장님") {
+			writer += " 👩‍🍳";
+		}
 		cmt.addCmt(seq, content, writer);
 		return "0";
 	}
@@ -234,6 +252,12 @@ public class BoardController {
 		int deep = Integer.parseInt(req.getParameter("deep"))+1;
 		String content = req.getParameter("content");
 		String writer =(String) session.getAttribute("userid");
+		if (session.getAttribute("userType")=="손님") {
+			writer += " 🍮";
+		}
+		else if (session.getAttribute("userType")=="사장님") {
+			writer += " 👩‍🍳";
+		}
 		cmt.addRep(pSeq, bSeq, content, writer, deep);
 		return "0";
 	}
@@ -270,7 +294,7 @@ public class BoardController {
 		if(!(req.getParameter("page")==null)) {
 			page = Integer.parseInt(req.getParameter("page"));
 			session.setAttribute("crtpage", page);
-			System.out.println(page);
+			System.out.println("page="+page);
 		}
 		ArrayList<boardDTO> arBrd;
 		int page1 = ((page-1)*10)+1;
@@ -299,9 +323,9 @@ public class BoardController {
 			ja.add(jo);
 		}
 		//model.addAttribute("page",ibd.searchBD_title(title));
-		System.out.println(title);
-		System.out.println(brd.searchBDTitle(title));
-		System.out.println(ja.toJSONString());
+		//System.out.println("title="+title);
+		//System.out.println(brd.searchBDTitle(title));
+		//System.out.println(ja.toJSONString());
 		return ja.toJSONString();
 	}
 
@@ -310,7 +334,7 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		//session.setAttribute("userid", (String)session.getAttribute("userid"));
 		model.addAttribute("userid", session.getAttribute("userid"));
-		System.out.println(brd.selQnAPage());
+		System.out.println("QnA Page="+brd.selQnAPage());
 		model.addAttribute("page",brd.selQnAPage());
 		if(session.getAttribute("crtpage")==null) {
 			session.setAttribute("crtpage",1);
@@ -321,7 +345,7 @@ public class BoardController {
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 		model.addAttribute("selType",session.getAttribute("selType"));
-		System.out.println(session.getAttribute("crtpage"));
+		System.out.println("현재 페이지="+session.getAttribute("crtpage"));
 		model.addAttribute("crtpage",session.getAttribute("crtpage"));
 
 		return "board/QnABoard";
@@ -335,7 +359,7 @@ public class BoardController {
 		if(!(req.getParameter("page")==null)) {
 			page = Integer.parseInt(req.getParameter("page"));
 			session.setAttribute("crtpage", page);
-			System.out.println(page);
+			System.out.println("page="+page);
 		}
 		int page1 = ((page-1)*10)+1;
 		int page2 = page*10;
@@ -376,7 +400,7 @@ public class BoardController {
 		if(!(req.getParameter("page")==null)) {
 			page = Integer.parseInt(req.getParameter("page"));
 			session.setAttribute("crtpage", page);
-			System.out.println(page);
+			System.out.println("page="+page);
 		}
 		ArrayList<boardDTO> arBrd;
 		int page1 = ((page-1)*10)+1;
@@ -405,10 +429,15 @@ public class BoardController {
 			ja.add(jo);
 		}
 		//model.addAttribute("page",ibd.searchBD_title(title));
-		System.out.println(title);
-		System.out.println(brd.searchQnATitle(title));
-		System.out.println(ja.toJSONString());
+		System.out.println("title="+title);
+		//System.out.println(brd.searchQnATitle(title));
+		//System.out.println(ja.toJSONString());
 		return ja.toJSONString();
+	}
+	@RequestMapping(value = "/mapTesting", method = RequestMethod.GET,produces="application/text;charset=utf-8")
+	public String goMap(HttpServletRequest req) {
+
+		return "board/mapTest";
 	}
 
 }

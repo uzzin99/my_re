@@ -102,7 +102,7 @@ a:hover{
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
-              <li><a class="dropdown-item" href="#">Q&A</a></li>
+              <li><a class="dropdown-item" href="QnA">Q&A</a></li>
               <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
             </ul>
           </li>
@@ -305,63 +305,53 @@ a:hover{
 </body>
 <script>
   $(document)
-  $('#slider-div').slick({
-    slide: 'div',        //슬라이드 되어야 할 태그 ex) div, li
-    infinite: true,     //무한 반복 옵션
-    slidesToShow: 4,        // 한 화면에 보여질 컨텐츠 개수
-    slidesToScroll: 1,        //스크롤 한번에 움직일 컨텐츠 개수
-    speed: 100,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
-    arrows: true,         // 옆으로 이동하는 화살표 표시 여부
-    // dots : true,         // 스크롤바 아래 점으로 페이지네이션 여부
-    autoplay: true,            // 자동 스크롤 사용 여부
-    autoplaySpeed: 2000,         // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
-    pauseOnHover: true,        // 슬라이드 이동    시 마우스 호버하면 슬라이더 멈추게 설정
-    vertical: false,        // 세로 방향 슬라이드 옵션
-    prevArrow: "<button type='button' class='slick-prev'></button>",        // 이전 화살표 모양 설정
-    nextArrow: "<button type='button' class='slick-next'>Next</button>",        // 다음 화살표 모양 설정
-    dotsClass: "slick-dots",     //아래 나오는 페이지네이션(점) css class 지정
-    draggable: true,     //드래그 가능 여부
-    responsive: [ // 반응형 웹 구현 옵션
-      {
-        breakpoint: 960, //화면 사이즈 960px
-        settings: {
-          slidesToShow: 3
-        }
-      },
-      {
-        breakpoint: 768, //화면 사이즈 768px
-        settings: {
-          slidesToShow: 2
-        }
-      }
-    ]
-  });
-
+  .ready(function(){
+    randomImg();
+  })
   function randomImg(){
 	  $.ajax({
 			type:'post',dataType:'json',
-			url:'',
+			url:'randImg',
 			data:'',
 			success:function(data){
-				$('#brdList').empty();
+				$('#slider-div').empty();
 				for(i=0;i<data.length;i++) {
-					let brd = data[i];
-					let date = brd['date'].split(' ');
-					$('#brdList').append("<tr><td hidden>"+brd['seq']+"</td><td>"
-							+date[0]+"</td><td><a href='/ajax/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
-							+brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
-							+"<div class='dropdown'>"
-							+"<a class='btn btn-info dropdown-toggle btn-sm' href='#' role='button'"
-							+"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
-							+"메뉴</a>"
-							+"<ul class='dropdown-menu' aria-labelledby='dropdownMenuLink'>"
-						    +"<li><a class='dropdown-item' id='delBD'>삭제</a></li>"
-						    +"<li><a class='dropdown-item' id='upBD'>수정</a></li>"
-						  +"</ul></div></td></tr>");
+					let store = data[i];
+                  $('#slider-div').append('<div><a href="store/menu?sSeqno='+store['Sseqno']+'"><img class="item" src="/image/'+store['Simg']+'"></a></div>')
 				}
+                $('#slider-div').slick({
+                slide: 'div',        //슬라이드 되어야 할 태그 ex) div, li
+                infinite: true,     //무한 반복 옵션
+                slidesToShow: 4,        // 한 화면에 보여질 컨텐츠 개수
+                slidesToScroll: 1,        //스크롤 한번에 움직일 컨텐츠 개수
+                speed: 100,     // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+                arrows: true,         // 옆으로 이동하는 화살표 표시 여부
+                // dots : true,         // 스크롤바 아래 점으로 페이지네이션 여부
+                autoplay: true,            // 자동 스크롤 사용 여부
+                autoplaySpeed: 2000,         // 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+                pauseOnHover: true,        // 슬라이드 이동    시 마우스 호버하면 슬라이더 멈추게 설정
+                vertical: false,        // 세로 방향 슬라이드 옵션
+                prevArrow: "<button type='button' class='slick-prev'></button>",        // 이전 화살표 모양 설정
+                nextArrow: "<button type='button' class='slick-next'>Next</button>",        // 다음 화살표 모양 설정
+                dotsClass: "slick-dots",     //아래 나오는 페이지네이션(점) css class 지정
+                draggable: true,     //드래그 가능 여부
+                responsive: [ // 반응형 웹 구현 옵션
+                  {
+                    breakpoint: 960, //화면 사이즈 960px
+                    settings: {
+                      slidesToShow: 3
+                    }
+                  },
+                  {
+                    breakpoint: 768, //화면 사이즈 768px
+                    settings: {
+                      slidesToShow: 2
+                    }
+                  }
+                ]
+              })
 			}
 		})
-	  $('#slider-div').append('<div><img class="item" src="/image/"></div>')
   }
 </script>
 </html>

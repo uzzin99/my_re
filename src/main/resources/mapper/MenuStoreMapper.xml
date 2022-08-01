@@ -57,5 +57,9 @@ insert into store values(store_seq.nextval,#{param1},#{param2},#{param3},#{param
 <select id="selStore" resultType="com.team.delivery.DTO.StoreDTO">
    select * from store where m_id = #{param1}
 </select>
+<select id="selRandStore" resultType="com.team.delivery.DTO.StoreDTO">
+	select * from( select * from store order by DBMS_RANDOM.RANDOM) where s_img is not null and rownum <![CDATA[ < ]]> 7
+</select>
+
 
 </mapper>

@@ -19,6 +19,7 @@ public interface iBoard {
 	ArrayList<boardDTO> selBDTitle(String title,int page1, int page2);
 	ArrayList<boardDTO> selBDTitleView(String title,int page1, int page2);
 	ArrayList<boardDTO> PNBD(int seq);
+	ArrayList<boardDTO> PNBD2(int seq);
 	ArrayList<boardDTO> selQnABrd(int page1,int page2);
 	ArrayList<boardDTO> selQnABrd_views(int page1,int page2);
 	ArrayList<boardDTO> selQnATitle(String title,int page1, int page2);

@@ -68,31 +68,16 @@
 	}
 </style>
 <body>
+<div id="wrap" class="wrap mx-auto"></div>
+<!-- 여기가 헤드 -->
 <header>
-	<div class="login">
-
-		<c:if test="${userinfo == null}">
-			<p align=right><a href="#">🛒</a> <a onclick=location.href='/login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
-		</c:if>
-		<c:if test="${userinfo != '' }">
-			<c:if test="${userType == '손님' }">
-				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
-			</c:if>
-			<c:if test="${userType == '사장님' }">
-				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
-			</c:if>
-		</c:if>
-
-	</div>
-
-
 	<p align="center" onclick=location.href='main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 
 <!-- 여기가 네비바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Menu</a>
+		<a class="navbar-brand" href="/main">Home</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -100,7 +85,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
+					<a class="nav-link active" aria-current="page" href="#">Menu</a>
 				</li>
 
 				<li class="nav-item dropdown">
@@ -151,7 +136,7 @@
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						<li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
-						<li><a class="dropdown-item" href="#">Q&A</a></li>
+						<li><a class="dropdown-item" href="QnA">Q&A</a></li>
 						<li><a class="dropdown-item" href="#">자주묻는질문</a></li>
 					</ul>
 				</li>
@@ -181,37 +166,54 @@
 	<%--</table>--%>
 	<br>
 	<div id="cmtdiv">
-		<table>
-			<tr><td id="datbox"><textarea name=dat id=dat placeholder="댓글을 입력해 주세요"></textarea></td>
-				<td style="width:90px;height:60px"><input type=button id=btnPut value='댓글달기' class='btn btn-sm' style="width:80px;height:50px" ></td></tr>
-		</table>
-		<table border="1px solid" id="cmtList" style="width:800px;justify-content: space-between;">
-
-		</table>
-		<br>
 	</div>
 
 	<div id="PNdiv">
 	</div>
 	<br>
 	<div id="btnBack">
-		<input type=button id=btnExit value='목록으로 돌아가기'>
 	</div>
+	<br>
 	<input type=text id=uid hidden>
 </section>
+<footer id="footer">
+	<div class="container2">
+		<div class="row">
+			<div class="footer">
+				<ul>
+					<li><a href="#">사이트 도움말</a></li>
+					<li><a href="#">사이트 이용약관</a></li>
+					<li><a href="#">사이트 운영원칙</a></li>
+					<li><a href="#"><strong>개인정보취급방침</strong></a></li>
+					<li><a href="#">책임과 한계와 법적고지</a></li>
+					<li><a href="#">개시중단요청서비스</a></li>
+					<li><a href="#">고객센터</a></li>
+				</ul>
+				<address>
+					Cappyright ㉿
+					<a href="http://naver.com"><strong>NAVER.</strong>
+					</a>
+				</address>
+			</div>
+		</div>
+	</div>
+</footer>
 </body>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
+	let RoU = 1;
 	$(document)
 			.ready(function(){
 				selectBD();
-				selCmt();
 				console.log('${userid}');
 			})
 			.on('click','#btnPut',function(){
 				if ('${userid}'==''){
-					alert('로그인한 유저만 이용가능합니다.')
-					return false;
+					if(confirm('로그인한 유저만 이용가능합니다.\n로그인하시겠습니까?')){
+						document.location='/login'
+					}else {
+						return false;
+					}
 				}
 				else{
 					if($('#dat').val()==""){
@@ -232,6 +234,7 @@
 			})
 			.on('click','#reply',function(){
 				console.log('clicked')
+				RoU=1;
 				$(this).closest('div').next('div').find('#addRep').val('답글달기')
 				//$('#addRep').val('답글달기');
 				if($(this).closest('div').next('div').css('display')=="none"){
@@ -249,8 +252,11 @@
 						+' ,deep='+$(this).next('input').val())
 				console.log('content='+$(this).prev('textarea').val())
 				if ('${userid}'==''){
-					alert('로그인한 유저만 이용가능합니다.')
-					return false;
+					if(confirm('로그인한 유저만 이용가능합니다.\n로그인하시겠습니까?')){
+						document.location='/login'
+					}else {
+						return false;
+					}
 				}
 				else{
 					if($(this).prev('textarea').val()==""){
@@ -258,7 +264,7 @@
 						return false;
 					}
 					else{
-						if($('#addRep').val()=='답글달기'){
+						if(RoU==1){
 							$.ajax({
 								type:'post',dataType:'json',
 								url:'addRep',
@@ -272,11 +278,11 @@
 								}
 							})
 						}
-						else{
+						else if(RoU==2){
 							$.ajax({
 								type:'post',dataType:'json',
 								url:'upCmt',
-								data:'seq='+$(this).closest('div').parent().attr('id')+${seq}+'&content='+$(this).prev('textarea').val(),
+								data:'seq='+$(this).closest('div').parent().attr('id')+'&content='+$(this).prev('textarea').val(),
 								success:function(data){
 									console.log('댓글 수정 성공(?)');
 									$('#rep').text('');
@@ -289,37 +295,60 @@
 			})
 			.on('click','#delCmt',function(){
 				console.log('seq='+$(this).closest('div').parent().attr('id'));
-				console.log('writer='+$(this).closest('div').find('b').text());
-				if($(this).closest('div').find('b').text()=='${userid}'){
-					$.ajax({
-						type:'post',dataType:'json',
-						url:'delCmt',
-						data:'seq='+$(this).closest('div').parent().attr('id')+'&bdseq='+${seq},
-						success:function(data){
-							selCmt();
-						}
-					})
+				let writer = $(this).closest('div').find('b').text().split(' ')
+				console.log('writer='+writer[0]);
+				if ('${userid}'==''){
+					if(confirm('로그인한 유저만 이용가능합니다.\n로그인하시겠습니까?')){
+						document.location='/login'
+					}else {
+						return false;
+					}
 				}
 				else{
-					alert('작성자만 지울 수 있습니다.');
-					return false;
+					if(writer[0]=='${userid}'){
+						$.ajax({
+							type:'post',dataType:'json',
+							url:'delCmt',
+							data:'seq='+$(this).closest('div').parent().attr('id')+'&bdseq='+${seq},
+							success:function(data){
+								selCmt();
+							}
+						})
+					}
+					else{
+						alert('작성자만 지울 수 있습니다.');
+						return false;
+					}
 				}
-			})
-			.on('click','#btnExit',function(){
-				console.log('clicked');
-				document.location='/home';
 			})
 			.on('click','#upCmt',function(){
-				$(this).closest('div').next('div').find('#addRep').val('수정하기')
-				//$('#addRep').val('수정하기');
-				if($(this).closest('div').next('div').css('display')=="none"){
-					console.log('in1')
-					$('.replyWdw').css('display',"none")
-					$(this).closest('div').next('div').css('display',"block")
+				RoU=2;
+				let writer = $(this).closest('div').find('b').text().split(' ')
+				if ('${userid}'==''){
+					if(confirm('로그인한 유저만 이용가능합니다.\n로그인하시겠습니까?')){
+						document.location='/login'
+					}else {
+						return false;
+					}
 				}
 				else{
-					console.log('in2')
-					$(this).closest('div').next('div').css('display',"none")
+					if (writer[0]=='${userid}'){
+						$(this).closest('div').next('div').find('#addRep').val('수정하기')
+						//$('#addRep').val('수정하기');
+						if($(this).closest('div').next('div').css('display')=="none"){
+							console.log('in1')
+							$('.replyWdw').css('display',"none")
+							$(this).closest('div').next('div').css('display',"block")
+						}
+						else{
+							console.log('in2')
+							$(this).closest('div').next('div').css('display',"none")
+						}
+					}
+					else{
+						alert('작성자만 가능한 기능입니다.');
+						return false;
+					}
 				}
 			})
 	function selectBD(){
@@ -336,8 +365,34 @@
 				// $('#joindate').val(brd['date']);
 				// $('#content').append(brd['content']);
 				$('title').text(brd['title']);
+				console.log(brd['type']);
 				$('#PNdiv').append('<a id=prev href=show?seq='+brd['seq0']+'>다음글: '+brd['title0']+'</a><hr>'
 						+'<a id=next href=show?seq='+brd['seq2']+'>이전글: '+brd['title2']+'</a>')
+				//일반 게시글 구성: 댓글, 게시글목록으로 귀환
+				if(brd['type']==1){
+					$('#cmtdiv').append('<table><tr><td id="datbox"><textarea name=dat id=dat'
+						+' placeholder="댓글을 입력해 주세요"></textarea></td>'
+						+'<td style="width:90px;height:60px"><input type=button id=btnPut value="댓글달기" class="btn btn-sm"'
+						+' style="width:80px;height:50px" ></td></tr></table>'
+						+'<table border="1px solid" id="cmtList" style="width:800px;justify-content: space-between;">'
+						+'</table><br>')
+					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" onclick=location.href="home">')
+				}
+				//QnA 구성: 댓글, QnA목록으로 귀환
+				else if(brd['type']==2){
+					$('#cmtdiv').append('<table><tr><td id="datbox"><textarea name=dat id=dat'
+							+' placeholder="댓글을 입력해 주세요"></textarea></td>'
+							+'<td style="width:90px;height:60px"><input type=button id=btnPut value="댓글달기" class="btn btn-sm"'
+							+' style="width:80px;height:50px" ></td></tr></table>'
+							+'<table border="1px solid" id="cmtList" style="width:800px;justify-content: space-between;">'
+							+'</table><br>')
+					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" onclick=location.href="QnA">')
+				}
+				//자주묻는 질문: 구성 no 댓글, QnA목록으로 귀환
+				else{
+					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" onclick=location.href="QnA">')
+				}
+				selCmt();
 			}
 		})
 	}
