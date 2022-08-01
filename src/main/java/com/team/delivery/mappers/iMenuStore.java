@@ -14,6 +14,11 @@ public interface iMenuStore {
 	void insertStore(String mId, String sName, String post, String sAddress, String sdetailaddress,
 					String sExtraaddress, String s_bsNum, String sMobile,int sType, String sImg);
 
+	void modifyStore1(String m_id, String s_name, String post, String storeAds, String detailAds, String extraAds,
+					  String s_num, String s_mobile, int s_type, String s_logo);
+	void modifyStore2(String m_id, String s_name,  String post, String storeAds, String detailAds, String extraAds,
+					  String s_num,  String s_mobile, int s_type);
+
 	void insertMenu(int sSeq, String name, int price, String ex, String img, String cal);
 	
 	ArrayList<StoreDTO> selectMenuList(int sSeq);

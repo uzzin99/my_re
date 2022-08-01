@@ -7,9 +7,7 @@
     font-weight: normal;
     font-style: normal;
 }
-section{
-    height: 100%;
-}
+
 /*전체크기 지정 시작*/
 #container{
     margin: 0 0 5% 15%;
@@ -21,7 +19,7 @@ section{
     font-size: 16px;
 }
 input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-inner-spin-button {/*화살표 모양 없애기*/
     -webkit-appearance: none;
     margin: 0;
 }
@@ -131,8 +129,8 @@ h3 {
     line-height: 2px;
     display: flex;
 }
-.a input{
-    height: 30px;
+.a input{ /*선택버튼*/
+    height: 25px;
     width: 50px;
     border-radius: 5px;
     border: 1px solid #c4c2c2;

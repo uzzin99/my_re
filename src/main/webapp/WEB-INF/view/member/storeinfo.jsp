@@ -131,7 +131,7 @@
                 <td style="width:200px">상호명</td><td>${sVO.SName}</td>
             </tr>
             <tr>
-                <td style="width:200px">가게 주소</td><td>${sVO.SAddress} ${sVO.SDetailaddress}, ${sVO.SExtraaddress}(${sVO.SPostcode})</td>
+                <td style="width:200px">가게 주소</td><td>(${sVO.SPostcode}) ${sVO.SAddress} ${sVO.SDetailaddress}, ${sVO.SExtraaddress}</td>
             </tr>
             <tr>
                 <td style="width:200px">사업자등록번호</td><td>${sVO.bsNum}</td>
@@ -140,27 +140,34 @@
                 <td style="width:200px">전화번호</td><td>${sVO.SMobile}</td>
             </tr>
             <tr>
-                <td style="width:200px">타입</td><td>${sVO.SType}</td>
+                <td style="width:200px">타입</td><td>${sVO.typeName}</td>
             </tr>
             <tr>
                 <td style="width:200px">가게로고이미지</td>
                 <c:if test="${sVO.SImg!=null}">
-                    <td>${sVO.SImg}</td>
+                    <td>
+                        <img src="/image/${sVO.SImg}">
+                    </td>
                 </c:if>
                 <c:if test="${sVO.SImg==null}"><%--가게 로고 등록하기--%>
-                    <form action="sImg_mo" method="POST"  enctype="multipart/form-data">
-                        <td colspan="2"><input type="file" id="sfile" name="sfile">
-                                        <input type="submit" id="storeimg" name="storeimg" value="로고등록">
-                                        <input type="text" id="s_seq" name="s_seq" value="${sVO.SSeqno}"></td>
+                    <form action="sImg_mo" method="POST" enctype="multipart/form-data">
+                        <td>
+                            <label for="sfile" id="storeimgbtn">로고선택</label>
+                            <input type="file" id="sfile" name="sfile">&nbsp;&nbsp;
+                            <input type="submit" id="storeimg" name="storeimg" value="로고등록">
+                            <input type="hidden" id="s_seq" name="s_seq" value="${sVO.SSeqno}">
+                        </td>
                     </form>
                 </c:if>
             </tr>
         </table><br>
-        <input type=button id=btnReturn value="돌아가기" method='get' onclick="location.href='signUp'">
-        <input type=button id=btn_s value="메뉴 등록 및 수정" method='get' onclick="location.href='m_up'">
+        <input type=button id="btnStoreMo" value="가게정보 수정하기" method="get" onclick="location.href='s_list'">
+        <input type=button id=btn_s value="메뉴 등록 및 수정하기" method='get' onclick="location.href='m_up'">
+        <br>
+        <span id="spanReturn"><a id=btnReturn method='get' onclick="location.href='signUp'">돌아가기</a></span>
     </div>
 </section>
-
+<%--footer--%>
 <footer id="footer">
     <div class="container2">
         <div class="row">

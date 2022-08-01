@@ -19,10 +19,24 @@
 insert into store values(store_seq.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},
 						#{param6},#{param7},#{param8},#{param9},#{param10})
 </insert>
+
 <!--가게로고추가하기-->
 <update id="updateLogo">
 	update store set s_img=#{param1} where s_seqno=#{param2}
 </update>
+
+<!--가게 정보 수정하기-->
+<update id="modifyStore1">
+update store set s_name=#{param2}, s_postcode=#{param3}, s_address=#{param4}, s_detailaddress=#{param5},
+				 s_extraaddress=#{param6}, bs_num=#{param7}, s_mobile=#{param8}, s_type=#{param9}, s_img=#{param10}
+			 where m_id=#{param1}
+</update>
+<update id="modifyStore2">
+update store set s_name=#{param2}, s_postcode=#{param3}, s_address=#{param4}, s_detailaddress=#{param5},
+				 s_extraaddress=#{param6}, bs_num=#{param7}, s_mobile=#{param8}, s_type=#{param9}
+			 where m_id=#{param1}
+</update>
+
 <!-- 매뉴 등록 -->
 <insert id="insertMenu">
 	insert into menu values(menu_seq.nextval, #{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
@@ -55,7 +69,6 @@ insert into store values(store_seq.nextval,#{param1},#{param2},#{param3},#{param
    select count(*) from store where m_id = #{param1}
 </select>
 <select id="selStore" resultType="com.team.delivery.DTO.StoreDTO">
-   select * from store where m_id = #{param1}
+   select * from store a, s_type b where a.s_type=b.s_type and m_id = #{param1}
 </select>
-
 </mapper>

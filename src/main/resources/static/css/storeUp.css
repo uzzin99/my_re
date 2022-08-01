@@ -1,3 +1,7 @@
+* {
+    font-family: 'GongGothicMedium';
+
+}
 @font-face {
     font-family: 'GongGothicMedium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
@@ -5,8 +9,8 @@
     font-style: normal;
 }
 section {
-    font-family: 'GongGothicMedium';
     background-color: #f8f9fa;
+    height: auto;
 }
 
 .store-box{
@@ -16,7 +20,7 @@ section {
     justify-content: center;
 }
 
-.store-box input[type="text"]{
+.store-box input[type="text"], input[type="number"]{
     border: none;
     outline: none;
     height: 30px;
@@ -33,16 +37,29 @@ section {
     height: 20px;
     text-align: center;
 }
-
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {/*number 화살표 모양 없애기*/
+    -webkit-appearance: none;
+    margin: 0;
+}
 
 /*버튼 모양 디자인 시작*/
-#btnAddress{ /*우편번호찾기*/
+#btnAddress{ /*우편번호 찾기*/
     height: 30px;
     width: 150px;
     border-radius: 5px;
     border: 1px solid #c4c2c2;
 }
-#imgbtn{ /*로고선택*/
+.submit-box{
+    text-align: center;
+}
+.submit-box input{ /*등록하기*/
+    height: 30px;
+    width: 150px;
+    border-radius: 5px;
+    border: 1px solid #c4c2c2;
+}
+#imgbtn{ /*로고선택 버튼*/
     display: inline-block;
     padding: .5em .75em;
     color: #8a8a8a;
@@ -64,15 +81,6 @@ section {
     overflow: hidden;
     clip:rect(0,0,0,0);
     border: 0;
-}
-.submit-box{
-    text-align: center;
-}
-.submit-box input{ /*등록하기*/
-    height: 30px;
-    width: 150px;
-    border-radius: 5px;
-    border: 1px solid #c4c2c2;
 }
 /*버튼 모양 디자인 끝*/
 
