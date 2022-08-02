@@ -27,6 +27,14 @@ public class MemberController {
 	private final iMember ime;
 	private final iMenuStore ims;
 
+		@RequestMapping("/signUp/payment")
+		public String paymentDetails(HttpServletRequest request, Model model){
+			HttpSession session=request.getSession();
+			model.addAttribute("userinfo",session.getAttribute("userid"));
+			model.addAttribute("userType",session.getAttribute("userType"));
+			return "member/paymentDetails";
+		}
+
 		@RequestMapping("/signUp/dvListup")
 		public String dvList(@RequestParam("se") int se, Model model) {
 			mDTO selList = ime.seList(se);
@@ -84,7 +92,7 @@ public class MemberController {
 			if(checked.equals("Y")) {
 				ime.addDelivery(mId, address, postcode, detailaddress, extraaddress, newname, newmobile);
 				ime.upDelivery(postcode, address, detailaddress, extraaddress,mId);
-			}else { //����� ���
+			}else {
 				ime.addDelivery(mId, address, postcode, detailaddress, extraaddress, newname, newmobile);
 			}
 			

@@ -27,6 +27,14 @@
     <link href="css/storeUp.css" rel="stylesheet" type="text/css" />
     <title>storeUp</title>
 </head>
+<style>
+    a:hover{
+        cursor: pointer;
+    }
+    .logo:hover{
+        cursor:pointer;
+    }
+</style>
 <body>
 <!-- 여기가 헤드 -->
 <header>

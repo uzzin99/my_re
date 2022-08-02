@@ -29,7 +29,9 @@
 	a:hover {
 		cursor:pointer;
 	}
-
+	.logo:hover{
+		cursor:pointer;
+	}
 </style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>

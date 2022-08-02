@@ -1,30 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="https://kit.fontawesome.com/c07327e483.js" crossorigin="anonymous"></script> -->
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-            crossorigin="anonymous"></script>
-    <!-- Slick 불러오기 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https:/6/cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
-    <!-- css -->
-    <link href="css/base.css" rel="stylesheet" type="text/css" />
-    <link href="css/signUp.css" rel="stylesheet" type="text/css" />
-    <title>singUp</title>
+<html>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- <script src="https://kit.fontawesome.com/c07327e483.js" crossorigin="anonymous"></script> -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+<!-- Slick 불러오기 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+<!-- css -->
+<link href="/css/base.css" rel="stylesheet" type="text/css" />
+<link href="/css/review.css" rel="stylesheet" type="text/css" />
+    <title>Review</title>
 </head>
 <style>
     a:hover{
@@ -40,17 +38,18 @@
 <header>
     <div class="login">
         <c:if test="${userinfo == null }">
-            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/login'>로그인</a> &nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
+
     <p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 
@@ -115,7 +114,7 @@
                         게시판
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
+                        <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
                         <li><a class="dropdown-item" href="#">Q&A</a></li>
                         <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
                     </ul>
@@ -123,63 +122,26 @@
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
 </nav>
 
-<section>
-    <div align="center"><br><br>
-        <h2>계정 정보</h2><br>
-        <div onclick=location.href='signUp/checkpwd'>
-            <p>${mdto.MName } 님</p>
-        </div>
-        <div onclick=location.href='signUp/informationUp'>
-            <p>로그인 정보</p>
-        </div>
-        <c:if test="${userType == '손님' }">
-            <div onclick=location.href='signUp/payment'>
-                <p>주문내역</p>
-            </div>
-            <div onclick=location.href='signUp/deliveryUp'>
-                <p>배송지 관리 (총 ${cnt }건)</p>
-                <p>현재 주소지: ${mdto.MAddress } ${mdto.MExtraAddress}, ${mdto.MDetailAddress }</p>
-            </div>
-        </c:if>
-        <c:if test="${userType == '사장님' }">
-            <div>
-                <c:if test="${cntStore == 0}">
-                    <div onclick=location.href='s_up'>
-                        <a>등록된 가게가 없습니다. 가게를 등록해 주세요.</a><br>
-                    </div>
-                </c:if>
-                <c:if test="${cntStore == 1}">
-                    <div onclick=location.href='s_info'>
-                        <table class="storeIntro"><br><br>
-                            <tr>
-                                <td rowspan=3 class="img" style="width: 250px;" align="center">
-                                    <c:if test="${sVO.SImg==null}"><a href="#">이미지 등록하기</a> </c:if>
-                                    <c:if test="${sVO.SImg!=null}"><img id=logoImg src='/image/${sVO.SImg}'></c:if>
-                                </td>
-                                <td style="width: 100px;">가게명</td>
-                                <td style="width: 450px;">${sVO.SName}</td>
-                            </tr>
-                            <tr>
-                                <td>전화번호</td>
-                                <td>${sVO.SMobile }</td>
-                            </tr>
-                            <tr>
-                                <td>가게주소</td>
-                                <td>${sVO.SAddress} ${sVO.SExtraaddress}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </c:if>
-            </div>
-        </c:if><br>
-        <a id=back class="back">돌아가기</a>&nbsp;&nbsp;&nbsp;<a id=delInformation class="back 01">회원탈퇴</a>
-    </div>
+<section align="center">
+    <form name="myform" id="myform" method="post" action="./save">
+        <fieldset>
+<%--            <legend>별점</legend>--%>
+            <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
+            <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
+            <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
+            <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
+            <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
+        </fieldset><br><br>
+        <textarea>
+
+            </textarea>
+    </form>
 </section>
 
 <footer id="footer">
@@ -205,17 +167,4 @@
     </div>
 </footer>
 </body>
-<script>
-    $(document)
-        .on('click', '#back', function () {
-            location.href = 'main';
-        })
-        .on('click', '#delInformation', function () {
-            answer = confirm("정말 탈퇴하시겠습니까??");
-            if (answer) {
-                location.href = 'signUp/delInformation';
-            }
-        })
-</script>
-
 </html>

@@ -28,6 +28,15 @@ public class StoreController {
 	
 	private final iStore store;
 
+	@RequestMapping("/review")
+	public String Review(HttpServletRequest request, Model model){
+		HttpSession session=request.getSession();
+
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+		return "store/review";
+	}
+
 	@RequestMapping("/store/menuDetail")
 	public String menuDetail(@RequestParam("mSe") int mSe,
 			@RequestParam("sSe") int sSe,

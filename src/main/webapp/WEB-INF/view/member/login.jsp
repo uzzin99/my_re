@@ -26,7 +26,11 @@
 	<link href="css/login.css" rel="stylesheet" type="text/css" />
 	<title>Login</title>
 </head>
-
+<style>
+	.logo:hover{
+		cursor:pointer;
+	}
+</style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->
@@ -44,7 +48,7 @@
 <%--			</c:if>--%>
 <%--		</c:if>--%>
 <%--	</div>--%>
-	<p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
+	<p align="center" onclick=location.href='/main'><img class="logos" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 
 <!-- 여기가 네비바 -->

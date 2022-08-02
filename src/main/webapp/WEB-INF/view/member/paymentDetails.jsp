@@ -1,9 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="en">
-
+<%--
+  Created by IntelliJ IDEA.
+  User: admin
+  Date: 2022-08-02
+  Time: 오전 10:35
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,13 +22,13 @@
             crossorigin="anonymous"></script>
     <!-- Slick 불러오기 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https:/6/cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <!-- css -->
-    <link href="css/base.css" rel="stylesheet" type="text/css" />
-    <link href="css/signUp.css" rel="stylesheet" type="text/css" />
-    <title>singUp</title>
+    <link href="/css/base.css" rel="stylesheet" type="text/css" />
+    <link href="/css/paymentDetails.css" rel="stylesheet" type="text/css" />
+    <title>Payment</title>
 </head>
 <style>
     a:hover{
@@ -40,17 +44,18 @@
 <header>
     <div class="login">
         <c:if test="${userinfo == null }">
-            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/login'>로그인</a> &nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
+
     <p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 
@@ -115,7 +120,7 @@
                         게시판
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
+                        <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
                         <li><a class="dropdown-item" href="#">Q&A</a></li>
                         <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
                     </ul>
@@ -123,65 +128,41 @@
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
 </nav>
 
 <section>
-    <div align="center"><br><br>
-        <h2>계정 정보</h2><br>
-        <div onclick=location.href='signUp/checkpwd'>
-            <p>${mdto.MName } 님</p>
-        </div>
-        <div onclick=location.href='signUp/informationUp'>
-            <p>로그인 정보</p>
-        </div>
-        <c:if test="${userType == '손님' }">
-            <div onclick=location.href='signUp/payment'>
-                <p>주문내역</p>
+    <div class="tab"><br>
+        <input type="radio" name="tabmenu" id="tab01"  checked>
+        <label for="tab01">주문내역</label>
+        <input type="radio" name="tabmenu" id="tab02">
+        <label for="tab02">예약내역</label>
+
+        <div class="conbox con1">
+            <div class="mar">
+                <p>날짜</p>
+                <div>
+                    <a href="/review">리뷰작성</a>
+                </div>
+                <div class="sName">
+                    <a>가게이름</a>
+                </div>
+                <div class="price">
+                    가격
+                </div>
             </div>
-            <div onclick=location.href='signUp/deliveryUp'>
-                <p>배송지 관리 (총 ${cnt }건)</p>
-                <p>현재 주소지: ${mdto.MAddress } ${mdto.MExtraAddress}, ${mdto.MDetailAddress }</p>
-            </div>
-        </c:if>
-        <c:if test="${userType == '사장님' }">
+        </div>
+
+        <div class="conbox con2">
             <div>
-                <c:if test="${cntStore == 0}">
-                    <div onclick=location.href='s_up'>
-                        <a>등록된 가게가 없습니다. 가게를 등록해 주세요.</a><br>
-                    </div>
-                </c:if>
-                <c:if test="${cntStore == 1}">
-                    <div onclick=location.href='s_info'>
-                        <table class="storeIntro"><br><br>
-                            <tr>
-                                <td rowspan=3 class="img" style="width: 250px;" align="center">
-                                    <c:if test="${sVO.SImg==null}"><a href="#">이미지 등록하기</a> </c:if>
-                                    <c:if test="${sVO.SImg!=null}"><img id=logoImg src='/image/${sVO.SImg}'></c:if>
-                                </td>
-                                <td style="width: 100px;">가게명</td>
-                                <td style="width: 450px;">${sVO.SName}</td>
-                            </tr>
-                            <tr>
-                                <td>전화번호</td>
-                                <td>${sVO.SMobile }</td>
-                            </tr>
-                            <tr>
-                                <td>가게주소</td>
-                                <td>${sVO.SAddress} ${sVO.SExtraaddress}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </c:if>
+
             </div>
-        </c:if><br>
-        <a id=back class="back">돌아가기</a>&nbsp;&nbsp;&nbsp;<a id=delInformation class="back 01">회원탈퇴</a>
+        </div>
     </div>
 </section>
-
 <footer id="footer">
     <div class="container2">
         <div class="row">
@@ -205,17 +186,4 @@
     </div>
 </footer>
 </body>
-<script>
-    $(document)
-        .on('click', '#back', function () {
-            location.href = 'main';
-        })
-        .on('click', '#delInformation', function () {
-            answer = confirm("정말 탈퇴하시겠습니까??");
-            if (answer) {
-                location.href = 'signUp/delInformation';
-            }
-        })
-</script>
-
 </html>

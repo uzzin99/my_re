@@ -3,7 +3,6 @@
     font-family: 'GongGothicMedium';
 }
 
-/* ��Ʈ */
 @font-face {
     font-family: 'GongGothicMedium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
@@ -25,7 +24,6 @@ span {
     background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
 } 
 
-/* �������� */
 table {
     width: 100%;
     text-align: center;
@@ -83,8 +81,9 @@ input[type="radio"]:checked+label {
     display: none;
     border-radius: 15px;
     background-color: #f1f1f1;
-    margin-left: 20px;
-    margin-top: 20px;
+    /*margin-left: 20px;*/
+    /*margin-top: 20px;*/
+    margin: auto;
 }
 
 .conbox input {

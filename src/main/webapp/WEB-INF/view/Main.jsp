@@ -32,12 +32,15 @@
 a:hover{
 	cursor:pointer;
 }
+.default:hover{
+  cursor: default;
+}
 </style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
   <!-- 여기가 헤드 -->
   <header>
-  <p align="center" onclick=location.href='main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
+  <p align="center" onclick=location.href='main'><img class="logos" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
   </header>
 
   <!-- 여기가 네비바 -->
@@ -143,7 +146,7 @@ a:hover{
     <div>
       <c:if test="${userinfo == '' }">
         <div class="login2" float="left">
-          <p>로그인을 해주세요</p>
+          <p class="default">로그인을 해주세요</p>
           <p align=center><input type="button" class="btn btn-primary" onclick=location.href='login'
                                  value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;배달의민족 로그인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></p>
           <p style="display:inline;">🔒아이디.비밀번호 찾기</p>
