@@ -153,7 +153,7 @@
 					<p><span class="span" id="menu_img2" >이미지 변경</span>
 					<input type=hidden id=s_seq2 name=sSeq2 value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
 					<input type=hidden id="m_seq2" name="mSeq2" value="0">
-					<label for="img_mo" id="imgbtn2" ">업로드</label>&nbsp;&nbsp;
+					<label for="img_mo" id="imgbtn2">업로드</label>&nbsp;&nbsp;
 					<input type=file id=img_mo name=file2>
 					<input type="hidden" id="title" name="title">
 					<input type=submit id=btnMo value="사진 수정하기" ></p>
@@ -258,10 +258,20 @@ $(document)
 
 //추가&수정버튼 누르기
 .on('click','#btnIn',function() {
-	if(('#btnIn').val()=='수정'){
+	if($('#btnIn').val()=='수정'){
 		if(!confirm("매뉴를 수정 하시겠습니까?")) return false;
-	}else{
-		if(!confirm("메뉴를 등록 하시겠습니까?")) return false;
+	}else if($('#btnIn').val()=='추가'){
+		if($('#menuname').val()==''){
+			alert("메뉴 이름을 입력하세요.")
+			$('#menuname').focus();
+			return false;
+		}else if($('#menuprice').val()==''){
+			alert("메뉴 가격을 입력하세요.");
+			$('#menuprice').focus();
+			return false;
+		}else {
+			if (!confirm("메뉴를 등록 하시겠습니까?")) return false;
+		}
 	}
 })
 
@@ -303,6 +313,9 @@ function loadmenulist(){
 				for(let i=0;i<data.length;i++){
 					let jo=data[i];
 					//console.log(jo['m_img']);
+					jo['m_img'];
+
+
 					str+="<div class=a>";
 					str+="<img src='/image/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
 					str+="<p>메뉴이름: "+jo['mName']+"</p>";

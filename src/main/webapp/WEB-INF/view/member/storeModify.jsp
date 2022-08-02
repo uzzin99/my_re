@@ -119,37 +119,45 @@
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
 </nav>
-<!-- 가게 등록하기 -->
+<!-- 가게 정보 수정하기 -->
 <section>
     <div class="store-box" >
-        <form action=storeAdd method='POST' enctype="multipart/form-data">
+        <form action=storeMo method='POST' enctype="multipart/form-data">
             <div class ="name-box" align="center">
-                <span><h3>가게등록하기</h3></span>
+                <span><h3>가게 정보 수정</h3></span>
                 <input type=hidden id=member_id name=member_id value="${userinfo}"><br>
             </div>
             <div class="insert-box">
-                <p><span class="span">상호 명</span><input type=text id=storename name=storename /></p>
-                <p><span class="span">가게 주소</span><input type="text" id=postcode name=postcode placeholder="우편번호" style="width:80px">&nbsp;
-                <input type="button" id=btnAddress value="우편번호찾기"></p>
-                <p><span class="span"></span><input type="text" id=address name=address placeholder="주소" readonly></p>
-                <p><span class="span"></span><input type="text" id=detailAddress name=detailAddress placeholder="상세주소">&nbsp;
-                <input type="text" id=extraAddress name=extraAddress placeholder="참고항목" readonly></p>
+                <p><span class="span">상호 명</span>
+                   <input type=text id=storename name=storename value="${sVO.SName}"/></p>
+                <p><span class="span">가게 주소</span>
+                   <input type="text" id=postcode name=postcode placeholder="우편번호" style="width:80px" value="${sVO.SPostcode}">&nbsp;
+                   <input type="button" id=btnAddress value="우편번호찾기"></p>
+                <p><span class="span"></span>
+                   <input type="text" id=address name=address placeholder="주소" value="${sVO.SAddress}" readonly></p>
+                <p><span class="span"></span>
+                   <input type="text" id=detailAddress name=detailAddress placeholder="상세주소" value="${sVO.SDetailaddress}">&nbsp;
+                   <input type="text" id=extraAddress name=extraAddress placeholder="참고항목" value="${sVO.SExtraaddress}"readonly></p>
 
-                <p><span class="span">사업자등록번호</span><input type=number id=storenum name="storenum"/></p>
-                <p><span class="span">가게 전화번호</span><input type=number id=storetel name="storetel"/></p>
-                <p><span class="span">메뉴타입</span><select id=menutype name="menutype">
-                                                        <option value=0>타입선택</option>
-                                                        <c:forEach var="li" items="${list}">
-                                                            <option value="${li.SType}">${li.typeName}</option>
-                                                        </c:forEach>
-                                                    </select></p>
+                <p><span class="span">사업자등록번호</span>
+                   <input type=number id=storenum name="storenum" value="${sVO.bsNum}"/></p>
+                <p><span class="span">가게 전화번호</span>
+                   <input type=number id=storetel name="storetel" value="${sVO.SMobile}"/></p>
+                <p><span class="span">메뉴타입</span>
+                   <select id=menutype name="menutype">
+                        <option value=0>타입선택</option>
+                        <c:forEach var="li" items="${list}">
+                            <option value="${li.SType}">${li.typeName}</option>
+                        </c:forEach>
+                    </select></p>
                 <p><span class="span">가게 로고 등록하기</span>
-                    <label for="s_img" id="imgbtn">로고선택</label>
-                    <input type=file id=s_img name="file"></p>
+                   <label for="s_img" id="imgbtn">로고선택</label>
+                   <input type=file id=s_img name="file">
+                   <input type="hidden" name="hidlogo" value="${sVO.SImg}"></p>
             </div>
             <div class="submit-box">
-                <input type=submit id=btnUp value="등록하기">&nbsp;&nbsp;
-                <input type="button" id="btnReturn" value="돌아가기" >
+                <input type=submit id=btnUp value="변경항목 저장">&nbsp;
+                <input type="button" id="btnReturn" value="돌아가기" onclick="location.href='s_info'">
             </div>
         </form>
     </div>
@@ -181,84 +189,90 @@
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-$(document)
-.ready(function(){
-})
+    $(document)
+        .ready(function(){
+        })
 
-//가게 등록하기버튼
-.on('click','#btnUp',function() {
-    if ($('#storename').val() == '') {
-        alert("상호명을 입력해주세요.");
-        $('#storename').focus();
-        return false;
-    } else if ($('#address').val() == '') {
-        alert("가게 주소를 입력해 주세요.");
-        $('#address').focus();
-        return false;
-    } else if ($('#detailAddress').val() == ''){
-        alert("가게 상세주소를 입력해 주세요.");
-        $('#detailAddress').focus();
-        return false;
-    } else if ($('#storenum').val() == ''){
-        alert("사업자등록번호를 입력해 주세요.");
-        $('#storenum').focus();
-        return false;
-    } else if ($('#storetel').val() == ''){
-        alert("가게 전화번호를 입력해 주세요.");
-        $('#storetel').focus();
-        return false;
-    }else if($('#menutype option:selected').val()==0){
-        alert("메뉴 타입을 선택하여 주세요.");
-        return false;
+        //가게 등록하기버튼
+        .on('click','#btnUp',function() {
+            if ($('#storename').val() == '') {
+                alert("상호명을 입력해주세요.");
+                $('#storename').focus();
+                return false;
+            } else if ($('#address').val() == '') {
+                alert("가게 주소를 입력해 주세요.");
+                $('#address').focus();
+                return false;
+            } else if ($('#detailAddress').val() == ''){
+                alert("가게 세부주소를 입력해 주세요.");
+                $('#detailAddress').focus();
+                return false;
+            } else if ($('#storenum').val() == ''){
+                alert("사업자등록번호를 입력해 주세요.");
+                $('#storenum').focus();
+                return false;
+            } else if ($('#storetel').val() == ''){
+                alert("가게 전화번호를 입력해 주세요.");
+                $('#storetel').focus();
+                return false;
+            }else if($('#menutype option:selected').val()==0){
+                alert("메뉴 타입을 선택하여 주세요.");
+                return false;
+            }else{
+                if(confirm("변경 사항을 저장하시겠습니까?")){
+                    document.location='/signUp';
+                }else{
+                    return false;
+                }
+            }
+        })
+
+        .on('click','#btnAddress',function(){
+            roadMap();
+        })
+
+    //주소 찾기 API 함수
+    function roadMap(){
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    $('#extraAddress').val(extraAddr);
+
+                } else {
+                    $('#extraAddress').val('');
+                }
+
+                $('#postcode').val(data.zonecode);
+                $('#address').val(addr);
+
+                $('#detailAddress').focus();
+            }
+        }).open();
     }
-})
-
-.on('click','#btnAddress',function(){
-    roadMap();
-})
-
-//주소 찾기 API 함수
-function roadMap(){
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var addr = ''; // 주소 변수
-            var extraAddr = ''; // 참고항목 변수
-
-            //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                addr = data.roadAddress;
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                addr = data.jibunAddress;
-            }
-
-            // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-            if(data.userSelectedType === 'R'){
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraAddr !== ''){
-                    extraAddr = ' (' + extraAddr + ')';
-                }
-                $('#extraAddress').val(extraAddr);
-
-            } else {
-                $('#extraAddress').val('');
-            }
-
-            $('#postcode').val(data.zonecode);
-            $('#address').val(addr);
-
-            $('#detailAddress').focus();
-        }
-    }).open();
-}
 </script>
 </html>
