@@ -8,6 +8,8 @@ import com.team.delivery.mappers.iMenuStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.ArrayList;
 
 
 /**
@@ -58,6 +63,22 @@ public class HomeController {
 		
 		return "Main"
 				+ "";
+	}
+	@ResponseBody
+	@RequestMapping("/randImg")
+	public String doSelImg(HttpServletRequest req, Model model) {
+		ArrayList<StoreDTO> sVO=ims.selRandStore();
+
+		JSONArray ja=new JSONArray();
+		for(int i=0;i<sVO.size();i++) {
+			StoreDTO list=sVO.get(i);
+			JSONObject jo=new JSONObject();
+			jo.put("Sseqno",list.getSSeqno());
+			jo.put("Simg",list.getSImg());
+			ja.add(jo);
+		}
+		System.out.println("ja.toJSONString()="+ja.toJSONString());
+		return ja.toJSONString();
 	}
 	
 	
