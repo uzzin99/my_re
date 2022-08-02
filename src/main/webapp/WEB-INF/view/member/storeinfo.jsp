@@ -146,7 +146,7 @@
                 <td style="width:200px">가게로고이미지</td>
                 <c:if test="${sVO.SImg!=null}">
                     <td>
-                        <img src="/image/${sVO.SImg}">
+                        <img src="/image/${sVO.SImg}" style="width:200px;height:180px;">
                     </td>
                 </c:if>
                 <c:if test="${sVO.SImg==null}"><%--가게 로고 등록하기--%>

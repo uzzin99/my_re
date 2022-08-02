@@ -1,6 +1,12 @@
 package com.team.delivery.controller;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import java.io.File;
@@ -9,17 +15,16 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -39,6 +44,71 @@ public class MenuStoreController {
 
 	private String upLoadDirectory = "C:\\Users\\admin\\Downloads\\delivery\\delivery\\src\\main\\resources\\static\\upload";
 	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
+
+
+
+//	@Value("${com.example.upload.path}") // application.properties의 변수
+//	private String uploadPath;
+	//이미지 폴더 생성 경로(2)
+//	@RequestMapping ("/uploadAjax")
+//	public void uploadFile(MultipartFile[] uploadFiles, HttpServletRequest request){
+//		int sSe=Integer.parseInt(request.getParameter("s_seq"));
+////		System.out.println("folder - s_seq="+sSe);
+//
+//		String uploadFolder="C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
+//		File uploadPath = new File(uploadFolder, String.valueOf(sSe));
+//		log.info("upload path = "+uploadPath);
+//
+//		if (uploadPath.exists() == false) {
+//			uploadPath.mkdirs();
+//		}
+//
+//		for (MultipartFile multipartFile : uploadFiles){
+//			log.info("upload file name="+multipartFile.getOriginalFilename());
+//			log.info("upload dile size="+multipartFile.getSize());
+//
+//			String uploadFileName = multipartFile.getOriginalFilename();
+//			uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\")+1);
+//			File savefile=new File(uploadPath, uploadFileName);
+//			try{
+//				multipartFile.transferTo(savefile);
+//			}catch (Exception e){
+//			}
+//		}
+//	}
+//	private String getFolder(/*HttpServletRequest request*/){
+////		int sSe=Integer.parseInt(request.getParameter("s_seq"));
+////		System.out.println("folder - s_seq="+sSe);
+//		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+//		Date date=new Date();
+//		String str=sdf.format(date);
+//
+//		return str.replace("-",File.separator);
+//	}
+
+	//이미지 폴더 생성 경로(2)
+	public void makeDir(){
+		// 폴더를 만들 디렉토리 경로(Window 기반)
+		String folderPath = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
+
+		File makeFolder = new File(folderPath);
+
+		// folderPath의 디렉토리가 존재하지 않을경우 디렉토리 생성.
+		if(!makeFolder.exists()) {
+
+			// 폴더를 생성합니다.
+			makeFolder.mkdir();
+			System.out.println("폴더를 생성합니다.");
+
+			// 정성적으로 폴더 생성시 true를 반환합니다.
+			System.out.println("폴더가 존재하는지 체크 true/false : "+makeFolder.exists());
+
+		} else {
+			System.out.println("이미 해당 폴더가 존재합니다.");
+		}
+	}
+
+
 
 	//가게등록하기
 	@RequestMapping("/s_up")
@@ -100,16 +170,55 @@ public class MenuStoreController {
 	}
 
 	//가게 등록 후 로고 등록하기
+//	@RequestMapping(value = "/sImg_mo", method = RequestMethod.POST)
+//	public String doSImgmo(HttpServletRequest req, @RequestParam("sfile") MultipartFile file) {
+//		int sSe=Integer.parseInt(req.getParameter("s_seq"));
+//		//System.out.println("sSe="+sSe);
+//		String storelogo = file.getOriginalFilename();
+//		storelogo = storelogo.substring(storelogo.lastIndexOf("/") + 1); //문자열 자르기
+//		UUID uuid = UUID.randomUUID(); //랜덤이름생성
+//		storelogo = uuid.toString() + "_" + storelogo; //랜덤이름_업로드파일명
+//
+//		File f = new File(upLoadDirectory2, storelogo);
+//		String[]  str=storelogo.split("_");
+//		try {
+//			if(str.length==2){
+//				ims.updateLogo(storelogo, sSe);
+//				file.transferTo(f);
+//			}
+//		} catch (IllegalStateException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		return "redirect:/signUp";
+//	}
+
+
 	@RequestMapping(value = "/sImg_mo", method = RequestMethod.POST)
 	public String doSImgmo(HttpServletRequest req, @RequestParam("sfile") MultipartFile file) {
 		int sSe=Integer.parseInt(req.getParameter("s_seq"));
 		//System.out.println("sSe="+sSe);
 		String storelogo = file.getOriginalFilename();
+
 		storelogo = storelogo.substring(storelogo.lastIndexOf("/") + 1); //문자열 자르기
 		UUID uuid = UUID.randomUUID(); //랜덤이름생성
 		storelogo = uuid.toString() + "_" + storelogo; //랜덤이름_업로드파일명
-
 		File f = new File(upLoadDirectory2, storelogo);
+
+//		var upload=upLoadDirectory2+"\\"+sSe; //추가
+//		File f = new File(upload);
+//		// folderPath의 디렉토리가 존재하지 않을경우 디렉토리 생성.
+//		if(!f.exists()) {
+//			// 폴더를 생성합니다.
+//			f.mkdir();
+//			System.out.println("폴더를 생성합니다.");
+//			// 정성적으로 폴더 생성시 true를 반환합니다.
+//			System.out.println("폴더가 존재하는지 체크 true/false : "+f.exists());
+//		} else {
+//			System.out.println("이미 해당 폴더가 존재합니다.");
+//		}
+
 		String[]  str=storelogo.split("_");
 		try {
 			if(str.length==2){
@@ -123,6 +232,7 @@ public class MenuStoreController {
 		}
 		return "redirect:/signUp";
 	}
+
 
 	//가게 정보 및 로고 수정하기
 	@RequestMapping("/s_list")
@@ -140,6 +250,7 @@ public class MenuStoreController {
 
 	@RequestMapping(value="storeMo", method=RequestMethod.POST)
 	public String doStoreMo(HttpServletRequest req, @RequestParam("file") MultipartFile file){
+		//int sSe=Integer.parseInt(req.getParameter("s_seq")); //추가
 		String m_id = req.getParameter("member_id");
 		String s_name = req.getParameter("storename");
 		String postcode = req.getParameter("postcode");
@@ -149,23 +260,36 @@ public class MenuStoreController {
 		String s_num = req.getParameter("storenum");
 		String s_mobile = req.getParameter("storetel");
 		int s_type = Integer.parseInt(req.getParameter("menutype"));
-
-		System.out.println("가게수정 m_id="+m_id);
-
-
-
+		String title=req.getParameter("hidlogo");//불러온 이미지파일 이름
 
 		String storelogo = file.getOriginalFilename();
 		storelogo = storelogo.substring(storelogo.lastIndexOf("/") + 1); //문자열 자르기
+
 		UUID uuid = UUID.randomUUID(); //랜덤이름생성
 		storelogo = uuid.toString() + "_" + storelogo; //랜덤이름_업로드파일명
-
 		File f = new File(upLoadDirectory2, storelogo);
+
+//		var upload=upLoadDirectory2+"\\"+sSe; //추가
+//		File f = new File(upload);
+//		// folderPath의 디렉토리가 존재하지 않을경우 디렉토리 생성.
+//		if(!f.exists()) {
+//			// 폴더를 생성합니다.
+//			f.mkdir();
+//			System.out.println("폴더를 생성합니다.");
+//			// 정성적으로 폴더 생성시 true를 반환합니다.
+//			System.out.println("폴더가 존재하는지 체크 true/false : "+f.exists());
+//		} else {
+//			System.out.println("이미 해당 폴더가 존재합니다.");
+//		}
+
 		String[]  str=storelogo.split("_");
 		try {
 			if(str.length==2){
 				ims.modifyStore1(m_id,s_name,postcode,storeAds,detailAds,extraAds,s_num,s_mobile,s_type,storelogo);
 				file.transferTo(f);
+				//기존파일 삭제하기
+				File dfile = new File(upLoadDirectory2, title);
+				dfile.delete();
 			}else if(str.length==1){
 				ims.modifyStore2(m_id, s_name, postcode, storeAds, detailAds, extraAds, s_num, s_mobile, s_type);
 			}
@@ -174,9 +298,15 @@ public class MenuStoreController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		return "redirect:/signUp";
+		return "redirect:/storeinfo";
 	}
+
+//	@RequestMapping("/delstore")
+//	public String doDelStore(){
+//
+//
+//		return "redirect:/main";
+//	}
 
 
 	//--------------------------------------------------------------------------------------
@@ -208,7 +338,15 @@ public class MenuStoreController {
 		File f = new File(upLoadDirectory2, uploadFileName);
 		try {
 			if (mSeq == 0) {
-				ims.insertMenu(sSeq, name, price, ex, uploadFileName, cal);
+				String[]  str=uploadFileName.split("_");
+				//System.out.println("str[0]="+str[0]);
+				if(str.length==2){
+					ims.insertMenu(sSeq, name, price, ex, uploadFileName, cal);
+					file.transferTo(f);
+				}else if(str.length==1){ //img null인 경우
+					String nullimg="";
+					ims.insertMenu(sSeq, name, price, ex, nullimg, cal);
+				}
 			} else if (mSeq != 0) {
 				ims.modifyMenu(name, price, ex, cal, mSeq, sSeq);
 			}
@@ -243,13 +381,9 @@ public class MenuStoreController {
 			if(str.length==2){
 				ims.modifyImage(uploadFileName2, mSeq, sSeq);
 				file.transferTo(f);
-			}
-			//기존파일 삭제하기
-			File dfile = new File(upLoadDirectory2, title);
-			try {
+				//기존파일 삭제하기
+				File dfile = new File(upLoadDirectory2, title);
 				dfile.delete();
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
@@ -306,10 +440,15 @@ public class MenuStoreController {
 	public String delFile(@RequestParam("mSe") int mSeq, @RequestParam("sSe") int sSeq,
 										  @RequestParam("deleteFile") String filename) {
 		log.info("delete?mSe=" + mSeq + "&sSe=" + sSeq + "&deleteFile=" + filename);
+
 		File f = new File(upLoadDirectory2, filename);
 		try {
-			ims.deleteMenu(mSeq, sSeq);
-			f.delete();
+			if(filename =="imgload.png"){
+				ims.deleteMenu(mSeq, sSeq);
+			}else{
+				ims.deleteMenu(mSeq, sSeq);
+				f.delete();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
