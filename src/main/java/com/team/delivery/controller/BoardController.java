@@ -33,6 +33,8 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		//session.setAttribute("userid", (String)session.getAttribute("userid"));
 		model.addAttribute("userid", session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+
 		//System.out.println("page="+brd.selPage());
 		model.addAttribute("page",brd.selPage());
 		if(session.getAttribute("crtpage")==null) {
@@ -89,7 +91,6 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		model.addAttribute("userid", session.getAttribute("userid"));
 		model.addAttribute("seq",seq);
-		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 		return "board/showBoard";
 	}

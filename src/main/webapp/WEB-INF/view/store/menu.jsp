@@ -25,14 +25,18 @@
 
     <title>Menu</title>
 </head>
-
+<style>
+    a:hover{
+        cursor:pointer;
+    }
+</style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
-        <c:if test="${userinfo == '' }">
-            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='login'>로그인</a> &nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+        <c:if test="${userinfo == null }">
+            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/login'>로그인</a> &nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
@@ -108,7 +112,7 @@
                         게시판
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
+                        <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
                         <li><a class="dropdown-item" href="#">Q&A</a></li>
                         <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
                     </ul>
