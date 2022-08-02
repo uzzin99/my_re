@@ -5,7 +5,7 @@
     <title>bookinglist</title>
 </head>
 <body>
-aa
+aaas
 <h1 align="center"><input type="text" value='${sVO.SName}'></h1>
 <c:forEach var='i' items="${list}">
     <div align="center">
