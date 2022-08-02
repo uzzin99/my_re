@@ -160,7 +160,7 @@
 
         </table>
         <div style="width: 700px;height: 50px;margin-right: auto;margin-left: auto">
-            <a href='main' style="float: left">메인으로 돌아가기</a><a href='newpost' style="float: right">새글쓰기</a>
+           <a href='newpost' style="float: right">새글쓰기</a>
         </div>
         <div>
             <div align=center id="SearchDiv">
@@ -181,7 +181,6 @@
             </ul>
         </nav>
     </div>
-    <a href='test2'>결제테스트로 이동</a>
 </section>
 <footer id="footer">
     <div class="container2">

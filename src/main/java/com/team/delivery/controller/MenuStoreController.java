@@ -114,7 +114,9 @@ public class MenuStoreController {
 	@RequestMapping("/s_up")
 	public String doS_up(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
-		model.addAttribute("userinfo", session.getAttribute("userid"));
+
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
 
 		ArrayList<stypeVO> ar = ims.sType();
 		model.addAttribute("list", ar);
@@ -314,7 +316,8 @@ public class MenuStoreController {
 	@RequestMapping("/m_up")
 	public String doMup(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
-		model.addAttribute("userinfo", session.getAttribute("userid"));
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
 		StoreDTO sVO = ims.selStore((String) session.getAttribute("userid"));
 		model.addAttribute("sVO", sVO);
 		return "store/menuUp";

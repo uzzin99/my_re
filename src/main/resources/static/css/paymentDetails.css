@@ -1,0 +1,91 @@
+@charset "EUC-KR";
+* {
+    font-family: 'GongGothicMedium';
+}
+
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+section {
+    overflow: auto;
+    font-family: 'GongGothicMedium';
+    background-color: #f8f9fa;
+}
+/*section 안의 스크롤바 숨기기*/
+section::-webkit-scrollbar {
+    display: none;
+}
+
+.tab {
+    margin-left: 50px;
+    text-align: center;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label {
+    display: inline-block;
+    background-color: #f1f1f1;
+    color: #999;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: 'GongGothicMedium';
+    border-radius: 3px;
+    width: 100px;
+    height: 30px;
+}
+
+input[type="radio"]:checked+label {
+    background: linear-gradient(to top, #39c0c0 40%, transparent 30%);
+    background-color: #f1f1f1 ;
+    color: #000;
+}
+
+.conbox{
+    width: 600px;
+    height: 110px;
+    display: none;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+    /* margin-left: 20px;
+    margin-top: 20px; */
+    margin: auto;
+}
+
+.conbox input {
+    background-color: #f1f1f1;
+}
+
+input[id="tab01"]:checked~.con1 {
+    display: block;
+}
+
+input[id="tab02"]:checked~.con2 {
+    display: block;
+}
+
+p{
+    text-align: left;
+    font-size: 14px;
+}
+.mar{
+    margin-right: 20px;
+    margin-left: 20px;
+    padding-top: 1px;
+}
+
+.sName{
+    font-size: 25px;
+    text-align: left;
+}
+
+.price{
+    text-align: right;
+    font-size: 17px;
+}

@@ -1,29 +1,34 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%--
+  Created by IntelliJ IDEA.
+  User: admin
+  Date: 2022-08-02
+  Time: 오전 10:35
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
 <html>
-	<meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <script src="https://kit.fontawesome.com/c07327e483.js" crossorigin="anonymous"></script> -->
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-    crossorigin="anonymous"></script>
-  <!-- Slick 불러오기 -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="https://kit.fontawesome.com/c07327e483.js" crossorigin="anonymous"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+            crossorigin="anonymous"></script>
+    <!-- Slick 불러오기 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <link href="/css/menu.css" rel="stylesheet" type="text/css" />
-
-    <title>Menu</title>
+    <link href="/css/paymentDetails.css" rel="stylesheet" type="text/css" />
+    <title>Payment</title>
 </head>
 <style>
     a:hover{
@@ -129,87 +134,56 @@
     </form>
 </nav>
 
-  <section>
-    <table>
-		<tr><br>
-			<!-- <td>
-				<img class="sImg" src="${i.menuImg }">
-			</td> -->
-			<td>
-				<p><input type="text" readonly value="${storename.SName }"
-					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
-				<p>⭐⭐⭐⭐⭐ 4.9</p>
-				<p>최근리뷰 228 | 최근사장님댓글 0</p>
-				<p>전화 | 찜 | 공유</p>
-			</td>
-		</tr>
-	</table>
+<section>
+    <div class="tab"><br>
+        <input type="radio" name="tabmenu" id="tab01"  checked>
+        <label for="tab01">주문내역</label>
+        <input type="radio" name="tabmenu" id="tab02">
+        <label for="tab02">예약내역</label>
 
-	<div class="tab"><br>
-		<input type="radio" name="tabmenu" id="tab01"  checked>
-		<label for="tab01">대표메뉴</label>
-		<input type="radio" name="tabmenu" id="tab02">
-		<label for="tab02">리뷰</label>
-		<input type="radio" name="tabmenu" id="tab03">
-		<label for="tab03">가게정보</label>
-
-		<c:forEach var="i" items="${mlist }">
-			<div class="conbox con1" onclick=openPop(${i.menuSeqno},${i.SSe})>
-				<div id="a">
-					<img class="menuImg" src="/image/${i.menuImg }">
-					<input readonly type="text" value="${i.menuName }">
-					<input readonly type="text" value="${i.menuPrice }원">
-					<input readonly type="text" value="${i.menuCal }kcal">
-				</div>
-			</div>
-		</c:forEach>
-
-		<c:forEach var="i" items="${rlist }">
-			<div class="conbox con2">
-				<div id="b">
-					<img class="menuImg" src="/image/${i.menuImg }">
-					<input readonly type="text" style="float: left; margin-left: 20px;" value="${i.MId}"><br>
-					<input readonly type="text" style="float: right; margin-right: 25px;" value="${i.score }">
-					<input readonly type="text" style="float: right;" value="${i.RDate }"><br>
-					<input readonly type="textarea" value="${i.RContent }" style="width: 70%; height: 80px;">
-				</div>
-			</div>
-		</c:forEach>
-		
-		<div class="conbox con3">컨텐츠탭 내용03</div>
-
-	</div>
-  </section>
-
-  <footer id="footer">
-    <div class="container2">
-      <div class="row">
-        <div class="footer">
-          <ul>
-            <li><a href="#">사이트 도움말</a></li>
-            <li><a href="#">사이트 이용약관</a></li>
-            <li><a href="#">사이트 운영원칙</a></li>
-            <li><a href="#"><strong>개인정보취급방침</strong></a></li>
-            <li><a href="#">책임과 한계와 법적고지</a></li>
-            <li><a href="#">개시중단요청서비스</a></li>
-            <li><a href="#">고객센터</a></li>
-          </ul>
-          <address>
-            Cappyright ㉿
-            <a href="http://naver.com"><strong>NAVER.</strong>
-            </a>
-          </address>
+        <div class="conbox con1">
+            <div class="mar">
+                <p>날짜</p>
+                <div>
+                    <a href="/review">리뷰작성</a>
+                </div>
+                <div class="sName">
+                    <a>가게이름</a>
+                </div>
+                <div class="price">
+                    가격
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div class="conbox con2">
+            <div>
+
+            </div>
+        </div>
     </div>
-  </footer>
+</section>
+<footer id="footer">
+    <div class="container2">
+        <div class="row">
+            <div class="footer">
+                <ul>
+                    <li><a href="#">사이트 도움말</a></li>
+                    <li><a href="#">사이트 이용약관</a></li>
+                    <li><a href="#">사이트 운영원칙</a></li>
+                    <li><a href="#"><strong>개인정보취급방침</strong></a></li>
+                    <li><a href="#">책임과 한계와 법적고지</a></li>
+                    <li><a href="#">개시중단요청서비스</a></li>
+                    <li><a href="#">고객센터</a></li>
+                </ul>
+                <address>
+                    Cappyright ㉿
+                    <a href="http://naver.com"><strong>NAVER.</strong>
+                    </a>
+                </address>
+            </div>
+        </div>
+    </div>
+</footer>
 </body>
-<script>
-$(document)
-function openPop(mse,sse){
-   window.open('/store/menuDetail?mSe='+mse+'&sSe='+sse,'menuDetail','width=600px,height=700px,scrollbars=yes,resizable=no');
-}
-</script>
 </html>
-
-

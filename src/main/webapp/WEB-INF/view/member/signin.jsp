@@ -26,7 +26,14 @@
 	<link href="css/signin.css" rel="stylesheet" type="text/css" />
 	<title>signin</title>
 </head>
-
+<style>
+	a:hover{
+		cursor: pointer;
+	}
+	.logo:hover{
+		cursor:pointer;
+	}
+</style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->

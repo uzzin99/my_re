@@ -30,6 +30,9 @@
     a:hover{
         cursor:pointer;
     }
+    .logo:hover{
+        cursor:pointer;
+    }
 </style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
@@ -136,6 +139,9 @@
             <p>로그인 정보</p>
         </div>
         <c:if test="${userType == '손님' }">
+            <div onclick=location.href='signUp/payment'>
+                <p>주문내역</p>
+            </div>
             <div onclick=location.href='signUp/deliveryUp'>
                 <p>배송지 관리 (총 ${cnt }건)</p>
                 <p>현재 주소지: ${mdto.MAddress } ${mdto.MExtraAddress}, ${mdto.MDetailAddress }</p>
