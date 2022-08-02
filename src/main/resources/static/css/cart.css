@@ -55,6 +55,12 @@ span {
     font-size: 15px;
 }
 
+.modify_btn{
+    width: 70px;
+    height: 25px;
+    color: #707070;
+}
+
 .del_btn{
     width: 25px;
     height: 25px;

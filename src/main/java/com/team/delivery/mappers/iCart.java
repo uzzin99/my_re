@@ -10,11 +10,13 @@ public interface iCart {
 
 	int addCart(cartDTO cart) throws Exception;
 
-	//int delCart(int cartSeqno);
+	int delCart(int cartSeqno);
 
-	//int modifyCount(cartDTO cart);
+	int modifyCount(cartDTO cart);
 
 	ArrayList<cartDTO> listCart(String mId);
 
 	cartDTO checkCart(cartDTO cart);
+
+	int checkStore(cartDTO cart);
 }

@@ -109,8 +109,12 @@ function cartAlert(result){
 	} else if(result == '1'){
 		alert("장바구니에 추가되었습니다.");
 		moveCart();
-	} else if(result == '2'){
+	} else if(result == '2') {
 		alert("장바구니에 이미 추가되어져 있습니다.");
+		moveCart();
+	}else if(result == '4'){
+		alert("같은가게에서만 주문 할 수 있습니다." + "\n"
+				+"장바구니를 비우고 다시 시도해주세요.");
 		moveCart();
 	} else if(result == '5'){
 		//alert("로그인이 필요합니다.");
