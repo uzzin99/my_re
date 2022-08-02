@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface iStore {
+	StoreDTO storeName(int sSeqno);
 	ArrayList<StoreDTO> liststore(int sType);
 	ArrayList<StoreDTO> menutable(int sSeqno);
 	ArrayList<StoreDTO> searchtable(String word);

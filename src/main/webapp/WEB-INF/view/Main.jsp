@@ -81,18 +81,18 @@ a:hover{
               홀예약
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-              <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-              <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-              <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-              <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-              <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-              <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-              <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-              <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-              <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-              <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-              <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+              <li><a class="dropdown-item" href="hall?type=1">한식</a></li>
+              <li><a class="dropdown-item" href="hall?type=2">중식</a></li>
+              <li><a class="dropdown-item" href="hall?type=3">일식</a></li>
+              <li><a class="dropdown-item" href="hall?type=4">양식</a></li>
+              <li><a class="dropdown-item" href="hall?type=5">치킨</a></li>
+              <li><a class="dropdown-item" href="hall?type=6">피자</a></li>
+              <li><a class="dropdown-item" href="hall?type=7">분식</a></li>
+              <li><a class="dropdown-item" href="hall?type=8">디저트</a></li>
+              <li><a class="dropdown-item" href="hall?type=9">족발/보쌈</a></li>
+              <li><a class="dropdown-item" href="hall?type=10">고기/구이</a></li>
+              <li><a class="dropdown-item" href="hall?type=11">아시안</a></li>
+              <li><a class="dropdown-item" href="hall?type=12">패스트푸드</a></li>
             </ul>
 
           <li class="nav-item dropdown">
@@ -159,7 +159,7 @@ a:hover{
                    ${mAddress },<br>
                    ${mExtraaddress } ${mDetailaddress}
                   </button></p>
-            <p style="display:inline; float: right;"><a href="#">예약목록📄</a></p>
+            <p style="display:inline; float: right;"><a href="bookinglist">예약목록📄</a></p>
             <p style="display:inline; float: right;"><a href="cart">장바구니🛒&nbsp;&nbsp;</a></p>
             <p style="display:inline; float: right;"><a href="#">찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
           </div>
