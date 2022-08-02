@@ -6,6 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +17,11 @@ import org.springframework.web.bind.annotation.*;
 import com.team.delivery.DTO.cartDTO;
 import com.team.delivery.mappers.iCart;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.ArrayList;
 
 
@@ -58,6 +67,7 @@ public class CartController {
 
 		cartDTO cartdto = new cartDTO();
 		cartdto.setMId(mId);
+		System.out.println("sSe = "+sSe);
 		cartdto.setSSe(sSe);
 		cartdto.setMSe(mSe);
 		cartdto.setMenuCnt(cnt);
@@ -101,12 +111,58 @@ public class CartController {
 		model.addAttribute("userType",session.getAttribute("userType"));
 
 		String mid=(String) session.getAttribute("userid");
+		//주소
 		if(mid != null) {
 			ArrayList<cartDTO> cart = ica.listCart(mid);
+			//arrayList에서 sSe를 뽑아내기 위해 cartDTO를 선언
+			if(cart.size() != 0){
+				cartDTO cDTO = cart.get(0);
+				model.addAttribute("Saddr",ica.selStoreAddr(cDTO.getSSe()));
+			}
+//			System.out.println("cDTO = "+cDTO);
+//			System.out.println("cart = "+cart);
+//			System.out.println("Maddr = "+ica.selMemberAddr(mid));
+//			System.out.println("Saddr = "+ica.selStoreAddr(cDTO.getSSe()));
+			model.addAttribute("size",cart.size());
+			model.addAttribute("Maddr",ica.selMemberAddr(mid));
 			model.addAttribute("cart", cart);
 		}else{
 			return "member/errorLogin";
 		}
+		return "store/cart";
+	}
+	@RequestMapping(value = "/orderList", method = RequestMethod.GET)
+	public String watchorder(HttpServletRequest req, Model model) {
+		HttpSession session=req.getSession();
+
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create("https://api.tosspayments.com/v1/payments/orders/"+req.getParameter("orderId")))
+				.header("Authorization", "Basic dGVzdF9za196WExrS0V5cE5BcldtbzUwblgzbG1lYXhZRzVSOg==")
+				.method("GET", HttpRequest.BodyPublishers.noBody())
+				.build();
+		try {
+			HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+			String a = response.body();
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(a);
+			JSONObject jsonObj = (JSONObject) obj;
+//			System.out.println(jsonObj);
+//			System.out.println("orderName = "+(String)jsonObj.get("orderName"));
+//			System.out.println("totalAmount = "+(long)jsonObj.get("totalAmount"));
+//			System.out.println("requestedAt = "+(String)jsonObj.get("requestedAt"));
+			ica.addOrder((String)session.getAttribute("userid"),Integer.parseInt(req.getParameter("sSe")),
+													(long)jsonObj.get("totalAmount"), (String)jsonObj.get("orderId"),
+													(String)jsonObj.get("requestedAt"), (String)jsonObj.get("orderName"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+
 		return "store/cart";
 	}
 	
