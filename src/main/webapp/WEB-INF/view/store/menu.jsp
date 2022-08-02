@@ -133,7 +133,7 @@
 				<img class="sImg" src="${i.menuImg }">
 			</td> -->
 			<td>
-				<p><input type="text" value="${mlist[0].SName }"
+				<p><input type="text" value="${storename.SName }"
 					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
 				<p>⭐⭐⭐⭐⭐ 4.9</p>
 				<p>최근리뷰 228 | 최근사장님댓글 0</p>

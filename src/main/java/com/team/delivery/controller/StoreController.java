@@ -47,6 +47,8 @@ public class StoreController {
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 
+		StoreDTO storeName = store.storeName(sSeqno);
+		model.addAttribute("storename",storeName);
 		ArrayList<StoreDTO> menulist = store.menutable(sSeqno);
 		model.addAttribute("mlist",menulist);
 		ArrayList<StoreDTO> reviewlist = store.reviewlist(sSeqno);
