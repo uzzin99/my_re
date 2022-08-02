@@ -96,6 +96,10 @@ public class CartController {
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	public String cart(HttpServletRequest request, Model model) {
 		HttpSession session=request.getSession();
+
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+
 		String mid=(String) session.getAttribute("userid");
 		if(mid != null) {
 			ArrayList<cartDTO> cart = ica.listCart(mid);

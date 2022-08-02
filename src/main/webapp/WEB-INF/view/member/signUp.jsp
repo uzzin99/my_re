@@ -26,21 +26,25 @@
     <link href="css/signUp.css" rel="stylesheet" type="text/css" />
     <title>singUp</title>
 </head>
-
+<style>
+    a:hover{
+        cursor:pointer;
+    }
+</style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
-        <c:if test="${userinfo == '' }">
-            <p align=right><a href="#">🛒</a><a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+        <c:if test="${userinfo == null }">
+            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
         <c:if test="${userinfo != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a href="#">🛒</a><a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a href="#">🛒</a><a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
@@ -67,18 +71,18 @@
                         배달&포장
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/store?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/store?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/store?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/store?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/store?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/store?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/store?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/store?type=12">패스트푸드</a></li>
                     </ul>
                 </li>
 

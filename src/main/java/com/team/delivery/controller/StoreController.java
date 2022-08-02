@@ -71,6 +71,10 @@ public class StoreController {
 	
 	@RequestMapping("/search/store")
 	public String Search(@RequestParam("word") String sName, Model model, HttpServletRequest request) {
+		HttpSession session=request.getSession();
+
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
 
 		ArrayList<StoreDTO> searchlist = store.searchtable(sName);
 		model.addAttribute("list", searchlist);
