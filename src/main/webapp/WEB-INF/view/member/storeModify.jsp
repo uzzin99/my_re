@@ -125,7 +125,8 @@
         <form action=storeMo method='POST' enctype="multipart/form-data">
             <div class ="name-box" align="center">
                 <span><h3>가게 정보 수정</h3></span>
-                <input type=hidden id=member_id name=member_id value="${userinfo}"><br>
+                <input type=hidden id=member_id name=member_id value="${userinfo}">
+                <input type="hidden" id="s_seq" name="s_seq" value="${sVO.SSeqno}">
             </div>
             <div class="insert-box">
                 <p><span class="span">상호 명</span>

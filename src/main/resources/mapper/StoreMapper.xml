@@ -3,7 +3,10 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.delivery.mappers.iStore">
-
+<!--  가게이름 불러오기	-->
+	<select id="storeName" resultType="com.team.delivery.DTO.StoreDTO">
+		select * from store where s_seqno=#{param1}
+	</select>
 <!-- 가게리스트 음식종류(한식,양식 등등)별로 나눠서 다시 해야함~~ -->
 <!-- 가게리스트 -->
 <select id="liststore" resultType="com.team.delivery.DTO.StoreDTO">

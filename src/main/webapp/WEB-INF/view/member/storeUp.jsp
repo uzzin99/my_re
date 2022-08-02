@@ -157,7 +157,7 @@
             </div>
             <div class="submit-box">
                 <input type=submit id=btnUp value="등록하기">&nbsp;&nbsp;
-                <input type="button" id="btnReturn" value="돌아가기" >
+                <input type="button" id="btnReturn" value="돌아가기" onclick="location.href='signUp'">
             </div>
         </form>
     </div>

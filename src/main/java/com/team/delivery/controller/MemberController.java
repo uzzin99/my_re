@@ -235,6 +235,7 @@ public class MemberController {
 				session.setAttribute("mAddress",profile.getMAddress());
 				session.setAttribute("mDetailaddress",profile.getMDetailAddress());
 				session.setAttribute("mExtraaddress",profile.getMExtraAddress());
+				session.setAttribute("mMobile",profile.getMMobile());
 
 				if(profile.getMType() == 3) {
 					session.setAttribute("userType", "손님");

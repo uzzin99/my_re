@@ -1,0 +1,80 @@
+* {
+    font-family: 'GongGothicMedium';
+}
+
+/* 占쏙옙트 */
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    background-color: #f8f9fa;
+    margin: auto;
+    border-bottom: 1px solid #c4c2c2;
+}
+
+td {
+    width: 30%;
+}
+table input {
+    background-color: #f8f9fa;
+
+}
+
+input {
+    /*border:none;*/
+    border-radius: 3px;
+}
+
+.tab {
+    margin-left: 50px;
+    text-align: center;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label {
+    display: inline-block;
+    background-color: #f1f1f1;
+    color: #999;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: 'GongGothicMedium';
+    border-radius: 3px;
+    width: 100px;
+    height: 30px;
+}
+
+input[type="radio"]:checked+label {
+    background: linear-gradient(to top, #39c0c0 40%, transparent 30%);
+    background-color: #f1f1f1 ;
+    color: #000;
+}
+
+.conbox {
+    width: 750px;
+    height: 400px;
+    display: none;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+    margin: auto;
+}
+
+.conbox input {
+    background-color: #f1f1f1;
+}
+
+input[id="tab01"]:checked~.con1 {
+    display: block;
+}
+
+input[id="tab02"]:checked~.con2 {
+    display: block;
+}

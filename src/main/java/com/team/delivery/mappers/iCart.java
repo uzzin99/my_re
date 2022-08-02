@@ -19,4 +19,7 @@ public interface iCart {
 	cartDTO checkCart(cartDTO cart);
 
 	int checkStore(cartDTO cart);
+	String selStoreAddr(int sSe);
+	String selMemberAddr(String mId);
+	void addOrder(String mid,int sSe, long price, String Ocode, String Odate,String Oname);
 }

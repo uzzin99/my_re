@@ -24,7 +24,7 @@
 
 <!-- 장바구니 목록 -->
 <select id="listCart" resultType="com.team.delivery.DTO.cartDTO">
-	select a.cart_seqno, a.m_id, a.m_se, a.menu_cnt, b.menu_name, b.menu_price, b.menu_cal 
+	select a.cart_seqno, a.m_id, a.m_se, a.menu_cnt,a.s_se, b.menu_name, b.menu_price, b.menu_cal
 	from cart a left outer join menu b 
 	on a.m_se=b.menu_seqno 
 	where m_id=#{mId}
@@ -39,4 +39,16 @@
 	<select id="checkStore" parameterType="com.team.delivery.DTO.cartDTO" resultType="int">
 		select count(*) cnt from cart where m_id=#{mId} and s_se=#{sSe}
 	</select>
+	<!-- 장바구니의 가게 번호를 이용하여 가게 주소를 받아옴 -->
+	<select id="selStoreAddr" resultType="String">
+		select s_address from store where s_seqno = #{param1}
+	</select>
+	<!-- 유저 id 를 이용하여 주소를 받아옴 -->
+	<select id="selMemberAddr" resultType="String">
+		select m_address from member where m_id = #{param1}
+	</select>
+<!-- orderend 테이블에 추가 -->
+	<insert id="addOrder">
+		insert into orderend values (o_seqno.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+	</insert>
 </mapper>

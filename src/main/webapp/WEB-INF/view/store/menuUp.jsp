@@ -321,15 +321,24 @@ function loadmenulist(){
 				for(let i=0;i<data.length;i++){
 					let jo=data[i];
 					//console.log(jo['m_img']);
-					jo['m_img'];
-
-
 					str+="<div class=a>";
-					str+="<img src='/image/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
+					if(jo['m_img']==null){
+						str+="<img src='/image/imgload.png' style='width:100px;height:100px;float:left;'>";
+					}else{
+						str+="<img src='/image/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
+					}
 					str+="<p>메뉴이름: "+jo['mName']+"</p>";
 					str+="<p>가격: "+jo['m_price']+" 원</p>";
-					str+="<p>칼로리: "+jo['m_cal']+" kcal</p>";
-					str+="<p>설명: "+jo['m_ex']+"</p>";
+					if(jo['m_cal']==null){
+						str+="<p>칼로리: - kcal</p>";
+					}else{
+						str+="<p>칼로리: "+jo['m_cal']+" kcal</p>";
+					}
+					if(jo['m_ex']==null){
+						str+="<p>설명: </p>";
+					}else{
+						str+="<p>설명: "+jo['m_ex']+"</p>";
+					}
 					str+="<input type=button id=btnSel value=선택><input type=hidden id=mse value='"+jo['mSeq']+"'></div><br>";
 				}
 				$('#menu-box').append(str);
