@@ -7,6 +7,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 	<link href="/css/base.css" rel="stylesheet" type="text/css" />
+	<link href="/css/main.css" rel="stylesheet" type="text/css" />
 	<title>게시판 목록</title>
 </head>
 <style>
@@ -54,31 +55,16 @@
 	}
 </style>
 <body>
+<div id="wrap" class="wrap mx-auto"></div>
+<!-- 여기가 헤드 -->
 <header>
-	<div class="login">
-
-		<c:if test="${userinfo == null}">
-			<p align=right><a href="#">🛒</a> <a onclick=location.href='/login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
-		</c:if>
-		<c:if test="${userinfo != '' }">
-			<c:if test="${userType == '손님' }">
-				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
-			</c:if>
-			<c:if test="${userType == '사장님' }">
-				<p align=right><a href="#">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
-			</c:if>
-		</c:if>
-
-	</div>
-
-
 	<p align="center" onclick=location.href='main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 
 <!-- 여기가 네비바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Menu</a>
+		<a class="navbar-brand" href="/main">Home</a>
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 				aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
@@ -86,7 +72,7 @@
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
+					<a class="nav-link active" aria-current="page" href="#">Menu</a>
 				</li>
 
 				<li class="nav-item dropdown">
@@ -137,7 +123,7 @@
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 						<li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
-						<li><a class="dropdown-item" href="#">Q&A</a></li>
+						<li><a class="dropdown-item" href="QnA">Q&A</a></li>
 						<li><a class="dropdown-item" href="#">자주묻는질문</a></li>
 					</ul>
 				</li>
@@ -151,6 +137,7 @@
 </nav>
 <section>
 <div id="BoardMain">
+	<span class="todaymenu" style="float: left;font-size:xx-large">자유게시판</span>
 	<table id="brdTable" class="table table-sm table-hover">
 		<thead>
 		<tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
@@ -181,8 +168,30 @@
 		</ul>
 	</nav>
 </div>
-	<a href='test2'>결제테스트로 이동</a>
+	<br>
 </section>
+<footer id="footer">
+	<div class="container2">
+		<div class="row">
+			<div class="footer">
+				<ul>
+					<li><a href="#">사이트 도움말</a></li>
+					<li><a href="#">사이트 이용약관</a></li>
+					<li><a href="#">사이트 운영원칙</a></li>
+					<li><a href="#"><strong>개인정보취급방침</strong></a></li>
+					<li><a href="#">책임과 한계와 법적고지</a></li>
+					<li><a href="#">개시중단요청서비스</a></li>
+					<li><a href="#">고객센터</a></li>
+				</ul>
+				<address>
+					Cappyright ㉿
+					<a href="http://naver.com"><strong>NAVER.</strong>
+					</a>
+				</address>
+			</div>
+		</div>
+	</div>
+</footer>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
@@ -250,23 +259,43 @@
 			})
 			.on('click','#delBD',function(){
 				//삭제
-				if($(this).closest('tr').find('td:eq(3)').text()=='${userid}'){
-					document.location="delBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
-
+				let writer=$(this).closest('tr').find('td:eq(3)').text().split(' ');
+				console.log(writer[0]);
+				if ('${userid}'==''){
+					if(confirm('로그인한 유저만 이용가능합니다.\n로그인하시겠습니까?')){
+						document.location='/login'
+					}else {
+						return false;
+					}
 				}
 				else{
-					alert('작성자만 가능합니다.')
-					return false;
+					if(writer[0]=='${userid}'){
+						document.location="delBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
+					}
+					else{
+						alert('작성자만 가능합니다.')
+						return false;
+					}
 				}
 			})
 			//업데이트 경로로 이동
 			.on('click','#upBD',function(){
-				if($(this).closest('tr').find('td:eq(3)').text()=='${userid}'){
-					document.location="upBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
+				let writer=$(this).closest('tr').find('td:eq(3)').text().split(' ');
+				if ('${userid}'==''){
+					if(confirm('로그인한 유저만 이용가능합니다.\n로그인하시겠습니까?')){
+						document.location='/login'
+					}else {
+						return false;
+					}
 				}
 				else{
-					alert('작성자만 가능합니다.')
-					return false;
+					if(writer[0]=='${userid}'){
+						document.location="upBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
+					}
+					else{
+						alert('작성자만 가능합니다.')
+						return false;
+					}
 				}
 			})
 			.on('click','#btnSearch',function(){
@@ -290,7 +319,7 @@
 							+date[0]+"</td><td><a href='/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
 							+brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
 							+"<div class='dropdown'>"
-							+"<a class='btn btn-info dropdown-toggle btn-sm' href='#' role='button'"
+							+"<a class='btn dropdown-toggle btn-sm' href='#' role='button'"
 							+"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
 							+"메뉴</a>"
 							+"<ul class='dropdown-menu' aria-labelledby='dropdownMenuLink'>"
@@ -338,7 +367,7 @@
 							+date[0]+"</td><td><a href='/ajax/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
 							+brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
 							+"<div class='dropdown'>"
-							+"<a class='btn btn-info dropdown-toggle btn-sm' href='#' role='button'"
+							+"<a class='btn dropdown-toggle btn-sm' href='#' role='button'"
 							+"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
 							+"메뉴</a>"
 							+"<ul class='dropdown-menu' aria-labelledby='dropdownMenuLink'>"

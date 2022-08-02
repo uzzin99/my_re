@@ -10,6 +10,7 @@ public class boardDTO {
 		private String writer;
 		private String bDate;
 		private int views;
+		private int btype;
 		
 		public boardDTO() {
 		}

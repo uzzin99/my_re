@@ -18,10 +18,10 @@
 	where b.num between #{param1} and #{param2} order by b.num
 </select>
 <select id="showBrd" resultType="com.team.delivery.DTO.boardDTO">
-	select b_seqno,title,content,writer,b_date,views from board where b_seqno=#{param1}
+	select b_seqno,title,content,writer,b_date,views,b_type from board where b_seqno=#{param1}
 </select>
 <select id="selPage" resultType="int">
-	select count(*) cnt from board
+	select count(*) cnt from board where b_type = 1
 </select>
 <insert id="addBD">
 	insert into board values(test_sq.nextval,#{param1},#{param2},#{param3},to_char(current_date,'YYYY-MM-DD HH24:MI:SS'),0,#{param4})
@@ -36,7 +36,7 @@
 	update board set title=#{param1},content=#{param2} where b_seqno=#{param3}
 </update>
 <select id="searchBDTitle" resultType="int">
-	select count(*) cnt from board where title like '%'||#{param1}||'%'
+	select count(*) cnt from board where b_type = 1 and title like '%'||#{param1}||'%'
 </select>
 <select id="selBDTitle" resultType="com.team.delivery.DTO.boardDTO">
 	select * from (
@@ -65,6 +65,21 @@
 	where b_seqno=#{param1})-1 and (select num from (
 	select a.*,rownum as num from (
 	select board.* from board where b_type=1 order by b_date desc
+	) a order by num) b
+	where b_seqno=#{param1})+1 order by b.num
+</select>
+<select id="PNBD2" resultType="com.team.delivery.DTO.boardDTO">
+	select * from (
+	select a.*,rownum as num from (
+	select board.* from board where b_type>1 order by b_type desc,b_date desc
+	) a order by num) b
+	where num between (select num from (
+	select a.*,rownum as num from (
+	select board.* from board where b_type>1 order by b_type desc,b_date desc
+	) a order by num) b
+	where b_seqno=#{param1})-1 and (select num from (
+	select a.*,rownum as num from (
+	select board.* from board where b_type>1 order by b_type desc,b_date desc
 	) a order by num) b
 	where b_seqno=#{param1})+1 order by b.num
 </select>

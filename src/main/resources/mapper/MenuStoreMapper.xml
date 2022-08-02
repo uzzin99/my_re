@@ -71,4 +71,9 @@ update store set s_name=#{param2}, s_postcode=#{param3}, s_address=#{param4}, s_
 <select id="selStore" resultType="com.team.delivery.DTO.StoreDTO">
    select * from store a, s_type b where a.s_type=b.s_type and m_id = #{param1}
 </select>
+
+<select id="selRandStore" resultType="com.team.delivery.DTO.StoreDTO">
+	select * from( select * from store order by DBMS_RANDOM.RANDOM) where s_img is not null and rownum <![CDATA[ < ]]> 7
+</select>
+
 </mapper>

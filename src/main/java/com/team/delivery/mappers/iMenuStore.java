@@ -34,4 +34,5 @@ public interface iMenuStore {
 	StoreDTO selStore(String mId);
 
 	void updateLogo(String img, int sSe);
+	ArrayList<StoreDTO> selRandStore();
 }
