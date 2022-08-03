@@ -18,6 +18,8 @@ public interface iMenuStore {
 					  String s_num, String s_mobile, int s_type, String s_logo);
 	void modifyStore2(String m_id, String s_name,  String post, String storeAds, String detailAds, String extraAds,
 					  String s_num,  String s_mobile, int s_type);
+	void deleteStore(String m_id);
+	void deleteAllMenu(String m_id);
 
 	void insertMenu(int sSeq, String name, int price, String ex, String img, String cal);
 	
