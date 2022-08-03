@@ -70,6 +70,23 @@ input[id="tab02"]:checked~.con2 {
     display: block;
 }
 
+input[id="tab03"]:checked~.con3{
+    display: block;
+}
+
+#b input {
+    margin-top: 7px;
+    margin-right: 5px;
+    width: 15%;
+}
+
+#b textarea{
+    background-color: #f1f1f1;
+    border: none;
+    margin-left: 10px;
+    resize: none;
+}
+
 p{
     text-align: left;
     font-size: 14px;

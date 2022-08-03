@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.team.delivery.DTO.reviewDTO;
+import com.team.delivery.mappers.iStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,12 +28,26 @@ public class MemberController {
 
 	private final iMember ime;
 	private final iMenuStore ims;
+	private final iStore store;
+
+		@RequestMapping("/reviewDel")
+		@ResponseBody
+		public String ReviewDel(@RequestParam("delSe") int delSe){
+			log.info("리뷰삭제번호={}",delSe);
+			int checkDel = store.reviewDel(delSe);
+			return Integer.toString(checkDel);
+		}
 
 		@RequestMapping("/signUp/payment")
 		public String paymentDetails(HttpServletRequest request, Model model){
 			HttpSession session=request.getSession();
 			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
+
+			String mid = (String)session.getAttribute("userid");
+			ArrayList<reviewDTO> rlist = store.myReviewList(mid);
+			model.addAttribute("rlist",rlist);
+
 			return "member/paymentDetails";
 		}
 

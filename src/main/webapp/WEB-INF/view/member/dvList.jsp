@@ -133,6 +133,14 @@ $(document)
 	return true;
 })
 
+.on('click','#btnSave',function(){
+	$('#btnSave').submit();
+	setTimeout(function(){
+	opener.parent.location='deliveryUp';
+	window.close();
+	},10);
+})
+
 .on('click','#cle',function(){
 	opener.parent.location='deliveryUp';
 	window.close();

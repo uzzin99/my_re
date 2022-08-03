@@ -167,11 +167,11 @@
 		<c:forEach var="i" items="${rlist }">
 			<div class="conbox con2">
 				<div id="b">
-					<img class="menuImg" src="/image/${i.menuImg }">
-					<input readonly type="text" style="float: left; margin-left: 20px;" value="${i.MId}"><br>
-					<input readonly type="text" style="float: right; margin-right: 25px;" value="${i.score }">
-					<input readonly type="text" style="float: right;" value="${i.RDate }"><br>
-					<input readonly type="textarea" value="${i.RContent }" style="width: 70%; height: 80px;">
+<%--					<img class="menuImg" src="/image/${i.menuImg }">--%>
+					<input readonly type="text" style="float: left; margin-left: 20px;" value="${i.MId}">
+					<input readonly type="text" style="float: left; margin-left: 21px;" value="${i.score }"><br>
+					<input readonly type="text" style="float: right; margin-right: 10px; width: auto; color: #333333" value="${i.RDate }"><br>
+					<textarea readonly style="width: 70%; height: 100px;"><c:out value="${i.RContent }" /></textarea>
 				</div>
 			</div>
 		</c:forEach>

@@ -140,6 +140,8 @@
         <label for="tab01">주문내역</label>
         <input type="radio" name="tabmenu" id="tab02">
         <label for="tab02">예약내역</label>
+        <input type="radio" name="tabmenu" id="tab03">
+        <label for="tab03">리뷰내역</label>
 
         <div class="conbox con1">
             <div class="mar">
@@ -161,6 +163,18 @@
 
             </div>
         </div>
+
+        <c:forEach var="i" items="${rlist }">
+            <div class="conbox con3">
+                <div id="c">
+                    <input readonly type="text" style="float: left; margin-left: 20px;" value="${i.SName}">
+                    <input readonly type="text" style="float: left; margin-left: 21px;" value="${i.score }"><br>
+                    <input readonly type="text" style="float: right; margin-right: 10px; width: auto; color: #333333" value="${i.RDate }"><br>
+                    <textarea readonly style="width: 70%; height: 100px;"><c:out value="${i.RContent }" /></textarea>
+                    <input type="button" value="삭제" class="btnDel" id="${i.RSeqno}" style="float: right; margin-right: 5px;">
+                </div>
+            </div>
+        </c:forEach>
     </div>
 </section>
 <footer id="footer">
@@ -186,4 +200,31 @@
     </div>
 </footer>
 </body>
+<script>
+    $(document)
+    $('.btnDel').on('click',function(event){
+        let delSe = $(this).attr("id");
+        console.log(delSe);
+        answer = confirm("정말 삭제하시겠습니까?");
+        if(answer){
+            $.ajax({
+                url:'reviewDel',
+                type:'get',
+                dataType:'json',
+                data:{delSe:delSe},
+                success:function(data){
+                    console.log(data);
+                    if(data == 1){
+
+                        console.log("새로고침 하기전");
+                        location.reload();
+                        console.log("새로고침완료");
+                    }else{
+                        alert("다시 시도해주세요");
+                    }
+                }
+            })
+        }
+    })
+</script>
 </html>
