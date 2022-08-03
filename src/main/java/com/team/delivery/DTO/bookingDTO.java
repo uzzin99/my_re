@@ -13,5 +13,6 @@ public class bookingDTO {
     private String hOnepeople;
     private String hMobile;
     private String hRequest;
+    private  String mId;
 
 }

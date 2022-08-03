@@ -70,7 +70,7 @@ input[id="tab02"]:checked~.con2 {
     display: block;
 }
 
-p{
+.mar p{
     text-align: left;
     font-size: 14px;
 }

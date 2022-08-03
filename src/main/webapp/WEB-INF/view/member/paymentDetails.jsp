@@ -156,11 +156,17 @@
             </div>
         </div>
 
-        <div class="conbox con2">
-            <div>
-
-            </div>
+        <c:forEach var='item' items='${list}'>
+        <div class="conbox con2" style="border: 1px solid #c4c2c2">
+            <table align="center" style="margin: auto">
+                <tr><td>가게명</td><td>${item.SName}</td></tr>
+                <tr><td>예약날짜</td><td>${item.HDate}</td></tr>
+                <tr><td>예약시간</td><td>${item.HTime}</td></tr>
+                <tr><td>인원수</td><td>${item.HPeople}</td></tr>
+            </table>
         </div>
+        </c:forEach>
+
     </div>
 </section>
 <footer id="footer">
