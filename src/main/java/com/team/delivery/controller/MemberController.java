@@ -34,7 +34,7 @@ public class MemberController {
 
 	private final iMember ime;
 	private final iMenuStore ims;
-  private final iBooking ibo;
+  	private final iBooking ibo;
 	private final iStore store;
   
 	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";

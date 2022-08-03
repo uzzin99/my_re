@@ -15,7 +15,7 @@ section {
     font-family: 'GongGothicMedium';
     background-color: #f8f9fa;
 }
-/*section ¾ÈÀÇ ½ºÅ©·Ñ¹Ù ¼û±â±â*/
+/*section ¾??? ½º?©·?¹? ¼û±â±â*/
 section::-webkit-scrollbar {
     display: none;
 }
@@ -87,7 +87,7 @@ input[id="tab03"]:checked~.con3{
     margin-left: 10px;
     resize: none;
 }
-// 겹치는거 
+
 .mar p{
     text-align: left;
     font-size: 14px;
