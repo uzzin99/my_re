@@ -56,3 +56,22 @@ textarea{
     resize: none;
     padding: 10px 10px;
 }
+
+/* ¹öÆ° */
+/*.btnAdd{*/
+#myform input[type=submit]{
+    width: 270px;
+    height: 50px;
+    color: #707070;
+    border-radius: 5px;
+    border: 2px solid #c4c2c2;
+    font-size: 16px;
+}
+#myform input[type=submit]:hover {
+    color: black;
+}
+
+.review_ex{
+    font-size: 13px;
+    color: #333333;
+}

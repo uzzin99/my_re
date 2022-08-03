@@ -36,17 +36,16 @@ td {
 }
 table input {
     background-color: #f8f9fa;
-    
 }
 
 input {
     border:none;
     border-radius: 3px;
 }
-.s_img {
-    width: 200px;
-    height: 150px;
-}
+/*.s_img {*/
+/*    width: 200px;*/
+/*    height: 150px;*/
+/*}*/
 
 .tab {
     margin-left: 50px;
@@ -130,11 +129,18 @@ input[id="tab03"]:checked~.con3 {
     width: 15%;
 }
 
-#b img {
-    float: right;
-    margin-top: 17px;
-    margin-right: 20px;
+#b textarea{
+    background-color: #f1f1f1;
+    border: none;
+    margin-left: 10px;
+    resize: none;
 }
+
+/*#b img {*/
+/*    float: right;*/
+/*    margin-top: 17px;*/
+/*    margin-right: 20px;*/
+/*}*/
 .cart { 
     width: 350px;
     height: 500px;

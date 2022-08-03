@@ -6,8 +6,13 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
+import com.team.delivery.DTO.reviewDTO;
+import com.team.delivery.mappers.iStore;
+
 import com.team.delivery.DTO.bookingDTO;
 import com.team.delivery.mappers.iBooking;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -29,9 +34,19 @@ public class MemberController {
 
 	private final iMember ime;
 	private final iMenuStore ims;
-	private final iBooking ibo;
-
+  private final iBooking ibo;
+	private final iStore store;
+  
 	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
+
+		@RequestMapping("/reviewDel")
+		@ResponseBody
+		public String ReviewDel(@RequestParam("delSe") int delSe){
+			log.info("리뷰삭제번호={}",delSe);
+			int checkDel = store.reviewDel(delSe);
+			return Integer.toString(checkDel);
+		}
+
 
 		@RequestMapping("/signUp/payment")
 		public String paymentDetails(@RequestParam("mId") String mId, HttpServletRequest request, Model model){
@@ -41,8 +56,14 @@ public class MemberController {
 			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
 
+// eunji
+			String mid = (String)session.getAttribute("userid");
+			ArrayList<reviewDTO> rlist = store.myReviewList(mid);
+			model.addAttribute("rlist",rlist);
+// yoojin
 			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mId);
 			model.addAttribute("list",reservationlist);
+
 
 			return "member/paymentDetails";
 		}
