@@ -179,6 +179,8 @@
             </div>
         </c:if><br>
         <a id=back class="back">돌아가기</a>&nbsp;&nbsp;&nbsp;<a id=delInformation class="back 01">회원탈퇴</a>
+        <input type="hidden" id="delseq" name="delseq"><%--삭제시 가게 시퀀스 호출--%>
+        <input type="hidden" id="dellogo" name="dellogo" value="${sVO.SImg}"><%--삭제시 가게 로고 호출--%>
     </div>
 </section>
 

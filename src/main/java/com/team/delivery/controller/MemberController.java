@@ -1,5 +1,6 @@
 package com.team.delivery.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ public class MemberController {
 
 	private final iMember ime;
 	private final iMenuStore ims;
-
+	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
 		@RequestMapping("/signUp/payment")
 		public String paymentDetails(HttpServletRequest request, Model model){
 			HttpSession session=request.getSession();
@@ -118,13 +119,26 @@ public class MemberController {
 		@RequestMapping("/signUp/delInformation")
 		public String delInformation(HttpServletRequest request) {
 			HttpSession session=request.getSession();
-			
-			ime.delInformation((String)session.getAttribute("userid"));
-			ime.delDelivery((String)session.getAttribute("userid"));
+			int sSe=Integer.parseInt(request.getParameter("delseq"));
+			String simg=request.getParameter("dellogo");
 
-			
+			if(session.getAttribute("userType")=="손님"){
+				ime.delInformation((String)session.getAttribute("userid"));
+				ime.delDelivery((String)session.getAttribute("userid"));
+			}else if(session.getAttribute("userType")=="사장"){
+				ime.delInformation((String)session.getAttribute("userid"));
+				ime.delDelivery((String)session.getAttribute("userid"));
+				if(simg!=null){
+					ims.deleteStore((String)session.getAttribute("userid"));
+					File dfile = new File(upLoadDirectory2,simg);
+					dfile.delete();
+				}
+//				if(){/*메뉴 이미지 삭제 구현하기*/
+//					ims.deleteAllMenu((String)session.getAttribute("userid"));
+//				}
+			}
+
 			session.invalidate();
-			
 			return "redirect:/main";
 		}
 		

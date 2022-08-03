@@ -36,6 +36,17 @@ update store set s_name=#{param2}, s_postcode=#{param3}, s_address=#{param4}, s_
 				 s_extraaddress=#{param6}, bs_num=#{param7}, s_mobile=#{param8}, s_type=#{param9}
 			 where m_id=#{param1}
 </update>
+<!--가게삭제하기-->
+<delete id="deleteStore">
+	delete from store where m_id=#{param1}
+</delete>
+<!--메뉴목록 전체 삭제-->
+<delete id="deleteAllMenu">
+	delete from menu a
+	where exists (select 1 from store b
+				  where a.s_se=b.s_seqno
+					and b.m_id=#{param1});
+</delete>
 
 <!-- 매뉴 등록 -->
 <insert id="insertMenu">
