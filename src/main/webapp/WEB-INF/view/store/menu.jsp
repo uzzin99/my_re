@@ -156,7 +156,12 @@
 		<c:forEach var="i" items="${mlist }">
 			<div class="conbox con1" onclick=openPop(${i.menuSeqno},${i.SSe})>
 				<div id="a">
+                    <c:if test="${i.menuImg!=null}">
 					<img class="menuImg" src="/image/${i.menuImg }">
+                    </c:if>
+                    <c:if test="${i.menuImg==null}">
+                        <img class="menuImg" src="/image/imgload.png">
+                    </c:if>
 					<input readonly type="text" value="${i.menuName }">
 					<input readonly type="text" value="${i.menuPrice }원">
 					<input readonly type="text" value="${i.menuCal }kcal">

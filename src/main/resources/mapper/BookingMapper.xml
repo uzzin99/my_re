@@ -15,11 +15,10 @@
     <!--  홀예약하기  -->
     <insert id="bookingadd">
         insert into bookinglist values (#{param1},#{param2},#{param3},#{param4},#{param5},
-                                        #{param6},#{param7},h_seqno.nextval)
+                                        #{param6},#{param7},h_seqno.nextval,#{param8})
     </insert>
 
     <!--  방금예약한 예약번호 가져오기  -->
-
     <select id="hseqno" resultType="int">
         select h_seqno.currval from dual
     </select>
@@ -34,6 +33,9 @@
     
     <!-- 내 예약목록  -->
     <select id="reservationlist" resultType="com.team.delivery.DTO.bookingDTO">
-
+        select a.*, b.s_name
+        from bookinglist a, store b
+        where a.s_seqno = b.s_seqno
+        and a.m_id=#{param1}
     </select>
 </mapper>

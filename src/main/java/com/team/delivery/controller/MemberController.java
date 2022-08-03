@@ -1,12 +1,18 @@
 package com.team.delivery.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+
 import com.team.delivery.DTO.reviewDTO;
 import com.team.delivery.mappers.iStore;
+
+import com.team.delivery.DTO.bookingDTO;
+import com.team.delivery.mappers.iBooking;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,7 +34,10 @@ public class MemberController {
 
 	private final iMember ime;
 	private final iMenuStore ims;
+  private final iBooking ibo;
 	private final iStore store;
+  
+	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
 
 		@RequestMapping("/reviewDel")
 		@ResponseBody
@@ -38,15 +47,23 @@ public class MemberController {
 			return Integer.toString(checkDel);
 		}
 
+
 		@RequestMapping("/signUp/payment")
-		public String paymentDetails(HttpServletRequest request, Model model){
+		public String paymentDetails(@RequestParam("mId") String mId, HttpServletRequest request, Model model){
+
 			HttpSession session=request.getSession();
+
 			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
 
+// eunji
 			String mid = (String)session.getAttribute("userid");
 			ArrayList<reviewDTO> rlist = store.myReviewList(mid);
 			model.addAttribute("rlist",rlist);
+// yoojin
+			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mId);
+			model.addAttribute("list",reservationlist);
+
 
 			return "member/paymentDetails";
 		}
@@ -134,13 +151,26 @@ public class MemberController {
 		@RequestMapping("/signUp/delInformation")
 		public String delInformation(HttpServletRequest request) {
 			HttpSession session=request.getSession();
-			
-			ime.delInformation((String)session.getAttribute("userid"));
-			ime.delDelivery((String)session.getAttribute("userid"));
+			int sSe=Integer.parseInt(request.getParameter("delseq"));
+			String simg=request.getParameter("dellogo");
 
-			
+			if(session.getAttribute("userType")=="손님"){
+				ime.delInformation((String)session.getAttribute("userid"));
+				ime.delDelivery((String)session.getAttribute("userid"));
+			}else if(session.getAttribute("userType")=="사장"){
+				ime.delInformation((String)session.getAttribute("userid"));
+				ime.delDelivery((String)session.getAttribute("userid"));
+				if(simg!=null){
+					ims.deleteStore((String)session.getAttribute("userid"));
+					File dfile = new File(upLoadDirectory2,simg);
+					dfile.delete();
+				}
+//				if(){/*메뉴 이미지 삭제 구현하기*/
+//					ims.deleteAllMenu((String)session.getAttribute("userid"));
+//				}
+			}
+
 			session.invalidate();
-			
 			return "redirect:/main";
 		}
 		

@@ -145,19 +145,55 @@
     </div>
 
     <div class="tab"><br>
-        <input type="radio" name="tabmenu" id="tab01"  checked>
+
+        <input type="radio" name="tabmenu" id="tab01" checked>
         <label for="tab01">예약</label>
         <input type="radio" name="tabmenu" id="tab02">
         <label for="tab02">리뷰</label>
 
         <div class="conbox con1" align="center">
-            <p>예약날짜 <input type='date' id="currentDate"/></p>
-            <p>예약시간 <input type="time" id="currentTime"></p>
-<%--            <p>예약번호 <input type="text" id="Bno"></p>--%>
-            <p>인원수 <input type="text" id="Bnum"></p>
-            <p>예약자 <input type="text" id="Bname" value="${mName}"></p>
-            <p>연락처 <input type="text" id="Bmobile" value="${mMobile}"></p>
-            <p>요청사항 <input type="text" id="Brequest"></p>
+            <p>예약날짜 <input type='date' id="currentDate" style="margin-top: 15px;"/></p>
+            <p>예약시간선택</p>
+            <div class="time">
+                <input type="radio" name="touch" id="time01" value="14:00" checked>
+                <label for="time01">14:00</label>
+                <input type="radio" name="touch" id="time02" value="14:30">
+                <label for="time02">14:30</label>
+                <input type="radio" name="touch" id="time03" value="15:00">
+                <label for="time03">15:00</label>
+                <input type="radio" name="touch" id="time04" value="15:30">
+                <label for="time04">15:30</label>
+                <input type="radio" name="touch" id="time05" value="16:00">
+                <label for="time05">16:00</label>
+                <br>
+                <input type="radio" name="touch" id="time06" value="16:30">
+                <label for="time06">16:30</label>
+                <input type="radio" name="touch" id="time07" value="17:00">
+                <label for="time07">17:00</label>
+                <input type="radio" name="touch" id="time08" value="17:30">
+                <label for="time08">17:30</label>
+                <input type="radio" name="touch" id="time09" value="18:00">
+                <label for="time09">18:00</label>
+                <input type="radio" name="touch" id="time10" value="18:30">
+                <label for="time10">18:30</label>
+                <br>
+                <input type="radio" name="touch" id="time11" value="19:00">
+                <label for="time11">19:00</label>
+                <input type="radio" name="touch" id="time12" value="19:30">
+                <label for="time12">19:30</label>
+                <input type="radio" name="touch" id="time13" value="20:00">
+                <label for="time13">20:00</label>
+                <input type="radio" name="touch" id="time14" value="20:30">
+                <label for="time14">20:30</label>
+                <input type="radio" name="touch" id="time15" value="21:00">
+                <label for="time15">21:00</label>
+            </div>
+
+            <p style="text-align: right;">인원수 <input type="text" id="Bnum" ></p>
+            <p style="text-align: right;">예약자 <input type="text" id="Bname" value="${mName}"></p>
+            <p style="text-align: right;">예약자ID <input type="text" id="BId" value="${userinfo}"></p>
+            <p style="text-align: right;">연락처 <input type="text" id="Bmobile" value="${mMobile}"></p>
+            <p style="text-align: right;">요청사항 <input type="text" id="Brequest"></p>
             <input type="button" id="order" value="주문하기">
         </div>
 
@@ -193,23 +229,26 @@
     $(document)
     /*현재날짜*/
     document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
-    /*현재시간*/
-    document.getElementById('currentTime').value = new Date().toISOString().slice(11, 16);
+
+
 
     $('#order').on('click',function (){
-        console.log("클릭");
+        // console.log("클릭");
         $.ajax({
             type:'post',
             url:'hallbookingadd',
             dataType: 'json',
             data: {
+                hTime: $("input[type=radio][name=touch]:checked").val(),
                 sSeqno:$("#SSeqno").val(),
                 hDate:$("#currentDate").val(),
-                hTime:$("#currentTime").val(),
+                // hTime:$("#currentTime").val(),
                 hPeople:$("#Bnum").val(),
                 hOnepeople:$("#Bname").val(),
+                mId:$("#BId").val(),
                 hMobile:$("#Bmobile").val(),
-                hRequest:$("#Brequest").val()
+                hRequest:$("#Brequest").val(),
+
             },
             success:function(data){
                 console.log(data);

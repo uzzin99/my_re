@@ -137,7 +137,15 @@ a:hover{
     <c:forEach var='item' items='${list}'>
       <div class="s_box" onclick=location.href='store/menu?sSeqno=${item.SSeqno}'>
         <div class="s_list">
+
+          <c:if test="${item.SImg!=null}">
             <img class="sImg" src="/image/${item.SImg}" style="float: left;">
+          </c:if>
+          <c:if test="${item.SImg==null}">
+            <img class="sImg" src="/image/imgload.png" style="float: left;">
+          </c:if>
+
+
             <p align="center"><input readonly type="text" class="sName" value='${item.SName}'></p>
             <span>별점</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="⭐⭐⭐"><br>
             <span>최소주문</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="2,0000"><br>

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 @Mapper
 public interface iBooking {
-    ArrayList<bookingDTO> bookinglist();
-
+//    ArrayList<bookingDTO> bookinglist();
+    ArrayList<bookingDTO> reservationlist(String mId);
     bookingDTO bookingend(int hSeqno);
 
     int hseqno();
@@ -20,6 +20,8 @@ public interface iBooking {
             String hTime,
             int hPeople,
             String hOnepeople,
+            String mId,
             String hMobile,
-            String hRequest);
+            String hRequest
+            );
 }

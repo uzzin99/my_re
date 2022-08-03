@@ -137,17 +137,6 @@
       </div>
     </div>
   </c:forEach>
-  <%--<c:forEach var="item" items="${list}">
-      <div class="s_box" onclick=location.href='store/menu?sSeqno=${item.SSeqno}'>
-          <div class="s_list">
-              <img class="menuImg" src="${item.menuImg}" style="float: left;">
-              <p align="center"><input readonly type="text" class="sName" value="${item.SName}"></p>
-              <span>별점</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="⭐⭐⭐"><br>
-              <span>최소주문</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="2,0000"><br>
-              <span>소요시간</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="30~40분">
-          </div>
-      </div>
-  </c:forEach><br>--%>
 </section>
 
 <footer id="footer">
