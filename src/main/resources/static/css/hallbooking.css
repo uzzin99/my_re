@@ -21,6 +21,7 @@ table {
 td {
     width: 30%;
 }
+
 table input {
     background-color: #f8f9fa;
 
@@ -60,11 +61,12 @@ input[type="radio"]:checked+label {
 
 .conbox {
     width: 750px;
-    height: 400px;
+    height: 470px;
     display: none;
     border-radius: 15px;
     background-color: #f1f1f1;
     margin: auto;
+    margin-top: 20px;
 }
 
 .conbox input {
@@ -77,4 +79,53 @@ input[id="tab01"]:checked~.con1 {
 
 input[id="tab02"]:checked~.con2 {
     display: block;
+}
+
+/*  */
+input[type="text"] {
+    border: none;
+}
+
+input[type="date"] {
+    border: none;
+}
+
+.conbox p {
+    border-bottom: 2px solid #c4c2c2;
+    width: 300px;
+}
+
+.time {
+    margin-bottom: 10px;
+}
+
+.time input[type="radio"]+label {
+    display: inline-block;
+    background-color: #f1f1f1;
+    color: #999;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: 'GongGothicMedium';
+    /* border-radius: 3px; */
+    width: 80px;
+    height: 30px;
+}
+
+.time input[type="radio"]:checked+label {
+    color: #000;
+    font-size: 20px;
+    background: none;
+}
+
+input[type="button"] {
+    /* border-radius: 5px;
+    border: 2px solid #c4c2c2; */
+    font-size: 20px;
+    border: none;
+    background: linear-gradient(to top, #39c0c0 40%, transparent 30%);
+    width: 150px;
+}
+
+p input {
+    margin-left: 20px;
 }

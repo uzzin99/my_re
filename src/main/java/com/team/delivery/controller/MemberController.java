@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.team.delivery.DTO.bookingDTO;
+import com.team.delivery.mappers.iBooking;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,12 +28,19 @@ public class MemberController {
 
 	private final iMember ime;
 	private final iMenuStore ims;
+	private final iBooking ibo;
 
 		@RequestMapping("/signUp/payment")
-		public String paymentDetails(HttpServletRequest request, Model model){
+		public String paymentDetails(@RequestParam("mId") String mId, HttpServletRequest request, Model model){
+
 			HttpSession session=request.getSession();
+
 			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
+
+			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mId);
+			model.addAttribute("list",reservationlist);
+
 			return "member/paymentDetails";
 		}
 

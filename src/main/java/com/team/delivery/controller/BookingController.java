@@ -62,8 +62,10 @@ public class BookingController {
                                  @RequestParam("hPeople") int hPeople,
                                  @RequestParam("hOnepeople") String hOnepeople,
                                  @RequestParam("hMobile") String hMobile,
-                                 @RequestParam("hRequest") String hRequest){
-        ibo.bookingadd(sSeqno,hDate,hTime,hPeople,hOnepeople,hMobile,hRequest);
+                                 @RequestParam("hRequest") String hRequest,
+                                 @RequestParam("mId") String mId
+                                 ){
+        ibo.bookingadd(sSeqno,hDate,hTime,hPeople,hOnepeople,hMobile,hRequest,mId);
         int hseqno = ibo.hseqno();
         log.info("예약번호={}",hseqno);
         return Integer.toString(hseqno);
@@ -95,12 +97,12 @@ public class BookingController {
 
         return "booking/bookingend";
     }
-    @RequestMapping("/bookinglist")
+    /*@RequestMapping("/bookinglist")
     public  String bookinglist(Model model){
         ArrayList<bookingDTO>bookinglist = ibo.bookinglist();
         model.addAttribute("blist",bookinglist);
 
         return "booking/bookinglist";
-    }
+    }*/
 
 }
