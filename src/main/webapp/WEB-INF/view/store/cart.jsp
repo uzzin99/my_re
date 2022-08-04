@@ -169,7 +169,7 @@
             <div id="divMap" style="display: block">
                 <div id="map" style="width:500px;height:400px;margin-right: auto;margin-left: auto;"></div>
                 <a>총 거리 <a id="dist"></a>m 중 기본거리 2000m(2000원)을 제외한<br>
-                    초과 거리 500m당 1000원씩 증가하여 <a id="deliveryTip"></a>가 되었습니다.</a>
+                    초과 거리 500m당 1000원씩 증가하여 <a id="deliveryTip"></a>원이 되었습니다.</a>
             <br>
             </div>
             <p><span> 결제예정금액</span>&nbsp;<input readonly type="text" id="totalSum" value=""></p>

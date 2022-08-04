@@ -156,17 +156,34 @@
             <input type="radio" name="tabmenu" id="tab03">
             <label for="tab03">리뷰내역</label>
 
-            <div class="conbox con1" style="border: 2px solid #c4c2c2; margin-top: 20px;">
-                <div class="mar">
-                    <!-- <input readonly type="text" value="2022-08-22" style="float: right; text-align: right;"><br> -->
-                    <table align="center" style="float: left; margin-top:13px;">
-                        <tr><td style="width: 100px; height: 30px;">주문일</td><td>2022-08-22</td></tr>
-                        <tr><td style="width: 100px; height: 30px;">가게명</td><td>마초쉐프</td></tr>
-                        <tr><td style="width: 100px; height: 30px;">가격</td><td>20000원</td></tr>
-                    </table>
-                    <p style="float: left; margin: 50px 40px ;"><a href="/review" style="">리뷰작성💌</a></p>
+            <c:forEach var='OL' items='${orderList}'>
+                <div class="conbox con1" style="border: 2px solid #c4c2c2; margin-top: 20px;">
+                    <div class="mar">
+                        <!-- <input readonly type="text" value="2022-08-22" style="float: right; text-align: right;"><br> -->
+                        <table align="center" style="float: left; margin-top:13px;">
+                            <tr><td style="width: 100px; height: 30px;">주문일</td><td>${OL.ODate}</td></tr>
+                            <tr><td style="width: 100px; height: 30px;">가게명</td><td><a href="/store/menu?sSeqno=${OL.SSe}">${OL.SName}</a></td></tr>
+                            <tr><td style="width: 100px; height: 30px;">가격</td><td>${OL.OPrice}원</td></tr>
+                        </table>
+                        <c:if test="${OL.cntReview==0}">
+                            <p style="float: left; margin: 40px 40px ;"><a href="/review?oseq=${OL.OSeqno}&sseq=${OL.SSe}" style="">리뷰작성💌</a></p>
+                        </c:if>
+                    </div>
+<%--        만들고 싶었는데 안되니깐 미련이 남내요            --%>
+<%--                    <div id="orderDetailed" style="display: none">--%>
+<%--                        <c:forEach var='DL' items='${detailList}'>--%>
+<%--                            <c:if test="${DL.OSe==OL.OSeqno}">--%>
+<%--                                ${DL.OName}--%>
+<%--                                <c:if test="${DL.OName!='배달팁'}">--%>
+<%--                                &nbsp;&nbsp;${DL.OQty} 개--%>
+<%--                                </c:if>--%>
+<%--                                &nbsp;&nbsp;--%>
+<%--                                ${DL.qtyPrice}원<br>--%>
+<%--                            </c:if>--%>
+<%--                        </c:forEach>--%>
+<%--                    </div>--%>          
                 </div>
-            </div>
+            </c:forEach>
 
             <c:forEach var='item' items='${list}'>
                 <div class="conbox con2" style="border: 2px solid #c4c2c2; margin-top: 20px;">
@@ -185,7 +202,13 @@
                 <div class="conbox con3" style="border: 2px solid #c4c2c2; margin-top: 20px;">
                     <div class="c" style="margin-top: 10px;">
                         <input readonly type="text"  value="${i.SName}">
-                        <input readonly type="text"  value="${i.score }">
+                        <div class="mySt">
+                            <input type="checkbox" name="rating" value="10" id="rate1" <c:if test="${i.score == 10}">checked="checked"</c:if> disabled="disabled"/><label for="rate1">⭐</label>
+                            <input type="checkbox" name="rating" value="8" id="rate2" <c:if test="${i.score == 8}">checked="checked"</c:if> disabled="disabled"/><label for="rate2">⭐</label>
+                            <input type="checkbox" name="rating" value="6" id="rate3" <c:if test="${i.score == 6}">checked="checked"</c:if> disabled="disabled"/><label for="rate3">⭐</label>
+                            <input type="checkbox" name="rating" value="4" id="rate4" <c:if test="${i.score == 4}">checked="checked"</c:if> disabled="disabled"/><label for="rate4">⭐</label>
+                            <input type="checkbox" name="rating" value="2" id="rate5" <c:if test="${i.score == 2}">checked="checked"</c:if> disabled="disabled"/><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
+                        </div>
                         <input readonly type="text" style="float: right; width: auto; color: #333333" value="${i.RDate }"><br>
                         <textarea readonly style="resize: none;"><c:out value="${i.RContent }" /></textarea>
                         <input type="button" value="삭제" class="btnDel" id="${i.RSeqno}" style="float: right; background-color: #c4c2c2;">

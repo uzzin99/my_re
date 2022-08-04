@@ -138,7 +138,8 @@
             <input type="radio" name="rating" value="2" id="rate5"><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
         </fieldset><br><br>
         <p class="review_ex">-한번 작성한 리뷰는 수정할 수 없습니다.</p>
-
+        <input type="hidden" name="oSe" value="${oSe}">
+        <input type="hidden" name="sSe" value="${sSe}">
         <textarea name="reviewCon" id="reviewCon" cols="30" rows="4"></textarea>
         <div id="cnt">(0 / 70)</div><br>
         <fieldset>

@@ -153,14 +153,27 @@
 	<span class="todaymenu" style="float: left;font-size:xx-large">자유게시판</span>
 	<table id="brdTable" class="table table-sm table-hover">
 		<thead>
-		<tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
+		<tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th><th>
+			<c:if test="${orderby==1}">
+				<a>시간순▲</a>/<a>조회수순</a>
+			</c:if>
+			<c:if test="${orderby==2}">
+				<a>시간순▼</a>/<a>조회수순</a>
+			</c:if>
+			<c:if test="${orderby==3}">
+				<a>시간순</a>/<a>조회수순▲</a>
+			</c:if>
+			<c:if test="${orderby==4}">
+				<a>시간순</a>/<a>조회수순▼</a>
+			</c:if>
+		</th></tr>
 		</thead>
 		<tbody id="brdList" class="table-group-divider">
 		</tbody>
 
 	</table>
 	<div style="width: 700px;height: 50px;margin-right: auto;margin-left: auto">
-		<a href='main' style="float: left">메인으로 돌아가기</a><a href='newpost' style="float: right">새글쓰기</a>
+		<a href='newpost' style="float: right">새글쓰기</a>
 	</div>
 	<div>
 		<div align=center id="SearchDiv">
