@@ -135,10 +135,12 @@
 				<img class="sImg" src="${i.menuImg }">
 			</td> -->
 			<td>
+                <input type="hidden" id=mid name="mid" value="${userinfo}">
+                <input type="hidden" id=sSe name="sSe" value="${storename.SSeqno}">
+
 				<p><input type="text" readonly value="${storename.SName }"
-					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
-<%--                <c:if test="${cnt != null}">--%>
-                    <div class="mySt" style="float:left; margin-left: 44%">
+					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>     
+        <div class="mySt" style="float:left; margin-left: 44%">
                         <input type="checkbox" name="rating" value="10" id="rat1" <c:if test="${avg > 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat1">⭐</label>
                         <input type="checkbox" name="rating" value="8" id="rat2" <c:if test="${avg > 6 && avg < 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat2">⭐</label>
                         <input type="checkbox" name="rating" value="6" id="rat3" <c:if test="${avg > 4 && avg < 6}">checked="checked"</c:if> disabled="disabled"/><label for="rat3">⭐</label>
@@ -152,10 +154,23 @@
                     <c:if test="${cnt != ''}">${cnt}</c:if>
                     <c:if test="${cnt == ''}">0</c:if>
                     | ❤ 30</p>
-<%--                </c:if>--%>
-				<p>${storename.SMobile } |
-                    <label for="choice" id="jjim"></label>
-                    <input type="checkbox" id="choice" name="choice"> 찜 | 공유</p>
+        
+<%--				<p>${storename.SMobile } |--%>
+<%--                    <label for="choice" id="jjim"></label>--%>
+<%--                    <input type="checkbox" id="choice" name="choice"> 찜 | 공유</p>--%>
+                <p>전화번호 ${storename.SMobile } |
+                    <c:if test="${userinfo == null}">
+                        찜하기
+                    </c:if>
+                    <c:if test="${userinfo != null}">
+                        <c:if test="${count==0}">
+                            <label for="btnchoice" id="choice"><input type="button" id="btnchoice" name="choice">🤍찜</label>
+                        </c:if>
+                        <c:if test="${count==1}">
+                            <label for="btnchoice" id="choice"><input type="button" id="btnchoice" name="choice">❤찜</label>
+                        </c:if>
+                    </c:if>
+                    | 공유</p>
 			</td>
 		</tr>
 	</table>
@@ -231,6 +246,34 @@
 </body>
 <script>
 $(document)
+
+.on('click','#choice',function(){
+    let mid=$('#mid').val();
+    let sSe=$('#sSe').val();
+    console.log("mid="+mid+"sSe="+sSe);
+    if(true){
+        console.log("check on");
+        $.ajax({
+            url:"/z_Check", type:"get",
+            data:{mid:mid, sSe:sSe},
+            dataType:'text',
+            success: function(){
+                location.reload();
+            }
+        })
+    }else{
+        console.log("check off");
+        $.ajax({
+            url:"/z_Delete", type:"get",
+            data:{mid:mid, sSe:sSe},
+            dataType:'text',
+            success: function(){
+                location.reload();
+            }
+        })
+    }
+})
+
 function openPop(mse,sse){
    window.open('/store/menuDetail?mSe='+mse+'&sSe='+sse,'menuDetail','width=600px,height=700px,scrollbars=yes,resizable=no');
 }
