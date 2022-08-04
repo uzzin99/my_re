@@ -134,8 +134,8 @@ public class CartController {
 	@RequestMapping(value = "/orderList", method = RequestMethod.GET)
 	public String watchorder(HttpServletRequest req, Model model) {
 		HttpSession session=req.getSession();
-
-		model.addAttribute("userinfo",session.getAttribute("userid"));
+		String mId = (String) session.getAttribute("userid");
+		model.addAttribute("userinfo",mId);
 		model.addAttribute("userType",session.getAttribute("userType"));
 		HttpRequest request = HttpRequest.newBuilder()
 				.uri(URI.create("https://api.tosspayments.com/v1/payments/orders/"+req.getParameter("orderId")))
@@ -152,9 +152,12 @@ public class CartController {
 //			System.out.println("orderName = "+(String)jsonObj.get("orderName"));
 //			System.out.println("totalAmount = "+(long)jsonObj.get("totalAmount"));
 //			System.out.println("requestedAt = "+(String)jsonObj.get("requestedAt"));
-			ica.addOrder((String)session.getAttribute("userid"),Integer.parseInt(req.getParameter("sSe")),
+			ica.addOrder(mId,Integer.parseInt(req.getParameter("sSe")),
 													(long)jsonObj.get("totalAmount"), (String)jsonObj.get("orderId"),
 													(String)jsonObj.get("requestedAt"), (String)jsonObj.get("orderName"));
+			ica.addDetail(mId);
+			ica.addDetailTip(ica.getCurrSeq());
+			ica.clrCart(mId);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {

@@ -49,6 +49,29 @@
 	</select>
 <!-- orderend 테이블에 추가 -->
 	<insert id="addOrder">
-		insert into orderend values (o_seqno.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+		insert into orderend values
+		(o_seqno.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},null)
 	</insert>
+<!-- order 디테일 추가 -->
+	<insert id="addDetail">
+		insert into o_detailed (o_se,o_name,o_qty,qty_price)
+		select o_seqno.currval num,menu_name,menu_cnt,(menu_cnt*menu_price) qty_price
+		from cart a, menu b
+		where a.m_se=b.menu_seqno and m_id=#{param1}
+	</insert>
+<!-- 현재 오더의 seqno 값을 받아옴 -->
+	<select id="getCurrSeq" resultType="int">
+		select o_seqno.currval from dual
+	</select>
+<!-- order 디테일에 팁 추가 -->
+	<insert id="addDetailTip">
+		insert into o_detailed values
+		(o_seqno.currval,'배달팁',1,
+		(select o_price from orderend where o_seqno=#{param1})-
+		(select sum(qty_price) from o_detailed a where a.o_se = #{param1}))
+	</insert>
+<!-- 메뉴 주문 하면 카트를 비워줌 -->
+	<delete id="clrCart">
+		delete from cart where m_id=#{param1}
+	</delete>
 </mapper>

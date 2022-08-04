@@ -169,6 +169,8 @@
             <i id="btnMap" title="배달팁이 궁금하시면 클릭해보세요!" class="bi bi-question-circle"></i></p>
             <div id="divMap" style="display: block">
                 <div id="map" style="width:500px;height:400px;margin-right: auto;margin-left: auto;"></div>
+                <a>총 거리 <a id="dist"></a>m 중 기본거리 2000m(2000원)을 제외한<br>
+                    초과 거리 500m당 1000원씩 증가하여 <a id="deliveryTip"></a>가 되었습니다.</a>
             <br>
             </div>
             <p><span> 결제예정금액</span>&nbsp;<input readonly type="text" id="totalSum" value=""></p>
@@ -239,7 +241,7 @@
             bycicleHour = '<a class="number">' + Math.floor(bycicleTime / 60) + '</a>시간 '
         }
         bycicleMin = '<a class="number">' + bycicleTime % 60 + '</a>분'
-
+        $('#dist').text(distance);
         // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
         var content = '<ul class="dotOverlay distanceInfo">';
         content += '    <li>';
@@ -369,6 +371,7 @@
             console.log(totalprice);
         })
         deliveryprice = $('#tips').val();
+        $('#deliveryTip').text(deliveryprice);
         totalsum = parseInt(totalprice) + parseInt(deliveryprice);
         console.log("totalprice = "+totalprice)
         console.log("deliveryprice = "+deliveryprice)
@@ -478,32 +481,30 @@
                 }else if(distance<1600){
                     map.setLevel(5)
                 }else if(distance<3200){
-                    map.setLevel(6)
-                }else if(distance<6400){
                     map.setLevel(7)
-                }else if(distance<12800){
+                }else if(distance<6400){
                     map.setLevel(8)
-                }else if(distance<25600){
+                }else if(distance<12800){
                     map.setLevel(9)
-                }else if(distance<51200){
+                }else if(distance<25600){
                     map.setLevel(10)
-                }else if(distance<75000){
+                }else if(distance<51200){
                     map.setLevel(11)
-                }else if(distance<102400){
+                }else if(distance<75000){
                     map.setLevel(12)
-                }else if(distance<204800){
+                }else if(distance<102400){
                     map.setLevel(13)
-                }else if(distance<409600){
+                }else if(distance<204800){
                     map.setLevel(14)
                 }
                 // 그려진 선의 거리정보를 지도에 표시합니다
                 showDistance(content, path[path.length-1]);
                 if(distance<2000){
-                    $('#tips').val(4000);
+                    $('#tips').val(2000);
                 }
                 else if(distance>=2000){
                     var additionalTip = Math.ceil((distance-2000)/500)*1000
-                    $('#tips').val(4000+additionalTip);
+                    $('#tips').val(2000+additionalTip);
                 }
                 total();
             });
