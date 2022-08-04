@@ -135,54 +135,66 @@
 </nav>
 
 <section>
-    <div class="tab"><br>
-        <input type="radio" name="tabmenu" id="tab01"  checked>
-        <label for="tab01">주문내역</label>
-        <input type="radio" name="tabmenu" id="tab02">
-        <label for="tab02">예약내역</label>
-        <input type="radio" name="tabmenu" id="tab03">
-        <label for="tab03">리뷰내역</label>
-
-        <div class="conbox con1">
-            <div class="mar">
-                <p>날짜</p>
-                <div>
-                    <a href="/review">리뷰작성</a>
-                </div>
-                <div class="sName">
-                    <a>가게이름</a>
-                </div>
-                <div class="price">
-                    가격
-                </div>
+    <%--<div class="conbox con1">
+        <div class="mar">
+            <p>날짜</p>
+            <div>
+                <a href="/review">리뷰작성</a>
+            </div>
+            <div class="sName">
+                <a>가게이름</a>
+            </div>
+            <div class="price">
+                가격
             </div>
         </div>
+    </div>--%>
+        <div class="tab"><br>
+            <input type="radio" name="tabmenu" id="tab01"  checked>
+            <label for="tab01">주문내역</label>
+            <input type="radio" name="tabmenu" id="tab02">
+            <label for="tab02">예약내역</label>
+            <input type="radio" name="tabmenu" id="tab03">
+            <label for="tab03">리뷰내역</label>
 
-        <c:forEach var='item' items='${list}'>
-        <div class="conbox con2" style="border: 1px solid #c4c2c2">
-            <table align="center" style="margin: auto">
-                <tr><td>가게명</td><td>${item.SName}</td></tr>
-                <tr><td>예약날짜</td><td>${item.HDate}</td></tr>
-                <tr><td>예약시간</td><td>${item.HTime}</td></tr>
-                <tr><td>인원수</td><td>${item.HPeople}</td></tr>
-            </table>
-        </div>
-        </c:forEach>
-
-
-        <c:forEach var="i" items="${rlist }">
-            <div class="conbox con3">
-                <div id="c">
-                    <input readonly type="text" style="float: left; margin-left: 20px;" value="${i.SName}">
-                    <input readonly type="text" style="float: left; margin-left: 21px;" value="${i.score }"><br>
-                    <input readonly type="text" style="float: right; margin-right: 10px; width: auto; color: #333333" value="${i.RDate }"><br>
-                    <textarea readonly style="width: 70%; height: 100px;"><c:out value="${i.RContent }" /></textarea>
-                    <input type="button" value="삭제" class="btnDel" id="${i.RSeqno}" style="float: right; margin-right: 5px;">
+            <div class="conbox con1" style="border: 2px solid #c4c2c2; margin-top: 20px;">
+                <div class="mar">
+                    <!-- <input readonly type="text" value="2022-08-22" style="float: right; text-align: right;"><br> -->
+                    <table align="center" style="float: left; margin-top:13px;">
+                        <tr><td style="width: 100px; height: 30px;">주문일</td><td>2022-08-22</td></tr>
+                        <tr><td style="width: 100px; height: 30px;">가게명</td><td>마초쉐프</td></tr>
+                        <tr><td style="width: 100px; height: 30px;">가격</td><td>20000원</td></tr>
+                    </table>
+                    <p style="float: left; margin: 40px 40px ;"><a href="/review" style="">리뷰작성💌</a></p>
                 </div>
             </div>
-        </c:forEach>
 
-    </div>
+            <c:forEach var='item' items='${list}'>
+                <div class="conbox con2" style="border: 2px solid #c4c2c2; margin-top: 20px;">
+                    <table align="center"  class="list" style="margin: auto; margin-top:25px;">
+                        <tr><td style="width: 100px; height: 35px;">가게명</td><td style="width: 150px;">${item.SName}</td>
+                            <td style="width: 100px;">예약날짜</td><td>${item.HDate}</td></tr>
+                        <tr><td style="height: 35px;">예약시간</td><td>${item.HTime}</td>
+                            <td>인원수</td><td>${item.HPeople}</td></tr>
+                    </table>
+                    <input type="button" value="예약취소" class="btnDel" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
+                </div>
+            </c:forEach><br>
+
+
+            <c:forEach var="i" items="${rlist }">
+                <div class="conbox con3" style="border: 2px solid #c4c2c2; margin-top: 20px;">
+                    <div class="c" style="margin-top: 10px;">
+                        <input readonly type="text"  value="${i.SName}">
+                        <input readonly type="text"  value="${i.score }">
+                        <input readonly type="text" style="float: right; width: auto; color: #333333" value="${i.RDate }"><br>
+                        <textarea readonly><c:out value="${i.RContent }" /></textarea>
+                        <input type="button" value="삭제" class="btnDel" id="${i.RSeqno}" style="float: right; background-color: #c4c2c2;">
+                    </div>
+                </div>
+            </c:forEach><br>
+
+        </div>
 </section>
 <footer id="footer">
     <div class="container2">
