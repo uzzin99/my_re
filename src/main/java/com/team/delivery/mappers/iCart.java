@@ -22,4 +22,8 @@ public interface iCart {
 	String selStoreAddr(int sSe);
 	String selMemberAddr(String mId);
 	void addOrder(String mid,int sSe, long price, String Ocode, String Odate,String Oname);
+	void addDetail(String m_id);
+	void clrCart(String m_id);
+	int getCurrSeq();
+	void addDetailTip(int seq);
 }
