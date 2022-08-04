@@ -113,8 +113,8 @@ public class StoreController {
 
 		//찜 여부 확인
 		if(session.getAttribute("userid")!=null){
-			int cnt=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
-			model.addAttribute("count",cnt);
+			int cont=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
+			model.addAttribute("count",cont);
 		}
 
 

@@ -57,7 +57,7 @@ public class MemberController {
 			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mid);
 			model.addAttribute("list",reservationlist);
 // jeon
-			ArrayList<orderDTO> orderList = ica.selOrder(mId);
+			ArrayList<orderDTO> orderList = ica.selOrder(mid);
 			ArrayList<oDetailDTO> detailList = ica.selDetail();
 			System.out.println(orderList);
 			model.addAttribute("orderList",orderList);
