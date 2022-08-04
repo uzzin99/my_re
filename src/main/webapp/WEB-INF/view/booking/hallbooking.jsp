@@ -93,18 +93,18 @@
                         홀예약
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="hall?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="hall?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="hall?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="hall?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="hall?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="hall?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="hall?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="hall?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="hall?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="hall?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="hall?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="hall?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
                     </ul>
 
                 <li class="nav-item dropdown">
@@ -114,14 +114,13 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="#">Q&A</a></li>
-                        <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
@@ -231,31 +230,43 @@
     document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
 
 
-
     $('#order').on('click',function (){
         // console.log("클릭");
-        $.ajax({
-            type:'post',
-            url:'hallbookingadd',
-            dataType: 'json',
-            data: {
-                hTime: $("input[type=radio][name=touch]:checked").val(),
-                sSeqno:$("#SSeqno").val(),
-                hDate:$("#currentDate").val(),
-                // hTime:$("#currentTime").val(),
-                hPeople:$("#Bnum").val(),
-                hOnepeople:$("#Bname").val(),
-                mId:$("#BId").val(),
-                hMobile:$("#Bmobile").val(),
-                hRequest:$("#Brequest").val(),
 
-            },
-            success:function(data){
-                console.log(data);
-                location.href='bookingend?hseqno='+data;
-            }
+        if(${userinfo == null }) {
+            location.href = "/errorLogin";
+            // window.close();
+        } else {
 
-        })
+            $.ajax({
+                type: 'post',
+                url: 'hallbookingadd',
+                dataType: 'json',
+                data: {
+                    hTime: $("input[type=radio][name=touch]:checked").val(),
+                    sSeqno: $("#SSeqno").val(),
+                    hDate: $("#currentDate").val(),
+                    // hTime:$("#currentTime").val(),
+                    hPeople: $("#Bnum").val(),
+                    hOnepeople: $("#Bname").val(),
+                    mId: $("#BId").val(),
+                    hMobile: $("#Bmobile").val(),
+                    hRequest: $("#Brequest").val(),
+
+                },
+                success: function (data) {
+                    console.log(data);
+
+                    location.href = 'bookingend?hseqno=' + data;
+                }
+
+            })
+        }
     })
+
+
+
+
+
 </script>
 </html>

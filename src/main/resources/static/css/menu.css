@@ -15,7 +15,7 @@ section {
     font-family: 'GongGothicMedium';
     background-color: #f8f9fa;
 }
-/*section ���� ��ũ�ѹ� �����*/
+/*section 안의 스크롤바 숨기기*/
 section::-webkit-scrollbar {
     display: none;
 }
@@ -186,3 +186,37 @@ input[id="tab03"]:checked~.con3 {
     width: 150px;
     height: 150px;
 }
+
+#jjim{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #bcbcbc;
+    content: "";
+    color: red;
+    cursor: pointer;
+
+}
+
+#choice{
+    display: none;
+}
+
+.mySt{
+    display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    border: 0; /* 필드셋 테두리 제거 */
+    direction: rtl; /* 이모지 순서 반전 */
+}
+/* 체크박스 감춤 */
+.mySt input[type=checkbox]{
+    display: none;
+}
+.mySt label{
+    font-size: 1.0em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #FBF5BF; /* 새 이모지 색상 부여 */
+}
+.mySt input[type=checkbox]:checked ~ label{
+    text-shadow: 0 0 0 #FCC500; /* 마우스 클릭 체크 */
+}
+

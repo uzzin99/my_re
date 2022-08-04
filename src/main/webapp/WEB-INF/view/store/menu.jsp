@@ -22,7 +22,6 @@
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/menu.css" rel="stylesheet" type="text/css" />
-    <link href="/css/menuSt.css" rel="stylesheet" type="text/css" />
 
     <title>Menu</title>
 </head>
@@ -96,18 +95,18 @@
                         홀예약
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
                     </ul>
 
                 <li class="nav-item dropdown">
@@ -117,14 +116,13 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="#">Q&A</a></li>
-                        <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
@@ -141,9 +139,22 @@
                 <input type="hidden" id=sSe name="sSe" value="${storename.SSeqno}">
 
 				<p><input type="text" readonly value="${storename.SName }"
-					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
-				<p>⭐⭐⭐⭐⭐ 4.9</p>
-				<p>최근리뷰 228 | 최근사장님댓글 0</p>
+					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>     
+        <div class="mySt" style="float:left; margin-left: 44%">
+                        <input type="checkbox" name="rating" value="10" id="rat1" <c:if test="${avg > 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat1">⭐</label>
+                        <input type="checkbox" name="rating" value="8" id="rat2" <c:if test="${avg > 6 && avg < 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat2">⭐</label>
+                        <input type="checkbox" name="rating" value="6" id="rat3" <c:if test="${avg > 4 && avg < 6}">checked="checked"</c:if> disabled="disabled"/><label for="rat3">⭐</label>
+                        <input type="checkbox" name="rating" value="4" id="rat4" <c:if test="${avg > 2 && avg < 4}">checked="checked"</c:if> disabled="disabled"/><label for="rat4">⭐</label>
+                        <input type="checkbox" name="rating" value="2" id="rat5" <c:if test="${avg > 0 && avg < 2}">checked="checked"</c:if> disabled="disabled"/><label for="rat5">⭐</label>  <!-- 젤 왼쪽 별 -->
+                    </div>
+                <p style="float: left;">&nbsp;&nbsp;
+                    <c:if test="${cnt != ''}">${avg}</c:if>
+                    <c:if test="${cnt == ''}">0.0</c:if></p>
+                <p style="clear: both">최근리뷰
+                    <c:if test="${cnt != ''}">${cnt}</c:if>
+                    <c:if test="${cnt == ''}">0</c:if>
+                    | ❤ 30</p>
+        
 <%--				<p>${storename.SMobile } |--%>
 <%--                    <label for="choice" id="jjim"></label>--%>
 <%--                    <input type="checkbox" id="choice" name="choice"> 찜 | 공유</p>--%>
@@ -191,16 +202,13 @@
 		<c:forEach var="i" items="${rlist }">
 			<div class="conbox con2">
 				<div id="b">
-<%--					<img class="menuImg" src="/image/${i.menuImg }">--%>
 					<input readonly type="text" style="float: left; margin-left: 20px;" value="${i.MId}">
-					<input readonly type="text" style="float: left; margin-left: 21px;" class="score ${i.score }"><br>
-<%--                    <small class="score ${i.score}"></small>--%>
-                    <div id="mySt">
-                        <input type="radio" name="rating" value="10" id="rate1" onclick="return(false);"><label for="rate1">⭐</label>
-                        <input type="radio" name="rating" value="8" id="rate2" onclick="return(false);"><label for="rate2">⭐</label>
-                        <input type="radio" name="rating" value="6" id="rate3" onclick="return(false);"><label for="rate3">⭐</label>
-                        <input type="radio" name="rating" value="4" id="rate4" onclick="return(false);"><label for="rate4">⭐</label>
-                        <input type="radio" name="rating" value="2" id="rate5" onclick="return(false);"><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
+                    <div class="mySt">
+                        <input type="checkbox" name="rating" value="10" id="rate1" <c:if test="${i.score == 10}">checked="checked"</c:if> disabled="disabled"/><label for="rate1">⭐</label>
+                        <input type="checkbox" name="rating" value="8" id="rate2" <c:if test="${i.score == 8}">checked="checked"</c:if> disabled="disabled"/><label for="rate2">⭐</label>
+                        <input type="checkbox" name="rating" value="6" id="rate3" <c:if test="${i.score == 6}">checked="checked"</c:if> disabled="disabled"/><label for="rate3">⭐</label>
+                        <input type="checkbox" name="rating" value="4" id="rate4" <c:if test="${i.score == 4}">checked="checked"</c:if> disabled="disabled"/><label for="rate4">⭐</label>
+                        <input type="checkbox" name="rating" value="2" id="rate5" <c:if test="${i.score == 2}">checked="checked"</c:if> disabled="disabled"/><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
                     </div>
 					<input readonly type="text" style="float: right; margin-right: 10px; width: auto; color: #333333" value="${i.RDate }"><br>
 					<textarea readonly style="width: 70%; height: 100px;"><c:out value="${i.RContent }" /></textarea>
@@ -238,15 +246,6 @@
 </body>
 <script>
 $(document)
-    <%--.ready(function (){--%>
-    <%--    document.querySelector("#mySt input[value='${rlist.score}']").setAttribute('checked' , true);--%>
-    <%--})--%>
-// 별점임 지우지마셈
-// $(".2").html("💛 🤍 🤍 🤍 🤍");
-// $(".4").html("&#9733; &#9733; &#9734; &#9734; &#9734;");
-// $(".6").html("&#9733; &#9733; &#9733; &#9734; &#9734;");
-// $(".8").html("&#9733; &#9733; &#9733; &#9733; &#9734;");
-// $(".10").html("&#9733; &#9733; &#9733; &#9733; &#9733;");
 
 .on('click','#choice',function(){
     let mid=$('#mid').val();
@@ -273,8 +272,6 @@ $(document)
             }
         })
     }
-
-
 })
 
 function openPop(mse,sse){

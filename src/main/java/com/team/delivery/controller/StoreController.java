@@ -88,6 +88,17 @@ public class StoreController {
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 
+		int cnt = store.reviewCnt(sSeqno);
+		if(cnt > 0) {
+			double avg=store.storeAvg(sSeqno);
+			avg = Math.round(avg * 100) / 100.0;
+			model.addAttribute("avg", avg);
+			log.info("가게평균={}", avg);
+			model.addAttribute("cnt", cnt);
+		}else{
+			log.info("공백넘어감");
+			model.addAttribute("cnt","");
+		}
 		StoreDTO storeName = store.storeName(sSeqno);
 		model.addAttribute("storename",storeName);
 		ArrayList<StoreDTO> menulist = store.menutable(sSeqno);
