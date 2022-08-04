@@ -186,3 +186,18 @@ input[id="tab03"]:checked~.con3 {
     width: 150px;
     height: 150px;
 }
+
+#jjim{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #bcbcbc;
+    content: "";
+    color: red;
+    cursor: pointer;
+
+}
+
+#choice{
+    display: none;
+}

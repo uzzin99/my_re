@@ -151,23 +151,41 @@ public class MemberController {
 		@RequestMapping("/signUp/delInformation")
 		public String delInformation(HttpServletRequest request) {
 			HttpSession session=request.getSession();
-			int sSe=Integer.parseInt(request.getParameter("delseq"));
-			String simg=request.getParameter("dellogo");
+//			int sSe=Integer.parseInt(request.getParameter("delseq"));
 
 			if(session.getAttribute("userType")=="손님"){
+				System.out.println("회원탈퇴 usertype="+session.getAttribute("userType"));
 				ime.delInformation((String)session.getAttribute("userid"));
 				ime.delDelivery((String)session.getAttribute("userid"));
-			}else if(session.getAttribute("userType")=="사장"){
+
+			}else if(session.getAttribute("userType")=="사장님"){
+				System.out.println("회원탈퇴 usertype="+session.getAttribute("userType"));
 				ime.delInformation((String)session.getAttribute("userid"));
 				ime.delDelivery((String)session.getAttribute("userid"));
+
+				String simg=ims.delstorelogo((String)session.getAttribute("userid"));
+				System.out.println("가게로고이미지="+simg);
+
+				//메뉴이미지 및 목록 삭제
+				ArrayList<StoreDTO> sDTO=ims.delmenuimg((String)session.getAttribute("userid"));
+				System.out.println("메뉴 목록 리스트="+sDTO);
+				for(int i=0;i<sDTO.size();i++){
+					StoreDTO list = sDTO.get(i);
+					System.out.println("mimg="+list.getMenuImg());
+					if(list.getMenuImg()!=null){
+						File dfile = new File(upLoadDirectory2,list.getMenuImg());
+						dfile.delete();
+						System.out.println("메뉴번호="+i);
+					}
+				}
+				ims.deleteAllMenu((String)session.getAttribute("userid"));
+
+				//가게로고 및 정보 삭제
 				if(simg!=null){
-					ims.deleteStore((String)session.getAttribute("userid"));
 					File dfile = new File(upLoadDirectory2,simg);
 					dfile.delete();
 				}
-//				if(){/*메뉴 이미지 삭제 구현하기*/
-//					ims.deleteAllMenu((String)session.getAttribute("userid"));
-//				}
+				ims.deleteStore((String)session.getAttribute("userid"));
 			}
 
 			session.invalidate();
