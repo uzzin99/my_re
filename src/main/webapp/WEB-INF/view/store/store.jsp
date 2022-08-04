@@ -99,18 +99,18 @@ a:hover{
             홀예약
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-            <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-            <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-            <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-            <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-            <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-            <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-            <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-            <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-            <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-            <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-            <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+            <li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+            <li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+            <li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+            <li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+            <li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+            <li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+            <li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+            <li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+            <li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+            <li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+            <li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+            <li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
           </ul>
 
         <li class="nav-item dropdown">
@@ -119,9 +119,8 @@ a:hover{
             게시판
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
-            <li><a class="dropdown-item" href="#">Q&A</a></li>
-            <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+            <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
+            <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
           </ul>
         </li>
       </ul>
@@ -147,8 +146,19 @@ a:hover{
 
 
             <p align="center"><input readonly type="text" class="sName" value='${item.SName}'></p>
-            <span>별점</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="⭐⭐⭐"><br>
-            <span>최소주문</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="2,0000"><br>
+            <span>별점</span>&nbsp;&nbsp;&nbsp;
+<%--          <div class="mySt" style="float:left; margin-left: 44%">--%>
+<%--            <input type="checkbox" name="rating" value="10" id="rat1" <c:if test="${avg > 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat1">⭐</label>--%>
+<%--            <input type="checkbox" name="rating" value="8" id="rat2" <c:if test="${avg > 6 && avg < 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat2">⭐</label>--%>
+<%--            <input type="checkbox" name="rating" value="6" id="rat3" <c:if test="${avg > 4 && avg < 6}">checked="checked"</c:if> disabled="disabled"/><label for="rat3">⭐</label>--%>
+<%--            <input type="checkbox" name="rating" value="4" id="rat4" <c:if test="${avg > 2 && avg < 4}">checked="checked"</c:if> disabled="disabled"/><label for="rat4">⭐</label>--%>
+<%--            <input type="checkbox" name="rating" value="2" id="rat5" <c:if test="${avg > 0 && avg < 2}">checked="checked"</c:if> disabled="disabled"/><label for="rat5">⭐</label>  <!-- 젤 왼쪽 별 -->--%>
+<%--          </div>--%>
+<%--          <p style="float: left;">&nbsp;&nbsp;--%>
+<%--            <c:if test="${cnt != ''}">${avg}</c:if>--%>
+<%--            <c:if test="${cnt == ''}">0.0</c:if></p>--%>
+          <input readonly type="text" value="⭐⭐⭐"><br>
+            <span>최소주문</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="10,0000"><br>
             <span>소요시간</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="30~40분">
         </div>
       </div>

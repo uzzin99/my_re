@@ -8,6 +8,22 @@
 		select * from store where s_seqno=#{param1}
 	</select>
 
+<!--  가게평균점수 구하기	-->
+	<select id="storeAvg" resultType="double">
+		select avg(b.score )
+		from store a, review b
+		where b.s_seqno=#{sSeqno}
+		  and a.s_seqno=b.s_seqno
+	</select>
+
+<!--  가게리뷰개수 구하기	-->
+	<select id="reviewCnt" resultType="int">
+		select count(a.score )
+		from review a, store b
+		where a.s_seqno=#{sSeqno}
+		  and a.s_seqno=b.s_seqno
+	</select>
+
 <!-- 가게리스트 -->
 <select id="liststore" resultType="com.team.delivery.DTO.StoreDTO">
 	select * from store where s_type = #{param1}

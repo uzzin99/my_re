@@ -49,21 +49,19 @@ public class MemberController {
 
 
 		@RequestMapping("/signUp/payment")
-		public String paymentDetails(@RequestParam("mId") String mId, HttpServletRequest request, Model model){
+		public String paymentDetails(HttpServletRequest request, Model model){
 
 			HttpSession session=request.getSession();
 
 			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
-
 // eunji
 			String mid = (String)session.getAttribute("userid");
 			ArrayList<reviewDTO> rlist = store.myReviewList(mid);
 			model.addAttribute("rlist",rlist);
 // yoojin
-			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mId);
+			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mid);
 			model.addAttribute("list",reservationlist);
-
 
 			return "member/paymentDetails";
 		}

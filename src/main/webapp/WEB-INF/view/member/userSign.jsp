@@ -97,18 +97,18 @@
 						홀예약
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" href="store?type=1">한식</a></li>
-						<li><a class="dropdown-item" href="store?type=2">중식</a></li>
-						<li><a class="dropdown-item" href="store?type=3">일식</a></li>
-						<li><a class="dropdown-item" href="store?type=4">양식</a></li>
-						<li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-						<li><a class="dropdown-item" href="store?type=6">피자</a></li>
-						<li><a class="dropdown-item" href="store?type=7">분식</a></li>
-						<li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-						<li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-						<li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-						<li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-						<li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+						<li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+						<li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+						<li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+						<li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+						<li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+						<li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+						<li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
 					</ul>
 
 				<li class="nav-item dropdown">
@@ -117,9 +117,8 @@
 						게시판
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
-						<li><a class="dropdown-item" href="#">Q&A</a></li>
-						<li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+						<li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
+						<li><a class="dropdown-item" href="/QnA">Q&A</a></li>
 					</ul>
 				</li>
 			</ul>
