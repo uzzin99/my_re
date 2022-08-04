@@ -18,4 +18,10 @@ public interface iStore {
 	int reviewAdd(reviewDTO review) throws Exception;
 	ArrayList<reviewDTO> myReviewList(String mId);
 	int reviewDel(int rSeqno);
+
+
+	void zzimcheck(String mid, int sSe);
+	void zzimdelete(String mid, int sSe);
+	int zzimStorecount(String mid, int sSe);
+
 }

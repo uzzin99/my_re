@@ -43,21 +43,34 @@
 </select>
 
 <!--  가게리뷰작성	-->
-	<insert id="reviewAdd" parameterType="com.team.delivery.DTO.reviewDTO">
-		insert into review values(r_seqno.nextval,#{oSe},#{mId},#{rContent},to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{score},#{sSe})
-	</insert>
+<insert id="reviewAdd" parameterType="com.team.delivery.DTO.reviewDTO">
+	insert into review values(r_seqno.nextval,#{oSe},#{mId},#{rContent},to_char(sysdate,'YYYY-MM-DD hh24:mi:ss'),#{score},#{sSe})
+</insert>
 
-	<!-- 내가 작성한 가게리뷰리스트 -->
-	<select id="myReviewList"  resultType="com.team.delivery.DTO.reviewDTO">
-		select b.s_name, a.r_content, a.r_date, a.score, a.r_seqno
-		from review a,  store b
-		where a.m_id=#{mId}
-		  and a.s_seqno = b.s_seqno
-		order by a.r_date desc
-	</select>
+<!-- 내가 작성한 가게리뷰리스트 -->
+<select id="myReviewList"  resultType="com.team.delivery.DTO.reviewDTO">
+	select b.s_name, a.r_content, a.r_date, a.score, a.r_seqno
+	from review a,  store b
+	where a.m_id=#{mId}
+	  and a.s_seqno = b.s_seqno
+	order by a.r_date desc
+</select>
 
 <!--  가게리뷰삭제	-->
-	<delete id="reviewDel">
-		delete from review where r_seqno=#{rSeqno}
-	</delete>
+<delete id="reviewDel">
+	delete from review where r_seqno=#{rSeqno}
+</delete>
+
+<!--찜 버튼 체크-->
+<insert id="zzimcheck">
+	insert into zzim values(#{param1},#{param2})
+</insert>
+<!--찜 버튼 체크 해제-->
+<delete id="zzimdelete">
+	delete from zzim where m_id=#{param1} and s_se=#{param2}
+</delete>
+<!--찜목록 id당 가게 찜 여부-->
+<select id="zzimStorecount" resultType="int">
+	select count(*) cnt from zzim where m_id=#{param1} and s_se=#{param2}
+</select>
 </mapper>

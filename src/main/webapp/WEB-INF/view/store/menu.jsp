@@ -137,13 +137,29 @@
 				<img class="sImg" src="${i.menuImg }">
 			</td> -->
 			<td>
+                <input type="hidden" id=mid name="mid" value="${userinfo}">
+                <input type="hidden" id=sSe name="sSe" value="${storename.SSeqno}">
+
 				<p><input type="text" readonly value="${storename.SName }"
 					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
 				<p>⭐⭐⭐⭐⭐ 4.9</p>
 				<p>최근리뷰 228 | 최근사장님댓글 0</p>
-				<p>${storename.SMobile } |
-                    <label for="choice" id="jjim"></label>
-                    <input type="checkbox" id="choice" name="choice"> 찜 | 공유</p>
+<%--				<p>${storename.SMobile } |--%>
+<%--                    <label for="choice" id="jjim"></label>--%>
+<%--                    <input type="checkbox" id="choice" name="choice"> 찜 | 공유</p>--%>
+                <p>전화번호 ${storename.SMobile } |
+                    <c:if test="${userinfo == null}">
+                        찜하기
+                    </c:if>
+                    <c:if test="${userinfo != null}">
+                        <c:if test="${count==0}">
+                            <label for="btnchoice" id="choice"><input type="button" id="btnchoice" name="choice">🤍찜</label>
+                        </c:if>
+                        <c:if test="${count==1}">
+                            <label for="btnchoice" id="choice"><input type="button" id="btnchoice" name="choice">❤찜</label>
+                        </c:if>
+                    </c:if>
+                    | 공유</p>
 			</td>
 		</tr>
 	</table>
@@ -232,7 +248,34 @@ $(document)
 // $(".8").html("&#9733; &#9733; &#9733; &#9733; &#9734;");
 // $(".10").html("&#9733; &#9733; &#9733; &#9733; &#9733;");
 
+.on('click','#choice',function(){
+    let mid=$('#mid').val();
+    let sSe=$('#sSe').val();
+    console.log("mid="+mid+"sSe="+sSe);
+    if(true){
+        console.log("check on");
+        $.ajax({
+            url:"/z_Check", type:"get",
+            data:{mid:mid, sSe:sSe},
+            dataType:'text',
+            success: function(){
+                location.reload();
+            }
+        })
+    }else{
+        console.log("check off");
+        $.ajax({
+            url:"/z_Delete", type:"get",
+            data:{mid:mid, sSe:sSe},
+            dataType:'text',
+            success: function(){
+                location.reload();
+            }
+        })
+    }
 
+
+})
 
 function openPop(mse,sse){
    window.open('/store/menuDetail?mSe='+mse+'&sSe='+sse,'menuDetail','width=600px,height=700px,scrollbars=yes,resizable=no');
