@@ -7,11 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
-import com.team.delivery.DTO.reviewDTO;
-import com.team.delivery.mappers.iStore;
-
-import com.team.delivery.DTO.bookingDTO;
-import com.team.delivery.mappers.iBooking;
+import com.team.delivery.DTO.*;
+import com.team.delivery.mappers.*;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.team.delivery.DTO.StoreDTO;
-import com.team.delivery.DTO.mDTO;
-import com.team.delivery.mappers.iMember;
-import com.team.delivery.mappers.iMenuStore;
-
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -36,7 +28,9 @@ public class MemberController {
 	private final iMenuStore ims;
   	private final iBooking ibo;
 	private final iStore store;
-  
+
+	private final iCart ica;
+
 	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
 
 		@RequestMapping("/reviewDel")
@@ -63,8 +57,12 @@ public class MemberController {
 // yoojin
 			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mId);
 			model.addAttribute("list",reservationlist);
-
-
+// jeon
+			ArrayList<orderDTO> orderList = ica.selOrder(mId);
+			ArrayList<oDetailDTO> detailList = ica.selDetail();
+			System.out.println(orderList);
+			model.addAttribute("orderList",orderList);
+			model.addAttribute("detailList",detailList);
 			return "member/paymentDetails";
 		}
 

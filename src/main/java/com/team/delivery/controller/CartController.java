@@ -148,13 +148,15 @@ public class CartController {
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(a);
 			JSONObject jsonObj = (JSONObject) obj;
+			String time = (String)jsonObj.get("requestedAt");
+			String date[] = time.split("T");
 //			System.out.println(jsonObj);
 //			System.out.println("orderName = "+(String)jsonObj.get("orderName"));
 //			System.out.println("totalAmount = "+(long)jsonObj.get("totalAmount"));
 //			System.out.println("requestedAt = "+(String)jsonObj.get("requestedAt"));
 			ica.addOrder(mId,Integer.parseInt(req.getParameter("sSe")),
 													(long)jsonObj.get("totalAmount"), (String)jsonObj.get("orderId"),
-													(String)jsonObj.get("requestedAt"), (String)jsonObj.get("orderName"));
+													date[0], (String)jsonObj.get("orderName"));
 			ica.addDetail(mId);
 			ica.addDetailTip(ica.getCurrSeq());
 			ica.clrCart(mId);
