@@ -231,31 +231,43 @@
     document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
 
 
-
     $('#order').on('click',function (){
         // console.log("클릭");
-        $.ajax({
-            type:'post',
-            url:'hallbookingadd',
-            dataType: 'json',
-            data: {
-                hTime: $("input[type=radio][name=touch]:checked").val(),
-                sSeqno:$("#SSeqno").val(),
-                hDate:$("#currentDate").val(),
-                // hTime:$("#currentTime").val(),
-                hPeople:$("#Bnum").val(),
-                hOnepeople:$("#Bname").val(),
-                mId:$("#BId").val(),
-                hMobile:$("#Bmobile").val(),
-                hRequest:$("#Brequest").val(),
 
-            },
-            success:function(data){
-                console.log(data);
-                location.href='bookingend?hseqno='+data;
-            }
+        if(${userinfo == null }) {
+            location.href = "/errorLogin";
+            // window.close();
+        } else {
 
-        })
+            $.ajax({
+                type: 'post',
+                url: 'hallbookingadd',
+                dataType: 'json',
+                data: {
+                    hTime: $("input[type=radio][name=touch]:checked").val(),
+                    sSeqno: $("#SSeqno").val(),
+                    hDate: $("#currentDate").val(),
+                    // hTime:$("#currentTime").val(),
+                    hPeople: $("#Bnum").val(),
+                    hOnepeople: $("#Bname").val(),
+                    mId: $("#BId").val(),
+                    hMobile: $("#Bmobile").val(),
+                    hRequest: $("#Brequest").val(),
+
+                },
+                success: function (data) {
+                    console.log(data);
+
+                    location.href = 'bookingend?hseqno=' + data;
+                }
+
+            })
+        }
     })
+
+
+
+
+
 </script>
 </html>
