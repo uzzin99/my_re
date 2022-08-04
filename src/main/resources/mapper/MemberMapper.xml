@@ -73,5 +73,4 @@
 <delete id="delSe">
 	delete from delivery where d_seqno=#{param1}
 </delete>
-
 </mapper>

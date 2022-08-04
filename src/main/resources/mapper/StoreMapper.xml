@@ -76,4 +76,9 @@
 	<delete id="reviewDel">
 		delete from review where r_seqno=#{rSeqno}
 	</delete>
+
+<!-- 가게 불러오기
+	<select id="bolist" resultType="com.team.delivery.DTO.StoreDTO">
+		select * from store where m_id=#{param1}
+	</select>-->
 </mapper>

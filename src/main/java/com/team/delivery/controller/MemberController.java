@@ -303,6 +303,14 @@ public class MemberController {
 					session.setAttribute("userType", "손님");
 				}else if(profile.getMType() == 2) {
 					session.setAttribute("userType", "사장님");
+					//sql문으로 가게테이블 DTO로 불러와서 일단 필요한 부분만 세션에 저장
+
+					/*StoreDTO sVO = store.bolist((String)session.getAttribute("userid"));
+					model.addAttribute("sVO",sVO);
+
+					session.setAttribute("sSeqno", sVO.getSSeqno());*/
+
+					//sql문으로 주문된 건수 불러오기
 				}
 			}else {
 				model.addAttribute("ch","<h7>등록되지 않은 계정입니다.</h7>");

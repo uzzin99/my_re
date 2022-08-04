@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import com.team.delivery.DTO.StoreDTO;
 import com.team.delivery.DTO.reviewDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface iStore {
@@ -20,4 +19,5 @@ public interface iStore {
 	int reviewAdd(reviewDTO review) throws Exception;
 	ArrayList<reviewDTO> myReviewList(String mId);
 	int reviewDel(int rSeqno);
+//	StoreDTO bolist(String mId);
 }

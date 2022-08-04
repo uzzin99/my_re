@@ -185,6 +185,7 @@ a:hover{
                 <a><span style="background: linear-gradient(to top, #39c0c0 30%, transparent 30%);">
                     내 가게:</span>&nbsp;&nbsp;${sVO.SName}</a>
               </button></p>
+              <p style="display:inline; float: right;" onclick=location.href='booking/bookinglist?sSeqno=${sVO.SSeqno}'>주문/예약내역📄</p>
             </div>
         </c:if>
         </c:if>

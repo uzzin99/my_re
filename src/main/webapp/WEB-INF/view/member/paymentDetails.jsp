@@ -164,7 +164,7 @@
                         <tr><td style="width: 100px; height: 30px;">가게명</td><td>마초쉐프</td></tr>
                         <tr><td style="width: 100px; height: 30px;">가격</td><td>20000원</td></tr>
                     </table>
-                    <p style="float: left; margin: 40px 40px ;"><a href="/review" style="">리뷰작성💌</a></p>
+                    <p style="float: left; margin: 50px 40px ;"><a href="/review" style="">리뷰작성💌</a></p>
                 </div>
             </div>
 
@@ -176,7 +176,7 @@
                         <tr><td style="height: 35px;">예약시간</td><td>${item.HTime}</td>
                             <td>인원수</td><td>${item.HPeople}</td></tr>
                     </table>
-                    <input type="button" value="예약취소" class="btnDel" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
+                    <input type="button" value="예약취소" class="btlDel" id="${item.HSeqno}" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
                 </div>
             </c:forEach><br>
 
@@ -237,6 +237,28 @@
                         // $("#c").load(location.href + " #c");
                         location.reload();
                         // $("input:radio[id='tab03']").prop("checked",true);
+                    }else{
+                        alert("다시 시도해주세요");
+                    }
+                }
+            })
+        }
+    })
+
+    $(".btlDel").on("click",function(event){
+        let delbo = $(this).attr("id");
+        console.log(delbo);
+        answer = confirm("예약취소 하시겠습니까?");
+        if(answer){
+            $.ajax({
+                url:'/delbooking',
+                type:'get',
+                dataType:'json',
+                data:{delbo:delbo},
+                success:function(data){
+                    console.log(data);
+                    if(data == 1){
+                        location.reload();
                     }else{
                         alert("다시 시도해주세요");
                     }
