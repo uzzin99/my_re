@@ -97,6 +97,7 @@ public class StoreController {
 
 		//찜 여부 확인
 		if(session.getAttribute("userid")!=null){
+
 			int cnt=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
 			model.addAttribute("count",cnt);
 		}
@@ -138,20 +139,37 @@ public class StoreController {
 		String mid=request.getParameter("mid");
 		int sSe=Integer.parseInt(request.getParameter("sSe"));
 		System.out.println("찜 mid="+mid+"찜 sSe="+sSe);
-		store.zzimcheck(mid,sSe);
 
-		return "";
+		int cnt=store.zzimStorecount(mid,sSe);
+		if(cnt == 0){
+			store.zzimcheck(mid,sSe);
+		}
+		return "redirect:/store/menu?sSeqno="+sSe;
 	}
+
 	@RequestMapping("/z_Delete")
 	public String doZzimdelete(HttpServletRequest request){
 		//찜해제
 		String mid=request.getParameter("mid");
 		int sSe=Integer.parseInt(request.getParameter("sSe"));
 		System.out.println("찜해제 mid="+mid+"찜해제 sSe="+sSe);
-		store.zzimdelete(mid,sSe);
 
-		return "";
+		int cnt=store.zzimStorecount(mid,sSe);
+		if(cnt == 1) {
+			store.zzimdelete(mid, sSe);
+		}
+		return "redirect:/store/menu?sSeqno="+sSe;
 	}
+
+	@RequestMapping("z_list")
+	public String doZlist(HttpServletRequest req, Model model){
+		HttpSession session = req.getSession();
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+
+		return "store/zzimlist";
+	}
+
 
 
 }

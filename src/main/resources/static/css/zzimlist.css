@@ -1,0 +1,156 @@
+@charset "EUC-KR";
+* {
+    font-family: 'GongGothicMedium';
+}
+
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+section {
+    overflow: auto;
+    font-family: 'GongGothicMedium';
+    background-color: #f8f9fa;
+}
+/*section ¾??? ½º?©·?¹? ¼û±â±â*/
+section::-webkit-scrollbar {
+    display: none;
+}
+
+.tab {
+    margin-left: 50px;
+    text-align: center;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"]+label {
+    display: inline-block;
+    background-color: #f1f1f1;
+    color: #999;
+    font-size: 15px;
+    cursor: pointer;
+    font-family: 'GongGothicMedium';
+    border-radius: 3px;
+    width: 100px;
+    height: 30px;
+}
+
+input[type="radio"]:checked+label {
+    background: linear-gradient(to top, #39c0c0 40%, transparent 30%);
+    background-color: #f1f1f1 ;
+    color: #000;
+}
+
+.conbox{
+    width: 800px;
+    height: 120px;
+    display: none;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+    /* margin-left: 20px; */
+    /* margin-top: 20px; */
+    margin: auto;
+}
+
+.conbox input {
+    background-color: #f1f1f1;
+}
+
+input[id="tab01"]:checked~.con1 {
+    display: block;
+}
+
+input[id="tab02"]:checked~.con2 {
+    display: block;
+}
+
+
+input[id="tab03"]:checked~.con3{
+    display: block;
+}
+
+#b input {
+    margin-top: 7px;
+    margin-right: 5px;
+    width: 15%;
+}
+
+#b textarea{
+    background-color: #f1f1f1;
+    border: none;
+    margin-left: 10px;
+    resize: none;
+}
+
+.mar input {
+    border: none;
+}
+
+.mar{
+    margin-left: 30%;
+}
+
+.mar table tr{
+    border-bottom: 2px solid #c4c2c2;
+}
+
+.mar p a {
+    font-size: 15px;
+    padding: 10px 20px;
+    background-color: #c4c2c2;
+    border-radius: 5px;
+}
+
+.mar a:hover {
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.c input[type="text"]{
+    margin-left: 20px;
+    border: none;
+    flex: 33%;
+    float: left;
+    font-size: 15px;
+}
+
+.c textarea {
+    border: none;
+    font-size: 15px;
+    background-color: #f1f1f1;
+    width: 80%;
+    height: 70px;
+    float: left;
+    margin-left: 20px;
+}
+
+.btnDel {
+    color: #333333;
+    border: none;
+    border-radius: 5px;
+    width: 70px;
+    height: 30px;
+    /* margin-left: 15px; */
+    margin-top: 40px;
+    margin-right: 15px;
+    font-size: 15px;
+
+
+}
+
+.btnDel:hover {
+    color: #000;
+    font-size: 18px;
+    /* background: linear-gradient(to top, #39c0c0 40%, transparent 30%); */
+    /* background-color: #39c0c0; */
+}
+
+.list tr{
+    border-bottom: 2px solid #c4c2c2;
+}

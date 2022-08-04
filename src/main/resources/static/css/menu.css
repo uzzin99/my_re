@@ -186,3 +186,12 @@ input[id="tab03"]:checked~.con3 {
     width: 150px;
     height: 150px;
 }
+
+#choice1, #choice2{
+    cursor: pointer;
+}
+#zlogo{
+    color: red;
+    background: none;
+
+}
