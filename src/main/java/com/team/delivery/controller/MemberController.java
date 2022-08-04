@@ -41,9 +41,9 @@ public class MemberController {
 
 		@RequestMapping("/reviewDel")
 		@ResponseBody
-		public String ReviewDel(@RequestParam("delSe") int delSe){
-			log.info("리뷰삭제번호={}",delSe);
-			int checkDel = store.reviewDel(delSe);
+		public String ReviewDel(@RequestParam("delSe") int delse){
+			log.info("리뷰삭제번호={}",delse);
+			int checkDel = store.reviewDel(delse);
 			return Integer.toString(checkDel);
 		}
 

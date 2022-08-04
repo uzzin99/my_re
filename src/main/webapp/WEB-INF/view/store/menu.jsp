@@ -22,6 +22,7 @@
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/menu.css" rel="stylesheet" type="text/css" />
+    <link href="/css/menuSt.css" rel="stylesheet" type="text/css" />
 
     <title>Menu</title>
 </head>
@@ -174,7 +175,15 @@
 				<div id="b">
 <%--					<img class="menuImg" src="/image/${i.menuImg }">--%>
 					<input readonly type="text" style="float: left; margin-left: 20px;" value="${i.MId}">
-					<input readonly type="text" style="float: left; margin-left: 21px;" value="${i.score }"><br>
+					<input readonly type="text" style="float: left; margin-left: 21px;" class="score ${i.score }"><br>
+<%--                    <small class="score ${i.score}"></small>--%>
+                    <div id="mySt">
+                        <input type="radio" name="rating" value="10" id="rate1" onclick="return(false);"><label for="rate1">⭐</label>
+                        <input type="radio" name="rating" value="8" id="rate2" onclick="return(false);"><label for="rate2">⭐</label>
+                        <input type="radio" name="rating" value="6" id="rate3" onclick="return(false);"><label for="rate3">⭐</label>
+                        <input type="radio" name="rating" value="4" id="rate4" onclick="return(false);"><label for="rate4">⭐</label>
+                        <input type="radio" name="rating" value="2" id="rate5" onclick="return(false);"><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
+                    </div>
 					<input readonly type="text" style="float: right; margin-right: 10px; width: auto; color: #333333" value="${i.RDate }"><br>
 					<textarea readonly style="width: 70%; height: 100px;"><c:out value="${i.RContent }" /></textarea>
 				</div>
@@ -211,6 +220,18 @@
 </body>
 <script>
 $(document)
+    <%--.ready(function (){--%>
+    <%--    document.querySelector("#mySt input[value='${rlist.score}']").setAttribute('checked' , true);--%>
+    <%--})--%>
+// 별점임 지우지마셈
+// $(".2").html("💛 🤍 🤍 🤍 🤍");
+// $(".4").html("&#9733; &#9733; &#9734; &#9734; &#9734;");
+// $(".6").html("&#9733; &#9733; &#9733; &#9734; &#9734;");
+// $(".8").html("&#9733; &#9733; &#9733; &#9733; &#9734;");
+// $(".10").html("&#9733; &#9733; &#9733; &#9733; &#9733;");
+
+
+
 function openPop(mse,sse){
    window.open('/store/menuDetail?mSe='+mse+'&sSe='+sse,'menuDetail','width=600px,height=700px,scrollbars=yes,resizable=no');
 }

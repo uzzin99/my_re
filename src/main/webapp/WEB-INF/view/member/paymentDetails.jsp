@@ -209,23 +209,23 @@
 </body>
 <script>
     $(document)
-    $('.btnDel').on('click',function(event){
+    $(".btnDel").on("click",function(event){
         let delSe = $(this).attr("id");
         console.log(delSe);
         answer = confirm("정말 삭제하시겠습니까?");
         if(answer){
             $.ajax({
-                url:'reviewDel',
+                url:'/reviewDel',
                 type:'get',
                 dataType:'json',
                 data:{delSe:delSe},
                 success:function(data){
                     console.log(data);
                     if(data == 1){
-
-                        console.log("새로고침 하기전");
+                        // $(".conbox con3").empty();
+                        // $("#c").load(location.href + " #c");
                         location.reload();
-                        console.log("새로고침완료");
+                        // $("input:radio[id='tab03']").prop("checked",true);
                     }else{
                         alert("다시 시도해주세요");
                     }

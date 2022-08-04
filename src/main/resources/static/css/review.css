@@ -28,8 +28,6 @@ section {
     font-size: 1.7em; /* 이모지 크기 */
     color: transparent; /* 기존 이모지 컬러 제거 */
     text-shadow: 0 0 0 #FBF5BF; /* 새 이모지 색상 부여 */
-
-
 }
 #myform label:hover{
     text-shadow: 0 0 0 #FCC500; /* 마우스 호버 */
