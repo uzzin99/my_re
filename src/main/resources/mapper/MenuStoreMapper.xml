@@ -37,15 +37,24 @@ update store set s_name=#{param2}, s_postcode=#{param3}, s_address=#{param4}, s_
 			 where m_id=#{param1}
 </update>
 <!--가게삭제하기-->
+<select id="delstorelogo" resultType="String">
+	select s_img from store where m_id=#{param1}
+</select>
 <delete id="deleteStore">
 	delete from store where m_id=#{param1}
 </delete>
 <!--메뉴목록 전체 삭제-->
+<select id="delmenuimg" resultType="com.team.delivery.DTO.StoreDTO">
+	select a.menu_img
+	from menu a, store b
+	where a.s_se=b.s_seqno
+	and b.m_id=#{param1}
+</select>
 <delete id="deleteAllMenu">
 	delete from menu a
 	where exists (select 1 from store b
 				  where a.s_se=b.s_seqno
-					and b.m_id=#{param1});
+				  and b.m_id=#{param1})
 </delete>
 
 <!-- 매뉴 등록 -->

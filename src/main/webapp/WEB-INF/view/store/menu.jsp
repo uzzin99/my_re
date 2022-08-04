@@ -141,7 +141,9 @@
 					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
 				<p>⭐⭐⭐⭐⭐ 4.9</p>
 				<p>최근리뷰 228 | 최근사장님댓글 0</p>
-				<p>전화 | 찜 | 공유</p>
+				<p>${storename.SMobile } |
+                    <label for="choice" id="jjim"></label>
+                    <input type="checkbox" id="choice" name="choice"> 찜 | 공유</p>
 			</td>
 		</tr>
 	</table>
