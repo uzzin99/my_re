@@ -93,12 +93,30 @@ public class StoreController {
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 
+		int cnt = store.reviewCnt(sSeqno);
+		if(cnt > 0) {
+			double avg=store.storeAvg(sSeqno);
+			avg = Math.round(avg * 100) / 100.0;
+			model.addAttribute("avg", avg);
+			log.info("가게평균={}", avg);
+			model.addAttribute("cnt", cnt);
+		}else{
+			log.info("공백넘어감");
+			model.addAttribute("cnt","");
+		}
 		StoreDTO storeName = store.storeName(sSeqno);
 		model.addAttribute("storename",storeName);
 		ArrayList<StoreDTO> menulist = store.menutable(sSeqno);
 		model.addAttribute("mlist",menulist);
 		ArrayList<reviewDTO> reviewlist = store.reviewlist(sSeqno);
 		model.addAttribute("rlist", reviewlist);
+
+		//찜 여부 확인
+		if(session.getAttribute("userid")!=null){
+			int cnt=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
+			model.addAttribute("count",cnt);
+		}
+
 
 		return "store/menu";
 	}
@@ -129,5 +147,28 @@ public class StoreController {
 
 		return "search";
 	}
+
+	@RequestMapping("/z_Check")
+	public String doZzimcheck(HttpServletRequest request){
+		//찜하기
+		String mid=request.getParameter("mid");
+		int sSe=Integer.parseInt(request.getParameter("sSe"));
+		System.out.println("찜 mid="+mid+"찜 sSe="+sSe);
+		store.zzimcheck(mid,sSe);
+
+		return "";
+	}
+	@RequestMapping("/z_Delete")
+	public String doZzimdelete(HttpServletRequest request){
+		//찜해제
+		String mid=request.getParameter("mid");
+		int sSe=Integer.parseInt(request.getParameter("sSe"));
+		System.out.println("찜해제 mid="+mid+"찜해제 sSe="+sSe);
+		store.zzimdelete(mid,sSe);
+
+		return "";
+	}
+
+
 }
 

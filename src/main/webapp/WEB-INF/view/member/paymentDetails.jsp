@@ -100,18 +100,18 @@
                         홀예약
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
                     </ul>
 
                 <li class="nav-item dropdown">
@@ -121,14 +121,13 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="#">Q&A</a></li>
-                        <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
@@ -156,6 +155,7 @@
             <label for="tab02">예약내역</label>
             <input type="radio" name="tabmenu" id="tab03">
             <label for="tab03">리뷰내역</label>
+
             <c:forEach var='OL' items='${orderList}'>
                 <div class="conbox con1" style="border: 2px solid #c4c2c2; margin-top: 20px;">
                     <div class="mar">
@@ -181,7 +181,7 @@
 <%--                                ${DL.qtyPrice}원<br>--%>
 <%--                            </c:if>--%>
 <%--                        </c:forEach>--%>
-<%--                    </div>--%>
+<%--                    </div>--%>          
                 </div>
             </c:forEach>
 
@@ -193,7 +193,7 @@
                         <tr><td style="height: 35px;">예약시간</td><td>${item.HTime}</td>
                             <td>인원수</td><td>${item.HPeople}</td></tr>
                     </table>
-                    <input type="button" value="예약취소" class="btnDel" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
+                    <input type="button" value="예약취소" class="btlDel" id="${item.HSeqno}" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
                 </div>
             </c:forEach><br>
 
@@ -210,7 +210,7 @@
                             <input type="checkbox" name="rating" value="2" id="rate5" <c:if test="${i.score == 2}">checked="checked"</c:if> disabled="disabled"/><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
                         </div>
                         <input readonly type="text" style="float: right; width: auto; color: #333333" value="${i.RDate }"><br>
-                        <textarea readonly><c:out value="${i.RContent }" /></textarea>
+                        <textarea readonly style="resize: none;"><c:out value="${i.RContent }" /></textarea>
                         <input type="button" value="삭제" class="btnDel" id="${i.RSeqno}" style="float: right; background-color: #c4c2c2;">
                     </div>
                 </div>
@@ -260,6 +260,28 @@
                         // $("#c").load(location.href + " #c");
                         location.reload();
                         // $("input:radio[id='tab03']").prop("checked",true);
+                    }else{
+                        alert("다시 시도해주세요");
+                    }
+                }
+            })
+        }
+    })
+
+    $(".btlDel").on("click",function(event){
+        let delbo = $(this).attr("id");
+        console.log(delbo);
+        answer = confirm("예약취소 하시겠습니까?");
+        if(answer){
+            $.ajax({
+                url:'/delbooking',
+                type:'get',
+                dataType:'json',
+                data:{delbo:delbo},
+                success:function(data){
+                    console.log(data);
+                    if(data == 1){
+                        location.reload();
                     }else{
                         alert("다시 시도해주세요");
                     }

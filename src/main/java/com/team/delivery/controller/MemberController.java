@@ -43,19 +43,18 @@ public class MemberController {
 
 
 		@RequestMapping("/signUp/payment")
-		public String paymentDetails(@RequestParam("mId") String mId, HttpServletRequest request, Model model){
+		public String paymentDetails(HttpServletRequest request, Model model){
 
 			HttpSession session=request.getSession();
 
 			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
-
 // eunji
 			String mid = (String)session.getAttribute("userid");
 			ArrayList<reviewDTO> rlist = store.myReviewList(mid);
 			model.addAttribute("rlist",rlist);
 // yoojin
-			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mId);
+			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mid);
 			model.addAttribute("list",reservationlist);
 // jeon
 			ArrayList<orderDTO> orderList = ica.selOrder(mId);
@@ -63,6 +62,7 @@ public class MemberController {
 			System.out.println(orderList);
 			model.addAttribute("orderList",orderList);
 			model.addAttribute("detailList",detailList);
+
 			return "member/paymentDetails";
 		}
 
@@ -303,6 +303,14 @@ public class MemberController {
 					session.setAttribute("userType", "손님");
 				}else if(profile.getMType() == 2) {
 					session.setAttribute("userType", "사장님");
+					//sql문으로 가게테이블 DTO로 불러와서 일단 필요한 부분만 세션에 저장
+
+					/*StoreDTO sVO = store.bolist((String)session.getAttribute("userid"));
+					model.addAttribute("sVO",sVO);
+
+					session.setAttribute("sSeqno", sVO.getSSeqno());*/
+
+					//sql문으로 주문된 건수 불러오기
 				}
 			}else {
 				model.addAttribute("ch","<h7>등록되지 않은 계정입니다.</h7>");

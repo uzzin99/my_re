@@ -22,7 +22,12 @@
 	<table align="center">
 		<tr>
 			<td colspan="2">
-				<img class="menuImg" src=/image/${menu.menuImg }>
+				<c:if test="${menu.menuImg==null}">
+					<img class="menuImg" src="/image/imgload.png">
+				</c:if>
+				<c:if test="${menu.menuImg!=null}">
+					<img class="menuImg" src="/image/${menu.menuImg }">
+				</c:if>
 			</td>
 		</tr>
 		<tr>
@@ -46,7 +51,7 @@
 		<tr>
 			<td>칼로리</td>
 			<td>
-				${menu.menuCal } cal
+				${menu.menuCal } kcal
 			</td>
 		</tr>
 	</table>
