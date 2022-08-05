@@ -120,7 +120,7 @@ a:hover{
   <section>
     <div class="parent">
       <div style="margin-left: 20px;"><br>
-        <span class="todaymenu">오늘의 메뉴 추천</span>
+        <span class="todaymenu">오늘의 가게 추천</span>
       </div>
 
       <div class="slider-div">
@@ -255,15 +255,15 @@ a:hover{
 
       <div class="tab"><br>
         <input type="radio" name="tabmenu" id="tab01" checked>
-        <label for="tab01" style="margin-left: 30px;">게시판</label>
+        <label for="tab01" style="margin-left: 30px;">우리들의 이야기</label>
         <input type="radio" name="tabmenu" id="tab02">
         <label for="tab02">Q&A</label>
-        <input type="radio" name="tabmenu" id="tab03">
-        <label for="tab03">자주묻는질문</label>
+<%--        <input type="radio" name="tabmenu" id="tab03">--%>
+<%--        <label for="tab03">자주묻는질문</label>--%>
 
         <div class="conbox con1">컨텐츠탭 내용01</div>
         <div class="conbox con2">컨텐츠탭 내용02</div>
-        <div class="conbox con3">컨텐츠탭 내용03</div>
+<%--        <div class="conbox con3">컨텐츠탭 내용03</div>--%>
       </div>
 
       <div class="container"><br><br>

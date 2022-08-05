@@ -87,6 +87,19 @@ $(".minus_btn").on("click",function(){
 	}
 })
 
+// 바로구매 버튼
+$(".btn_buy").on("click",function(){
+	form.menuCnt = $(".quantity_input").val();
+	$.ajax({
+		url:'/cart/add',
+		type:'post',
+		data:form,
+		success: function(result){
+			buyAlert(result);
+		}
+	})
+})
+
 // 장바구니 추가 버튼
 $(".btn_cart").on("click", function(e){
 	form.menuCnt = $(".quantity_input").val();
@@ -107,10 +120,35 @@ const form = {
 		mSe : '${menu.menuSeqno}',
 		menuCnt : ''
 }
+function buyAlert(result){
+	if(result == '0'){
+		alert("장바구니에 추가를 하지 못하였습니다."+"\n"
+				+"다시 시도해 주세요.");
+	} else if(result == '1'){
+		moveBuy();
+	} else if(result == '2') {
+		alert("장바구니에 이미 추가되어져 있습니다.");
+		moveBuy();
+	}else if(result == '4'){
+		alert("같은가게에서만 주문 할 수 있습니다." + "\n"
+				+"장바구니를 비우고 다시 시도해주세요.");
+		moveBuy();
+	} else if(result == '5'){
+		//alert("로그인이 필요합니다.");
+		opener.parent.location="/errorLogin";
+		window.close();
+	}
+}
+
+function moveBuy(){
+	opener.parent.location = '/cart';
+	window.close();
+}
 
 function cartAlert(result){
 	if(result == '0'){
-		alert("장바구니에 추가를 하지 못하였습니다.");
+		alert("장바구니에 추가를 하지 못하였습니다."+"\n"
+				+"다시 시도해 주세요.");
 	} else if(result == '1'){
 		alert("장바구니에 추가되었습니다.");
 		moveCart();

@@ -38,14 +38,13 @@ public class StoreController {
 	@RequestMapping("/reviewAdd")
 	public String ReviewAdd(@RequestParam("reviewCon") String content,
 							@RequestParam("rating") int score,
+							@RequestParam("oSe") int ose,
+							@RequestParam("sSe") int sse,
 							HttpServletRequest request, Model model){
 		HttpSession session=request.getSession();
 
 		String mid=(String) session.getAttribute("userid");
 
-//		주문내역에서 눌렀을때 주문번호, 가게번호 받아오기
-		int ose = Integer.parseInt(request.getParameter("oSe"));
-		int sse = Integer.parseInt(request.getParameter("sSe"));
 		ica.reviewDone(ose);
 		reviewDTO dto = new reviewDTO();
 		dto.setMId(mid);
@@ -54,8 +53,6 @@ public class StoreController {
 		log.info("score={}",score);
 		dto.setOSe(ose);
 		dto.setSSe(sse);
-//		가게리뷰창에 별모양으로 별점 나오게 하기
-//		가게 평균 별점 구해서 표시
 		try {
 			int checkAdd = store.reviewAdd(dto);
 			log.info("성공 랄라");
@@ -71,8 +68,8 @@ public class StoreController {
 
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
-		model.addAttribute("oSe",request.getAttribute("oseq"));
-		model.addAttribute("sSe",request.getAttribute("sseq"));
+		model.addAttribute("oSe",request.getParameter("oseq"));
+		model.addAttribute("sSe",request.getParameter("sseq"));
 		return "store/review";
 	}
 
@@ -95,6 +92,18 @@ public class StoreController {
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 
+		int cnt = store.reviewCnt(sSeqno);
+		if(cnt > 0) {
+			double avg=store.storeAvg(sSeqno);
+			avg = Math.round(avg * 100) / 100.0;
+			model.addAttribute("avg", avg);
+			log.info("가게평균={}", avg);
+			model.addAttribute("cnt", cnt);
+		}else{
+			log.info("공백넘어감");
+			model.addAttribute("cnt","");
+		}
+
 		StoreDTO storeName = store.storeName(sSeqno);
 		model.addAttribute("storename",storeName);
 		ArrayList<StoreDTO> menulist = store.menutable(sSeqno);
@@ -105,8 +114,8 @@ public class StoreController {
 		//찜 여부 확인
 		if(session.getAttribute("userid")!=null){
 
-			int cnt=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
-			model.addAttribute("count",cnt);
+			int count=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
+			model.addAttribute("count",count);
 		}
 
 

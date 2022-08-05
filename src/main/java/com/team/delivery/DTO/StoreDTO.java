@@ -26,6 +26,7 @@ public class StoreDTO {
 	private String rContent;
 	private String rDate;
 	private int score;
+	private int avg;
 	//stypeVO
 	private String typeName;
 }
