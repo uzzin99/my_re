@@ -110,18 +110,18 @@
                         홀예약
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
                     </ul>
 
                 <li class="nav-item dropdown">
@@ -130,15 +130,14 @@
                         게시판
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="#">Q&A</a></li>
-                        <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+                        <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
+                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
@@ -170,7 +169,7 @@
             <div id="divMap" style="display: block">
                 <div id="map" style="width:500px;height:400px;margin-right: auto;margin-left: auto;"></div>
                 <a>총 거리 <a id="dist"></a>m 중 기본거리 2000m(2000원)을 제외한<br>
-                    초과 거리 500m당 1000원씩 증가하여 <a id="deliveryTip"></a>가 되었습니다.</a>
+                    초과 거리 500m당 1000원씩 증가하여 <a id="deliveryTip"></a>원이 되었습니다.</a>
             <br>
             </div>
             <p><span> 결제예정금액</span>&nbsp;<input readonly type="text" id="totalSum" value=""></p>

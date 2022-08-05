@@ -94,18 +94,18 @@
                         홀예약
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
                     </ul>
 
                 <li class="nav-item dropdown">
@@ -115,14 +115,13 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="#">Q&A</a></li>
-                        <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
@@ -131,7 +130,7 @@
 <section align="center">
     <form name="myform" id="myform" method="post" action="reviewAdd">
         <fieldset><br>
-<%--            <legend>별점</legend>--%>
+            <legend>❄리뷰를 남겨주세요❄</legend>
             <input type="radio" name="rating" value="10" id="rate1" checked><label for="rate1">⭐</label>
             <input type="radio" name="rating" value="8" id="rate2"><label for="rate2">⭐</label>
             <input type="radio" name="rating" value="6" id="rate3"><label for="rate3">⭐</label>
@@ -139,7 +138,8 @@
             <input type="radio" name="rating" value="2" id="rate5"><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
         </fieldset><br><br>
         <p class="review_ex">-한번 작성한 리뷰는 수정할 수 없습니다.</p>
-
+        <input type="hidden" name="oSe" value="${oSe}">
+        <input type="hidden" name="sSe" value="${sSe}">
         <textarea name="reviewCon" id="reviewCon" cols="30" rows="4"></textarea>
         <div id="cnt">(0 / 70)</div><br>
         <fieldset>

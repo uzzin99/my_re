@@ -7,11 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
-import com.team.delivery.DTO.reviewDTO;
-import com.team.delivery.mappers.iStore;
-
-import com.team.delivery.DTO.bookingDTO;
-import com.team.delivery.mappers.iBooking;
+import com.team.delivery.DTO.*;
+import com.team.delivery.mappers.*;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,11 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.team.delivery.DTO.StoreDTO;
-import com.team.delivery.DTO.mDTO;
-import com.team.delivery.mappers.iMember;
-import com.team.delivery.mappers.iMenuStore;
-
 @Controller
 @Slf4j
 @RequiredArgsConstructor
@@ -36,7 +28,9 @@ public class MemberController {
 	private final iMenuStore ims;
   	private final iBooking ibo;
 	private final iStore store;
-  
+
+	private final iCart ica;
+
 	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
 
 		@RequestMapping("/reviewDel")
@@ -49,21 +43,25 @@ public class MemberController {
 
 
 		@RequestMapping("/signUp/payment")
-		public String paymentDetails(@RequestParam("mId") String mId, HttpServletRequest request, Model model){
+		public String paymentDetails(HttpServletRequest request, Model model){
 
 			HttpSession session=request.getSession();
 
 			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
-
 // eunji
 			String mid = (String)session.getAttribute("userid");
 			ArrayList<reviewDTO> rlist = store.myReviewList(mid);
 			model.addAttribute("rlist",rlist);
 // yoojin
-			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mId);
+			ArrayList<bookingDTO>reservationlist = ibo.reservationlist(mid);
 			model.addAttribute("list",reservationlist);
-
+// jeon
+			ArrayList<orderDTO> orderList = ica.selOrder(mid);
+			ArrayList<oDetailDTO> detailList = ica.selDetail();
+			System.out.println(orderList);
+			model.addAttribute("orderList",orderList);
+			model.addAttribute("detailList",detailList);
 
 			return "member/paymentDetails";
 		}
@@ -305,6 +303,14 @@ public class MemberController {
 					session.setAttribute("userType", "손님");
 				}else if(profile.getMType() == 2) {
 					session.setAttribute("userType", "사장님");
+					//sql문으로 가게테이블 DTO로 불러와서 일단 필요한 부분만 세션에 저장
+
+					/*StoreDTO sVO = store.bolist((String)session.getAttribute("userid"));
+					model.addAttribute("sVO",sVO);
+
+					session.setAttribute("sSeqno", sVO.getSSeqno());*/
+
+					//sql문으로 주문된 건수 불러오기
 				}
 			}else {
 				model.addAttribute("ch","<h7>등록되지 않은 계정입니다.</h7>");

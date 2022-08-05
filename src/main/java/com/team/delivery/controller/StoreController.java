@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.team.delivery.DTO.reviewDTO;
+import com.team.delivery.mappers.iCart;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,8 @@ public class StoreController {
 	
 	private final iStore store;
 
+	private final iCart ica;
+
 	@RequestMapping("/reviewAdd")
 	public String ReviewAdd(@RequestParam("reviewCon") String content,
 							@RequestParam("rating") int score,
@@ -39,9 +42,9 @@ public class StoreController {
 		String mid=(String) session.getAttribute("userid");
 
 //		주문내역에서 눌렀을때 주문번호, 가게번호 받아오기
-		int ose = 3;
-		int sse = 42;
-
+		int ose = Integer.parseInt(request.getParameter("oSe"));
+		int sse = Integer.parseInt(request.getParameter("sSe"));
+		ica.reviewDone(ose);
 		reviewDTO dto = new reviewDTO();
 		dto.setMId(mid);
 		dto.setRContent(content);
@@ -66,6 +69,8 @@ public class StoreController {
 
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("oSe",request.getAttribute("oseq"));
+		model.addAttribute("sSe",request.getAttribute("sseq"));
 		return "store/review";
 	}
 
@@ -78,7 +83,7 @@ public class StoreController {
 		model.addAttribute("menu",menudetail);
 		return "store/menuDetail";
 	}
-	
+
 	@RequestMapping("/store/menu")
 	public String Menu(@RequestParam("sSeqno") int sSeqno,
 					   HttpServletRequest request, Model model) {
@@ -105,7 +110,7 @@ public class StoreController {
 
 		return "store/menu";
 	}
-	
+
 	@GetMapping("/store")
 	public String doStore(@RequestParam("type") int type, HttpServletRequest request, Model model) {
 
@@ -119,7 +124,7 @@ public class StoreController {
 
 		return "store/store";
 	}
-	
+
 	@RequestMapping("/search/store")
 	public String Search(@RequestParam("word") String sName, Model model, HttpServletRequest request) {
 		HttpSession session=request.getSession();
@@ -169,6 +174,7 @@ public class StoreController {
 
 		return "store/zzimlist";
 	}
+
 
 
 

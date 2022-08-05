@@ -106,7 +106,6 @@ a:hover{
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
               <li><a class="dropdown-item" href="QnA">Q&A</a></li>
-              <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
             </ul>
           </li>
         </ul>
@@ -162,7 +161,7 @@ a:hover{
                    ${mAddress },<br>
                    ${mExtraaddress } ${mDetailaddress}
                   </button></p>
-            <p style="display:inline; float: right;" onclick=location.href='signUp/payment?mId=${userinfo}'>주문/예약내역📄</p>
+            <p style="display:inline; float: right;" onclick=location.href='signUp/payment'>주문/예약내역📄</p>
             <p style="display:inline; float: right;"><a href="cart">장바구니🛒&nbsp;&nbsp;</a></p>
             <p style="display:inline; float: right;" onclick=location.href='z_list'><a>찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
           </div>
@@ -186,6 +185,7 @@ a:hover{
                 <a><span style="background: linear-gradient(to top, #39c0c0 30%, transparent 30%);">
                     내 가게:</span>&nbsp;&nbsp;${sVO.SName}</a>
               </button></p>
+              <p style="display:inline; float: right;" onclick=location.href='booking/bookinglist?sSeqno=${sVO.SSeqno}'>주문/예약내역📄</p>
             </div>
         </c:if>
         </c:if>

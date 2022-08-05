@@ -9,10 +9,12 @@ import java.util.ArrayList;
 
 @Mapper
 public interface iBooking {
-//    ArrayList<bookingDTO> bookinglist();
+    ArrayList<bookingDTO> bookinglist(int sSeqno);
     ArrayList<bookingDTO> reservationlist(String mId);
+
     bookingDTO bookingend(int hSeqno);
 
+    int delbooking(int hSeqno);
     int hseqno();
     void bookingadd (
             int sSeqno,

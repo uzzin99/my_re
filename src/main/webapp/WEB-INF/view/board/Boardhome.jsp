@@ -116,18 +116,18 @@
 						홀예약
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" href="store?type=1">한식</a></li>
-						<li><a class="dropdown-item" href="store?type=2">중식</a></li>
-						<li><a class="dropdown-item" href="store?type=3">일식</a></li>
-						<li><a class="dropdown-item" href="store?type=4">양식</a></li>
-						<li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-						<li><a class="dropdown-item" href="store?type=6">피자</a></li>
-						<li><a class="dropdown-item" href="store?type=7">분식</a></li>
-						<li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-						<li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-						<li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-						<li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-						<li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+						<li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+						<li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+						<li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+						<li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+						<li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+						<li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+						<li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+						<li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
 					</ul>
 
 				<li class="nav-item dropdown">
@@ -136,15 +136,14 @@
 						게시판
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
-						<li><a class="dropdown-item" href="QnA">Q&A</a></li>
-						<li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+						<li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
+						<li><a class="dropdown-item" href="/QnA">Q&A</a></li>
 					</ul>
 				</li>
 			</ul>
 		</div>
 	</div>
-	<form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+	<form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
 		<input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
 		<button class="btn btn-outline-dark" type="submit">Search</button>
 	</form>
@@ -154,14 +153,27 @@
 	<span class="todaymenu" style="float: left;font-size:xx-large">자유게시판</span>
 	<table id="brdTable" class="table table-sm table-hover">
 		<thead>
-		<tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
+		<tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th><th>
+			<c:if test="${orderby==1}">
+				<a>시간순▲</a>/<a>조회수순</a>
+			</c:if>
+			<c:if test="${orderby==2}">
+				<a>시간순▼</a>/<a>조회수순</a>
+			</c:if>
+			<c:if test="${orderby==3}">
+				<a>시간순</a>/<a>조회수순▲</a>
+			</c:if>
+			<c:if test="${orderby==4}">
+				<a>시간순</a>/<a>조회수순▼</a>
+			</c:if>
+		</th></tr>
 		</thead>
 		<tbody id="brdList" class="table-group-divider">
 		</tbody>
 
 	</table>
 	<div style="width: 700px;height: 50px;margin-right: auto;margin-left: auto">
-		<a href='main' style="float: left">메인으로 돌아가기</a><a href='newpost' style="float: right">새글쓰기</a>
+		<a href='newpost' style="float: right">새글쓰기</a>
 	</div>
 	<div>
 		<div align=center id="SearchDiv">

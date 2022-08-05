@@ -100,18 +100,18 @@
                         홀예약
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
                     </ul>
 
                 <li class="nav-item dropdown">
@@ -121,14 +121,13 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="#">Q&A</a></li>
-                        <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
@@ -157,17 +156,34 @@
             <input type="radio" name="tabmenu" id="tab03">
             <label for="tab03">리뷰내역</label>
 
-            <div class="conbox con1" style="border: 2px solid #c4c2c2; margin-top: 20px;">
-                <div class="mar">
-                    <!-- <input readonly type="text" value="2022-08-22" style="float: right; text-align: right;"><br> -->
-                    <table align="center" style="float: left; margin-top:13px;">
-                        <tr><td style="width: 100px; height: 30px;">주문일</td><td>2022-08-22</td></tr>
-                        <tr><td style="width: 100px; height: 30px;">가게명</td><td>마초쉐프</td></tr>
-                        <tr><td style="width: 100px; height: 30px;">가격</td><td>20000원</td></tr>
-                    </table>
-                    <p style="float: left; margin: 40px 40px ;"><a href="/review" style="">리뷰작성💌</a></p>
+            <c:forEach var='OL' items='${orderList}'>
+                <div class="conbox con1" style="border: 2px solid #c4c2c2; margin-top: 20px;">
+                    <div class="mar">
+                        <!-- <input readonly type="text" value="2022-08-22" style="float: right; text-align: right;"><br> -->
+                        <table align="center" style="float: left; margin-top:13px;">
+                            <tr><td style="width: 100px; height: 30px;">주문일</td><td>${OL.ODate}</td></tr>
+                            <tr><td style="width: 100px; height: 30px;">가게명</td><td><a href="/store/menu?sSeqno=${OL.SSe}">${OL.SName}</a></td></tr>
+                            <tr><td style="width: 100px; height: 30px;">가격</td><td>${OL.OPrice}원</td></tr>
+                        </table>
+                        <c:if test="${OL.cntReview==0}">
+                            <p style="float: left; margin: 40px 40px ;"><a href="/review?oseq=${OL.OSeqno}&sseq=${OL.SSe}" style="">리뷰작성💌</a></p>
+                        </c:if>
+                    </div>
+<%--        만들고 싶었는데 안되니깐 미련이 남내요            --%>
+<%--                    <div id="orderDetailed" style="display: none">--%>
+<%--                        <c:forEach var='DL' items='${detailList}'>--%>
+<%--                            <c:if test="${DL.OSe==OL.OSeqno}">--%>
+<%--                                ${DL.OName}--%>
+<%--                                <c:if test="${DL.OName!='배달팁'}">--%>
+<%--                                &nbsp;&nbsp;${DL.OQty} 개--%>
+<%--                                </c:if>--%>
+<%--                                &nbsp;&nbsp;--%>
+<%--                                ${DL.qtyPrice}원<br>--%>
+<%--                            </c:if>--%>
+<%--                        </c:forEach>--%>
+<%--                    </div>--%>          
                 </div>
-            </div>
+            </c:forEach>
 
             <c:forEach var='item' items='${list}'>
                 <div class="conbox con2" style="border: 2px solid #c4c2c2; margin-top: 20px;">
@@ -177,7 +193,7 @@
                         <tr><td style="height: 35px;">예약시간</td><td>${item.HTime}</td>
                             <td>인원수</td><td>${item.HPeople}</td></tr>
                     </table>
-                    <input type="button" value="예약취소" class="btnDel" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
+                    <input type="button" value="예약취소" class="btlDel" id="${item.HSeqno}" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
                 </div>
             </c:forEach><br>
 
@@ -186,9 +202,15 @@
                 <div class="conbox con3" style="border: 2px solid #c4c2c2; margin-top: 20px;">
                     <div class="c" style="margin-top: 10px;">
                         <input readonly type="text"  value="${i.SName}">
-                        <input readonly type="text"  value="${i.score }">
+                        <div class="mySt">
+                            <input type="checkbox" name="rating" value="10" id="rate1" <c:if test="${i.score == 10}">checked="checked"</c:if> disabled="disabled"/><label for="rate1">⭐</label>
+                            <input type="checkbox" name="rating" value="8" id="rate2" <c:if test="${i.score == 8}">checked="checked"</c:if> disabled="disabled"/><label for="rate2">⭐</label>
+                            <input type="checkbox" name="rating" value="6" id="rate3" <c:if test="${i.score == 6}">checked="checked"</c:if> disabled="disabled"/><label for="rate3">⭐</label>
+                            <input type="checkbox" name="rating" value="4" id="rate4" <c:if test="${i.score == 4}">checked="checked"</c:if> disabled="disabled"/><label for="rate4">⭐</label>
+                            <input type="checkbox" name="rating" value="2" id="rate5" <c:if test="${i.score == 2}">checked="checked"</c:if> disabled="disabled"/><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
+                        </div>
                         <input readonly type="text" style="float: right; width: auto; color: #333333" value="${i.RDate }"><br>
-                        <textarea readonly><c:out value="${i.RContent }" /></textarea>
+                        <textarea readonly style="resize: none;"><c:out value="${i.RContent }" /></textarea>
                         <input type="button" value="삭제" class="btnDel" id="${i.RSeqno}" style="float: right; background-color: #c4c2c2;">
                     </div>
                 </div>
@@ -238,6 +260,28 @@
                         // $("#c").load(location.href + " #c");
                         location.reload();
                         // $("input:radio[id='tab03']").prop("checked",true);
+                    }else{
+                        alert("다시 시도해주세요");
+                    }
+                }
+            })
+        }
+    })
+
+    $(".btlDel").on("click",function(event){
+        let delbo = $(this).attr("id");
+        console.log(delbo);
+        answer = confirm("예약취소 하시겠습니까?");
+        if(answer){
+            $.ajax({
+                url:'/delbooking',
+                type:'get',
+                dataType:'json',
+                data:{delbo:delbo},
+                success:function(data){
+                    console.log(data);
+                    if(data == 1){
+                        location.reload();
                     }else{
                         alert("다시 시도해주세요");
                     }

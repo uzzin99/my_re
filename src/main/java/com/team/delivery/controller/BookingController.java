@@ -26,18 +26,31 @@ public class BookingController {
     private final iStore store;
 
 
-    /*@RequestMapping("booking/bookinglist")
-    public String bookinglist(@RequestParam("sSeqno") int sSeqno, Model model, HttpServletRequest req) {
-//		HttpSession session = req.getSession();
-//      String id="master";
-//        StoreDTO sVO = ims.selStore(id);
+    @RequestMapping("/delbooking")
+    @ResponseBody
+    public String delbooking(@RequestParam("delbo") int delbo) {
+        int hdel = ibo.delbooking(delbo);
+        return Integer.toString(hdel);
+    }
 
-//        model.addAttribute("sVO", sVO);
+
+    @RequestMapping("booking/bookinglist")
+    public String bookinglist(@RequestParam("sSeqno") int sSeqno,
+                              HttpServletRequest request, Model model) {
+
+        HttpSession session=request.getSession();
+
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+
         ArrayList<bookingDTO> bookinglist = ibo.bookinglist(sSeqno);
         model.addAttribute("list", bookinglist);
 
+        StoreDTO storeName = store.storeName(sSeqno);
+        model.addAttribute("storename",storeName);
+
         return "booking/bookinglist";
-    }*/
+    }
 
     @GetMapping("/hall")
     public String hall(@RequestParam("type") int type, HttpServletRequest request, Model model) {

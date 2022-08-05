@@ -50,7 +50,7 @@
 <!-- orderend 테이블에 추가 -->
 	<insert id="addOrder">
 		insert into orderend values
-		(o_seqno.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},null)
+		(o_seqno.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},null,0)
 	</insert>
 <!-- order 디테일 추가 -->
 	<insert id="addDetail">
@@ -74,4 +74,14 @@
 	<delete id="clrCart">
 		delete from cart where m_id=#{param1}
 	</delete>
+	<select id="selOrder" resultType="com.team.delivery.DTO.orderDTO">
+		select a.o_seqno,a.m_id m_id,a.s_se,a.o_price,a.o_date,a.o_name,a.o_status,a.cnt_review,b.s_name
+		from orderend a,store b where a.s_se = b.s_seqno and a.m_id=#{parma1}
+	</select>
+	<select id="selDetail" resultType="com.team.delivery.DTO.oDetailDTO">
+		select * from o_detailed
+	</select>
+	<update id="reviewDone">
+		update orderend set cnt_review=1 where o_seqno=#{param1}
+	</update>
 </mapper>
