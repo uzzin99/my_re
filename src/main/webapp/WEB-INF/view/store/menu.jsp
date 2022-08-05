@@ -139,6 +139,7 @@
 
 				<p><input type="text" readonly value="${storename.SName }"
 					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
+
                     <div class="mySt" style="float:left; margin-left: 44%">
                         <input type="checkbox" name="rating" value="10" id="rat1" <c:if test="${avg > 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat1">⭐</label>
                         <input type="checkbox" name="rating" value="8" id="rat2" <c:if test="${avg > 6 && avg <= 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat2">⭐</label>
@@ -152,7 +153,7 @@
                 <p style="clear: both">최근리뷰
                     <c:if test="${cnt != ''}">${cnt}</c:if>
                     <c:if test="${cnt == ''}">0</c:if>
-                    | ❤ 30</p>
+                    | ❤ ${zcnt}</p>
                 <p>전화번호 ${storename.SMobile } |
                     <c:if test="${userinfo == null}">
                         <label id="zlog">찜하기</label>

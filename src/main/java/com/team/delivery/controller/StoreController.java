@@ -12,15 +12,14 @@ import com.team.delivery.mappers.iBoard;
 import com.team.delivery.mappers.iCart;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.team.delivery.DTO.StoreDTO;
 import com.team.delivery.mappers.iStore;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
@@ -113,11 +112,12 @@ public class StoreController {
 
 		//찜 여부 확인
 		if(session.getAttribute("userid")!=null){
-
 			int count=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
 			model.addAttribute("count",count);
 		}
-
+		//가게당 찜 카운트
+		int zcnt=store.zzimcount(sSeqno);
+		model.addAttribute("zcnt",zcnt);
 
 		return "store/menu";
 	}
@@ -182,10 +182,38 @@ public class StoreController {
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 
+		//찜 목록 리스트 불러오기
+		ArrayList<StoreDTO> zzimlist=store.zzimlist((String) session.getAttribute("userid"));
+		System.out.println("zzimlist="+zzimlist);
+		System.out.println("zzimlist size()="+zzimlist.size());
+		model.addAttribute("zlist",zzimlist);
+
+		int s_cnt=store.zzimstorecount((String) session.getAttribute("userid"));
+		model.addAttribute("s_cnt",s_cnt);
 		return "store/zzimlist";
 	}
 
+	@ResponseBody
+	@RequestMapping(value="/z_menu",method=RequestMethod.GET,produces = "application/json;charset=UTF-8")
+	public String doZmenulist(HttpServletRequest req,Model model){
+		HttpSession session = req.getSession();
+		int sSe=Integer.parseInt(req.getParameter("sSe"));
 
+		//찜 가게의 메뉴목록(일부 보여주기 용)
+		ArrayList<StoreDTO> zmenu=store.zzimstoremenulist((String) session.getAttribute("userid"),sSe);
+		System.out.println("zmenu="+zmenu);
+
+		JSONArray ja = new JSONArray();
+		for (int i = 0; i < zmenu.size(); i++) {
+			StoreDTO list = zmenu.get(i);
+			JSONObject jo = new JSONObject();
+			jo.put("menu", list.getMenuName());
+			ja.add(jo);
+		}
+		model.addAttribute("zmenu",ja.toJSONString());
+
+		return ja.toJSONString();
+	}
 
 
 }
