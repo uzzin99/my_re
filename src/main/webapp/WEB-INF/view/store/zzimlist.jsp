@@ -136,29 +136,26 @@
 <%--여기서부터 섹션--%>
 <section>
     <div class="tab"><br>
+        <span id="space1"></span>
         <input type="radio" name="tabmenu" id="tab01"  checked>
         <label for="tab01">찜목록</label>
-        <div class="conbox con1" style="border: 2px solid #c4c2c2; margin-top: 20px;">
-            <div class="mar">
-                <div >
-                    <p><span>로고</span>이미지</p>
-                    <p><span>가게명</span>가게</p>
-                    <p><span>음식 타입</span>한식</p>
-                    <p><span>주소</span>신부동</p>
-                    <p><span>기타 내역 </span>등등</p>
-<%--                    <table align="center" style="float: left; margin-top:13px;">--%>
-<%--                        <tr><td style="width: 100px; height: 30px;">로고</td><td>이미지</td></tr>--%>
-<%--                        <tr><td style="width: 100px; height: 30px;">가게명</td><td>마초쉐프</td></tr>--%>
-<%--                        <tr><td style="width: 100px; height: 30px;">타입</td><td>양식</td></tr>--%>
-<%--                        <tr><td style="width: 100px; height: 30px;">주소</td><td>신부동</td></tr>--%>
-<%--                        <tr><td style="width: 100px; height: 30px;"></td><td>신부동</td></tr>--%>
-<%--                    </table>--%>
+        <span id="space2"></span>
+        총&nbsp;<input type="text" id="total" value="${s_cnt}" readonly>&nbsp;개
+        <c:forEach var="zli" items="${zlist}">
+            <div class="conbox con1" onclick="location.href='/store/menu?sSeqno='+${zli.SSeqno}">
+                <div class="zzim-storelogo">
+                    <p><c:if test="${zli.SImg==null}"><img src="/image/imgload.png"></c:if>
+                       <c:if test="${zli.SImg!=null}"><img src="/image/${zli.SImg}"></c:if></p>
                 </div>
-                <div>
-                    <p>찜</p>
+                <div class="zzimlist-box">
+                    <input type="hidden" id="sSe" value="${zli.SSeqno}">
+                    <span>${zli.SName}</span><br>
+                    <span>⭐4.9(100+) <input type="text" id="menutext" readonly></span><br>
+                    <span>최소주문금액 10000원, 배탈팁 2000원</span><br>
+                    <span>포장가능, 예약가능</span>
                 </div>
             </div>
-        </div>
+        </c:forEach>
     </div>
 </section>
 <%--여기는 푸터--%>
@@ -185,5 +182,37 @@
     </div>
 </footer>
 </body>
+<script>
+$(document)
+.ready(function(){
+    zmenu();
+})
 
+.on('click','#choice2',function(){
+    if(!confirm("찜 목록을 해제하시겠습니까?")) return false;
+})
+
+// .on('click','.conbox con1',function(){
+//     let sSe=$('#sSe').val();
+//     $.get("/store/menu?sSeqno="+sSe);
+// })
+
+function zmenu(){
+    let SSe=$('#sSe').val();
+    $.ajax({
+        url:"/z_menu", data:'sSe='+SSe,
+        type:'get', dataType:'json',
+        success: function(data){
+            console.log("SSe="+SSe);
+            let str="";
+            for(let i=0;i<data.length;i++){
+                let jo=data[i];
+                str+=jo['menuName'];
+            }
+            $('input[id=menutext]').attr('value',str);
+
+        }
+    })
+}
+</script>
 </html>
