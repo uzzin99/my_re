@@ -25,14 +25,34 @@ public class BookingController {
     private final iMenuStore ims;
     private final iStore store;
 
+    @RequestMapping("/hallcheckdel")
+    @ResponseBody
+    public String hallcheckdel(@RequestParam("cenclebo") int cenclebo ){
+        int bo = ibo.hallcheck(cenclebo,5);
+        return Integer.toString(bo);
+    }
+
+    @RequestMapping("/bookingcheck")
+    @ResponseBody
+    public String bookingcheck(@RequestParam("upbo") int upbo){
+        //log.info("시퀸스={}",upbo);
+        int Bup = ibo.hallcheck(upbo,1);
+        //log.info("홀시퀀스={}",Bup);
+        return Integer.toString(Bup);
+    }
 
     @RequestMapping("/delbooking")
     @ResponseBody
-    public String delbooking(@RequestParam("delbo") int delbo) {
-        int hdel = ibo.delbooking(delbo);
-        return Integer.toString(hdel);
+    public String delbooking(@RequestParam("delbo") int delbo, @RequestParam("hcheck") int hcheck) {
+        log.info("check={}",hcheck);
+        if (hcheck==0){
+            int hdel = ibo.delbooking(delbo);
+            return Integer.toString(hdel);
+        } else {
+            int hdel = ibo.hallcheck(delbo,4);
+            return Integer.toString(hdel);
+        }
     }
-
 
     @RequestMapping("booking/bookinglist")
     public String bookinglist(@RequestParam("sSeqno") int sSeqno,
@@ -45,6 +65,7 @@ public class BookingController {
 
         ArrayList<bookingDTO> bookinglist = ibo.bookinglist(sSeqno);
         model.addAttribute("list", bookinglist);
+        log.info("check={}",bookinglist.get(0).getHCheck());
 
         StoreDTO storeName = store.storeName(sSeqno);
         model.addAttribute("storename",storeName);
@@ -103,7 +124,12 @@ public class BookingController {
     }
 
     @RequestMapping("/bookingend")
-    public String bookingend(@RequestParam int hseqno, Model model) {
+    public String bookingend(@RequestParam int hseqno,HttpServletRequest request, Model model) {
+
+        HttpSession session= request.getSession();
+
+        model.addAttribute("userinfo",session.getAttribute("userid"));
+        model.addAttribute("userType",session.getAttribute("userType"));
 
         bookingDTO bookingend= ibo.bookingend(hseqno);
         model.addAttribute("blist",bookingend);
