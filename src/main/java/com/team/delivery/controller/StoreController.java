@@ -142,29 +142,10 @@ public class StoreController {
 
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
-		//1 = 가게 검색, 2 = 게시판 검색
-		int searchType = Integer.parseInt(request.getParameter("searchType"));
-		ArrayList<boardDTO> arBrd;
-		if(searchType==1){
-			ArrayList<StoreDTO> searchlist = store.searchtable(sName);
-			model.addAttribute("list", searchlist);
-			return "search";
-		}
-		else {
-//			int page1 = ((page-1)*10)+1;
-//			int page2 = page*10;
-			System.out.println("orderBy = "+session.getAttribute("orderBy"));
-			if(session.getAttribute("orderBy")=="" || session.getAttribute("orderBy")=="1"){
-				session.setAttribute("orderBy",1);
-				arBrd = brd.selBDTitle(sName,1,10);
-				model.addAttribute("list", arBrd);
-			}
-			else{
-				System.out.println("orderBy is not null or 1");
-			}
+		ArrayList<StoreDTO> searchlist = store.searchtable(sName);
+		model.addAttribute("list", searchlist);
 
-			return "home";
-		}
+		return "search";
 	}
 
 	@RequestMapping("/z_Check")
