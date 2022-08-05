@@ -187,16 +187,52 @@
 
             <%--예약내역--%>
             <c:forEach var='item' items='${list}'>
+                <c:if test="${item.HCheck == 0}">
                 <div class="conbox con2" style="border: 2px solid #c4c2c2; margin-top: 20px;">
-                    <input type="text" value="${item.HCheck}" style="width:100px; float:left;">
+                    <input type="text" class="check2" value="예약대기중" style="width:100px; float:left;">
                     <table align="center"  class="list" style="margin: auto; margin-top:25px;">
                         <tr><td style="width: 100px; height: 35px;">가게명</td><td style="width: 150px;">${item.SName}</td>
                             <td style="width: 100px;">예약날짜</td><td>${item.HDate}</td></tr>
                         <tr><td style="height: 35px;">예약시간</td><td>${item.HTime}</td>
                             <td>인원수</td><td>${item.HPeople}</td></tr>
                     </table>
-                    <input type="button" value="예약취소" class="btlDel" id="${item.HSeqno}" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
+                    <input type="button" value="예약취소" name="${item.HCheck}" class="btlDel" id="${item.HSeqno}" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
                 </div>
+                </c:if>
+                <c:if test="${item.HCheck == 1}">
+                    <div class="conbox con2" style="border: 2px solid #c4c2c2; margin-top: 20px;">
+                        <input type="text" class="check2" value="예약확정" style="width:100px; float:left;">
+                        <table align="center"  class="list" style="margin: auto; margin-top:25px;">
+                            <tr><td style="width: 100px; height: 35px;">가게명</td><td style="width: 150px;">${item.SName}</td>
+                                <td style="width: 100px;">예약날짜</td><td>${item.HDate}</td></tr>
+                            <tr><td style="height: 35px;">예약시간</td><td>${item.HTime}</td>
+                                <td>인원수</td><td>${item.HPeople}</td></tr>
+                        </table>
+                        <input type="button" value="예약취소" name="${item.HCheck}" class="btlDel" id="${item.HSeqno}" style="float: right; width: 70px; margin-top: -80px; margin-right: 15px; background-color: #c4c2c2;">
+                    </div>
+                </c:if>
+                <c:if test="${item.HCheck == 4}">
+                    <div class="conbox con2" style="border: 2px solid #c4c2c2; margin-top: 20px;">
+                        <input type="text" class="check2" value="예약취소됨" style="width:100px; float:left;">
+                        <table align="center"  class="list" style="margin: auto; margin-top:25px;">
+                            <tr><td style="width: 100px; height: 35px;">가게명</td><td style="width: 150px;">${item.SName}</td>
+                                <td style="width: 100px;">예약날짜</td><td>${item.HDate}</td></tr>
+                            <tr><td style="height: 35px;">예약시간</td><td>${item.HTime}</td>
+                                <td>인원수</td><td>${item.HPeople}</td></tr>
+                        </table>
+                    </div>
+                </c:if>
+                <c:if test="${item.HCheck == 5}">
+                    <div class="conbox con2" style="border: 2px solid #c4c2c2; margin-top: 20px;">
+                        <input type="text" class="check2" value="예약거절됨" style="width:100px; float:left;">
+                        <table align="center"  class="list" style="margin: auto; margin-top:25px;">
+                            <tr><td style="width: 100px; height: 35px;">가게명</td><td style="width: 150px;">${item.SName}</td>
+                                <td style="width: 100px;">예약날짜</td><td>${item.HDate}</td></tr>
+                            <tr><td style="height: 35px;">예약시간</td><td>${item.HTime}</td>
+                                <td>인원수</td><td>${item.HPeople}</td></tr>
+                        </table>
+                    </div>
+                </c:if>
             </c:forEach><br>
 
             <%--리뷰내역--%>
@@ -272,14 +308,15 @@
 
     $(".btlDel").on("click",function(event){
         let delbo = $(this).attr("id");
-        console.log(delbo);
+        let hcheck = $(this).attr("name")
+        console.log(hcheck);
         answer = confirm("예약취소 하시겠습니까?");
         if(answer){
             $.ajax({
                 url:'/delbooking',
                 type:'get',
                 dataType:'json',
-                data:{delbo:delbo},
+                data:{delbo:delbo, hcheck:hcheck},
                 success:function(data){
                     console.log(data);
                     if(data == 1){

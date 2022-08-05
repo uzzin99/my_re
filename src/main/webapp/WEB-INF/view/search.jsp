@@ -133,16 +133,13 @@
   </nav>
 
   <section><br>
- 	<%
-	request.setCharacterEncoding("utf-8");
-	String word = request.getParameter("word");
-	if (word == null || word.equals("")) {
-	%>
+
+
+    <c:if test="${list.size() < 1}">
 	<br><br><h1 align="center" style="background: linear-gradient(to top, #39c0c0 40%, transparent 60%); width:600px; margin: auto;">
-				"그런 가게가 존재하지 않습니다😥"</h1>
-	<%
-	} else {
-	%>
+      "등록된 가게가 없습니다😥"</h1>
+    </c:if>
+
 
     <c:forEach var="i" items="${list }">
       <div class="s_box" onclick=location.href='/store/menu?sSeqno=${i.SSeqno }'>

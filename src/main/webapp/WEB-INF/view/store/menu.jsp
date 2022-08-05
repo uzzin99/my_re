@@ -17,8 +17,9 @@
   <!-- Slick 불러오기 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/menu.css" rel="stylesheet" type="text/css" />
@@ -132,24 +133,19 @@
   <section>
     <table>
 		<tr><br>
-			<!-- <td>
-				<img class="sImg" src="${i.menuImg }">
-			</td> -->
 			<td>
                 <input type="hidden" id=mid name="mid" value="${userinfo}">
                 <input type="hidden" id=sSe name="sSe" value="${storename.SSeqno}">
 
 				<p><input type="text" readonly value="${storename.SName }"
 					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
-				<p>⭐⭐⭐⭐⭐ 4.9</p>
-				<p>최근리뷰 228 | 최근사장님댓글 0</p>
 
-        <div class="mySt" style="float:left; margin-left: 44%">
+                    <div class="mySt" style="float:left; margin-left: 44%">
                         <input type="checkbox" name="rating" value="10" id="rat1" <c:if test="${avg > 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat1">⭐</label>
-                        <input type="checkbox" name="rating" value="8" id="rat2" <c:if test="${avg > 6 && avg < 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat2">⭐</label>
-                        <input type="checkbox" name="rating" value="6" id="rat3" <c:if test="${avg > 4 && avg < 6}">checked="checked"</c:if> disabled="disabled"/><label for="rat3">⭐</label>
-                        <input type="checkbox" name="rating" value="4" id="rat4" <c:if test="${avg > 2 && avg < 4}">checked="checked"</c:if> disabled="disabled"/><label for="rat4">⭐</label>
-                        <input type="checkbox" name="rating" value="2" id="rat5" <c:if test="${avg > 0 && avg < 2}">checked="checked"</c:if> disabled="disabled"/><label for="rat5">⭐</label>  <!-- 젤 왼쪽 별 -->
+                        <input type="checkbox" name="rating" value="8" id="rat2" <c:if test="${avg > 6 && avg <= 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat2">⭐</label>
+                        <input type="checkbox" name="rating" value="6" id="rat3" <c:if test="${avg > 4 && avg <= 6}">checked="checked"</c:if> disabled="disabled"/><label for="rat3">⭐</label>
+                        <input type="checkbox" name="rating" value="4" id="rat4" <c:if test="${avg > 2 && avg <= 4}">checked="checked"</c:if> disabled="disabled"/><label for="rat4">⭐</label>
+                        <input type="checkbox" name="rating" value="2" id="rat5" <c:if test="${avg > 0 && avg <= 2}">checked="checked"</c:if> disabled="disabled"/><label for="rat5">⭐</label>  <!-- 젤 왼쪽 별 -->
                     </div>
                 <p style="float: left;">&nbsp;&nbsp;
                     <c:if test="${cnt != ''}">${avg}</c:if>
@@ -217,8 +213,8 @@
 			</div>
 		</c:forEach>
 		
-		<div class="conbox con3">컨텐츠탭 내용03</div>
-
+		<div class="conbox con3">
+        </div>
 	</div>
   </section>
 

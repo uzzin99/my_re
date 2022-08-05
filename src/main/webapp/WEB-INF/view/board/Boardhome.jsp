@@ -24,6 +24,7 @@
 		margin-left:auto;
 		margin-right:auto;
 		justify-content: center;
+		border-radius: 0.375rem;
 		height: 40px;
 		width: 500px;
 		border: 1px solid #1b5ac2;
@@ -48,10 +49,12 @@
 		margin:auto;
 		text-align: center;
 	}
-	#SearchDiv select{
-		float: right;
-		height: 38px;
-		font-size: 16px;
+	#divOB > a{
+		font-size: x-small;
+		color: #ababab;
+	}
+	#PageNav{
+		height: 40px;
 	}
 </style>
 <body>
@@ -145,10 +148,6 @@
 	</div>
 	<form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
 		<input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
-		<select name="searchType" id="searchType" style="border: none">
-			<option value="1">가게</option>
-			<option value="2">게시판</option>
-		</select>&nbsp;
 		<button class="btn btn-outline-dark" type="submit">Search</button>
 	</form>
 </nav>
@@ -158,45 +157,46 @@
 	<table id="brdTable" class="table table-sm table-hover">
 		<thead>
 		<tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th><th>
-			<c:if test="${orderby==1}">
-				<a>시간순▲</a>/<a>조회수순</a>
-			</c:if>
-			<c:if test="${orderby==2}">
-				<a>시간순▼</a>/<a>조회수순</a>
-			</c:if>
-			<c:if test="${orderby==3}">
-				<a>시간순</a>/<a>조회수순▲</a>
-			</c:if>
-			<c:if test="${orderby==4}">
-				<a>시간순</a>/<a>조회수순▼</a>
-			</c:if>
+			<div id="divOB">
+				<c:if test="${orderBy==2}">
+					<a id="obtime" href="#">시간순▲</a>/
+					<a id="obview" href="#">조회수순</a>
+				</c:if>
+				<c:if test="${orderBy==1}">
+					<a id="obtime" href="#">시간순▼</a>/
+					<a id="obview" href="#">조회수순</a>
+				</c:if>
+				<c:if test="${orderBy==4}">
+					<a id="obtime" href="#">시간순</a>/
+					<a id="obview" href="#">조회수순▲</a>
+				</c:if>
+				<c:if test="${orderBy==3}">
+					<a id="obtime" href="#">시간순</a>/
+					<a id="obview" href="#">조회수순▼</a>
+				</c:if>
+			</div>
 		</th></tr>
 		</thead>
 		<tbody id="brdList" class="table-group-divider">
 		</tbody>
-
 	</table>
-	<div style="width: 700px;height: 50px;margin-right: auto;margin-left: auto">
-		<a href='newpost' style="float: right">새글쓰기</a>
-	</div>
 	<div>
 		<div align=center id="SearchDiv">
 			<input type=text name=word id=word><input type=button id=btnSearch value=검색>
-			<select id=orderBy>
-				<option value=1>시간순</option>
-				<option value=2>조회수순</option>
-			</select>
 		</div>
 	</div>
-		<br>
-	<input type=text id=selType value="${selType}" hidden>
-	<input type=number id="maxpage" value="${page}" hidden>
-	<input type=number id="page" value="${crtpage}" hidden>
-	<input type=number id="pageIdx" value=1 hidden>
-	<nav aria-label="Page navigation example">
-		<ul id="PageList" class="pagination justify-content-center">
+	<br>
+	<nav id="PageNav" aria-label="Page navigation example">
+		<ul id="PageList" class="pagination justify-content-center align-self-center">
 		</ul>
 	</nav>
+	<div style="width: 700px;height: 50px;margin-right: auto;margin-left: auto">
+		<a href='newpost' style="float: right">새글쓰기</a>
+	</div>
+		<br>
+	<input type=number id="maxpage" value="${Maxpage}" hidden>
+	<input type=number id="page" value="${crtpage}" hidden>
+	<input type=number id="pageIdx" value=1 hidden>
 </div>
 	<br>
 </section>
@@ -228,19 +228,43 @@
 	$(document)
 			.ready(function(){
 				$('#page').val(${crtpage});
-				$('#pageIdx').val(Math.ceil(parseInt(${crtpage})/10));
+				//$('#pageIdx').val(Math.ceil((parseInt(${Maxpage})/12)/10));
 				selectBrd();
-				selectPage();
+			})
+			.on('click','#obtime',function(){
+				$.ajax({
+					type:'post',dataType:'json',
+					url:'obtime',
+					data:'',
+					success:function(){
+						$('#divOB').load(location.href+' #divOB');
+						selectBrd();
+					}
+				})
+			})
+			.on('click','#obview',function(){
+				$.ajax({
+					type:'post',dataType:'json',
+					url:'obview',
+					data:'',
+					success:function(){
+						$('#divOB').load(location.href+' #divOB');
+						selectBrd();
+					}
+				})
 			})
 			.on('click','.page-link',function(){
 				if($(this).text()=='Previous'){
 					//Previous를 눌러서 페이지를 10씩 당겨보기
 					if($('#pageIdx').val()==1){
 						$('#pageIdx').val(1)
+						$('#page').val(1)
 					}else{
 						$('#pageIdx').val($('#pageIdx').val()-1)
 						$('#page').val((($('#pageIdx').val())*10))
 					}
+					console.log("페이지 인덱스 :"+$('#pageIdx').val());
+					console.log("페이지 :"+$('#page').val());
 //		1씩 감소
 // 		if($('#page').val()==1){
 // 			$('#page').val(1)
@@ -252,10 +276,13 @@
 					//next를 눌러서 페이지를 10씩 미뤄보기
 					if($('#pageIdx').val()==Math.ceil(x/10)){
 						$('#pageIdx').val(Math.ceil(x/10))
+						$('#page').val(x)
 					}else{
 						$('#pageIdx').val(parseInt($('#pageIdx').val())+1)
 						$('#page').val((($('#pageIdx').val()-1)*10)+1)
 					}
+					console.log("페이지 인덱스 :"+$('#pageIdx').val());
+					console.log("페이지 :"+$('#page').val());
 //		1씩 증가
 // 		if($('#page').val()==$(this).closest('li').prev('li').find('a').text()){
 // 			$('#page').val($(this).closest('li').prev('li').find('a').text())
@@ -268,14 +295,7 @@
 					$('#page').val($(this).text())
 				}
 				console.log($('#page').val());
-				if($('#selType').val()=='all'){
-					selectBrd();
-				}
-				else if($('#selType').val()=='title'){
-					selectBrdTitle();
-				}
-				console.log($('#selType').val())
-				selectPage();
+				selectBrd();
 			})
 			.on('click','#title',function(){
 				//제목을 눌러서 게시물 들어가서 조회
@@ -331,20 +351,21 @@
 			.on('click','#btnSearch',function(){
 				$('#page').val(1);
 				$('#pageIdx').val(1);
-				$('#selType').val("title");
-				selectBrdTitle();
+				selectBrd();
+				$('#btnPrv').next('li').find('a').trigger('click');
 			})
 	//board 테이블 을 조회해서 목록을 출력
 	function selectBrd(){
 		$.ajax({
 			type:'post',dataType:'json',
 			url:'selBrd',
-			data:'page='+$('#page').val()+'&orderBy='+$("#orderBy option:selected").val(),
+			data:'page='+$('#page').val()+'&orderBy='+$("#orderBy option:selected").val()+'&word='+$('#word').val(),
 			success:function(data){
 				$('#brdList').empty();
 				for(i=0;i<data.length;i++) {
 					let brd = data[i];
 					let date = brd['date'].split(' ');
+					$('#maxpage').val(brd['maxPage']);
 					$('#brdList').append("<tr><td hidden>"+brd['seq']+"</td><td>"
 							+date[0]+"</td><td><a href='/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
 							+brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
@@ -357,22 +378,24 @@
 							+"<li><a class='dropdown-item' id='upBD'>수정</a></li>"
 							+"</ul></div></td></tr>");
 				}
+				selectPage();
 			}
 		})
 	}
 	//페이지가 얼마나 있는지가져와서 페이지의 수를 생성
 	function selectPage(){
 		console.log('maxPage='+$('#maxpage').val())
-		x = Math.ceil($('#maxpage').val()/10);
+		//x=최대 게시글 수 / 보여줄 게시글의 수 = 페이지의 수
+		x = Math.ceil($('#maxpage').val()/12);
+		console.log("페이지의 수 = "+x);
 		$('#PageList').empty()
 		$('#PageList').append('<li id="btnPrv" class="page-item"><a class="page-link">Previous</a></li>'
 				+'<li class="page-item"><a class="page-link">Next</a></li>')
-		var cnt=0;
 		y=$('#pageIdx').val()*10;
 		if(y>x){
 			y=x;
 		}
-		console.log($('#maxpage').val()+'/10='+x)
+		console.log($('#maxpage').val()+'/12='+x)
 		for(i=y;i>=1;i--){
 			$('#btnPrv').after('<li class="page-item"><a class="page-link">'+i+'</a></li>')
 			if(i==$('#page').val()){
@@ -382,39 +405,6 @@
 				break;
 			}
 		}
-	}
-	function selectBrdTitle(){
-		$.ajax({
-			type:'post',dataType:'json',
-			url:'searchTitle',
-			data:'word='+$('#word').val()+'&page='+$('#page').val()+'&orderBy='+$("#orderBy option:selected").val(),
-			success:function(data){
-				$('#brdList').empty();
-				for(i=0;i<data.length;i++) {
-					let brd = data[i];
-					let date = brd['date'].split(' ');
-					$('#brdList').append("<tr><td hidden>"+brd['seq']+"</td><td>"
-							+date[0]+"</td><td><a href='/ajax/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
-							+brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
-							+"<div class='dropdown'>"
-							+"<a class='btn dropdown-toggle btn-sm' href='#' role='button'"
-							+"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
-							+"메뉴</a>"
-							+"<ul class='dropdown-menu' aria-labelledby='dropdownMenuLink'>"
-							+"<li><a class='dropdown-item' id='delBD'>삭제</a></li>"
-							+"<li><a class='dropdown-item' id='upBD'>수정</a></li>"
-							+"</ul></div></td></tr>");
-				}
-				if(!(data[0]==null)){
-					$('#maxpage').val(data[0]['page']);
-					$('#selType').val(data[0]['selType']);
-				}
-				else{
-					$('#maxpage').val(1);
-				}
-				selectPage();
-			}
-		})
 	}
 
 </script>

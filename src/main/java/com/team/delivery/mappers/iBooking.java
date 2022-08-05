@@ -16,6 +16,8 @@ public interface iBooking {
 
     int delbooking(int hSeqno);
     int hseqno();
+    int hallcheck(int hSeqno, int hCheck);
+   // int hallcheckdel(int hSeqno);
     void bookingadd (
             int sSeqno,
             String hDate,

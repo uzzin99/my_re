@@ -15,7 +15,7 @@
     <!--  홀예약하기  -->
     <insert id="bookingadd">
         insert into bookinglist values (#{param1},#{param2},#{param3},#{param4},#{param5},
-                                        #{param6},#{param7},h_seqno.nextval,#{param8})
+                                        #{param6},#{param7},h_seqno.nextval,#{param8},0)
     </insert>
 
     <!--  방금예약한 예약번호 가져오기  -->
@@ -39,8 +39,24 @@
         and a.m_id=#{param1}
     </select>
 
+    <!-- 예약삭제   -->
     <delete id="delbooking">
         delete from bookinglist
         where h_seqno=#{param1}
     </delete>
+
+    <!-- 예약대기중에서 예약확정으로 수정   -->
+    <update id="hallcheck">
+        update bookinglist
+        set h_check = #{param2}
+        where h_seqno=#{param1}
+    </update>
+
+    <!--  예약대기중에서 예약취소로 변경  -->
+    <!--<update id="hallcheckdel">
+        update bookinglist
+        set h_check = 5
+        where h_seqno=#{param1}
+    </update>-->
+
 </mapper>

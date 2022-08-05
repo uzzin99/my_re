@@ -29,7 +29,17 @@
     <link href="css/cart.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4147e05761dc8e1e1adacb8d5d113391&libraries=services,clusterer,drawing"></script>
     <meta charset="UTF-8">
+<title>Cart</title>
+</head>
+
 <style>
+    a:hover{
+        cursor: pointer;
+    }
+    .logo:hover{
+        cursor:pointer;
+    }
+
     .dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
     .dotOverlay:nth-of-type(n) {border:0; box-shadow:0px 1px 2px #888;}
     .number {font-weight:bold;color:#ee6152;}
@@ -38,16 +48,6 @@
     .distanceInfo:after {content:none;}
 </style>
 
-<title>Cart</title>
-</head>
-<style>
-    a:hover{
-        cursor: pointer;
-    }
-    .logo:hover{
-        cursor:pointer;
-    }
-</style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->
@@ -146,6 +146,10 @@
 <section>
     <div class="cart" align="center"><br>
         <div id="cart_header"><span class="cartname">🛒장바구니🛒</span></div>
+        <c:if test="${cart.size() < 1}">
+            <br><br><h2 align="center" style="background: linear-gradient(to top, #39c0c0 40%, transparent 60%); width:600px; margin: auto;">
+            "장바구니가 비어있습니다😥"</h2><br><br>
+        </c:if>
         <c:forEach var="i" items='${cart}'>
             <div id="cart_body"><br>
                 <div class="cart_body_menu" id="${i.SSe}" style="float: left; margin-left:350px">
