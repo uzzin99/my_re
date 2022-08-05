@@ -6,7 +6,7 @@
 
     <!-- 예약완료 -->
     <select id="bookinglist" resultType="com.team.delivery.DTO.bookingDTO">
-        select b.s_seqno, b.s_name, a.h_seqno, a.h_date, a.h_time, a.h_people, a.h_onepeople, a.h_mobile, a.h_request
+        select b.s_seqno, b.s_name, a.h_seqno, a.h_date, a.h_time, a.h_people, a.h_onepeople, a.h_mobile, a.h_request, a.h_check
         from bookinglist a, store b
         where a.s_seqno=b.s_seqno
           and b.s_seqno=#{param1}
