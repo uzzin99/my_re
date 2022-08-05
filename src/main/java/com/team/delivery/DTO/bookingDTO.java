@@ -14,5 +14,6 @@ public class bookingDTO {
     private String hMobile;
     private String hRequest;
     private  String mId;
+    private String hCheck;
 
 }

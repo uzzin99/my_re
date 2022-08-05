@@ -155,7 +155,7 @@
             <label for="tab02">예약내역</label>
             <input type="radio" name="tabmenu" id="tab03">
             <label for="tab03">리뷰내역</label>
-
+            <%--주문내역--%>
             <c:forEach var='OL' items='${orderList}'>
                 <div class="conbox con1" style="border: 2px solid #c4c2c2; margin-top: 20px;">
                     <div class="mar">
@@ -185,8 +185,10 @@
                 </div>
             </c:forEach>
 
+            <%--예약내역--%>
             <c:forEach var='item' items='${list}'>
                 <div class="conbox con2" style="border: 2px solid #c4c2c2; margin-top: 20px;">
+                    <input type="text" value="${item.HCheck}" style="width:100px; float:left;">
                     <table align="center"  class="list" style="margin: auto; margin-top:25px;">
                         <tr><td style="width: 100px; height: 35px;">가게명</td><td style="width: 150px;">${item.SName}</td>
                             <td style="width: 100px;">예약날짜</td><td>${item.HDate}</td></tr>
@@ -197,7 +199,7 @@
                 </div>
             </c:forEach><br>
 
-
+            <%--리뷰내역--%>
             <c:forEach var="i" items="${rlist }">
                 <div class="conbox con3" style="border: 2px solid #c4c2c2; margin-top: 20px;">
                     <div class="c" style="margin-top: 10px;">
