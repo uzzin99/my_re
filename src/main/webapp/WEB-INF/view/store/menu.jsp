@@ -22,6 +22,7 @@
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/menu.css" rel="stylesheet" type="text/css" />
+    <link href="/css/menuSt.css" rel="stylesheet" type="text/css" />
 
     <title>Menu</title>
 </head>
@@ -139,7 +140,10 @@
                 <input type="hidden" id=sSe name="sSe" value="${storename.SSeqno}">
 
 				<p><input type="text" readonly value="${storename.SName }"
-					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>     
+					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
+				<p>⭐⭐⭐⭐⭐ 4.9</p>
+				<p>최근리뷰 228 | 최근사장님댓글 0</p>
+					style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
         <div class="mySt" style="float:left; margin-left: 44%">
                         <input type="checkbox" name="rating" value="10" id="rat1" <c:if test="${avg > 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat1">⭐</label>
                         <input type="checkbox" name="rating" value="8" id="rat2" <c:if test="${avg > 6 && avg < 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat2">⭐</label>
@@ -154,20 +158,17 @@
                     <c:if test="${cnt != ''}">${cnt}</c:if>
                     <c:if test="${cnt == ''}">0</c:if>
                     | ❤ 30</p>
-        
-<%--				<p>${storename.SMobile } |--%>
-<%--                    <label for="choice" id="jjim"></label>--%>
-<%--                    <input type="checkbox" id="choice" name="choice"> 찜 | 공유</p>--%>
                 <p>전화번호 ${storename.SMobile } |
                     <c:if test="${userinfo == null}">
-                        찜하기
+                        <label id="zlog">찜하기</label>
                     </c:if>
                     <c:if test="${userinfo != null}">
                         <c:if test="${count==0}">
-                            <label for="btnchoice" id="choice"><input type="button" id="btnchoice" name="choice">🤍찜</label>
+                            <label for="btnchoice" id="choice1"><input type="button" id="btnchoice">🤍찜</label>
                         </c:if>
                         <c:if test="${count==1}">
-                            <label for="btnchoice" id="choice"><input type="button" id="btnchoice" name="choice">❤찜</label>
+                            <label for="btnchoice" id="choice2"><input type="button" id="btnchoice">
+                                <span id="zlogo">❤</span>찜</label>
                         </c:if>
                     </c:if>
                     | 공유</p>
@@ -246,33 +247,37 @@
 </body>
 <script>
 $(document)
-
-.on('click','#choice',function(){
-    let mid=$('#mid').val();
-    let sSe=$('#sSe').val();
-    console.log("mid="+mid+"sSe="+sSe);
-    if(true){
+    .on('click','#zlog',function(){
+        alert("로그인 후 사용가능합니다.");
+    })
+    .on('click','#choice1',function() {/*찜하기*/
+        let mid = $('#mid').val();
+        let sSe = $('#sSe').val();
+        console.log("mid=" + mid + "sSe=" + sSe);
         console.log("check on");
         $.ajax({
-            url:"/z_Check", type:"get",
-            data:{mid:mid, sSe:sSe},
-            dataType:'text',
-            success: function(){
-                location.reload();
+            url: "/z_Check", type: "get",
+            data: {mid: mid, sSe: sSe},
+            dataType: 'text',
+            success: function () {
+                location.reload(true);
             }
         })
-    }else{
+    })
+    .on('click','#choice2',function(){/*찜해제*/
+        let mid=$('#mid').val();
+        let sSe=$('#sSe').val();
+        console.log("mid="+mid+"sSe="+sSe);
         console.log("check off");
         $.ajax({
             url:"/z_Delete", type:"get",
             data:{mid:mid, sSe:sSe},
             dataType:'text',
             success: function(){
-                location.reload();
+                location.reload(true);
             }
         })
-    }
-})
+    })
 
 function openPop(mse,sse){
    window.open('/store/menuDetail?mSe='+mse+'&sSe='+sse,'menuDetail','width=600px,height=700px,scrollbars=yes,resizable=no');

@@ -163,7 +163,7 @@ a:hover{
                   </button></p>
             <p style="display:inline; float: right;" onclick=location.href='signUp/payment'>주문/예약내역📄</p>
             <p style="display:inline; float: right;"><a href="cart">장바구니🛒&nbsp;&nbsp;</a></p>
-            <p style="display:inline; float: right;"><a href="#">찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
+            <p style="display:inline; float: right;" onclick=location.href='z_list'><a>찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
           </div>
         </c:if>
         <c:if test="${userType == '사장님' }">

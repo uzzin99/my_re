@@ -89,4 +89,15 @@
 <select id="zzimStorecount" resultType="int">
 	select count(*) cnt from zzim where m_id=#{param1} and s_se=#{param2}
 </select>
+<!--가게 당 찜 수-->
+<select id="zzimcount" resultType="int">
+	select count(*) count from zzim where s_se=#{param1}
+</select>
+<!--찜 목록 불러오기-->
+<select id="zzimlist" resultType="com.team.delivery.DTO.StoreDTO">
+	select *
+	from zzim a, store b
+	where a.s_se=b.s_seqno
+	and a.m_id=#{param1}
+</select>
 </mapper>

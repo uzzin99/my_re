@@ -85,7 +85,7 @@ public class StoreController {
 		model.addAttribute("menu",menudetail);
 		return "store/menuDetail";
 	}
-	
+
 	@RequestMapping("/store/menu")
 	public String Menu(@RequestParam("sSeqno") int sSeqno,
 					   HttpServletRequest request, Model model) {
@@ -95,17 +95,6 @@ public class StoreController {
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 
-		int cnt = store.reviewCnt(sSeqno);
-		if(cnt > 0) {
-			double avg=store.storeAvg(sSeqno);
-			avg = Math.round(avg * 100) / 100.0;
-			model.addAttribute("avg", avg);
-			log.info("가게평균={}", avg);
-			model.addAttribute("cnt", cnt);
-		}else{
-			log.info("공백넘어감");
-			model.addAttribute("cnt","");
-		}
 		StoreDTO storeName = store.storeName(sSeqno);
 		model.addAttribute("storename",storeName);
 		ArrayList<StoreDTO> menulist = store.menutable(sSeqno);
@@ -115,14 +104,15 @@ public class StoreController {
 
 		//찜 여부 확인
 		if(session.getAttribute("userid")!=null){
-			int cont=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
-			model.addAttribute("count",cont);
+
+			int cnt=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
+			model.addAttribute("count",cnt);
 		}
 
 
 		return "store/menu";
 	}
-	
+
 	@GetMapping("/store")
 	public String doStore(@RequestParam("type") int type, HttpServletRequest request, Model model) {
 
@@ -136,7 +126,7 @@ public class StoreController {
 
 		return "store/store";
 	}
-	
+
 	@RequestMapping("/search/store")
 	public String Search(@RequestParam("word") String sName, Model model, HttpServletRequest request) {
 		HttpSession session=request.getSession();
@@ -174,20 +164,38 @@ public class StoreController {
 		String mid=request.getParameter("mid");
 		int sSe=Integer.parseInt(request.getParameter("sSe"));
 		System.out.println("찜 mid="+mid+"찜 sSe="+sSe);
-		store.zzimcheck(mid,sSe);
 
-		return "";
+		int cnt=store.zzimStorecount(mid,sSe);
+		if(cnt == 0){
+			store.zzimcheck(mid,sSe);
+		}
+		return "redirect:/store/menu?sSeqno="+sSe;
 	}
+
 	@RequestMapping("/z_Delete")
 	public String doZzimdelete(HttpServletRequest request){
 		//찜해제
 		String mid=request.getParameter("mid");
 		int sSe=Integer.parseInt(request.getParameter("sSe"));
 		System.out.println("찜해제 mid="+mid+"찜해제 sSe="+sSe);
-		store.zzimdelete(mid,sSe);
 
-		return "";
+		int cnt=store.zzimStorecount(mid,sSe);
+		if(cnt == 1) {
+			store.zzimdelete(mid, sSe);
+		}
+		return "redirect:/store/menu?sSeqno="+sSe;
 	}
+
+	@RequestMapping("z_list")
+	public String doZlist(HttpServletRequest req, Model model){
+		HttpSession session = req.getSession();
+		model.addAttribute("userinfo",session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+
+		return "store/zzimlist";
+	}
+
+
 
 
 }
