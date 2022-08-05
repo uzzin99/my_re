@@ -17,6 +17,23 @@
 	) a order by num) b
 	where b.num between #{param1} and #{param2} order by b.num
 </select>
+<select id="searchBDTitle" resultType="int">
+	select count(*) cnt from board where b_type = 1 and title like '%'||#{param1}||'%'
+</select>
+<select id="selBDTitle" resultType="com.team.delivery.DTO.boardDTO">
+	select * from (
+	  select a.*,rownum as num from (
+		select * from board where b_type=1 and title like '%'||#{param1}||'%' order by b_date desc
+	) a order by num) b
+	where b.num between #{param2} and #{param3} order by b.num
+</select>
+<select id="selBDTitleView" resultType="com.team.delivery.DTO.boardDTO">
+	select * from (
+	  select a.*,rownum as num from (
+		select * from board where b_type=1 and title like '%'||#{param1}||'%' order by views desc
+		) a order by num) b
+	where b.num between #{param2} and #{param3} order by b.num
+</select>
 <select id="showBrd" resultType="com.team.delivery.DTO.boardDTO">
 	select b_seqno,title,content,writer,b_date,views,b_type from board where b_seqno=#{param1}
 </select>
@@ -35,23 +52,6 @@
 <update id="updateBD">
 	update board set title=#{param1},content=#{param2} where b_seqno=#{param3}
 </update>
-<select id="searchBDTitle" resultType="int">
-	select count(*) cnt from board where b_type = 1 and title like '%'||#{param1}||'%'
-</select>
-<select id="selBDTitle" resultType="com.team.delivery.DTO.boardDTO">
-	select * from (
-	select a.*,rownum as num from (
-	select * from board where b_type=1 and title like '%'||#{param1}||'%' order by b_date desc
-	) a order by num) b
-	where b.num between #{param2} and #{param3} order by b.num
-</select>
-<select id="selBDTitleView" resultType="com.team.delivery.DTO.boardDTO">
-	select * from (
-	select a.*,rownum as num from (
-	select * from board where b_type=1 and title like '%'||#{param1}||'%' order by views desc
-	) a order by num) b
-	where b.num between #{param2} and #{param3} order by b.num
-</select>
 <!-- num을 뽑아내서 전후 게시물의 내용을 뽑아옴 -->
 <select id="PNBD" resultType="com.team.delivery.DTO.boardDTO">
 	select * from (

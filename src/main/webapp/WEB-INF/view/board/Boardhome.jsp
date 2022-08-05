@@ -145,6 +145,10 @@
 	</div>
 	<form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
 		<input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
+		<select name="searchType" id="searchType" style="border: none">
+			<option value="1">가게</option>
+			<option value="2">게시판</option>
+		</select>&nbsp;
 		<button class="btn btn-outline-dark" type="submit">Search</button>
 	</form>
 </nav>
