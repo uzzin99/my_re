@@ -13,7 +13,7 @@ public class bookingDTO {
     private String hOnepeople;
     private String hMobile;
     private String hRequest;
-    private  String mId;
-    private String hCheck;
+    private String mId;
+    private int hCheck;
 
 }

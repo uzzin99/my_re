@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <link href="/css/deliveryUp.css" rel="stylesheet" type="text/css" />
+    <link href="/css/bookinglist.css" rel="stylesheet" type="text/css" />
     <title>DeliveryUp</title>
 </head>
 <style>
@@ -39,10 +39,10 @@
 <header>
     <div class="login">
         <c:if test="${userType == '손님' }">
-            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
         </c:if>
         <c:if test="${userType == '사장님' }">
-            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
         </c:if>
 
         <!--  <input type="button" onclick=location.href='login'>Login
@@ -129,17 +129,57 @@
 </nav>
 
 <section>
-    <h3 align="center">가게이름:${storename.SName}</h3>
-    <c:forEach var='blist' items='${list}'>
-        <table align="center" style="border: 1px solid black">
-            <tr><td>예약날짜</td><td>${blist.HDate}</td></tr>
-            <tr><td>예약시간</td><td>${blist.HTime}</td></tr>
-            <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td></tr>
-            <tr><td>인원수</td><td>${blist.HPeople}</td></tr>
-            <tr><td>예약자</td><td>${blist.HOnepeople}</td></tr>
-            <tr><td>연락처</td><td>${blist.HMobile}</td></tr>
-        </table>
-    </c:forEach>
+    <div id="wraps" >
+        <section class="tabArea" >
+            <h5 align="center">가게이름:${storename.SName}</h5><br>
+            <ul class="tab">
+                <li class="on">
+                    <a href="#!"><span>예약대기</span></a>
+                </li>
+                <li>
+                    <a href="#!"><span>예약확정</span></a>
+                </li>
+                <li>
+                    <a href="#!"><span>예약취소</span></a>
+                </li>
+            </ul>
+            <div class="tabBox on">
+                    <c:forEach var='blist' items='${list}'>
+                        <c:if test="${blist.HCheck == 0 }">
+                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                            <tr><td rowspan="4"><input type="button" class="check" id="${blist.HSeqno}" value="예약확정" style="height: 30px; margin-left:10px;"><br>
+                            <input type="button" class="checkdel" id="${blist.HSeqno}" value="예약거절" style="height: 30px; margin-left:10px;"></td></tr>
+                            <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
+                            <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
+                            <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
+                        </table>
+                        </c:if>
+                    </c:forEach>
+            </div>
+            <div class="tabBox">
+                    <c:forEach var='blist' items='${list}'>
+                        <c:if test="${blist.HCheck == 1 }">
+                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                            <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
+                            <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
+                            <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
+                        </table>
+                        </c:if>
+                    </c:forEach>
+            </div>
+            <div class="tabBox">
+                <c:forEach var='blist' items='${list}'>
+                    <c:if test="${blist.HCheck == 5 }">
+                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                            <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
+                            <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
+                            <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
+                        </table>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </section>
+    </div>
 </section>
 
 <footer id="footer">
@@ -167,9 +207,69 @@
 </body>
 <script>
     $(document)
-    //추가 팝업창 열기
+    // 추가 팝업창 열기
     function openPop(){
         popup = window.open('dvList','등록','width=600px,height=700px,scrollbars=yes,resizable=no');
     }
+
+    $(".check").on("click",function(event){
+        let upbo = $(this).attr("id");
+        console.log(upbo);
+        answer = confirm("예약확정 하시겠습니까?");
+        if(answer){
+            $.ajax({
+                url:'/bookingcheck',
+                type:'get',
+                dataType:'json',
+                data:{upbo:upbo},
+                success:function (data){
+                    console.log(data);
+                    if(data==1){
+                        location.reload();
+                    }else {
+                        alert("다시 시도해주세요");
+                    }
+
+                }
+            })
+        }
+    })
+
+    $(".checkdel").on("click",function(event) {
+        let cenclebo = $(this).attr("id");
+        answer = confirm("예약거절 하시겠습니까?");
+        if(answer){
+            $.ajax({
+                url:'/hallcheckdel',
+                type:'get',
+                dataType: 'json',
+                data:{cenclebo:cenclebo},
+                success:function (data){
+                    console.log(data);
+                    if(data==1){
+                        location.reload()
+                    }else {
+                        alert("다시 시도해주세요");
+                    }
+                }
+            })
+        }
+    })
+
+        .ready(function(){
+            $(".tabArea .tab li a").on("click", function(){
+                // 해당 요소를 클릭하는 내 자신의 index 번호를 가져온다. [0], [1]
+                const num = $(".tabArea .tab li a").index($(this));
+                // 기존에 적용되어 있는 on class 삭제
+                $(".tabArea .tab li").removeClass("on");
+                $(".tabArea .tabBox").removeClass("on");
+
+                // 다음 요소 클릭시 on class 추가
+                $('.tabArea .tab li:eq(' + num + ')').addClass("on");
+                $('.tabArea .tabBox:eq(' + num + ')').addClass("on");
+
+            });
+        });
+
 </script>
 </html>
