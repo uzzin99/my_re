@@ -144,6 +144,7 @@ public class BoardController {
 		model.addAttribute("userid", session.getAttribute("userid"));
 		model.addAttribute("seq",seq);
 		model.addAttribute("userType",session.getAttribute("userType"));
+		System.out.println("userType= "+session.getAttribute("userType"));
 		return "board/showBoard";
 	}
 	@RequestMapping(value = "/viewUp", method = RequestMethod.GET,produces="application/text;charset=utf-8")
