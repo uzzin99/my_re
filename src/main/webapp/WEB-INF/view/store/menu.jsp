@@ -252,7 +252,7 @@ $(document)
         console.log("mid=" + mid + "sSe=" + sSe);
         console.log("check on");
         $.ajax({
-            url: "/z_Check", type: "get",
+            url: "/store/z_Check", type: "get",
             data: {mid: mid, sSe: sSe},
             dataType: 'text',
             success: function () {
@@ -266,7 +266,7 @@ $(document)
         console.log("mid="+mid+"sSe="+sSe);
         console.log("check off");
         $.ajax({
-            url:"/z_Delete", type:"get",
+            url:"/store/z_Delete", type:"get",
             data:{mid:mid, sSe:sSe},
             dataType:'text',
             success: function(){
