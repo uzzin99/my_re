@@ -45,8 +45,11 @@
 <!-- 가게검색 -->
 <select id="searchtable" resultType="com.team.delivery.DTO.StoreDTO" parameterType="String">
 	select *
-	from store
+	from store a, (select s_seqno, avg(score) as avg
+				   from review
+				   group by s_seqno) b
 	where s_name like '%'||#{param1}||'%'
+	and a.s_seqno=b.s_seqno(+)
 </select>
 	
 <!-- 가게리뷰리스트 -->
@@ -104,10 +107,13 @@
 </select>
 <!--찜 목록 불러오기-->
 <select id="zzimlist" resultType="com.team.delivery.DTO.StoreDTO">
-	select a.m_id, b.s_seqno, b.s_name, b.s_img
-	from zzim a, store b
-	where a.s_se=b.s_seqno
-	and a.m_id=#{param1}
+	select a.m_id, b.s_seqno, b.s_name, b.s_img, avg, cnt
+	from zzim a, store b, (select s_seqno, avg(score) as avg, count(score) as cnt
+						   from review
+						   group by s_seqno) c
+	where a.m_id=#{param1}
+	  and a.s_se=b.s_seqno
+	  and b.s_seqno=c.s_seqno(+)
 </select>
 <select id="zzimstoremenulist" resultType="com.team.delivery.DTO.StoreDTO">
 	select b.menu_name

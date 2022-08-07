@@ -25,9 +25,14 @@
     input {
         background-color: #c4c2c2;
     }
-
     a:hover {
         cursor: pointer;
+    }
+    .logo:hover{
+        cursor:pointer;
+    }
+    #zlog:hover{
+        cursor:pointer;
     }
 </style>
 </head>
@@ -127,15 +132,44 @@
 </nav>
 
 <section>
+
     <table>
         <tr><br>
             <td>
-                <p><input type="text" value="${list.SName }"
-                          style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);" readonly></p>
-                <p><input type="hidden" id="SSeqno" value="${list.SSeqno}"></p>
-                <p>⭐⭐⭐⭐⭐ 4.9</p>
-                <p>최근리뷰 228 | 최근사장님댓글 0</p>
-                <p>전화 | 찜 | 공유</p>
+                <input type="hidden" id=mid name="mid" value="${userinfo}">
+                <input type="hidden" id=sSe name="sSe" value="${storename.SSeqno}">
+
+                <p><input type="text" readonly value="${storename.SName }"
+                          style="font-size:20px; text-align:center; background: linear-gradient(to top, #39c0c0 40%, transparent 50%);"></p>
+
+                <div class="mySt" style="float:left; margin-left: 44%">
+                    <input type="checkbox" name="rating" value="10" id="rat1" <c:if test="${avg > 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat1">⭐</label>
+                    <input type="checkbox" name="rating" value="8" id="rat2" <c:if test="${avg > 6 && avg <= 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat2">⭐</label>
+                    <input type="checkbox" name="rating" value="6" id="rat3" <c:if test="${avg > 4 && avg <= 6}">checked="checked"</c:if> disabled="disabled"/><label for="rat3">⭐</label>
+                    <input type="checkbox" name="rating" value="4" id="rat4" <c:if test="${avg > 2 && avg <= 4}">checked="checked"</c:if> disabled="disabled"/><label for="rat4">⭐</label>
+                    <input type="checkbox" name="rating" value="2" id="rat5" <c:if test="${avg > 0 && avg <= 2}">checked="checked"</c:if> disabled="disabled"/><label for="rat5">⭐</label>  <!-- 젤 왼쪽 별 -->
+                </div>
+                <p style="float: left;">&nbsp;&nbsp;
+                    <c:if test="${cnt != ''}">${avg}</c:if>
+                    <c:if test="${cnt == ''}">0.0</c:if></p>
+                <p style="clear: both">최근리뷰
+                    <c:if test="${cnt != ''}">${cnt}</c:if>
+                    <c:if test="${cnt == ''}">0</c:if>
+                    |
+                    <c:if test="${userinfo == null}">
+                        <label id="zlog">🤍 ${zcnt} </label>
+                    </c:if>
+
+                    <c:if test="${userinfo != null}">
+                        <c:if test="${count==0}">
+                            <label for="btnchoice" id="choice1"><input type="button" id="btnchoice">🤍 ${zcnt} </label>
+                        </c:if>
+                        <c:if test="${count==1}">
+                            <label for="btnchoice" id="choice2"><input type="button" id="btnchoice">
+                            <span id="zlogo">❤</span> ${zcnt} </label>
+                        </c:if>
+                    </c:if>
+                    | 공유</p>
             </td>
         </tr>
     </table>
@@ -196,8 +230,22 @@
             <input type="button" id="order" value="주문하기">
         </div>
 
-        <div class="conbox con2" align="center"><br>
-        </div>
+        <c:forEach var="i" items="${rlist }">
+            <div class="conbox con2" align="center"><br>
+                <div id="b">
+                    <input readonly type="text" style="float: left; margin-left: 20px;" value="${i.MId}">
+                    <div class="mySt">
+                        <input type="checkbox" name="rating" value="10" id="rate1" <c:if test="${i.score == 10}">checked="checked"</c:if> disabled="disabled"/><label for="rate1">⭐</label>
+                        <input type="checkbox" name="rating" value="8" id="rate2" <c:if test="${i.score == 8}">checked="checked"</c:if> disabled="disabled"/><label for="rate2">⭐</label>
+                        <input type="checkbox" name="rating" value="6" id="rate3" <c:if test="${i.score == 6}">checked="checked"</c:if> disabled="disabled"/><label for="rate3">⭐</label>
+                        <input type="checkbox" name="rating" value="4" id="rate4" <c:if test="${i.score == 4}">checked="checked"</c:if> disabled="disabled"/><label for="rate4">⭐</label>
+                        <input type="checkbox" name="rating" value="2" id="rate5" <c:if test="${i.score == 2}">checked="checked"</c:if> disabled="disabled"/><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
+                    </div>
+                    <input readonly type="text" style="float: right; margin-right: 10px; width: auto; color: #333333" value="${i.RDate }"><br>
+                    <textarea readonly style="width: 70%; height: 100px;"><c:out value="${i.RContent }" /></textarea>
+                </div>
+            </div>
+        </c:forEach>
     </div>
 </section>
 
@@ -264,9 +312,36 @@
         }
     })
 
-
-
-
-
+    $('#zlog').on('click',function(){
+        alert("로그인 후 사용가능합니다.");
+    })
+    $('#choice1').on('click',function(){
+        let mid = $('#mid').val();
+        let sSe = $('#sSe').val();
+        console.log("mid=" + mid + "sSe=" + sSe);
+        console.log("check on");
+        $.ajax({
+            url: "/z_Check", type: "get",
+            data: {mid: mid, sSe: sSe},
+            dataType: 'text',
+            success: function () {
+                location.reload(true);
+            }
+        })
+    })
+    $('#choice2').on('click',function(){
+        let mid=$('#mid').val();
+        let sSe=$('#sSe').val();
+        console.log("mid="+mid+"sSe="+sSe);
+        console.log("check off");
+        $.ajax({
+            url:"/z_Delete", type:"get",
+            data:{mid:mid, sSe:sSe},
+            dataType:'text',
+            success: function(){
+                location.reload(true);
+            }
+        })
+    })
 </script>
 </html>

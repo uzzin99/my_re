@@ -80,9 +80,9 @@ input[type="radio"]:checked+label {
     display: none;
     border-radius: 15px;
     background-color: #f1f1f1;
-    /*margin-left: 20px;*/
-    /*margin-top: 20px;*/
     margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .conbox input {
@@ -196,20 +196,20 @@ input[id="tab03"]:checked~.con3 {
 }
 
 .mySt{
-    display: inline-block; /* ???? ë³??? ?´ë?¸ì??¤ì?? ???? ????ë§? ??ë¦¬ë?? ì°¨ì???.*/
-    border: 0; /* ?????? ????ë¦? ??ê±? */
-    direction: rtl; /* ?´ëª¨ì§? ???? ë°??? */
+    display: inline-block;
+    border: 0;
+    direction: rtl;
 }
-/* ì²´í?¬ë??? ê°?ì¶? */
+
 .mySt input[type=checkbox]{
     display: none;
 }
 .mySt label{
-    font-size: 1.0em; /* ?´ëª¨ì§? ?¬ê¸° */
-    color: transparent; /* ê¸°ì¡´ ?´ëª¨ì§? ì»¬ë?? ??ê±? */
-    text-shadow: 0 0 0 #FBF5BF; /* ?? ?´ëª¨ì§? ???? ë¶??? */
+    font-size: 1.0em;
+    color: transparent;
+    text-shadow: 0 0 0 #FBF5BF;
 }
 .mySt input[type=checkbox]:checked ~ label{
-    text-shadow: 0 0 0 #FCC500; /* ë§??°ì?? ?´ë¦­ ì²´í?? */
+    text-shadow: 0 0 0 #FCC500;
 }
 

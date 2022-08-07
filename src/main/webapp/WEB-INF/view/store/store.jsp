@@ -148,19 +148,19 @@ a:hover{
             <img class="sImg" src="/image/imgload.png" style="float: left;">
           </c:if>
             <p align="center"><input readonly type="text" class="sName" value='${item.SName}'></p>
-            <span>별점</span>&nbsp;&nbsp;&nbsp;
-              <div class="mySt" style="float:left; margin-left: 44%">
+            <span style="float:left">별점</span>&nbsp;&nbsp;&nbsp;
+              <div class="mySt" style="float:left; margin-left: 1%">
                 <input type="checkbox" name="rating" value="10" id="rat1" <c:if test="${item.avg > 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat1">⭐</label>
                 <input type="checkbox" name="rating" value="8" id="rat2" <c:if test="${item.avg > 6 && item.avg <= 8}">checked="checked"</c:if> disabled="disabled"/><label for="rat2">⭐</label>
                 <input type="checkbox" name="rating" value="6" id="rat3" <c:if test="${item.avg > 4 && item.avg <= 6}">checked="checked"</c:if> disabled="disabled"/><label for="rat3">⭐</label>
                 <input type="checkbox" name="rating" value="4" id="rat4" <c:if test="${item.avg > 2 && item.avg <= 4}">checked="checked"</c:if> disabled="disabled"/><label for="rat4">⭐</label>
                 <input type="checkbox" name="rating" value="2" id="rat5" <c:if test="${item.avg > 0 && item.avg <= 2}">checked="checked"</c:if> disabled="disabled"/><label for="rat5">⭐</label>  <!-- 젤 왼쪽 별 -->
               </div>
-              <p style="float: left;">&nbsp;&nbsp;
+              <p style="float: left">&nbsp;&nbsp;
                 <c:if test="${item.avg != null}">${item.avg}</c:if>
                 <c:if test="${item.avg == null}">0.0</c:if></p>
-            <span>최소주문</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="10,000"><br>
-            <span>소요시간</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="30~40분">
+            <p style="float: left"><span>최소주문</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="10,000"></p>
+            <p style="float:left"><span>소요시간</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="30~40분"></p>
         </div>
       </div>
     </c:forEach>

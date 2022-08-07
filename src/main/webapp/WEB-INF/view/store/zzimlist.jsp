@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admin
-  Date: 2022-08-05
-  Time: 오전 12:03
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -100,18 +94,18 @@
                         홀예약
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
                     </ul>
 
                 <li class="nav-item dropdown">
@@ -121,41 +115,40 @@
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="#">Q&A</a></li>
-                        <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
+    <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
         <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
 </nav>
 <%--여기서부터 섹션--%>
 <section>
-    <div class="tab"><br>
-        <span id="space1"></span>
-        <input type="radio" name="tabmenu" id="tab01"  checked>
-        <label for="tab01">찜목록</label>
-        <span id="space2"></span>
-        총&nbsp;<input type="text" id="total" value="${s_cnt}" readonly>&nbsp;개
-        <c:forEach var="zli" items="${zlist}">
-            <div class="conbox con1" onclick="location.href='/store/menu?sSeqno='+${zli.SSeqno}">
-                <div class="zzim-storelogo">
-                    <p><c:if test="${zli.SImg==null}"><img src="/image/imgload.png"></c:if>
-                       <c:if test="${zli.SImg!=null}"><img src="/image/${zli.SImg}"></c:if></p>
-                </div>
-                <div class="zzimlist-box">
-                    <input type="hidden" id="sSe" value="${zli.SSeqno}">
-                    <span>${zli.SName}</span><br>
-                    <span>⭐4.9(100+) <input type="text" id="menutext" readonly></span><br>
-                    <span>최소주문금액 10000원, 배탈팁 2000원</span><br>
-                    <span>포장가능, 예약가능</span>
-                </div>
+    <div align="center"><br>
+    <h3>찜목록</h3>
+    <input type="text" id="total" value="총 ${s_cnt} 개" readonly><br>
+    <c:forEach var="zli" items="${zlist}">
+        <div class="s_box" onclick="location.href='/store/menu?sSeqno='+${zli.SSeqno}">
+            <div class="zzim-storelogo">
+                <p><c:if test="${zli.SImg==null}"><img src="/image/imgload.png"></c:if>
+                   <c:if test="${zli.SImg!=null}"><img src="/image/${zli.SImg}"></c:if></p>
             </div>
-        </c:forEach>
+            <div class="zzimlist-box">
+                <input type="hidden" id="sSe" value="${zli.SSeqno}">
+                <span>${zli.SName}</span><br>
+                <span class="mySt"><laber>⭐</laber>
+                    <c:if test="${zli.avg != null}">${zli.avg}</c:if>
+                    <c:if test="${zli.avg == null}">0.0</c:if>
+                    (${zli.cnt})</span><br>
+                <span>최소주문금액 10000원, 배탈팁 2000원</span><br>
+                <span>포장가능, 예약가능</span>
+            </div>
+        </div>
+    </c:forEach>
     </div>
 </section>
 <%--여기는 푸터--%>

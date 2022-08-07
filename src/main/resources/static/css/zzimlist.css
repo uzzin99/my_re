@@ -15,25 +15,17 @@ section {
     font-family: 'GongGothicMedium';
     background-color: #f8f9fa;
 }
-/*section Â¾??? Â½Âº?Â©Â·?Â¹? Â¼Ã»Â±Ã¢Â±Ã¢*/
+
 section::-webkit-scrollbar {
     display: none;
 }
 
-.tab {
-    margin-left: 50px;
+h3{
+    /* font-size: 20px; */
+    width: 100px;
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+    /*margin-top: 100px;*/
     text-align: center;
-}
-#space1{
-    display: inline-block;
-    width: 270px;
-    height: 10px;
-}
-
-#space2{
-    display: inline-block;
-    width: 200px;
-    height: 10px;
 }
 
 #total{
@@ -41,51 +33,21 @@ section::-webkit-scrollbar {
     border: none;
     outline: none;
     background-color: #f8f9fa;
-    width: 40px;
-    text-align: center;
+    width: 80px;
+    float: right;
+    margin-right: 24%;
+    /* text-align: center; */
 }
 
-input[type="radio"] {
-    display: none;
-}
-
-input[type="radio"]+label {
-    display: inline-block;
-    background-color: #f1f1f1;
-    color: #999;
-    font-size: 15px;
-    cursor: pointer;
-    font-family: 'GongGothicMedium';
-    border-radius: 3px;
-    width: 100px;
-    height: 30px;
-}
-
-input[type="radio"]:checked+label {
-    background: linear-gradient(to top, #39c0c0 40%, transparent 30%);
-    background-color: #f1f1f1 ;
-    color: #000;
-}
-
-.conbox{
+.s_box {
     width: 700px;
     height: 150px;
-    display: none;
     border-radius: 15px;
-    background-color: #f1f1f1;
-    /* margin-left: 20px; */
-    /* margin-top: 20px; */
-    /*margin: auto;*/
-    border: 2px solid #c4c2c2;
+    background-color: #f1f1f1 ;
     margin: 20px auto;
-}
-
-.conbox input {
-    background-color: #f1f1f1;
-}
-
-input[id="tab01"]:checked~.con1 {
-    display: block;
+    border: 2px solid #c4c2c2;
+    /*float: left;*/
+    cursor:pointer;
 }
 
 .zzim-storelogo{
@@ -115,13 +77,8 @@ input[id="tab01"]:checked~.con1 {
     text-align: left;
 }
 
-#menutext{
-    text-decoration: none;
-    border: none;
-    outline: none;
-    color: #707070;
-    background-color: #f8f9fa;
-    width: 300px;
+label{
+    font-size: 1.0em; /* ÀÌ¸ðÁö Å©±â */
+    color: transparent; /* ±âÁ¸ ÀÌ¸ðÁö ÄÃ·¯ Á¦°Å */
+    text-shadow: 0 0 0 #FCC500; /* »õ ÀÌ¸ðÁö »ö»ó ºÎ¿© */
 }
-
-
