@@ -144,40 +144,40 @@
                 </li>
             </ul>
             <div class="tabBox on">
-                <c:forEach var='obefore' items='${obefore}'>
-                    <c:if test="${obefore.OStatus == null }">
+                <c:forEach var='before' items='${olist}'>
+                    <c:if test="${before.OStatus == null }">
                         <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
-                            <tr><td rowspan="5"><input type="button" class="orderGet" id="${obefore.OSeqno}" value="주문받기" style="height: 30px;width:70px;margin-left:10px;"><br>
-                                <input type="button" class="orderCancle" id="${obefore.OSeqno}" value="주문거절" style="height: 30px; width:70px; margin-left:10px;"></td></tr>
-                                <td>주문번호</td><td>No.${obefore.OSeqno}</td><td>메뉴이름</td><td>${obefore.OName}</td>
-                            <tr><td>주문날짜</td><td>${obefore.ODate}</td><td>주문금액</td><td>${obefore.OPrice}</td></tr>
-                            <tr><td>회원이름</td><td>${obefore.MName}</td><td>회원연락처</td><td>${obefore.MMobile}</td></tr>
+                            <tr><td rowspan="5"><input type="button" class="orderGet" id="${before.OSeqno}" value="주문받기" style="height: 30px;width:70px;margin-left:10px;"><br>
+                                <input type="button" class="orderCancle" id="${before.OSeqno}" value="주문거절" style="height: 30px; width:70px; margin-left:10px;"></td></tr>
+                                <tr><td>주문번호</td><td>No.${before.OSeqno}</td><td>메뉴이름</td><td>${before.OName}</td></tr>
+                            <tr><td>주문날짜</td><td>${before.ODate}</td><td>주문금액</td><td>${before.OPrice}</td></tr>
+                            <tr><td>회원이름</td><td>${before.MName}</td><td>회원연락처</td><td>${before.MMobile}</td></tr>
                         </table>
                     </c:if>
                 </c:forEach>
             </div>
             <div class="tabBox">
-                <c:forEach var='oafter' items='${oafter}'>
-                    <c:if test="${oafter.OStatus == 1 }">
+                <c:forEach var='after' items='${olist}'>
+                    <c:if test="${after.OStatus == 1 }">
                         <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
-                            <td>주문번호</td><td>No.${oafter.OSeqno}</td><td>메뉴이름</td><td>${oafter.OName}</td>
-                            <tr><td>주문날짜</td><td>${oafter.ODate}</td><td>주문금액</td><td>${oafter.OPrice}</td></tr>
-                            <tr><td>회원이름</td><td>${oafter.MName}</td><td>회원연락처</td><td>${oafter.MMobile}</td></tr>
+                            <tr><td>주문번호</td><td>No.${after.OSeqno}</td><td>메뉴이름</td><td>${after.OName}</td></tr>
+                            <tr><td>주문날짜</td><td>${after.ODate}</td><td>주문금액</td><td>${after.OPrice}</td></tr>
+                            <tr><td>회원이름</td><td>${after.MName}</td><td>회원연락처</td><td>${after.MMobile}</td></tr>
                         </table>
                     </c:if>
                 </c:forEach>
             </div>
-<%--            <div class="tabBox">--%>
-<%--                <c:forEach var='blist' items='${list}'>--%>
-<%--                    <c:if test="${blist.HCheck == 5 }">--%>
-<%--                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">--%>
-<%--                            <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>--%>
-<%--                            <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>--%>
-<%--                            <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>--%>
-<%--                        </table>--%>
-<%--                    </c:if>--%>
-<%--                </c:forEach>--%>
-<%--            </div>--%>
+            <div class="tabBox">
+                <c:forEach var='cancle' items='${olist}'>
+                    <c:if test="${cancle.OStatus == 4 }">
+                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                            <tr><td>주문번호</td><td>No.${cancle.OSeqno}</td><td>메뉴이름</td><td>${cancle.OName}</td></tr>
+                            <tr><td>주문날짜</td><td>${cancle.ODate}</td><td>주문금액</td><td>${cancle.OPrice}</td></tr>
+                            <tr><td>회원이름</td><td>${cancle.MName}</td><td>회원연락처</td><td>${cancle.MMobile}</td></tr>
+                        </table>
+                    </c:if>
+                </c:forEach>
+            </div>
         </section>
     </div>
 </section>
@@ -212,54 +212,31 @@ $(document)
 //     popup = window.open('dvList','등록','width=600px,height=700px,scrollbars=yes,resizable=no');
 // }
 
-$(".orderGet").on("click",function(event){
+.on('click','.orderGet',function(){
     let upor = $(this).attr("id");
-    console.log(upor);
-    answer = confirm("예약확정 하시겠습니까?");
-    if(answer){
+    console.log("주문받기 oseq="+upor);
+    if(confirm("주문을 받으시겠습니까?")){
         $.ajax({
             url:'/orderget',
             type:'get',
-            dataType:'json',
+            dataType:'text',
             data:{oseq:upor},
-            success:function (data){
-                console.log(data);
-                if(data==1){
-                    location.reload();
-                }else {
-                    alert("다시 시도해주세요");
-                }
-
+            success:function (){
+                location.reload();
+            },
+            error: function(){
+                alert("주문 받기 실페");
             }
         })
     }
 })
-// $(".orderGet").on("click",function(){
-//     let upor = $(this).attr("id");
-//     console.log(upor);
-//     answer = confirm("주문을 받겠습니까?");
-//     if(answer){
-//         $.ajax({
-//             url:'booking/orderget',
-//             type:'get',
-//             dataType:'text',
-//             data:{oseq:upor},
-//             success:function (){
-//                 location.reload();
-//             },
-//             error: function(){
-//                 alert("다시 시도해주세요.");
-//             }
-//         })
-//     }
-// })
 
-$(".orderCancle").on("click",function() {
+.on('click','.orderCancle',function(){
     let  canor= $(this).attr("id");
-    answer = confirm("예약거절 하시겠습니까?");
-    if(answer){
+    console.log("주문취소 oseq="+canor);
+    if(confirm("주문을 취소하시겠습니까?")){
         $.ajax({
-            url:'booking/ordercancle',
+            url:'/ordercancle',
             type:'get',
             dataType: 'text',
             data:{oseq:canor},
@@ -267,7 +244,7 @@ $(".orderCancle").on("click",function() {
                 location.reload()
             },
             error: function(){
-                alert("다시 시도해주세요");
+                alert("주문 추소 실패");
             }
         })
     }
@@ -287,6 +264,5 @@ $(".orderCancle").on("click",function() {
 
     });
 });
-
 </script>
 </html>

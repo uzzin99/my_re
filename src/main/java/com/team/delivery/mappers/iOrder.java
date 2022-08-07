@@ -8,12 +8,9 @@ import java.util.ArrayList;
 @Mapper
 public interface iOrder {
 
-    int orderget(int status, int upor);
-    int ordercancle(int status, int upor);
-    ArrayList<orderDTO> orderbefore(int sse);
-    ArrayList<orderDTO> orderafter(int sse);
-    ArrayList<orderDTO> ordercancle(int sse);
-
+    void orderget_cancle(int status, int upor);
+    ArrayList<orderDTO> orderlist(int sse);
+//    void orderdelete(int oseq);
 
 
 }

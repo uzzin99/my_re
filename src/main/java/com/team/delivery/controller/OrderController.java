@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,6 +24,7 @@ public class OrderController {
     private final iOrder iod;
     private final iStore store;
 
+
     @RequestMapping("booking/orderlist")
     public String doOrderlist(@RequestParam("sSeqno") int sSeqno,
                               HttpServletRequest request, Model model) {
@@ -34,27 +36,34 @@ public class OrderController {
         StoreDTO storeName = store.storeName(sSeqno);
         model.addAttribute("storename",storeName);
 
-        ArrayList<orderDTO> obefore = iod.orderbefore(sSeqno);
-        model.addAttribute("obefore",obefore);
-
-        ArrayList<orderDTO> oafter = iod.orderafter(sSeqno);
-        model.addAttribute("oafter",oafter);
-
-
+        ArrayList<orderDTO> orderlist = iod.orderlist(sSeqno);
+        model.addAttribute("olist",orderlist);
 
         return "booking/orderlist";
     }
-
+    @ResponseBody
     @RequestMapping("/orderget")
     public String doOrderget(@RequestParam("oseq") int oseq){
-        int data= iod.orderget(1, oseq);
-        return Integer.toString(data);
+        iod.orderget_cancle(1,oseq);
+        return "redirect:/booking/orderlist";
     }
 
+    @ResponseBody
     @RequestMapping("/ordercancle")
     public String doOrdercancle(@RequestParam("oseq") int oseq){
-        int data=iod.orderget(4, oseq);
+        iod.orderget_cancle(4, oseq);
         return "redirect:/booking/orderlist";
+    }
+
+    @ResponseBody
+    @RequestMapping("/o_cancle")
+    public String doOcancle(@RequestParam("oseq") int oseq){
+//        iod.orderdelete(oseq);
+        System.out.println("oderseq="+oseq);
+        iod.orderget_cancle(5, oseq);
+        return "redirect:/member/paymentDetails";
+
+
     }
 
 }

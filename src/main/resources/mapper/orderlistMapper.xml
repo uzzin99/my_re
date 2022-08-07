@@ -7,26 +7,19 @@
 <insert id="orderinsert">
 
 </insert>
-<!--주문현황 리스트-->
-<select id="orderbefore" resultType="com.team.delivery.DTO.orderDTO">
+<!--주문현황/완료/취소 리스트-->
+<select id="orderlist" resultType="com.team.delivery.DTO.orderDTO">
     select a.* ,b.m_name, b.m_mobile
         from orderend a, member b
         where a.m_id=b.m_id
         and a.s_se=#{param1} order by a.o_seqno
 </select>
-<!--주문 받기-->
-<update id="orderget">
+<!--주문 받기/취소-->
+<update id="orderget_cancle">
     update orderend set o_status=#{param1} where o_seqno=#{param2}
 </update>
-<!--주문완료 리스트-->
-<select id="orderafter" resultType="com.team.delivery.DTO.orderDTO">
-    select a.* ,b.m_name, b.m_mobile
-        from orderend a, member b
-        where a.m_id=b.m_id
-        and a.s_se=#{param1} order by a.o_seqno
-</select>
-<!--주문취소 리스트-->
-<select id="ordercancle" resultType="com.team.delivery.DTO.orderDTO">
+<!--<delete id="orderdelete">-->
+<!--    delete from orderend where o_seq=#{param1}-->
+<!--</delete>-->
 
-</select>
 </mapper>
