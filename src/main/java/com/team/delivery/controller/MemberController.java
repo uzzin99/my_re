@@ -28,7 +28,6 @@ public class MemberController {
 	private final iMenuStore ims;
   	private final iBooking ibo;
 	private final iStore store;
-
 	private final iCart ica;
 
 	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
@@ -37,6 +36,7 @@ public class MemberController {
 		@ResponseBody
 		public String ReviewDel(@RequestParam("delSe") int delse){
 			log.info("리뷰삭제번호={}",delse);
+			ica.reviewRemove(delse);
 			int checkDel = store.reviewDel(delse);
 			return Integer.toString(checkDel);
 		}

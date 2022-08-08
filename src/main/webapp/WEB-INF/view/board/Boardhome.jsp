@@ -11,14 +11,29 @@
 	<title>게시판 목록</title>
 </head>
 <style>
-	#word{
-		font-size: 16px;
-		width: 325px;
-		height: 36px;
+	#boardFunction{
+		margin: auto;
+		width: 700px;
+		height: 80px;
+	}
+	tr td:nth-child(3){
+		width:280px;
+		text-overflow: ellipsis;  /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
+		white-space  : nowrap;    /* 줄바꿈을 하지 않습니다. */
+		overflow     : hidden;    /* 내용이 길면 감춤니다 */
+	}
+	#boardFunction input{
+		height: 40px;
+		float: right;
 	}
 	#btnSearch{
-		width: 50px;
-		height: 100%;
+		margin-right: 55px;
+		height: 40px;
+	}
+	#word{
+		font-size: 16px;
+		width: 300px;
+		height: 36px;
 	}
 	#brdTable{
 		margin-left:auto;
@@ -58,7 +73,7 @@
 
 	<p align="center" onclick=location.href='main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
-
+<%HttpSession session = request.getSession();%>
 <!-- 여기가 네비바 -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<div class="container-fluid">
@@ -120,8 +135,8 @@
 						게시판
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-						<li><a class="dropdown-item" href="/QnA">Q&A</a></li>
+						<li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
+						<li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -134,26 +149,26 @@
 </nav>
 <section>
 <div id="BoardMain">
-	<span class="todaymenu" style="float: left;font-size:xx-large">자유게시판</span>
+	<span class="todaymenu" style="float: left;font-size:xx-large;margin-bottom: 20px;">자유게시판</span>
 	<table id="brdTable" class="table table-sm table-hover">
 		<thead>
 		<tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th><th>
 			<div id="divOB">
 				<c:if test="${orderBy==2}">
-					<a id="obtime" href="#">시간순▲</a>/
-					<a id="obview" href="#">조회수순</a>
+					<a id="obtime" href="javascript:void(0);">시간순▲</a>/
+					<a id="obview" href="javascript:void(0);">조회수순</a>
 				</c:if>
 				<c:if test="${orderBy==1}">
-					<a id="obtime" href="#">시간순▼</a>/
-					<a id="obview" href="#">조회수순</a>
+					<a id="obtime" href="javascript:void(0);">시간순▼</a>/
+					<a id="obview" href="javascript:void(0);">조회수순</a>
 				</c:if>
 				<c:if test="${orderBy==4}">
-					<a id="obtime" href="#">시간순</a>/
-					<a id="obview" href="#">조회수순▲</a>
+					<a id="obtime" href="javascript:void(0);">시간순</a>/
+					<a id="obview" href="javascript:void(0);">조회수순▲</a>
 				</c:if>
 				<c:if test="${orderBy==3}">
-					<a id="obtime" href="#">시간순</a>/
-					<a id="obview" href="#">조회수순▼</a>
+					<a id="obtime" href="javascript:void(0);">시간순</a>/
+					<a id="obview" href="javascript:void(0);">조회수순▼</a>
 				</c:if>
 			</div>
 		</th></tr>
@@ -161,9 +176,10 @@
 		<tbody id="brdList" class="table-group-divider">
 		</tbody>
 	</table>
-	<div style="width: 700px;height: 50px;margin-right: auto;margin-left: auto">
-			<input type=text class="form-control me-2" name=word id=word><input class="btn btn-outline-dark" type=button id="btnSearch" value="검색">
-			<input type="button" class="btn btn-outline-dark" style="float: right" onclick="location.href='/newpost'" value="새글쓰기">
+	<div id="boardFunction">
+		<input type="button" class="btn btn-outline-dark" style="float: right;" onclick="location.href='/newpost'" value="새글쓰기">
+		<input class="btn btn-outline-dark" type=button id="btnSearch" value="검색">
+		<input type=text class="form-control me-2" placeholder="Search" name=word id=word>
 	</div>
 	<nav id="PageNav" aria-label="Page navigation example">
 		<ul id="PageList" class="pagination justify-content-center align-self-center">
@@ -214,7 +230,8 @@
 					url:'obtime',
 					data:'',
 					success:function(){
-						$('#divOB').load(location.href+' #divOB');
+						$('#divOB').load(window.location.href+' #divOB');
+						console.log('orderBy=${orderBy}');
 						selectBrd();
 					}
 				})
@@ -225,7 +242,8 @@
 					url:'obview',
 					data:'',
 					success:function(){
-						$('#divOB').load(location.href+' #divOB');
+						$('#divOB').load(window.location.href+' #divOB');
+						console.log('orderBy=${orderBy}');
 						selectBrd();
 					}
 				})
@@ -296,7 +314,10 @@
 					}
 				}
 				else{
-					if(writer[0]=='${userid}'){
+					if('${userid}'==writer[0]||'${userid}'=='admin'){
+						if(!confirm('정말로 삭제하시겠습니까?')){
+							return false;
+						}
 						document.location="delBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
 					}
 					else{
@@ -328,15 +349,16 @@
 			.on('click','#btnSearch',function(){
 				$('#page').val(1);
 				$('#pageIdx').val(1);
-				selectBrd();
+				searchBtnClicked();
 				$('#btnPrv').next('li').find('a').trigger('click');
+				$('#word').val('');
 			})
 	//board 테이블 을 조회해서 목록을 출력
 	function selectBrd(){
 		$.ajax({
 			type:'post',dataType:'json',
 			url:'selBrd',
-			data:'page='+$('#page').val()+'&orderBy='+$("#orderBy option:selected").val()+'&word='+$('#word').val(),
+			data:'page='+$('#page').val()+'&orderBy='+$("#orderBy option:selected").val(),
 			success:function(data){
 				$('#brdList').empty();
 				for(i=0;i<data.length;i++) {
@@ -383,6 +405,26 @@
 			}
 		}
 	}
-
+	function searchBtnClicked(){
+		$.ajax({
+		type:'post',dataType:'json',
+		url:'searchBtnClicked',
+		data:'word='+$('#word').val(),
+		success:function(data) {
+			selectBrd()
+		}
+	})
+	}
+	function ResettingWords(){
+		$('#page').val(1);
+		$('#btnSearch').trigger('click');
+		$.ajax({
+			type:'get',dataType:'json',
+			url:'SearchWordReJstf',
+			data:'',
+			success:function(){
+			}
+		})
+	}
 </script>
 </html>

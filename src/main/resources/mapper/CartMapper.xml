@@ -84,4 +84,7 @@
 	<update id="reviewDone">
 		update orderend set cnt_review=1 where o_seqno=#{param1}
 	</update>
+	<update id="reviewRemove">
+		update orderend set cnt_review = cnt_review-1 where o_seqno=(select o_se from review where r_seqno = #{param1})
+	</update>
 </mapper>

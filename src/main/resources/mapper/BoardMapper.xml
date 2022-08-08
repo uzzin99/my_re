@@ -6,10 +6,13 @@
 <select id="searchBDTitle" resultType="int">
 	select count(*) cnt from board where b_type = 1 and title like '%'||#{param1}||'%'
 </select>
+<select id="searchQnATitle" resultType="int">
+	select count(*) cnt from board where b_type>1 and title like '%'||#{param1}||'%'
+</select>
 <select id="selBDTitle" resultType="com.team.delivery.DTO.boardDTO">
 	select * from (
-	  select a.*,rownum as num from (
-		select * from board where b_type=1 and title like '%'||#{param1}||'%' order by b_date desc
+	select a.*,rownum as num from (
+	select * from board where b_type=1 and title like '%'||#{param1}||'%' order by b_date desc
 	) a order by num) b
 	where b.num between #{param2} and #{param3} order by b.num
 </select>
@@ -39,6 +42,9 @@
 </select>
 <select id="selPage" resultType="int">
 	select count(*) cnt from board where b_type = 1
+</select>
+<select id="selQnAPage" resultType="int">
+	select count(*) cnt from board where b_type > 1
 </select>
 <insert id="addBD">
 	insert into board values(test_sq.nextval,#{param1},#{param2},#{param3},to_char(current_date,'YYYY-MM-DD HH24:MI:SS'),0,#{param4})
@@ -83,31 +89,31 @@
 	) a order by num) b
 	where b_seqno=#{param1})+1 order by b.num
 </select>
-<select id="selQnABrd" resultType="com.team.delivery.DTO.boardDTO">
-	select * from (
-	select a.*,rownum as num from (
-	select board.* from board where b_type>1 order by b_type desc,b_date desc
-	) a order by num) b
-	where b.num between #{param1} and #{param2} order by b.num
-</select>
-<select id="selQnABrd_views" resultType="com.team.delivery.DTO.boardDTO">
-	select * from (
-	select a.*,rownum as num from (
-	select board.* from board where b_type>1 order by b_type desc,views desc
-	) a order by num) b
-	where b.num between #{param1} and #{param2} order by b.num
-</select>
-<select id="selQnATitle" resultType="com.team.delivery.DTO.boardDTO">
+<select id="selQnABrd1" resultType="com.team.delivery.DTO.boardDTO">
 	select * from (
 	select a.*,rownum as num from (
 	select * from board where b_type>1 and title like '%'||#{param1}||'%' order by b_type desc,b_date desc
 	) a order by num) b
 	where b.num between #{param2} and #{param3} order by b.num
 </select>
-<select id="selQnATitleView" resultType="com.team.delivery.DTO.boardDTO">
+<select id="selQnABrd2" resultType="com.team.delivery.DTO.boardDTO">
+	select * from (
+	select a.*,rownum as num from (
+	select * from board where b_type>1 and title like '%'||#{param1}||'%' order by b_type desc,b_date
+	) a order by num) b
+	where b.num between #{param2} and #{param3} order by b.num
+</select>
+<select id="selQnABrdView1" resultType="com.team.delivery.DTO.boardDTO">
 	select * from (
 	select a.*,rownum as num from (
 	select * from board where b_type>1 and title like '%'||#{param1}||'%' order by b_type desc,views desc
+	) a order by num) b
+	where b.num between #{param2} and #{param3} order by b.num
+</select>
+<select id="selQnABrdView2" resultType="com.team.delivery.DTO.boardDTO">
+	select * from (
+	select a.*,rownum as num from (
+	select * from board where b_type>1 and title like '%'||#{param1}||'%' order by b_type desc,views
 	) a order by num) b
 	where b.num between #{param2} and #{param3} order by b.num
 </select>
@@ -117,11 +123,5 @@
 	select * from board where b_type=2 order by b_date desc
 	) a order by num) b
 	where b.num between #{param1} and #{param2} order by b.num
-</select>
-<select id="selQnAPage" resultType="int">
-	select count(*) cnt from board where b_type>1
-</select>
-<select id="searchQnATitle" resultType="int">
-	select count(*) cnt from board where b_type>1 and title like '%'||#{param1}||'%'
 </select>
 </mapper>
