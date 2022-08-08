@@ -113,9 +113,8 @@
                         게시판
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="#">Q&A</a></li>
-                        <li><a class="dropdown-item" href="#">자주묻는질문</a></li>
+                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
+                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
@@ -173,11 +172,19 @@
                         <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
                             <tr><td>주문번호</td><td>No.${cancle.OSeqno}</td><td>메뉴이름</td><td>${cancle.OName}</td></tr>
                             <tr><td>주문날짜</td><td>${cancle.ODate}</td><td>주문금액</td><td>${cancle.OPrice}</td></tr>
+                            <tr><td>회원이름</td><td>${cancle.MName} <span style="color:red">(취소된 주문)</span></td><td>회원연락처</td><td>${cancle.MMobile}</td></tr>
+                        </table>
+                    </c:if>
+                    <c:if test="${cancle.OStatus == 5 }">
+                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                            <tr><td>주문번호</td><td>No.${cancle.OSeqno}</td><td>메뉴이름</td><td>${cancle.OName}</td></tr>
+                            <tr><td>주문날짜</td><td>${cancle.ODate}</td><td>주문금액</td><td>${cancle.OPrice}</td></tr>
                             <tr><td>회원이름</td><td>${cancle.MName}</td><td>회원연락처</td><td>${cancle.MMobile}</td></tr>
                         </table>
                     </c:if>
                 </c:forEach>
             </div>
+
         </section>
     </div>
 </section>

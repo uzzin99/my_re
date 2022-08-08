@@ -115,8 +115,8 @@
 						게시판
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-						<li><a class="dropdown-item" href="/QnA">Q&A</a></li>
+						<li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
+						<li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -322,9 +322,9 @@ function loadmenulist(){
 					//console.log(jo['m_img']);
 					str+="<div class=a>";
 					if(jo['m_img']==null){
-						str+="<img src='/image/imgload.png' style='width:100px;height:100px;float:left;'>";
+						str+="<img src='image/imgload.png' style='width:100px;height:100px;float:left;'>";
 					}else{
-						str+="<img src='/image/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
+						str+="<img src='image/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
 					}
 					str+="<p>메뉴이름: "+jo['mName']+"</p>";
 					str+="<p>가격: "+jo['m_price']+" 원</p>";
