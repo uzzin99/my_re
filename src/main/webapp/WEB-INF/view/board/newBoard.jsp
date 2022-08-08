@@ -119,8 +119,8 @@
                         게시판
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
+                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
+                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
@@ -132,7 +132,8 @@
     </form>
 </nav>
 <section>
-    <div style="padding: 30px">
+    <div style="padding: 30px;width:800px;margin:auto;text-align: center;">
+        <span class="todaymenu" style="float: left;font-size:xx-large;margin-bottom: 20px">새 글쓰기</span>
         <form action="addBoard" method="post">
             <table style="width: 800px;margin-left: auto;margin-right: auto;">
                 <tr><td><input type=text id=title name=title placeholder="제목을 입력하세요">
@@ -184,9 +185,9 @@
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['height', ['height']]
                 ],
-                height: 500,                 // 에디터 높이
-                minHeight: null,             // 최소 높이
-                maxHeight: null,             // 최대 높이
+                height: 450,                 // 에디터 높이
+                minHeight: 200,             // 최소 높이
+                maxHeight: 450,             // 최대 높이
                 focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
                 lang: "ko-KR",					// 한글 설정
                 placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정

@@ -31,4 +31,5 @@ public interface iCart {
 	ArrayList<orderDTO> selOrder(String m_id);
 	ArrayList<oDetailDTO> selDetail();
 	void reviewDone(int sSe);
+	void reviewRemove(int sSe);
 }

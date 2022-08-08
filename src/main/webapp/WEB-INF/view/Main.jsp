@@ -35,19 +35,6 @@ a:hover{
 .default:hover{
   cursor: default;
 }
-#boardList,#QnAList{
-  padding: 10px;
-}
-#boardList li,#QnAList li{
-  list-style: none;
-  margin: 3px 0px;
-}
-#smTitle{
-  width        : 100px;     /* 너비는 변경될수 있습니다. */
-  text-overflow: ellipsis;  /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
-  white-space  : nowrap;    /* 줄바꿈을 하지 않습니다. */
-  overflow     : hidden;    /* 내용이 길면 감춤니다 */
-}
 </style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
@@ -117,8 +104,8 @@ a:hover{
               게시판
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="home">우리들의 이야기</a></li>
-              <li><a class="dropdown-item" href="QnA">Q&A</a></li>
+              <li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
+              <li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
             </ul>
           </li>
         </ul>
@@ -327,6 +314,16 @@ a:hover{
     selectBrd();
     selectQnA();
   })
+  //제목을 눌러서 게시물 들어가서 조회수 증가
+  .on('click','#boardList a,#QnAList a',function(){
+    $.ajax({
+      type:'get',dataType:'json',
+      url:'viewUp',
+      data:'seq='+$(this).attr("id"),
+      success:function(){
+      }
+    })
+  })
   function randomImg(){
 	  $.ajax({
 			type:'post',dataType:'json',
@@ -382,7 +379,7 @@ a:hover{
         for (i = 0; i < data.length; i++) {
           let brd = data[i];
           let date = brd['date'].split(' ');
-          $('#boardList').append("<li><a href='/show?seq=" + brd['seqno'] + "'>"
+          $('#boardList').append("<li><a id='"+brd['seqno']+"' href='/show?seq=" + brd['seqno'] + "'>"
                   + date[0] + " <b id='smTitle'>" + brd['title'] + "</b> (" + brd['cntCmt'] + ")</a><br></li>");
         }
       }

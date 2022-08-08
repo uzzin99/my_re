@@ -148,8 +148,8 @@
 						게시판
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-						<li><a class="dropdown-item" href="/QnA">Q&A</a></li>
+						<li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
+						<li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -214,6 +214,7 @@
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
 	let RoU = 1;
+	let Type;
 	$(document)
 			.ready(function(){
 				selectBD();
@@ -317,7 +318,10 @@
 					}
 				}
 				else{
-					if(writer[0]=='${userid}'){
+					if('${userid}'==writer[0]||'${userid}'=='admin'){
+						if(!confirm('정말로 삭제하시겠습니까?')){
+							return false;
+						}
 						$.ajax({
 							type:'post',dataType:'json',
 							url:'delCmt',
@@ -370,6 +374,7 @@
 			data:'seq='+${seq},
 			success:function(data){
 				let brd = data[0];
+				Type = brd['type'];
 				$('#boardInfo').append('<div id="TWD"><b>'+brd['title']+'</b><br>'+brd['writer']+'&nbsp;|&nbsp;<date>'+brd['date']+'</date></div>');
 				$('#boardContent').append('<div id=conPadding>'+brd['content']+'</div>');
 				// $('#title').val(brd['title']);
@@ -440,18 +445,40 @@
 					// 		+cmt['deep']+"</td><td id='repbox' colspan=3><textarea placeholder='답글을 입력해 주세요'></textarea></td>"
 					// 		+"<td><input type=button class='btn btn-sm' style='width:80px;height:50px;' value='답글달기'  id='addRep'></td>"
 					// 		+"</tr></table>");
-					$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right;width: 800px;border: 1px solid black;'
-							+'padding-left: 10px;padding-right: 10px;">'
-							+'<b style="font-size: larger">'+cmt['writer']+'</b>'
-							+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
-							+cmt['content']+'<br>'
-							+'<span style="float: right"><a id="upCmt">수정</a>*<a id="delCmt">삭제</a>*<a id=reply>댓글달기</a></span></div>'
-							+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: 1px solid black;display: none">'
-							+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
-							+'<input type=button class="btn btn-sm" style="width:80px;'
-							+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'
-							+'<input type="hidden" value="'+cmt['deep']+'"></div></div>')
-					selReply(cmt['seqCmt']);
+					//일반 게시글 댓글 기능
+					if(Type==1){
+						$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right;width: 800px;border: 1px solid black;'
+								+'padding-left: 10px;padding-right: 10px;">'
+								+'<b style="font-size: larger">'+cmt['writer']+'</b>'
+								+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
+								+cmt['content']+'<br>'
+								+'<span style="float: right"><a id="upCmt" onclick="return false;" href="#">수정</a> '
+								+'<a id="delCmt" onclick="return false;" href="#">삭제</a> <a id=reply onclick="return false;" href="#">댓글달기</a></span>'
+								+'</div>'
+								+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: 1px solid black;display: none">'
+								+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
+								+'<input type=button class="btn btn-sm" style="width:80px;'
+								+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'
+								+'<input type="hidden" value="'+cmt['deep']+'"></div></div>')
+						selReply(cmt['seqCmt']);
+					}
+					//QnA 댓글 기능
+					else if(Type==2){
+						$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right;width: 800px;border: 1px solid black;'
+								+'padding-left: 10px;padding-right: 10px;">'
+								+'<b style="font-size: larger">'+cmt['writer']+'</b>'
+								+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
+								+cmt['content']+'<br><c:if test="${userid=='admin'}">'
+								+'<span style="float: right"><a id="upCmt" onclick="return false;" href="#">수정</a> '
+								+'<a id="delCmt" onclick="return false;" href="#">삭제</a> <a id=reply onclick="return false;" href="#">댓글달기</a></span></c:if>'
+								+'</div>'
+								+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: 1px solid black;display: none">'
+								+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
+								+'<input type=button class="btn btn-sm" style="width:80px;'
+								+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'
+								+'<input type="hidden" value="'+cmt['deep']+'"></div></div>')
+						selReply(cmt['seqCmt']);
+					}
 				}
 			}
 		})
@@ -472,7 +499,7 @@
 							+'<b style="font-size: larger">'+cmt['writer']+'</b>'
 							+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
 							+cmt['content']+'<br>'
-							+'<span style="float: right"><a id="upCmt">수정</a>*<a id="delCmt">삭제</a>*<a id=reply>댓글달기</a></span></div>'
+							+'<span style="float: right"><a onclick="return false;" href="#" id="upCmt">수정</a> <a onclick="return false;" href="#" id="delCmt">삭제</a> <a onclick="return false;" href="#" id=reply>댓글달기</a></span></div>'
 							+'<div id="repbox" class=replyWdw style="float: right;width: '+adw+'px;border: 1px solid black;display: none">'
 							+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
 							+'<input type=button class="btn btn-sm" style="width:80px;'
