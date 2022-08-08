@@ -1,13 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admin
-  Date: 2022-08-05
-  Time: 오전 12:03
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,11 +22,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <link href="/css/zzimlist.css" rel="stylesheet" type="text/css" />
-    <title>Payment</title>
+    <link href="/css/bookinglist.css" rel="stylesheet" type="text/css" />
+    <title>DeliveryUp</title>
 </head>
 <style>
-    a:hover{
+    a:hover {
         cursor:pointer;
     }
     .logo:hover{
@@ -43,17 +38,15 @@
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
-        <c:if test="${userinfo == null }">
-            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/login'>로그인</a> &nbsp;<a onclick=location.href='signin'>회원가입</a></p>
+        <c:if test="${userType == '손님' }">
+            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
         </c:if>
-        <c:if test="${userinfo != '' }">
-            <c:if test="${userType == '손님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
-            </c:if>
-            <c:if test="${userType == '사장님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
-            </c:if>
+        <c:if test="${userType == '사장님' }">
+            <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
         </c:if>
+
+        <!--  <input type="button" onclick=location.href='login'>Login
+         <input type="button" onclick=location.href='signin'>Logout -->
     </div>
 
     <p align="center" onclick=location.href='/main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
@@ -127,38 +120,68 @@
                 </li>
             </ul>
         </div>
+
+        <form class="d-flex" name="formsearch" method="post" action="/search/store" encType="UTF-8" align="center">
+            <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+        </form>
     </div>
-    <form class="d-flex" name="formsearch" method="post" action="search/store" encType="UTF-8" align="center">
-        <input class="form-control me-2" name="word" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-dark" type="submit">Search</button>
-    </form>
 </nav>
-<%--여기서부터 섹션--%>
+
 <section>
-    <div class="tab"><br>
-        <span id="space1"></span>
-        <input type="radio" name="tabmenu" id="tab01"  checked>
-        <label for="tab01">찜목록</label>
-        <span id="space2"></span>
-        총&nbsp;<input type="text" id="total" value="${s_cnt}" readonly>&nbsp;개
-        <c:forEach var="zli" items="${zlist}">
-            <div class="conbox con1" onclick="location.href='/store/menu?sSeqno=${zli.SSeqno}'">
-                <div class="zzim-storelogo">
-                    <p><c:if test="${zli.SImg==null}"><img src="/image/imgload.png"></c:if>
-                       <c:if test="${zli.SImg!=null}"><img src="/image/${zli.SImg}"></c:if></p>
-                </div>
-                <div class="zzimlist-box">
-                    <input type="hidden" id="sSe" value="${zli.SSeqno}">
-                    <span>${zli.SName}</span><br>
-                    <span>⭐4.9(100+)</span><br>
-                    <span>최소주문금액 10000원, 배탈팁 2000원</span><br>
-                    <span>포장가능, 예약가능</span>
-                </div>
+    <div id="wraps" >
+        <section class="tabArea" >
+            <h5 align="center">가게이름:${storename.SName}</h5><br>
+            <ul class="tab">
+                <li class="on">
+                    <a href="#!"><span>주문현황</span></a>
+                </li>
+                <li>
+                    <a href="#!"><span>주문완료</span></a>
+                </li>
+                <li>
+                    <a href="#!"><span>주문취소</span></a>
+                </li>
+            </ul>
+            <div class="tabBox on">
+                <c:forEach var='before' items='${olist}'>
+                    <c:if test="${before.OStatus == null }">
+                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                            <tr><td rowspan="5"><input type="button" class="orderGet" id="${before.OSeqno}" value="주문받기" style="height: 30px;width:70px;margin-left:10px;"><br>
+                                <input type="button" class="orderCancle" id="${before.OSeqno}" value="주문거절" style="height: 30px; width:70px; margin-left:10px;"></td></tr>
+                                <tr><td>주문번호</td><td>No.${before.OSeqno}</td><td>메뉴이름</td><td>${before.OName}</td></tr>
+                            <tr><td>주문날짜</td><td>${before.ODate}</td><td>주문금액</td><td>${before.OPrice}</td></tr>
+                            <tr><td>회원이름</td><td>${before.MName}</td><td>회원연락처</td><td>${before.MMobile}</td></tr>
+                        </table>
+                    </c:if>
+                </c:forEach>
             </div>
-        </c:forEach>
+            <div class="tabBox">
+                <c:forEach var='after' items='${olist}'>
+                    <c:if test="${after.OStatus == 1 }">
+                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                            <tr><td>주문번호</td><td>No.${after.OSeqno}</td><td>메뉴이름</td><td>${after.OName}</td></tr>
+                            <tr><td>주문날짜</td><td>${after.ODate}</td><td>주문금액</td><td>${after.OPrice}</td></tr>
+                            <tr><td>회원이름</td><td>${after.MName}</td><td>회원연락처</td><td>${after.MMobile}</td></tr>
+                        </table>
+                    </c:if>
+                </c:forEach>
+            </div>
+            <div class="tabBox">
+                <c:forEach var='cancle' items='${olist}'>
+                    <c:if test="${cancle.OStatus == 4 }">
+                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                            <tr><td>주문번호</td><td>No.${cancle.OSeqno}</td><td>메뉴이름</td><td>${cancle.OName}</td></tr>
+                            <tr><td>주문날짜</td><td>${cancle.ODate}</td><td>주문금액</td><td>${cancle.OPrice}</td></tr>
+                            <tr><td>회원이름</td><td>${cancle.MName}</td><td>회원연락처</td><td>${cancle.MMobile}</td></tr>
+                        </table>
+                    </c:if>
+                </c:forEach>
+            </div>
+        </section>
     </div>
 </section>
-<%--여기는 푸터--%>
+
 <footer id="footer">
     <div class="container2">
         <div class="row">
@@ -184,9 +207,62 @@
 </body>
 <script>
 $(document)
-.on('click','#choice2',function(){
-    if(!confirm("찜 목록을 해제하시겠습니까?")) return false;
+// 추가 팝업창 열기
+// function openPop(){
+//     popup = window.open('dvList','등록','width=600px,height=700px,scrollbars=yes,resizable=no');
+// }
+
+.on('click','.orderGet',function(){
+    let upor = $(this).attr("id");
+    console.log("주문받기 oseq="+upor);
+    if(confirm("주문을 받으시겠습니까?")){
+        $.ajax({
+            url:'/orderget',
+            type:'get',
+            dataType:'text',
+            data:{oseq:upor},
+            success:function (){
+                location.reload();
+            },
+            error: function(){
+                alert("주문 받기 실페");
+            }
+        })
+    }
 })
 
+.on('click','.orderCancle',function(){
+    let  canor= $(this).attr("id");
+    console.log("주문취소 oseq="+canor);
+    if(confirm("주문을 취소하시겠습니까?")){
+        $.ajax({
+            url:'/ordercancle',
+            type:'get',
+            dataType: 'text',
+            data:{oseq:canor},
+            success:function (){
+                location.reload()
+            },
+            error: function(){
+                alert("주문 추소 실패");
+            }
+        })
+    }
+})
+
+.ready(function(){
+    $(".tabArea .tab li a").on("click", function(){
+        // 해당 요소를 클릭하는 내 자신의 index 번호를 가져온다. [0], [1]
+        const num = $(".tabArea .tab li a").index($(this));
+        // 기존에 적용되어 있는 on class 삭제
+        $(".tabArea .tab li").removeClass("on");
+        $(".tabArea .tabBox").removeClass("on");
+
+        // 다음 요소 클릭시 on class 추가
+        $('.tabArea .tab li:eq(' + num + ')').addClass("on");
+        $('.tabArea .tabBox:eq(' + num + ')').addClass("on");
+
+    });
+});
 </script>
 </html>

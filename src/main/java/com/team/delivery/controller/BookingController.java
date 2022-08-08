@@ -65,7 +65,7 @@ public class BookingController {
 
         ArrayList<bookingDTO> bookinglist = ibo.bookinglist(sSeqno);
         model.addAttribute("list", bookinglist);
-        log.info("check={}",bookinglist.get(0).getHCheck());
+        //log.info("check={}",bookinglist.get(0).getHCheck());
 
         StoreDTO storeName = store.storeName(sSeqno);
         model.addAttribute("storename",storeName);

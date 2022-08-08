@@ -176,7 +176,7 @@ a:hover{
                   </button></p>
             <p style="display:inline; float: right;" onclick=location.href='signUp/payment'>주문/예약내역📄</p>
             <p style="display:inline; float: right;"><a href="cart">장바구니🛒&nbsp;&nbsp;</a></p>
-            <p style="display:inline; float: right;" onclick=location.href='z_list'><a>찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
+            <p style="display:inline; float: right;" onclick=location.href='/store/z_list'><a>찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
           </div>
         </c:if>
         <c:if test="${userType == '사장님' }">
@@ -198,7 +198,8 @@ a:hover{
                 <a><span style="background: linear-gradient(to top, #39c0c0 30%, transparent 30%);">
                     내 가게:</span>&nbsp;&nbsp;${sVO.SName}</a>
               </button></p>
-              <p style="display:inline; float: right;" onclick=location.href='booking/bookinglist?sSeqno=${sVO.SSeqno}'>주문/예약내역📄</p>
+              <p><span style="display:inline; width:100px;float: right;" onclick=location.href='booking/orderlist?sSeqno=${sVO.SSeqno}'>주문내역📄</span>
+                <span style="display:inline; width:100px;float: right;" onclick=location.href='booking/bookinglist?sSeqno=${sVO.SSeqno}'>예약내역📄</span></p>
             </div>
         </c:if>
         </c:if>

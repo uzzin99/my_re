@@ -14,4 +14,8 @@ public class orderDTO {
     private String oStatus;
     private String sName;
 
+    //memberDTO
+    private String mName;
+    private String mMobile;
+
 }

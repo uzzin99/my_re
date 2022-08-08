@@ -100,7 +100,14 @@ input[id="tab03"]:checked~.con3{
     border-bottom: 2px solid #c4c2c2;
 }
 
-.mar p a {
+.mar p a{
+    font-size: 15px;
+    padding: 10px 20px;
+    background-color: #c4c2c2;
+    border-radius: 5px;
+}
+
+.ord-cancle{/*주문 취소*/
     font-size: 15px;
     padding: 10px 20px;
     background-color: #c4c2c2;
