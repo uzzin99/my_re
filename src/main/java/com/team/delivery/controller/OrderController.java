@@ -51,19 +51,17 @@ public class OrderController {
     @ResponseBody
     @RequestMapping("/ordercancle")
     public String doOrdercancle(@RequestParam("oseq") int oseq){
-        iod.orderget_cancle(4, oseq);
+        iod.orderget_cancle(5, oseq);
         return "redirect:/booking/orderlist";
     }
 
-    @ResponseBody
     @RequestMapping("/o_cancle")
     public String doOcancle(@RequestParam("oseq") int oseq){
 //        iod.orderdelete(oseq);
         System.out.println("oderseq="+oseq);
-        iod.orderget_cancle(5, oseq);
-        return "redirect:/member/paymentDetails";
+        iod.orderget_cancle(4, oseq);
 
-
+        return "redirect:/signUp/payment";
     }
 
 }
