@@ -272,15 +272,13 @@ a:hover{
         <label for="tab01" style="margin-left: 30px;">우리들의 이야기</label>
         <input type="radio" name="tabmenu" id="tab02">
         <label for="tab02">Q&A</label>
-<%--        <input type="radio" name="tabmenu" id="tab03">--%>
-<%--        <label for="tab03">자주묻는질문</label>--%>
 
         <div class="conbox con1"><ul id="boardList"></ul></div>
         <div class="conbox con2"><ul id="QnAList"></ul></div>
-<%--        <div class="conbox con3">컨텐츠탭 내용03</div>--%>
+
       </div>
 
-      <div class="slideshow-container">
+     <%-- <div class="slideshow-container">
         <div class="mySlideDiv fade active"
              style="background-image: url('https://betaimg-cdn.baemin.com/fw/ceoImage/2022/7/4/23894220_content.jpg');">
           <div class="content">비오는 날,<br>진짜 전이 많이 <br>팔릴까?</div>
@@ -303,6 +301,32 @@ a:hover{
              style="background-image: url('https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDO9Pu%2Fbtq5kYCYMlA%2Fpay71Bn2dPVEomhoxcTY00%2Fimg.jpg');">
           <div class="content">일상 속,<br>플라스틱 사용 줄이기!</div>
           <div class="img-cover" onclick="location.href='https://brunch.co.kr/@euni8828/16';"></div>
+        </div>
+      </div>--%>
+
+      <div class="slidershape">
+        <div id="slider">
+
+          <div class="mySlideDiv" style="background-image: url('https://betaimg-cdn.baemin.com/fw/ceoImage/2022/7/4/23894220_content.jpg');">
+            <div class="content">비오는 날,<br>진짜 전이 많이 <br>팔릴까?</div>
+            <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
+          </div>
+
+          <div class="mySlideDiv" style="background-image: url('https://post-phinf.pstatic.net/MjAxODA4MTZfMTkw/MDAxNTM0NDA3Njg5MTg2.EiX2Z8zlcmK-dFj73jnWkaF8N_216ibyI8246cK_l4sg.5-ROC_DF4DTNz7eiHs-oktP2nKFiPLw4mK6JzmKKjucg.JPEG/6.jpg?type=w1200');">
+            <div class="content">여름철 식중독 예방,<br>이것만은 꼭 지키세요.</div>
+            <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
+          </div>
+
+          <div class="mySlideDiv" style="background-image: url('https://story.baemin.com/wp-content/uploads/2022/07/220517_%E1%84%87%E1%85%A2%E1%84%86%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1%E1%86%BC%E1%84%92%E1%85%ACPB_%E1%84%8E%E1%85%AC%E1%84%92%E1%85%A7%E1%86%AB%E1%84%8C%E1%85%B53036-scaled.jpg');">
+            <div class="content">우아한형제들<br>구성원들이 말하는<br>진짜 배민이야기.</div>
+            <div class="img-cover" onclick="location.href='https://story.baemin.com/?s=%EC%A7%81%EB%AC%B4%EC%9D%B8%ED%84%B0%EB%B7%B0';"></div>
+          </div>
+
+          <div class="mySlideDiv"  style="background-image: url('https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDO9Pu%2Fbtq5kYCYMlA%2Fpay71Bn2dPVEomhoxcTY00%2Fimg.jpg');">
+            <div class="content">일상 속,<br>플라스틱 사용 줄이기!</div>
+            <div class="img-cover" onclick="location.href='https://brunch.co.kr/@euni8828/16';"></div>
+          </div>
+
         </div>
       </div>
 
@@ -340,8 +364,7 @@ a:hover{
     randomImg();
     selectBrd();
     selectQnA();
-    $(".mySlideDiv").not(".active").hide(); //화면 로딩 후 첫번째 div를 제외한 나머지 숨김
-    setInterval(nextSlide, 4000); //4초(4000)마다 다음 슬라이드로 넘어감
+
   })
 
   function randomImg(){
@@ -428,7 +451,7 @@ a:hover{
   // });
 
   //이전 슬라이드
-  function prevSlide() {
+  /*function prevSlide() {
     $(".mySlideDiv").hide(); //모든 div 숨김
     var allSlide = $(".mySlideDiv"); //모든 div 객체를 변수에 저장
     var currentIndex = 0; //현재 나타난 슬라이드의 인덱스 변수
@@ -488,6 +511,43 @@ a:hover{
     $(".mySlideDiv").eq(newIndex).addClass("active");
     $(".mySlideDiv").eq(newIndex).show();
 
-  }
+  }*/
+  $(function(){
+    $('#slider').slick({
+      slide: 'div',		//슬라이드 되어야 할 태그 ex) div, li
+      infinite : true, 	//무한 반복 옵션
+      slidesToShow : 1,		// 한 화면에 보여질 컨텐츠 개수
+      slidesToScroll : 1,		//스크롤 한번에 움직일 컨텐츠 개수
+      speed : 100,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+      arrows : false, 		// 옆으로 이동하는 화살표 표시 여부
+      dots : false, 		// 스크롤바 아래 점으로 페이지네이션 여부
+      autoplay : true,			// 자동 스크롤 사용 여부
+      autoplaySpeed : 3000, 		// 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+      pauseOnHover : true,		// 슬라이드 이동	시 마우스 호버하면 슬라이더 멈추게 설정
+      vertical : false,		// 세로 방향 슬라이드 옵션
+      // prevArrow : "<button type='button' class='slick-prev'>Previous</button>",		// 이전 화살표 모양 설정
+      // nextArrow : "<button type='button' class='slick-next'>Next</button>",		// 다음 화살표 모양 설정
+      // dotsClass : "slick-dots", 	//아래 나오는 페이지네이션(점) css class 지정
+      draggable : true, 	//드래그 가능 여부
+
+      responsive: [ // 반응형 웹 구현 옵션
+        {
+          breakpoint: 960, //화면 사이즈 960px
+          settings: {
+            //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+            slidesToShow:3
+          }
+        },
+        {
+          breakpoint: 768, //화면 사이즈 768px
+          settings: {
+            //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+            slidesToShow:2
+          }
+        }
+      ]
+
+    });
+  })
 </script>
 </html>
