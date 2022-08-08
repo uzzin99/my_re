@@ -111,6 +111,13 @@
 	) a order by num) b
 	where b.num between #{param2} and #{param3} order by b.num
 </select>
+<select id="smallQnA" resultType="com.team.delivery.DTO.boardDTO">
+	select * from (
+	select a.*,rownum as num from (
+	select * from board where b_type=2 order by b_date desc
+	) a order by num) b
+	where b.num between #{param1} and #{param2} order by b.num
+</select>
 <select id="selQnAPage" resultType="int">
 	select count(*) cnt from board where b_type>1
 </select>

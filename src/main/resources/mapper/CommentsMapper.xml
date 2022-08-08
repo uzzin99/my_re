@@ -21,4 +21,7 @@
 <update id="upCmt">
 	update comments set content=#{param1} where c_seqno=#{param2}
 </update>
+<select id="cntCmt" resultType="int">
+	select count(*) from comments where b_se=#{param1}
+</select>
 </mapper>

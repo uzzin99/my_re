@@ -132,19 +132,21 @@
     </form>
 </nav>
 <section>
-<form action="addBoard" method="post">
-    <table style="width: 800px;margin-left: auto;margin-right: auto;">
-        <tr><td><input type=text id=title name=title placeholder="제목을 입력하세요">
-            <select id=btype name=btype>
-                <option value=1>게시판</option>
-                <option value=2>QnA</option>
-                <c:if test="${userid==master}"><option value=3>자주묻는 질문</option></c:if>
-            </select></td></tr>
-        <tr><td style="text-align: left"><textarea id="summernote" name="editordata"></textarea></td></tr>
-        <tr><td>
-            <input type=submit value=작성완료 class='btn'>&nbsp;<input type=button value='취소' id=btnList class='btn'></td></tr>
-    </table>
-</form>
+    <div style="padding: 30px">
+        <form action="addBoard" method="post">
+            <table style="width: 800px;margin-left: auto;margin-right: auto;">
+                <tr><td><input type=text id=title name=title placeholder="제목을 입력하세요">
+                    <select id=btype name=btype>
+                        <option value=1>게시판</option>
+                        <option value=2>QnA</option>
+                        <c:if test="${userinfo == 'admin'}"><option value=3>자주묻는 질문</option></c:if>
+                    </select></td></tr>
+                <tr><td style="text-align: left;padding-top: 20px"><textarea id="summernote" name="editordata"></textarea></td></tr>
+                <tr><td style="padding-top: 20px">
+                    <input type=submit value=작성완료 class='btn'>&nbsp;<input type=button value='취소' id=btnList class='btn'></td></tr>
+            </table>
+        </form>
+    </div>
     <br>
 </section>
 <footer id="footer">

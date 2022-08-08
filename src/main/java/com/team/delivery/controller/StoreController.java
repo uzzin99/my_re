@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.team.delivery.DTO.boardDTO;
+import com.team.delivery.DTO.mDTO;
 import com.team.delivery.DTO.reviewDTO;
 import com.team.delivery.mappers.iBoard;
 import com.team.delivery.mappers.iCart;
+import com.team.delivery.mappers.iMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
@@ -33,6 +35,7 @@ public class StoreController {
 	private final iStore store;
 	private final iCart ica;
 	private final iBoard brd;
+	private final iMember ime;
 
 	@RequestMapping("/reviewAdd")
 	public String ReviewAdd(@RequestParam("reviewCon") String content,
@@ -102,8 +105,9 @@ public class StoreController {
 			log.info("공백넘어감");
 			model.addAttribute("cnt","");
 		}
-
 		StoreDTO storeName = store.storeName(sSeqno);
+		mDTO member =ime.userList(storeName.getMId());
+		model.addAttribute("member", member);
 		model.addAttribute("storename",storeName);
 		ArrayList<StoreDTO> menulist = store.menutable(sSeqno);
 		model.addAttribute("mlist",menulist);

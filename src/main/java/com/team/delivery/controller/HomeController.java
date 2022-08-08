@@ -4,6 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.team.delivery.DTO.StoreDTO;
+import com.team.delivery.DTO.boardDTO;
+import com.team.delivery.mappers.iBoard;
+import com.team.delivery.mappers.iComments;
 import com.team.delivery.mappers.iMenuStore;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +34,8 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class HomeController {
 	private final iMenuStore ims;
+	private final iBoard brd;
+	private final iComments cmt;
 
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -75,6 +80,44 @@ public class HomeController {
 			JSONObject jo=new JSONObject();
 			jo.put("Sseqno",list.getSSeqno());
 			jo.put("Simg",list.getSImg());
+			ja.add(jo);
+		}
+		System.out.println("ja.toJSONString()="+ja.toJSONString());
+		return ja.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "/smBD", method = RequestMethod.POST)
+	public String showSmallBoard(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		ArrayList<boardDTO> bDTO=brd.selBDTitle("",1,8);
+		JSONArray ja=new JSONArray();
+		for(int i=0;i<bDTO.size();i++) {
+			boardDTO list=bDTO.get(i);
+			JSONObject jo=new JSONObject();
+			jo.put("cntCmt",cmt.cntCmt(list.getBSeqno()));
+			jo.put("title",list.getTitle());
+			jo.put("seqno",list.getBSeqno());
+			jo.put("date",list.getBDate());
+			jo.put("views",list.getViews());
+			ja.add(jo);
+		}
+		System.out.println("ja.toJSONString()="+ja.toJSONString());
+		return ja.toJSONString();
+	}
+	@ResponseBody
+	@RequestMapping(value = "/smQA", method = RequestMethod.POST)
+	public String showSmallQABoard(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		ArrayList<boardDTO> bDTO=brd.smallQnA(1,8);
+		JSONArray ja=new JSONArray();
+		for(int i=0;i<bDTO.size();i++) {
+			boardDTO list=bDTO.get(i);
+			JSONObject jo=new JSONObject();
+			jo.put("cntCmt",cmt.cntCmt(list.getBSeqno()));
+			jo.put("title",list.getTitle());
+			jo.put("seqno",list.getBSeqno());
+			jo.put("date",list.getBDate());
+			jo.put("views",list.getViews());
 			ja.add(jo);
 		}
 		System.out.println("ja.toJSONString()="+ja.toJSONString());

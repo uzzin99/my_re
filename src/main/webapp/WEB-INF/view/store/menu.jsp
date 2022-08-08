@@ -24,6 +24,8 @@
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/menu.css" rel="stylesheet" type="text/css" />
     <link href="/css/menuSt.css" rel="stylesheet" type="text/css" />
+<%--  카카오 지도 appkey  --%>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4147e05761dc8e1e1adacb8d5d113391&libraries=services,clusterer,drawing"></script>
 
     <title>Menu</title>
 </head>
@@ -214,6 +216,13 @@
 		</c:forEach>
 		
 		<div class="conbox con3">
+            <div>
+                대표자명: ${member.MName}<br>
+                상호명: ${storename.SName}<br>
+                사업자주소: ${storename.SAddress}<br>${storename.SDetailaddress}<br>
+                사업자등록번호: ${storename.bsNum}
+                <div id="map" style="width:500px;height:300px;margin-right: auto;margin-left: auto;"></div>
+            </div>
         </div>
 	</div>
   </section>
@@ -243,6 +252,9 @@
 </body>
 <script>
 $(document)
+    .ready(function(){
+
+    })
     .on('click','#zlog',function(){
         alert("로그인 후 사용가능합니다.");
     })
@@ -273,6 +285,37 @@ $(document)
                 location.reload(true);
             }
         })
+    })
+    .on('click','#tab03',function() {/*지도 불러오기*/
+
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 주소-좌표 변환 객체를 생성합니다
+        var geocoder = new kakao.maps.services.Geocoder();
+
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch('${storename.SAddress}', function(result, status) {
+
+            // 정상적으로 검색이 완료됐으면
+            if (status === kakao.maps.services.Status.OK) {
+
+                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                // 결과값으로 받은 위치를 마커로 표시합니다
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: coords
+                });
+                // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                map.setCenter(coords);
+            }
+        });
     })
 
 function openPop(mse,sse){

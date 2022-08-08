@@ -26,4 +26,5 @@ public interface iBoard {
 	ArrayList<boardDTO> selQnATitleView(String title,int page1, int page2);
 	int selQnAPage();
 	int searchQnATitle(String title);
+	ArrayList<boardDTO> smallQnA(int page1,int page2);
 }
