@@ -2,6 +2,7 @@ package com.team.delivery.controller;
 
 import com.team.delivery.DTO.StoreDTO;
 import com.team.delivery.DTO.bookingDTO;
+import com.team.delivery.DTO.reviewDTO;
 import com.team.delivery.mappers.iBooking;
 import com.team.delivery.mappers.iMenuStore;
 import com.team.delivery.mappers.iStore;
@@ -113,12 +114,36 @@ public class BookingController {
 
         model.addAttribute("userinfo",session.getAttribute("userid"));
         model.addAttribute("userType",session.getAttribute("userType"));
+
         model.addAttribute("mName",session.getAttribute("mName"));
         model.addAttribute("mMobile",session.getAttribute("mMobile"));
 
-        StoreDTO bookinglist = store.storeName(sSeqno);
-        model.addAttribute("list", bookinglist);
+        int cnt = store.reviewCnt(sSeqno);
+        if(cnt > 0) {
+            double avg=store.storeAvg(sSeqno);
+            avg = Math.round(avg * 100) / 100.0;
+            model.addAttribute("avg", avg);
+            log.info("가게평균={}", avg);
+            model.addAttribute("cnt", cnt);
+        }else{
+            log.info("공백넘어감");
+            model.addAttribute("cnt","");
+        }
 
+        StoreDTO storeName = store.storeName(sSeqno);
+        model.addAttribute("storename", storeName);
+
+        ArrayList<reviewDTO> reviewlist = store.reviewlist(sSeqno);
+        model.addAttribute("rlist", reviewlist);
+
+        //찜 여부 확인
+        if(session.getAttribute("userid")!=null){
+            int count=store.zzimStorecount((String) session.getAttribute("userid"),sSeqno);
+            model.addAttribute("count",count);
+        }
+        //가게당 찜 카운트
+        int zcnt=store.zzimcount(sSeqno);
+        model.addAttribute("zcnt",zcnt);
 
         return "booking/hallbooking";
     }

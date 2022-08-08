@@ -23,9 +23,9 @@
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/menu.css" rel="stylesheet" type="text/css" />
-    <link href="/css/menuSt.css" rel="stylesheet" type="text/css" />
 <%--  카카오 지도 appkey  --%>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4147e05761dc8e1e1adacb8d5d113391&libraries=services,clusterer,drawing"></script>
+
 
     <title>Menu</title>
 </head>
@@ -34,6 +34,9 @@
         cursor:pointer;
     }
     .logo:hover{
+        cursor:pointer;
+    }
+    #zlog:hover{
         cursor:pointer;
     }
 </style>
@@ -155,18 +158,18 @@
                 <p style="clear: both">최근리뷰
                     <c:if test="${cnt != ''}">${cnt}</c:if>
                     <c:if test="${cnt == ''}">0</c:if>
-                    | ❤ ${zcnt}</p>
-                <p>전화번호 ${storename.SMobile } |
+                    |
                     <c:if test="${userinfo == null}">
-                        <label id="zlog">찜하기</label>
+                        <label id="zlog">🤍 ${zcnt} </label>
                     </c:if>
+
                     <c:if test="${userinfo != null}">
                         <c:if test="${count==0}">
-                            <label for="btnchoice" id="choice1"><input type="button" id="btnchoice">🤍찜</label>
+                            <label for="btnchoice" id="choice1"><input type="button" id="btnchoice">🤍 ${zcnt} </label>
                         </c:if>
                         <c:if test="${count==1}">
                             <label for="btnchoice" id="choice2"><input type="button" id="btnchoice">
-                                <span id="zlogo">❤</span>찜</label>
+                                <span id="zlogo">❤</span> ${zcnt} </label>
                         </c:if>
                     </c:if>
                     | 공유</p>
