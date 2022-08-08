@@ -84,6 +84,16 @@ input[type="radio"]:checked+label {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.con3{
+    width: 750px;
+    height: 500px;
+    display: none;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
 
 .conbox input {
     background-color: #f1f1f1;
@@ -191,6 +201,10 @@ input[id="tab03"]:checked~.con3 {
     cursor: pointer;
 }
 #zlogo{ /*Âò¹öÆ°*/
+    color: red;
+    background: none;
+}
+#adlogo{
     color: red;
     background: none;
 }

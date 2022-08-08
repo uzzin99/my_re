@@ -50,6 +50,18 @@ input[type="radio"] {
     display: none;
 }
 
+input[id="tab01"]:checked~.con1 {
+    display: block;
+}
+
+input[id="tab02"]:checked~.con2 {
+    display: block;
+}
+
+input[id="tab03"]:checked~.con3 {
+    display: block;
+}
+
 input[type="radio"]+label {
     display: inline-block;
     background-color: #f1f1f1;
@@ -89,6 +101,17 @@ input[type="radio"]:checked+label {
     margin-bottom: 20px;
 }
 
+.con3{
+    width: 750px;
+    height: 500px;
+    display: none;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .conbox input {
     background-color: #f1f1f1;
 }
@@ -109,7 +132,9 @@ input[type="text"] {
 input[type="date"] {
     border: none;
 }
-
+.adminDel{
+    border:none;
+}
 .conbox p {
     border-bottom: 2px solid #c4c2c2;
     width: 300px;
@@ -179,6 +204,10 @@ p input {
     cursor: pointer;
 }
 #zlogo{ /*찜버튼*/
+    color: red;
+    background: none;
+}
+#adlogo{
     color: red;
     background: none;
 }

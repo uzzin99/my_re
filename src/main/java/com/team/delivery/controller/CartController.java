@@ -109,6 +109,7 @@ public class CartController {
 
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
 
 		String mid=(String) session.getAttribute("userid");
 		//주소
@@ -119,10 +120,6 @@ public class CartController {
 				cartDTO cDTO = cart.get(0);
 				model.addAttribute("Saddr",ica.selStoreAddr(cDTO.getSSe()));
 			}
-//			System.out.println("cDTO = "+cDTO);
-//			System.out.println("cart = "+cart);
-//			System.out.println("Maddr = "+ica.selMemberAddr(mid));
-//			System.out.println("Saddr = "+ica.selStoreAddr(cDTO.getSSe()));
 			model.addAttribute("size",cart.size());
 			model.addAttribute("Maddr",ica.selMemberAddr(mid));
 			model.addAttribute("cart", cart);

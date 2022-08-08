@@ -1,6 +1,7 @@
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -37,15 +38,18 @@
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
-        <c:if test="${userinfo == null }">
+        <c:if test="${mname == null }">
             <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/login'>로그인</a> &nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
-        <c:if test="${userinfo != '' }">
+        <c:if test="${mname != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+            </c:if>
+            <c:if test="${userType == 'admin'}">
+                <p align=right><a onclick=location.href='/main'>관리자님</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
@@ -63,9 +67,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Menu</a>
-                </li>
+<%--                <li class="nav-item">--%>
+<%--                    <a class="nav-link active" aria-current="page" href="#">Menu</a>--%>
+<%--                </li>--%>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -140,9 +144,9 @@
             <div class="zzimlist-box">
                 <input type="hidden" id="sSe" value="${zli.SSeqno}">
                 <span>${zli.SName}</span><br>
-                <span class="mySt"><laber>⭐</laber>
-                    <c:if test="${zli.avg != null}">${zli.avg}</c:if>
-                    <c:if test="${zli.avg == null}">0.0</c:if>
+                <span class="mySt"><label>⭐</label>
+                    <c:if test="${zli.avg != null}"><fmt:formatNumber value="${zli.avg}" pattern="#.##"/></c:if>
+                    <c:if test="${zli.avg == null}"></c:if>
                     (${zli.cnt})</span><br>
                 <span>최소주문금액 10000원, 배탈팁 2000원</span><br>
                 <span>포장가능, 예약가능</span>

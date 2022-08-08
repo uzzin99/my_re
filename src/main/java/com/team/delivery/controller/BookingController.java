@@ -2,8 +2,10 @@ package com.team.delivery.controller;
 
 import com.team.delivery.DTO.StoreDTO;
 import com.team.delivery.DTO.bookingDTO;
+import com.team.delivery.DTO.mDTO;
 import com.team.delivery.DTO.reviewDTO;
 import com.team.delivery.mappers.iBooking;
+import com.team.delivery.mappers.iMember;
 import com.team.delivery.mappers.iMenuStore;
 import com.team.delivery.mappers.iStore;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +25,8 @@ import java.util.ArrayList;
 public class BookingController {
 
     private final iBooking ibo;
-    private final iMenuStore ims;
     private final iStore store;
+    private final iMember ime;
 
     @RequestMapping("/hallcheckdel")
     @ResponseBody
@@ -61,8 +63,8 @@ public class BookingController {
 
         HttpSession session=request.getSession();
 
-		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+        model.addAttribute("mname",session.getAttribute("mName"));
 
         ArrayList<bookingDTO> bookinglist = ibo.bookinglist(sSeqno);
         model.addAttribute("list", bookinglist);
@@ -79,8 +81,8 @@ public class BookingController {
 
         HttpSession session=request.getSession();
 
-        model.addAttribute("userinfo",session.getAttribute("userid"));
         model.addAttribute("userType",session.getAttribute("userType"));
+        model.addAttribute("mname",session.getAttribute("mName"));
 
         ArrayList<StoreDTO> storelist = store.liststore(type);
         model.addAttribute("list", storelist);
@@ -131,8 +133,9 @@ public class BookingController {
         }
 
         StoreDTO storeName = store.storeName(sSeqno);
+        mDTO member =ime.userList(storeName.getMId());
         model.addAttribute("storename", storeName);
-
+        model.addAttribute("member", member);
         ArrayList<reviewDTO> reviewlist = store.reviewlist(sSeqno);
         model.addAttribute("rlist", reviewlist);
 
@@ -153,20 +156,13 @@ public class BookingController {
 
         HttpSession session= request.getSession();
 
-        model.addAttribute("userinfo",session.getAttribute("userid"));
         model.addAttribute("userType",session.getAttribute("userType"));
+        model.addAttribute("mname",session.getAttribute("mName"));
 
         bookingDTO bookingend= ibo.bookingend(hseqno);
         model.addAttribute("blist",bookingend);
 
         return "booking/bookingend";
     }
-    /*@RequestMapping("/bookinglist")
-    public  String bookinglist(Model model){
-        ArrayList<bookingDTO>bookinglist = ibo.bookinglist();
-        model.addAttribute("blist",bookinglist);
-
-        return "booking/bookinglist";
-    }*/
 
 }

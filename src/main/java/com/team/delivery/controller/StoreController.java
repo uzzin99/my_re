@@ -68,8 +68,9 @@ public class StoreController {
 	public String Review(HttpServletRequest request, Model model){
 		HttpSession session=request.getSession();
 
-		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
+
 		model.addAttribute("oSe",request.getParameter("oseq"));
 		model.addAttribute("sSe",request.getParameter("sseq"));
 		return "store/review";
@@ -93,6 +94,7 @@ public class StoreController {
 
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
 
 		int cnt = store.reviewCnt(sSeqno);
 		if(cnt > 0) {
@@ -131,8 +133,8 @@ public class StoreController {
 
 		HttpSession session=request.getSession();
 
-		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
 
 		ArrayList<StoreDTO> storelist = store.liststore(type);
 		model.addAttribute("list", storelist);
@@ -146,6 +148,8 @@ public class StoreController {
 
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
+
 		ArrayList<StoreDTO> searchlist = store.searchtable(sName);
 		model.addAttribute("list", searchlist);
 
@@ -183,8 +187,9 @@ public class StoreController {
 	@RequestMapping("/store/z_list")
 	public String doZlist(HttpServletRequest req, Model model){
 		HttpSession session = req.getSession();
-		model.addAttribute("userinfo",session.getAttribute("userid"));
+
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
 
 		//찜 목록 리스트 불러오기
 		ArrayList<StoreDTO> zzimlist=store.zzimlist((String) session.getAttribute("userid"));
@@ -194,35 +199,8 @@ public class StoreController {
 		//찜한 가게 수
 		int s_cnt=store.zzimstorecount((String) session.getAttribute("userid"));
 		model.addAttribute("s_cnt",s_cnt);
-//		//평균 평점
-//		double avg=store.storeAvg(sSe);
-//		model.addAttribute("avg",avg);
 
 		return "store/zzimlist";
 	}
-
-//	@ResponseBody
-//	@RequestMapping(value="/z_menu",method=RequestMethod.GET,produces = "application/json;charset=UTF-8")
-//	public String doZmenulist(HttpServletRequest req,Model model){
-//		HttpSession session = req.getSession();
-//		int sSe=Integer.parseInt(req.getParameter("SSe"));
-//
-//		//찜 가게의 메뉴목록(일부 보여주기 용)
-//		ArrayList<StoreDTO> zmenu=store.zzimstoremenulist((String) session.getAttribute("userid"),sSe);
-//		System.out.println("zmenu="+zmenu);
-//
-//		JSONArray ja = new JSONArray();
-//		for (int i = 0; i < zmenu.size(); i++) {
-//			StoreDTO list = zmenu.get(i);
-//			JSONObject jo = new JSONObject();
-//			jo.put("menu", list.getMenuName());
-//			ja.add(jo);
-//		}
-//		model.addAttribute("zmenu",ja.toJSONString());
-//
-//		return ja.toJSONString();
-//	}
-
-
 }
 

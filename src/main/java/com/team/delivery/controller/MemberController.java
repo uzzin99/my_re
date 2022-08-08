@@ -47,8 +47,9 @@ public class MemberController {
 
 			HttpSession session=request.getSession();
 
-			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
+			model.addAttribute("mname",session.getAttribute("mName"));
+
 // eunji
 			String mid = (String)session.getAttribute("userid");
 			ArrayList<reviewDTO> rlist = store.myReviewList(mid);
@@ -134,8 +135,8 @@ public class MemberController {
 		public String doDeliveryUp(HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
 
-			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
+			model.addAttribute("mname",session.getAttribute("mName"));
 
 			mDTO mdto=ime.userList((String)session.getAttribute("userid"));
 			model.addAttribute("mdto",mdto);
@@ -206,8 +207,8 @@ public class MemberController {
 		public String doInformationUp(HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
 
-			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
+			model.addAttribute("mname",session.getAttribute("mName"));
 
 			mDTO mdto=ime.userList((String)session.getAttribute("userid"));
 			model.addAttribute("mdto",mdto);
@@ -245,8 +246,8 @@ public class MemberController {
 		public String doCheckPwd(HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
 
-			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
+			model.addAttribute("mname",session.getAttribute("mName"));
 
 			mDTO mdto=ime.userList((String)session.getAttribute("userid"));
 			model.addAttribute("mdto",mdto);
@@ -258,9 +259,9 @@ public class MemberController {
 		public String dosignUp(HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
 
-			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
-			
+			model.addAttribute("mname",session.getAttribute("mName"));
+
 			mDTO mdto=ime.userList((String)session.getAttribute("userid"));
 			model.addAttribute("mdto",mdto);
 			
@@ -303,6 +304,8 @@ public class MemberController {
 					session.setAttribute("userType", "손님");
 				}else if(profile.getMType() == 2) {
 					session.setAttribute("userType", "사장님");
+				}else{
+					session.setAttribute("userType","admin");
 				}
 			}else {
 				model.addAttribute("ch","<h7>등록되지 않은 계정입니다.</h7>");
@@ -321,12 +324,6 @@ public class MemberController {
 		}
 		@RequestMapping("/login")
 		public String doLogin(HttpServletRequest request, Model model) {
-
-//			HttpSession session=request.getSession();
-
-//			model.addAttribute("userinfo",session.getAttribute("userid"));
-//			model.addAttribute("userType",session.getAttribute("userType"));
-
 			return "member/login";
 		}
 		
@@ -368,8 +365,8 @@ public class MemberController {
 							   HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
 
-			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
+			model.addAttribute("mname",session.getAttribute("mName"));
 
 			model.addAttribute("type",type);
 			return "member/userSign";
@@ -379,8 +376,8 @@ public class MemberController {
 		public String doSignin(HttpServletRequest request, Model model) {
 			HttpSession session=request.getSession();
 
-			model.addAttribute("userinfo",session.getAttribute("userid"));
 			model.addAttribute("userType",session.getAttribute("userType"));
+			model.addAttribute("mname",session.getAttribute("mName"));
 
 			return "member/signin";
 		}

@@ -66,9 +66,9 @@ a:hover{
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Menu</a>
-          </li>
+<%--          <li class="nav-item">--%>
+<%--            <a class="nav-link active" aria-current="page" href="#">Menu</a>--%>
+<%--          </li>--%>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -147,14 +147,6 @@ a:hover{
         </div>
       </div>
 
-<%--      <div class="login2" float="left">
-        <p>로그인을 해주세요</p>
-        <p align=center><input type="button" class="btn btn-primary"
-            value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;배달의민족 로그인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></p>
-        <p style="display:inline;">🔒아이디.비밀번호 찾기</p>
-        <p style="display:inline; float: right;">회원가입</p>
-      </div>
-    </div>--%>
     <div>
       <c:if test="${userinfo == '' }">
         <div class="login2" float="left">
@@ -165,7 +157,12 @@ a:hover{
           <p style="display:inline; float: right;" onclick=location.href='signin'>회원가입</p>
         </div>
       </c:if>
-
+      <c:if test="${userType == 'admin'}">
+        <div class="login2" float="left">
+          <h4 style="color: #333333">관리자님,<br>반갑습니다</h4>
+          <p style="float: right;"><a href='logout' align="right">로그아웃</a></p>
+        </div>
+      </c:if>
         <c:if test="${userType == '손님' }">
           <div class="login3" float="left">
             <p style="float: left;" onclick=location.href='signUp'>${mName} 님🍮</p>

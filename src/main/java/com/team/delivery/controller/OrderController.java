@@ -29,8 +29,10 @@ public class OrderController {
     public String doOrderlist(@RequestParam("sSeqno") int sSeqno,
                               HttpServletRequest request, Model model) {
         HttpSession session=request.getSession();
-        model.addAttribute("userinfo",session.getAttribute("userid"));
+
         model.addAttribute("userType",session.getAttribute("userType"));
+        model.addAttribute("mname",session.getAttribute("mName"));
+
         System.out.println("오더리스트 SSe="+sSeqno);
 
         StoreDTO storeName = store.storeName(sSeqno);
