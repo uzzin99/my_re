@@ -74,6 +74,7 @@ span {
     width: 400px;
     height: 50px;
     color: #707070;
+    text-align: center;
 }
 
 input[type="button"]:hover {

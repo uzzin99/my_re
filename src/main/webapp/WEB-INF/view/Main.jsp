@@ -216,7 +216,7 @@ a:hover{
         </div>
 
         <div class="three">
-          <span class="todaymenu">할인쿠폰🎉</span>
+          <span class="todaymenu">이런 일도 한답니다💌</span>
         </div>
       </div>
 
@@ -280,19 +280,33 @@ a:hover{
 <%--        <div class="conbox con3">컨텐츠탭 내용03</div>--%>
       </div>
 
-      <div class="container"><br><br>
-        <div class="front card">
-          <p>
-            <img class="cardimg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn7dd4fx_bSN7J_kUVz9a8d2c1-3epqlQZDg&usqp=CAU">
-          </p>
+      <div class="slideshow-container">
+        <div class="mySlideDiv fade active"
+             style="background-image: url('https://betaimg-cdn.baemin.com/fw/ceoImage/2022/7/4/23894220_content.jpg');">
+          <div class="content">비오는 날,<br>진짜 전이 많이 <br>팔릴까?</div>
+          <div class="img-cover" onclick="location.href='https://ceo.baemin.com/knowhow/8393';"></div>
         </div>
-        <div class="back card">
-          <p>
-            <img class="cardimg" src="https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/2505918402/B.jpg?944000000">
-          </p>
+
+        <div class="mySlideDiv fade "
+             style="background-image: url('https://post-phinf.pstatic.net/MjAxODA4MTZfMTkw/MDAxNTM0NDA3Njg5MTg2.EiX2Z8zlcmK-dFj73jnWkaF8N_216ibyI8246cK_l4sg.5-ROC_DF4DTNz7eiHs-oktP2nKFiPLw4mK6JzmKKjucg.JPEG/6.jpg?type=w1200');">
+          <div class="content">여름철 식중독 예방,<br>이것만은 꼭 지키세요.</div>
+          <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
+        </div>
+
+        <div class="mySlideDiv fade"
+             style="background-image: url('https://story.baemin.com/wp-content/uploads/2022/07/220517_%E1%84%87%E1%85%A2%E1%84%86%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1%E1%86%BC%E1%84%92%E1%85%ACPB_%E1%84%8E%E1%85%AC%E1%84%92%E1%85%A7%E1%86%AB%E1%84%8C%E1%85%B53036-scaled.jpg');">
+          <div class="content">우아한형제들<br>구성원들이 말하는<br>진짜 배민이야기.</div>
+          <div class="img-cover" onclick="location.href='https://story.baemin.com/?s=%EC%A7%81%EB%AC%B4%EC%9D%B8%ED%84%B0%EB%B7%B0';"></div>
+        </div>
+
+        <div class="mySlideDiv fade"
+             style="background-image: url('https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDO9Pu%2Fbtq5kYCYMlA%2Fpay71Bn2dPVEomhoxcTY00%2Fimg.jpg');">
+          <div class="content">일상 속,<br>플라스틱 사용 줄이기!</div>
+          <div class="img-cover" onclick="location.href='https://brunch.co.kr/@euni8828/16';"></div>
         </div>
       </div>
 
+      </div>
       </div>
     </div>
   </section>
@@ -326,7 +340,10 @@ a:hover{
     randomImg();
     selectBrd();
     selectQnA();
+    $(".mySlideDiv").not(".active").hide(); //화면 로딩 후 첫번째 div를 제외한 나머지 숨김
+    setInterval(nextSlide, 4000); //4초(4000)마다 다음 슬라이드로 넘어감
   })
+
   function randomImg(){
 	  $.ajax({
 			type:'post',dataType:'json',
@@ -403,6 +420,74 @@ a:hover{
         }
       }
     })
+  }
+  //이런일도한답니다
+  // $(document).ready(function () {
+  //   $(".mySlideDiv").not(".active").hide(); //화면 로딩 후 첫번째 div를 제외한 나머지 숨김
+  //   setInterval(nextSlide, 4000); //4초(4000)마다 다음 슬라이드로 넘어감
+  // });
+
+  //이전 슬라이드
+  function prevSlide() {
+    $(".mySlideDiv").hide(); //모든 div 숨김
+    var allSlide = $(".mySlideDiv"); //모든 div 객체를 변수에 저장
+    var currentIndex = 0; //현재 나타난 슬라이드의 인덱스 변수
+
+    //반복문으로 현재 active클래스를 가진 div를 찾아 index 저장
+    $(".mySlideDiv").each(function(index,item){
+      if($(this).hasClass("active")) {
+        currentIndex = index;
+      }
+
+    });
+
+    //새롭게 나타낼 div의 index
+    var newIndex = 0;
+
+    if(currentIndex <= 0) {
+      //현재 슬라이드의 index가 0인 경우 마지막 슬라이드로 보냄(무한반복)
+      newIndex = allSlide.length-1;
+    } else {
+      //현재 슬라이드의 index에서 한 칸 만큼 뒤로 간 index 지정
+      newIndex = currentIndex-1;
+    }
+
+    //모든 div에서 active 클래스 제거
+    $(".mySlideDiv").removeClass("active");
+
+    //새롭게 지정한 index번째 슬라이드에 active 클래스 부여 후 show()
+    $(".mySlideDiv").eq(newIndex).addClass("active");
+    $(".mySlideDiv").eq(newIndex).show();
+
+  }
+
+  //다음 슬라이드
+  function nextSlide() {
+    $(".mySlideDiv").hide();
+    var allSlide = $(".mySlideDiv");
+    var currentIndex = 0;
+
+    $(".mySlideDiv").each(function(index,item){
+      if($(this).hasClass("active")) {
+        currentIndex = index;
+      }
+
+    });
+
+    var newIndex = 0;
+
+    if(currentIndex >= allSlide.length-1) {
+      //현재 슬라이드 index가 마지막 순서면 0번째로 보냄(무한반복)
+      newIndex = 0;
+    } else {
+      //현재 슬라이드의 index에서 한 칸 만큼 앞으로 간 index 지정
+      newIndex = currentIndex+1;
+    }
+
+    $(".mySlideDiv").removeClass("active");
+    $(".mySlideDiv").eq(newIndex).addClass("active");
+    $(".mySlideDiv").eq(newIndex).show();
+
   }
 </script>
 </html>
