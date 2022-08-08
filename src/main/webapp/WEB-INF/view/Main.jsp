@@ -203,7 +203,7 @@ a:hover{
         </div>
 
         <div class="three">
-          <span class="todaymenu">할인쿠폰🎉</span>
+          <span class="todaymenu">이런 일도 한답니다💌</span>
         </div>
       </div>
 
@@ -259,27 +259,65 @@ a:hover{
         <label for="tab01" style="margin-left: 30px;">우리들의 이야기</label>
         <input type="radio" name="tabmenu" id="tab02">
         <label for="tab02">Q&A</label>
-<%--        <input type="radio" name="tabmenu" id="tab03">--%>
-<%--        <label for="tab03">자주묻는질문</label>--%>
 
         <div class="conbox con1"><ul id="boardList"></ul></div>
         <div class="conbox con2"><ul id="QnAList"></ul></div>
-<%--        <div class="conbox con3">컨텐츠탭 내용03</div>--%>
+
       </div>
 
-      <div class="container"><br><br>
-        <div class="front card">
-          <p>
-            <img class="cardimg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn7dd4fx_bSN7J_kUVz9a8d2c1-3epqlQZDg&usqp=CAU">
-          </p>
+     <%-- <div class="slideshow-container">
+        <div class="mySlideDiv fade active"
+             style="background-image: url('https://betaimg-cdn.baemin.com/fw/ceoImage/2022/7/4/23894220_content.jpg');">
+          <div class="content">비오는 날,<br>진짜 전이 많이 <br>팔릴까?</div>
+          <div class="img-cover" onclick="location.href='https://ceo.baemin.com/knowhow/8393';"></div>
         </div>
-        <div class="back card">
-          <p>
-            <img class="cardimg" src="https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/2505918402/B.jpg?944000000">
-          </p>
+
+        <div class="mySlideDiv fade "
+             style="background-image: url('https://post-phinf.pstatic.net/MjAxODA4MTZfMTkw/MDAxNTM0NDA3Njg5MTg2.EiX2Z8zlcmK-dFj73jnWkaF8N_216ibyI8246cK_l4sg.5-ROC_DF4DTNz7eiHs-oktP2nKFiPLw4mK6JzmKKjucg.JPEG/6.jpg?type=w1200');">
+          <div class="content">여름철 식중독 예방,<br>이것만은 꼭 지키세요.</div>
+          <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
+        </div>
+
+        <div class="mySlideDiv fade"
+             style="background-image: url('https://story.baemin.com/wp-content/uploads/2022/07/220517_%E1%84%87%E1%85%A2%E1%84%86%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1%E1%86%BC%E1%84%92%E1%85%ACPB_%E1%84%8E%E1%85%AC%E1%84%92%E1%85%A7%E1%86%AB%E1%84%8C%E1%85%B53036-scaled.jpg');">
+          <div class="content">우아한형제들<br>구성원들이 말하는<br>진짜 배민이야기.</div>
+          <div class="img-cover" onclick="location.href='https://story.baemin.com/?s=%EC%A7%81%EB%AC%B4%EC%9D%B8%ED%84%B0%EB%B7%B0';"></div>
+        </div>
+
+        <div class="mySlideDiv fade"
+             style="background-image: url('https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDO9Pu%2Fbtq5kYCYMlA%2Fpay71Bn2dPVEomhoxcTY00%2Fimg.jpg');">
+          <div class="content">일상 속,<br>플라스틱 사용 줄이기!</div>
+          <div class="img-cover" onclick="location.href='https://brunch.co.kr/@euni8828/16';"></div>
+        </div>
+      </div>--%>
+
+      <div class="slidershape">
+        <div id="slider">
+
+          <div class="mySlideDiv" style="background-image: url('https://betaimg-cdn.baemin.com/fw/ceoImage/2022/7/4/23894220_content.jpg');">
+            <div class="content">비오는 날,<br>진짜 전이 많이 <br>팔릴까?</div>
+            <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
+          </div>
+
+          <div class="mySlideDiv" style="background-image: url('https://post-phinf.pstatic.net/MjAxODA4MTZfMTkw/MDAxNTM0NDA3Njg5MTg2.EiX2Z8zlcmK-dFj73jnWkaF8N_216ibyI8246cK_l4sg.5-ROC_DF4DTNz7eiHs-oktP2nKFiPLw4mK6JzmKKjucg.JPEG/6.jpg?type=w1200');">
+            <div class="content">여름철 식중독 예방,<br>이것만은 꼭 지키세요.</div>
+            <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
+          </div>
+
+          <div class="mySlideDiv" style="background-image: url('https://story.baemin.com/wp-content/uploads/2022/07/220517_%E1%84%87%E1%85%A2%E1%84%86%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1%E1%86%BC%E1%84%92%E1%85%ACPB_%E1%84%8E%E1%85%AC%E1%84%92%E1%85%A7%E1%86%AB%E1%84%8C%E1%85%B53036-scaled.jpg');">
+            <div class="content">우아한형제들<br>구성원들이 말하는<br>진짜 배민이야기.</div>
+            <div class="img-cover" onclick="location.href='https://story.baemin.com/?s=%EC%A7%81%EB%AC%B4%EC%9D%B8%ED%84%B0%EB%B7%B0';"></div>
+          </div>
+
+          <div class="mySlideDiv"  style="background-image: url('https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDO9Pu%2Fbtq5kYCYMlA%2Fpay71Bn2dPVEomhoxcTY00%2Fimg.jpg');">
+            <div class="content">일상 속,<br>플라스틱 사용 줄이기!</div>
+            <div class="img-cover" onclick="location.href='https://brunch.co.kr/@euni8828/16';"></div>
+          </div>
+
         </div>
       </div>
 
+      </div>
       </div>
     </div>
   </section>
@@ -313,7 +351,9 @@ a:hover{
     randomImg();
     selectBrd();
     selectQnA();
+
   })
+
   //제목을 눌러서 게시물 들어가서 조회수 증가
   .on('click','#boardList a,#QnAList a',function(){
     $.ajax({
@@ -324,6 +364,7 @@ a:hover{
       }
     })
   })
+
   function randomImg(){
 	  $.ajax({
 			type:'post',dataType:'json',
@@ -401,5 +442,110 @@ a:hover{
       }
     })
   }
+  //이런일도한답니다
+  // $(document).ready(function () {
+  //   $(".mySlideDiv").not(".active").hide(); //화면 로딩 후 첫번째 div를 제외한 나머지 숨김
+  //   setInterval(nextSlide, 4000); //4초(4000)마다 다음 슬라이드로 넘어감
+  // });
+
+  //이전 슬라이드
+  /*function prevSlide() {
+    $(".mySlideDiv").hide(); //모든 div 숨김
+    var allSlide = $(".mySlideDiv"); //모든 div 객체를 변수에 저장
+    var currentIndex = 0; //현재 나타난 슬라이드의 인덱스 변수
+
+    //반복문으로 현재 active클래스를 가진 div를 찾아 index 저장
+    $(".mySlideDiv").each(function(index,item){
+      if($(this).hasClass("active")) {
+        currentIndex = index;
+      }
+
+    });
+
+    //새롭게 나타낼 div의 index
+    var newIndex = 0;
+
+    if(currentIndex <= 0) {
+      //현재 슬라이드의 index가 0인 경우 마지막 슬라이드로 보냄(무한반복)
+      newIndex = allSlide.length-1;
+    } else {
+      //현재 슬라이드의 index에서 한 칸 만큼 뒤로 간 index 지정
+      newIndex = currentIndex-1;
+    }
+
+    //모든 div에서 active 클래스 제거
+    $(".mySlideDiv").removeClass("active");
+
+    //새롭게 지정한 index번째 슬라이드에 active 클래스 부여 후 show()
+    $(".mySlideDiv").eq(newIndex).addClass("active");
+    $(".mySlideDiv").eq(newIndex).show();
+
+  }
+
+  //다음 슬라이드
+  function nextSlide() {
+    $(".mySlideDiv").hide();
+    var allSlide = $(".mySlideDiv");
+    var currentIndex = 0;
+
+    $(".mySlideDiv").each(function(index,item){
+      if($(this).hasClass("active")) {
+        currentIndex = index;
+      }
+
+    });
+
+    var newIndex = 0;
+
+    if(currentIndex >= allSlide.length-1) {
+      //현재 슬라이드 index가 마지막 순서면 0번째로 보냄(무한반복)
+      newIndex = 0;
+    } else {
+      //현재 슬라이드의 index에서 한 칸 만큼 앞으로 간 index 지정
+      newIndex = currentIndex+1;
+    }
+
+    $(".mySlideDiv").removeClass("active");
+    $(".mySlideDiv").eq(newIndex).addClass("active");
+    $(".mySlideDiv").eq(newIndex).show();
+
+  }*/
+  $(function(){
+    $('#slider').slick({
+      slide: 'div',		//슬라이드 되어야 할 태그 ex) div, li
+      infinite : true, 	//무한 반복 옵션
+      slidesToShow : 1,		// 한 화면에 보여질 컨텐츠 개수
+      slidesToScroll : 1,		//스크롤 한번에 움직일 컨텐츠 개수
+      speed : 100,	 // 다음 버튼 누르고 다음 화면 뜨는데까지 걸리는 시간(ms)
+      arrows : false, 		// 옆으로 이동하는 화살표 표시 여부
+      dots : false, 		// 스크롤바 아래 점으로 페이지네이션 여부
+      autoplay : true,			// 자동 스크롤 사용 여부
+      autoplaySpeed : 3000, 		// 자동 스크롤 시 다음으로 넘어가는데 걸리는 시간 (ms)
+      pauseOnHover : true,		// 슬라이드 이동	시 마우스 호버하면 슬라이더 멈추게 설정
+      vertical : false,		// 세로 방향 슬라이드 옵션
+      // prevArrow : "<button type='button' class='slick-prev'>Previous</button>",		// 이전 화살표 모양 설정
+      // nextArrow : "<button type='button' class='slick-next'>Next</button>",		// 다음 화살표 모양 설정
+      // dotsClass : "slick-dots", 	//아래 나오는 페이지네이션(점) css class 지정
+      draggable : true, 	//드래그 가능 여부
+
+      responsive: [ // 반응형 웹 구현 옵션
+        {
+          breakpoint: 960, //화면 사이즈 960px
+          settings: {
+            //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+            slidesToShow:3
+          }
+        },
+        {
+          breakpoint: 768, //화면 사이즈 768px
+          settings: {
+            //위에 옵션이 디폴트 , 여기에 추가하면 그걸로 변경
+            slidesToShow:2
+          }
+        }
+      ]
+
+    });
+  })
 </script>
 </html>

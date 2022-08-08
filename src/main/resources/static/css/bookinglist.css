@@ -10,7 +10,7 @@
 a { text-decoration: none; }
 body { font-size: 14px; color: #333; }
 li { list-style: none; }
-#wraps { background-color: #fafafa; margin-top:25px; margin-left: 18%;}
+#wraps { background-color: #fafafa; margin-top:25px; margin-left: 12%;}
 /* padding: 120px 0; */
 .tabArea { background-color: #fff; width: 1000px; height: 700px; margin: 0 auto; border: 1px solid #f1f1f1; padding: 50px 40px 0; }
 .tabArea .tab { display: flex; justify-content: space-between; }

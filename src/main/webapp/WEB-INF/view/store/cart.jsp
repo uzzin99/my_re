@@ -147,7 +147,7 @@
     <div class="cart" align="center"><br>
         <div id="cart_header"><span class="cartname">🛒장바구니🛒</span></div>
         <c:if test="${cart.size() < 1}">
-            <br><br><h2 align="center" style="background: linear-gradient(to top, #39c0c0 40%, transparent 60%); width:600px; margin: auto;">
+            <br><br><h2 align="center" style="background: linear-gradient(to top, #39c0c0 40%, transparent 30%); width:450px; margin: auto;">
             "장바구니가 비어있습니다😥"</h2><br><br>
         </c:if>
         <c:forEach var="i" items='${cart}'>
@@ -168,7 +168,7 @@
         </c:forEach>
         <div id="cart_footer" style="clear: both;"><br>
             <p><span> 총 주문금액</span>&nbsp;<input readonly type="text" id="totalPrice" value=""></p>
-            <p><span> 배달팁</span>&nbsp;<input readonly type="text" id="tips" value="">&nbsp;&nbsp;
+            <p style="margin-left: 75px;"><span>배달팁</span>&nbsp;<input readonly type="text" id="tips" value="">&nbsp;&nbsp;
             <i id="btnMap" title="배달팁이 궁금하시면 클릭해보세요!" class="bi bi-question-circle"></i></p>
             <div id="divMap" style="display: block">
                 <div id="map" style="width:500px;height:400px;margin-right: auto;margin-left: auto;"></div>
