@@ -145,7 +145,7 @@
                    <input type=number id=storetel name="storetel" value="${sVO.SMobile}"/></p>
                 <p><span class="span">메뉴타입</span>
                    <select id=menutype name="menutype">
-                        <option value=0>타입선택</option>
+                        <option value="${sVO.SType}" style="background:#FBF5BF;">${sVO.typeName}</option>
                         <c:forEach var="li" items="${list}">
                             <option value="${li.SType}">${li.typeName}</option>
                         </c:forEach>

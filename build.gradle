@@ -29,6 +29,14 @@ dependencies {
 	implementation group: 'com.oracle.database.security', name: 'osdt_cert', version: '21.5.0.0'
 	implementation group: 'com.oracle.database.security', name: 'osdt_core', version: '21.5.0.0'
 	implementation group: 'com.oracle.database.security', name: 'oraclepki', version: '21.5.0.0'
+
+
+
+
+	//서버 자동 실행
+	compileOnly 'org.springframework.boot:spring-boot-devtools'
+	//이미지
+	implementation 'commons-io:commons-io:2.6'
 }
 
 tasks.named('test') {

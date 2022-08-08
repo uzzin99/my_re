@@ -167,7 +167,8 @@
                         </table>
 
                         <c:if test="${OL.OStatus==null}">
-                            <p style="float: left; margin: 40px 40px ;"><input type="button" class="ord-cancle" id="${OL.OSeqno}" value="주문취소"></p>
+                            <p style="float: left; margin: 40px 40px ;">
+                                <input type="button" id="btnOrdCancle" onclick="if(!confirm('주문을 취소 하시겠습니까?')) return false;location.href='/o_cancle?oseq=${OL.OSeqno}';" value="주문취소"></p>
                         </c:if>
                         <c:if test="${OL.OStatus==1}">
                             <c:if test="${OL.cntReview==0}">
@@ -178,12 +179,11 @@
                             </c:if>
                         </c:if>
                         <c:if test="${OL.OStatus==4}">
-                            <p style="float: left; margin: 40px 40px ;">"주문을 거절 당하였습니다."</p>
-                        </c:if>
-                        <c:if test="${OL.OStatus==5}">
                             <p style="float: left; margin: 40px 40px ;">"취소된 주문입니다."</p>
                         </c:if>
-
+                        <c:if test="${OL.OStatus==5}">
+                            <p style="float: left; margin: 40px 40px ;">"주문을 거절 당하였습니다."</p>
+                        </c:if>
                     </div>
 <%--        만들고 싶었는데 안되니깐 미련이 남내요            --%>
 <%--                    <div id="orderDetailed" style="display: none">--%>
@@ -340,25 +340,6 @@
                     }else{
                         alert("다시 시도해주세요");
                     }
-                }
-            })
-        }
-    })
-
-    .on('click','.ord-cancle',function(){
-        let ordcan = $(this).attr("id");
-        console.log("주문취소 o_seq="+ordcan);
-        if(confirm("주문을 취소 하시겠습니까?")){
-            $.ajax({
-                url:'/o_cancle',
-                type:'get',
-                dataType:'text',
-                data:{oseq:ordcan},
-                success:function (){
-                    location.reload();
-                },
-                error: function(){
-                    alert("주문 취소 실페");
                 }
             })
         }
