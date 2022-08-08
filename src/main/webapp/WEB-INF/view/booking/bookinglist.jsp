@@ -131,7 +131,7 @@
 <section>
     <div id="wraps" >
         <section class="tabArea" >
-            <h5 align="center">가게이름:${storename.SName}</h5><br>
+            <h5 align="center"><span class="name">${storename.SName}</span></h5><br>
             <ul class="tab">
                 <li class="on">
                     <a href="#!"><span>예약대기</span></a>
@@ -143,40 +143,42 @@
                     <a href="#!"><span>예약취소</span></a>
                 </li>
             </ul>
-            <div class="tabBox on">
-                    <c:forEach var='blist' items='${list}'>
-                        <c:if test="${blist.HCheck == 0 }">
-                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
-                            <tr><td rowspan="4"><input type="button" class="check" id="${blist.HSeqno}" value="예약확정" style="height: 30px; margin-left:10px;"><br>
-                            <input type="button" class="checkdel" id="${blist.HSeqno}" value="예약거절" style="height: 30px; margin-left:10px;"></td></tr>
-                            <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
-                            <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
-                            <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
-                        </table>
-                        </c:if>
-                    </c:forEach>
-            </div>
-            <div class="tabBox">
-                    <c:forEach var='blist' items='${list}'>
-                        <c:if test="${blist.HCheck == 1 }">
-                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
-                            <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
-                            <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
-                            <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
-                        </table>
-                        </c:if>
-                    </c:forEach>
-            </div>
-            <div class="tabBox">
+            <c:forEach var='blist' items='${list}'>
+            <div class="tabBox on" style="height: 500px; overflow:auto;">
                 <c:forEach var='blist' items='${list}'>
-                    <c:if test="${blist.HCheck == 5 }">
-                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                    <c:if test="${blist.HCheck == 0 }">
+                        <table align="center">
+                            <tr><td rowspan="4"><input type="button" class="check" id="${blist.HSeqno}" value="예약확정"><br>
+                                <input type="button" class="checkdel" id="${blist.HSeqno}" value="예약거절"></td></tr>
                             <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
                             <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
                             <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
                         </table>
                     </c:if>
-                </c:forEach>
+                </c:forEach><br>
+
+            </div>
+            <div class="tabBox">
+                <c:forEach var='blist' items='${list}'>
+                    <c:if test="${blist.HCheck == 1 }">
+                        <table align="center">
+                            <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
+                            <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
+                            <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
+                        </table>
+                    </c:if>
+                </c:forEach><br>
+            </div>
+            <div class="tabBox">
+                <c:forEach var='blist' items='${list}'>
+                    <c:if test="${blist.HCheck == 5 }">
+                        <table align="center">
+                            <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
+                            <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
+                            <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
+                        </table>
+                    </c:if>
+                </c:forEach><br>
             </div>
         </section>
     </div>
