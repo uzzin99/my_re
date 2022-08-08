@@ -7,9 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.team.delivery.DTO.boardDTO;
+import com.team.delivery.DTO.mDTO;
 import com.team.delivery.DTO.reviewDTO;
 import com.team.delivery.mappers.iBoard;
 import com.team.delivery.mappers.iCart;
+import com.team.delivery.mappers.iMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
@@ -33,6 +35,7 @@ public class StoreController {
 	private final iStore store;
 	private final iCart ica;
 	private final iBoard brd;
+	private final iMember ime;
 
 	@RequestMapping("/reviewAdd")
 	public String ReviewAdd(@RequestParam("reviewCon") String content,
@@ -102,8 +105,9 @@ public class StoreController {
 			log.info("공백넘어감");
 			model.addAttribute("cnt","");
 		}
-
 		StoreDTO storeName = store.storeName(sSeqno);
+		mDTO member =ime.userList(storeName.getMId());
+		model.addAttribute("member", member);
 		model.addAttribute("storename",storeName);
 		ArrayList<StoreDTO> menulist = store.menutable(sSeqno);
 		model.addAttribute("mlist",menulist);
@@ -148,7 +152,7 @@ public class StoreController {
 		return "search";
 	}
 
-	@RequestMapping("/z_Check")
+	@RequestMapping("/store/z_Check")
 	public String doZzimcheck(HttpServletRequest request){
 		//찜하기
 		String mid=request.getParameter("mid");
@@ -162,7 +166,7 @@ public class StoreController {
 		return "redirect:/store/menu?sSeqno="+sSe;
 	}
 
-	@RequestMapping("/z_Delete")
+	@RequestMapping("/store/z_Delete")
 	public String doZzimdelete(HttpServletRequest request){
 		//찜해제
 		String mid=request.getParameter("mid");
@@ -176,7 +180,7 @@ public class StoreController {
 		return "redirect:/store/menu?sSeqno="+sSe;
 	}
 
-	@RequestMapping("z_list")
+	@RequestMapping("/store/z_list")
 	public String doZlist(HttpServletRequest req, Model model){
 		HttpSession session = req.getSession();
 		model.addAttribute("userinfo",session.getAttribute("userid"));
@@ -187,33 +191,37 @@ public class StoreController {
 		System.out.println("zzimlist="+zzimlist);
 		System.out.println("zzimlist size()="+zzimlist.size());
 		model.addAttribute("zlist",zzimlist);
-
+		//찜한 가게 수
 		int s_cnt=store.zzimstorecount((String) session.getAttribute("userid"));
 		model.addAttribute("s_cnt",s_cnt);
+//		//평균 평점
+//		double avg=store.storeAvg(sSe);
+//		model.addAttribute("avg",avg);
+
 		return "store/zzimlist";
 	}
 
-	@ResponseBody
-	@RequestMapping(value="/z_menu",method=RequestMethod.GET,produces = "application/json;charset=UTF-8")
-	public String doZmenulist(HttpServletRequest req,Model model){
-		HttpSession session = req.getSession();
-		int sSe=Integer.parseInt(req.getParameter("sSe"));
-
-		//찜 가게의 메뉴목록(일부 보여주기 용)
-		ArrayList<StoreDTO> zmenu=store.zzimstoremenulist((String) session.getAttribute("userid"),sSe);
-		System.out.println("zmenu="+zmenu);
-
-		JSONArray ja = new JSONArray();
-		for (int i = 0; i < zmenu.size(); i++) {
-			StoreDTO list = zmenu.get(i);
-			JSONObject jo = new JSONObject();
-			jo.put("menu", list.getMenuName());
-			ja.add(jo);
-		}
-		model.addAttribute("zmenu",ja.toJSONString());
-
-		return ja.toJSONString();
-	}
+//	@ResponseBody
+//	@RequestMapping(value="/z_menu",method=RequestMethod.GET,produces = "application/json;charset=UTF-8")
+//	public String doZmenulist(HttpServletRequest req,Model model){
+//		HttpSession session = req.getSession();
+//		int sSe=Integer.parseInt(req.getParameter("SSe"));
+//
+//		//찜 가게의 메뉴목록(일부 보여주기 용)
+//		ArrayList<StoreDTO> zmenu=store.zzimstoremenulist((String) session.getAttribute("userid"),sSe);
+//		System.out.println("zmenu="+zmenu);
+//
+//		JSONArray ja = new JSONArray();
+//		for (int i = 0; i < zmenu.size(); i++) {
+//			StoreDTO list = zmenu.get(i);
+//			JSONObject jo = new JSONObject();
+//			jo.put("menu", list.getMenuName());
+//			ja.add(jo);
+//		}
+//		model.addAttribute("zmenu",ja.toJSONString());
+//
+//		return ja.toJSONString();
+//	}
 
 
 }

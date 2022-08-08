@@ -65,20 +65,20 @@ h3{
 }
 .zzimlist-box{
     display: block;
-    width: 400px;
+    width: 500px;
     height: 150px;
     float: left;
     padding: 15px 0 15px 0;
 }
 .zzimlist-box span{
     display: inline-block;
-    width: 400px;
+    width: 470px;
     height: 30px;
     text-align: left;
 }
 
 label{
-    font-size: 1.0em; /* 이모지 크기 */
-    color: transparent; /* 기존 이모지 컬러 제거 */
-    text-shadow: 0 0 0 #FCC500; /* 새 이모지 색상 부여 */
+    font-size: 1.0em; 
+    color: transparent; 
+    text-shadow: 0 0 0 #FCC500; 
 }

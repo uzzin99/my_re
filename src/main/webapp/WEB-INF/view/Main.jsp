@@ -35,6 +35,19 @@ a:hover{
 .default:hover{
   cursor: default;
 }
+#boardList,#QnAList{
+  padding: 10px;
+}
+#boardList li,#QnAList li{
+  list-style: none;
+  margin: 3px 0px;
+}
+#smTitle{
+  width        : 100px;     /* 너비는 변경될수 있습니다. */
+  text-overflow: ellipsis;  /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
+  white-space  : nowrap;    /* 줄바꿈을 하지 않습니다. */
+  overflow     : hidden;    /* 내용이 길면 감춤니다 */
+}
 </style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
@@ -163,7 +176,7 @@ a:hover{
                   </button></p>
             <p style="display:inline; float: right;" onclick=location.href='signUp/payment'>주문/예약내역📄</p>
             <p style="display:inline; float: right;"><a href="cart">장바구니🛒&nbsp;&nbsp;</a></p>
-            <p style="display:inline; float: right;" onclick=location.href='z_list'><a>찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
+            <p style="display:inline; float: right;" onclick=location.href='/store/z_list'><a>찜<span style="color: red;">❤</span>&nbsp;&nbsp;</a></p>
           </div>
         </c:if>
         <c:if test="${userType == '사장님' }">
@@ -185,7 +198,8 @@ a:hover{
                 <a><span style="background: linear-gradient(to top, #39c0c0 30%, transparent 30%);">
                     내 가게:</span>&nbsp;&nbsp;${sVO.SName}</a>
               </button></p>
-              <p style="display:inline; float: right;" onclick=location.href='booking/bookinglist?sSeqno=${sVO.SSeqno}'>주문/예약내역📄</p>
+              <p><span style="display:inline; width:100px;float: right;" onclick=location.href='booking/orderlist?sSeqno=${sVO.SSeqno}'>주문내역📄</span>
+                <span style="display:inline; width:100px;float: right;" onclick=location.href='booking/bookinglist?sSeqno=${sVO.SSeqno}'>예약내역📄</span></p>
             </div>
         </c:if>
         </c:if>
@@ -261,8 +275,8 @@ a:hover{
 <%--        <input type="radio" name="tabmenu" id="tab03">--%>
 <%--        <label for="tab03">자주묻는질문</label>--%>
 
-        <div class="conbox con1">컨텐츠탭 내용01</div>
-        <div class="conbox con2">컨텐츠탭 내용02</div>
+        <div class="conbox con1"><ul id="boardList"></ul></div>
+        <div class="conbox con2"><ul id="QnAList"></ul></div>
 <%--        <div class="conbox con3">컨텐츠탭 내용03</div>--%>
       </div>
 
@@ -310,6 +324,8 @@ a:hover{
   $(document)
   .ready(function(){
     randomImg();
+    selectBrd();
+    selectQnA();
   })
   function randomImg(){
 	  $.ajax({
@@ -355,6 +371,38 @@ a:hover{
               })
 			}
 		})
+  }
+  function selectBrd() {
+    $.ajax({
+      type: 'post', dataType: 'json',
+      url: 'smBD',
+      data: '',
+      success: function (data) {
+        $('#boardList').empty();
+        for (i = 0; i < data.length; i++) {
+          let brd = data[i];
+          let date = brd['date'].split(' ');
+          $('#boardList').append("<li><a href='/show?seq=" + brd['seqno'] + "'>"
+                  + date[0] + " <b id='smTitle'>" + brd['title'] + "</b> (" + brd['cntCmt'] + ")</a><br></li>");
+        }
+      }
+    })
+  }
+  function selectQnA(){
+    $.ajax({
+      type:'post',dataType:'json',
+      url:'smQA',
+      data:'',
+      success:function(data){
+        $('#QnAList').empty();
+        for(i=0;i<data.length;i++) {
+          let brd = data[i];
+          let date = brd['date'].split(' ');
+          $('#QnAList').append("<li><a href='/show?seq="+brd['seqno']+"'>"
+                  +date[0]+" <b id='smTitle'>"+brd['title']+"</b> ("+brd['cntCmt']+")</a><br></li>");
+        }
+      }
+    })
   }
 </script>
 </html>

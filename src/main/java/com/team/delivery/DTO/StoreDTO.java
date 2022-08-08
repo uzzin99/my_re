@@ -28,6 +28,7 @@ public class StoreDTO {
 	private int score;
 	private double avg;
 	private int cnt;
+
 	//stypeVO
 	private String typeName;
 }

@@ -177,35 +177,9 @@
 </body>
 <script>
 $(document)
-.ready(function(){
-    zmenu();
-})
-
 .on('click','#choice2',function(){
     if(!confirm("찜 목록을 해제하시겠습니까?")) return false;
 })
 
-// .on('click','.conbox con1',function(){
-//     let sSe=$('#sSe').val();
-//     $.get("/store/menu?sSeqno="+sSe);
-// })
-
-function zmenu(){
-    let SSe=$('#sSe').val();
-    $.ajax({
-        url:"/z_menu", data:'sSe='+SSe,
-        type:'get', dataType:'json',
-        success: function(data){
-            console.log("SSe="+SSe);
-            let str="";
-            for(let i=0;i<data.length;i++){
-                let jo=data[i];
-                str+=jo['menuName'];
-            }
-            $('input[id=menutext]').attr('value',str);
-
-        }
-    })
-}
 </script>
 </html>

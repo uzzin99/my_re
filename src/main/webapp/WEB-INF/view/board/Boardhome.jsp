@@ -15,29 +15,10 @@
 		font-size: 16px;
 		width: 325px;
 		height: 36px;
-		padding: 10px;
-		border: 0px;
-		outline: none;
-		float: left;
-	}
-	#SearchDiv{
-		margin-left:auto;
-		margin-right:auto;
-		justify-content: center;
-		border-radius: 0.375rem;
-		height: 40px;
-		width: 500px;
-		border: 1px solid #1b5ac2;
-		background: #FFFFFF;
 	}
 	#btnSearch{
 		width: 50px;
 		height: 100%;
-		border: 0px;
-		background: #1b5ac2;
-		outline: none;
-		float: right;
-		color: #FFFFFF;
 	}
 	#brdTable{
 		margin-left:auto;
@@ -180,19 +161,15 @@
 		<tbody id="brdList" class="table-group-divider">
 		</tbody>
 	</table>
-	<div>
-		<div align=center id="SearchDiv">
-			<input type=text name=word id=word><input type=button id=btnSearch value=검색>
-		</div>
+	<div style="width: 700px;height: 50px;margin-right: auto;margin-left: auto">
+			<input type=text class="form-control me-2" name=word id=word><input class="btn btn-outline-dark" type=button id="btnSearch" value="검색">
+			<input type="button" class="btn btn-outline-dark" style="float: right" onclick="location.href='/newpost'" value="새글쓰기">
 	</div>
-	<br>
 	<nav id="PageNav" aria-label="Page navigation example">
 		<ul id="PageList" class="pagination justify-content-center align-self-center">
 		</ul>
 	</nav>
-	<div style="width: 700px;height: 50px;margin-right: auto;margin-left: auto">
-		<a href='newpost' style="float: right">새글쓰기</a>
-	</div>
+	<br>
 		<br>
 	<input type=number id="maxpage" value="${Maxpage}" hidden>
 	<input type=number id="page" value="${crtpage}" hidden>
