@@ -374,7 +374,7 @@
 							+"<div class='dropdown'>"
 							+"<a class='btn dropdown-toggle btn-sm' href='#' role='button'"
 							+"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
-							+"메뉴</a>"
+							+"삭제/수정</a>"
 							+"<ul class='dropdown-menu' aria-labelledby='dropdownMenuLink'>"
 							+"<li><a class='dropdown-item' id='delBD'>삭제</a></li>"
 							+"<li><a class='dropdown-item' id='upBD'>수정</a></li>"
