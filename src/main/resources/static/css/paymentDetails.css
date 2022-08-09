@@ -107,12 +107,14 @@ input[id="tab03"]:checked~.con3{
     border-radius: 5px;
 }
 
-.ord-cancle{/*林巩 秒家*/
+#btnOrdCancle{/*林巩 秒家*/
     font-size: 15px;
     padding: 10px 20px;
     background-color: #c4c2c2;
     border-radius: 5px;
 }
+
+
 
 .mar a:hover {
     font-size: 18px;

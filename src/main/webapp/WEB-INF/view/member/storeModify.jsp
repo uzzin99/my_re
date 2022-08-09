@@ -117,8 +117,8 @@
                         게시판
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
+                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
+                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
@@ -156,7 +156,7 @@
                    <input type=number id=storetel name="storetel" value="${sVO.SMobile}"/></p>
                 <p><span class="span">메뉴타입</span>
                    <select id=menutype name="menutype">
-                        <option value=0>타입선택</option>
+                        <option value="${sVO.SType}" style="background:#FBF5BF;">${sVO.typeName}</option>
                         <c:forEach var="li" items="${list}">
                             <option value="${li.SType}">${li.typeName}</option>
                         </c:forEach>

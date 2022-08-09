@@ -11,32 +11,29 @@
     <title>QnA</title>
 </head>
 <style>
-    #word{
-        font-size: 16px;
-        width: 325px;
-        height: 36px;
-        padding: 10px;
-        border: 0px;
-        outline: none;
-        float: left;
+    #boardFunction{
+        margin: auto;
+        width: 700px;
+        height: 80px;
     }
-    #SearchDiv{
-        margin-left:auto;
-        margin-right:auto;
-        justify-content: center;
+    #boardFunction input{
         height: 40px;
-        width: 500px;
-        border: 1px solid #1b5ac2;
-        background: #FFFFFF;
+        float: right;
+    }
+    tr td:nth-child(3){
+        width:280px;
+        text-overflow: ellipsis;  /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
+        white-space  : nowrap;    /* 줄바꿈을 하지 않습니다. */
+        overflow     : hidden;    /* 내용이 길면 감춤니다 */
     }
     #btnSearch{
-        width: 50px;
-        height: 100%;
-        border: 0px;
-        background: #1b5ac2;
-        outline: none;
-        float: right;
-        color: #FFFFFF;
+        margin-right: 55px;
+        height: 40px;
+    }
+    #word{
+        font-size: 16px;
+        width: 300px;
+        height: 36px;
     }
     #brdTable{
         margin-left:auto;
@@ -48,10 +45,12 @@
         margin:auto;
         text-align: center;
     }
-    #SearchDiv select{
-        float: right;
-        height: 38px;
-        font-size: 16px;
+    #divOB > a{
+        font-size: x-small;
+        color: #ababab;
+    }
+    #PageNav{
+        height: 40px;
     }
     a:hover{
         cursor:pointer;
@@ -65,6 +64,7 @@
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
+
         <c:if test="${mname == null }">
             <p align=right><a href="/cart">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
@@ -80,6 +80,7 @@
             </c:if>
         </c:if>
     </div>
+
     <p align="center" onclick=location.href='main'><img class="logo" src="https://img.etnews.com/photonews/1711/1016498_20171123150540_893_0001.jpg"></p>
 </header>
 
@@ -144,8 +145,8 @@
                         게시판
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="/home">우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" href="/QnA">Q&A</a></li>
+                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
+                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
@@ -158,37 +159,49 @@
 </nav>
 <section>
     <div id="BoardMain">
-        <span class="todaymenu" style="float: left;font-size:xx-large">QnA게시판</span>
+        <span class="todaymenu" style="float: left;font-size:xx-large;margin-bottom: 20px;">QnA게시판</span>
         <table id="brdTable" class="table table-sm table-hover">
             <thead>
-            <tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th></tr>
+            <tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th><th>
+                <div id="divOB">
+                    <c:if test="${orderBy==2}">
+                        <a id="obtime" href="javascript:void(0);">시간순▲</a>/
+                        <a id="obview" href="javascript:void(0);">조회수순</a>
+                    </c:if>
+                    <c:if test="${orderBy==1}">
+                        <a id="obtime" href="javascript:void(0);">시간순▼</a>/
+                        <a id="obview" href="javascript:void(0);">조회수순</a>
+                    </c:if>
+                    <c:if test="${orderBy==4}">
+                        <a id="obtime" href="javascript:void(0);">시간순</a>/
+                        <a id="obview" href="javascript:void(0);">조회수순▲</a>
+                    </c:if>
+                    <c:if test="${orderBy==3}">
+                        <a id="obtime" href="javascript:void(0);">시간순</a>/
+                        <a id="obview" href="javascript:void(0);">조회수순▼</a>
+                    </c:if>
+                </div>
+            </th></tr>
             </thead>
             <tbody id="brdList" class="table-group-divider">
             </tbody>
-
         </table>
-        <div style="width: 700px;height: 50px;margin-right: auto;margin-left: auto">
-           <a href='newpost' style="float: right">새글쓰기</a>
+        <div id="boardFunction">
+            <input type="button" class="btn btn-outline-dark" style="float: right;" onclick="location.href='/newpost'" value="새글쓰기">
+            <input class="btn btn-outline-dark" type=button id="btnSearch" value="검색">
+            <input type=text class="form-control me-2" placeholder="Search" name=word id=word>
         </div>
-        <div>
-            <div align=center id="SearchDiv">
-                <input type=text name=word id=word><input type=button id=btnSearch value=검색>
-                <select id=orderBy>
-                    <option value=1>시간순</option>
-                    <option value=2>조회수순</option>
-                </select>
-            </div>
-        </div>
-        <br>
-        <input type=text id=selType value="${selType}" hidden>
-        <input type=number id="maxpage" value="${page}" hidden>
-        <input type=number id="page" value="${crtpage}" hidden>
-        <input type=number id="pageIdx" value=1 hidden>
-        <nav aria-label="Page navigation example">
-            <ul id="PageList" class="pagination justify-content-center">
+        <nav id="PageNav" aria-label="Page navigation example">
+            <ul id="PageList" class="pagination justify-content-center align-self-center">
             </ul>
         </nav>
+        <br>
+        <br>
+        <input type=number id="maxpage" value="${Maxpage}" hidden>
+        <input type=number id="page" value="${crtpage}" hidden>
+        <input type=number id="pageIdx" value=1 hidden>
     </div>
+    <br>
 </section>
 <footer id="footer">
     <div class="container2">
@@ -218,42 +231,74 @@
     $(document)
         .ready(function(){
             $('#page').val(${crtpage});
-            $('#pageIdx').val(Math.ceil(parseInt(${crtpage})/10));
+            //$('#pageIdx').val(Math.ceil((parseInt(${Maxpage})/12)/10));
             selectBrd();
-            selectPage();
+        })
+        .on('click','#obtime',function(){
+            $.ajax({
+                type:'post',dataType:'json',
+                url:'obtime',
+                data:'',
+                success:function(){
+                    $('#divOB').load(location.href+' #divOB');
+                    selectBrd();
+                }
+            })
+        })
+        .on('click','#obview',function(){
+            $.ajax({
+                type:'post',dataType:'json',
+                url:'obview',
+                data:'',
+                success:function(){
+                    $('#divOB').load(location.href+' #divOB');
+                    selectBrd();
+                }
+            })
         })
         .on('click','.page-link',function(){
             if($(this).text()=='Previous'){
                 //Previous를 눌러서 페이지를 10씩 당겨보기
                 if($('#pageIdx').val()==1){
                     $('#pageIdx').val(1)
+                    $('#page').val(1)
                 }else{
                     $('#pageIdx').val($('#pageIdx').val()-1)
                     $('#page').val((($('#pageIdx').val())*10))
                 }
+                console.log("페이지 인덱스 :"+$('#pageIdx').val());
+                console.log("페이지 :"+$('#page').val());
+//		1씩 감소
+// 		if($('#page').val()==1){
+// 			$('#page').val(1)
+// 		}else{
+// 			$('#page').val($('#page').val()-1)
+// 		}
             }
             else if($(this).text()=='Next'){
                 //next를 눌러서 페이지를 10씩 미뤄보기
                 if($('#pageIdx').val()==Math.ceil(x/10)){
                     $('#pageIdx').val(Math.ceil(x/10))
+                    $('#page').val(x)
                 }else{
                     $('#pageIdx').val(parseInt($('#pageIdx').val())+1)
                     $('#page').val((($('#pageIdx').val()-1)*10)+1)
                 }
+                console.log("페이지 인덱스 :"+$('#pageIdx').val());
+                console.log("페이지 :"+$('#page').val());
+//		1씩 증가
+// 		if($('#page').val()==$(this).closest('li').prev('li').find('a').text()){
+// 			$('#page').val($(this).closest('li').prev('li').find('a').text())
+// 		}else{
+// 			$('#page').val(parseInt($('#page').val())+1)
+// 		}
             }
             else{
                 //번호를 눌렀을 경우
                 $('#page').val($(this).text())
             }
             console.log($('#page').val());
-            if($('#selType').val()=='all'){
-                selectBrd();
-            }
-            else if($('#selType').val()=='title'){
-                selectBrdTitle();
-            }
-            console.log($('#selType').val())
-            selectPage();
+            selectBrd();
         })
         .on('click','#title',function(){
             //제목을 눌러서 게시물 들어가서 조회
@@ -267,30 +312,54 @@
         })
         .on('click','#delBD',function(){
             //삭제
-            if($(this).closest('tr').find('td:eq(3)').text()=='${userid}'){
-                document.location="delBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
-
+            let writer=$(this).closest('tr').find('td:eq(3)').text().split(' ');
+            console.log(writer[0]);
+            if ('${userid}'==''){
+                if(confirm('로그인한 유저만 이용가능합니다.\n로그인하시겠습니까?')){
+                    document.location='/login'
+                }else {
+                    return false;
+                }
             }
             else{
-                alert('작성자만 가능합니다.')
-                return false;
+                if('${userid}'==writer[0]||'${userid}'=='admin'){
+                    document.location="delBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
+                }
+                else{
+                    alert('작성자만 가능합니다.')
+                    return false;
+                }
             }
         })
         //업데이트 경로로 이동
         .on('click','#upBD',function(){
-            if($(this).closest('tr').find('td:eq(3)').text()=='${userid}'){
-                document.location="upBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
+            let writer=$(this).closest('tr').find('td:eq(3)').text().split(' ');
+            if ('${userid}'==''){
+                if(confirm('로그인한 유저만 이용가능합니다.\n로그인하시겠습니까?')){
+                    document.location='/login'
+                }else {
+                    return false;
+                }
             }
             else{
-                alert('작성자만 가능합니다.')
-                return false;
+                if(writer[0]=='${userid}'){
+                    if(!confirm('정말로 삭제하시겠습니까?')){
+                        return false;
+                    }
+                    document.location="upBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
+                }
+                else{
+                    alert('작성자만 가능합니다.')
+                    return false;
+                }
             }
         })
         .on('click','#btnSearch',function(){
             $('#page').val(1);
             $('#pageIdx').val(1);
-            $('#selType').val("title");
-            selectBrdTitle();
+            searchBtnClicked();
+            $('#btnPrv').next('li').find('a').trigger('click');
+            $('#word').val('');
         })
     //board 테이블 을 조회해서 목록을 출력
     function selectBrd(){
@@ -303,11 +372,12 @@
                 for(i=0;i<data.length;i++) {
                     let brd = data[i];
                     let date = brd['date'].split(' ');
+                    $('#maxpage').val(brd['maxPage']);
                     $('#brdList').append("<tr><td hidden>"+brd['seq']+"</td><td>"
                         +date[0]+"</td><td><a href='/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
                         +brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
                         +"<div class='dropdown'>"
-                        +"<a class='btn btn-info dropdown-toggle btn-sm' href='#' role='button'"
+                        +"<a class='btn dropdown-toggle btn-sm' href='#' role='button'"
                         +"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
                         +"메뉴</a>"
                         +"<ul class='dropdown-menu' aria-labelledby='dropdownMenuLink'>"
@@ -315,22 +385,24 @@
                         +"<li><a class='dropdown-item' id='upBD'>수정</a></li>"
                         +"</ul></div></td></tr>");
                 }
+                selectPage();
             }
         })
     }
     //페이지가 얼마나 있는지가져와서 페이지의 수를 생성
     function selectPage(){
         console.log('maxPage='+$('#maxpage').val())
-        x = Math.ceil($('#maxpage').val()/10);
+        //x=최대 게시글 수 / 보여줄 게시글의 수 = 페이지의 수
+        x = Math.ceil($('#maxpage').val()/12);
+        console.log("페이지의 수 = "+x);
         $('#PageList').empty()
         $('#PageList').append('<li id="btnPrv" class="page-item"><a class="page-link">Previous</a></li>'
             +'<li class="page-item"><a class="page-link">Next</a></li>')
-        var cnt=0;
         y=$('#pageIdx').val()*10;
         if(y>x){
             y=x;
         }
-        console.log($('#maxpage').val()+'/10='+x)
+        console.log($('#maxpage').val()+'/12='+x)
         for(i=y;i>=1;i--){
             $('#btnPrv').after('<li class="page-item"><a class="page-link">'+i+'</a></li>')
             if(i==$('#page').val()){
@@ -341,36 +413,24 @@
             }
         }
     }
-    function selectBrdTitle(){
+    function searchBtnClicked(){
         $.ajax({
             type:'post',dataType:'json',
-            url:'searchQnATitle',
-            data:'word='+$('#word').val()+'&page='+$('#page').val()+'&orderBy='+$("#orderBy option:selected").val(),
-            success:function(data){
-                $('#brdList').empty();
-                for(i=0;i<data.length;i++) {
-                    let brd = data[i];
-                    let date = brd['date'].split(' ');
-                    $('#brdList').append("<tr><td hidden>"+brd['seq']+"</td><td>"
-                        +date[0]+"</td><td><a href='/ajax/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
-                        +brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
-                        +"<div class='dropdown'>"
-                        +"<a class='btn btn-info dropdown-toggle btn-sm' href='#' role='button'"
-                        +"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
-                        +"메뉴</a>"
-                        +"<ul class='dropdown-menu' aria-labelledby='dropdownMenuLink'>"
-                        +"<li><a class='dropdown-item' id='delBD'>삭제</a></li>"
-                        +"<li><a class='dropdown-item' id='upBD'>수정</a></li>"
-                        +"</ul></div></td></tr>");
-                }
-                if(!(data[0]==null)){
-                    $('#maxpage').val(data[0]['page']);
-                    $('#selType').val(data[0]['selType']);
-                }
-                else{
-                    $('#maxpage').val(1);
-                }
-                selectPage();
+            url:'searchBtnClicked',
+            data:'word='+$('#word').val(),
+            success:function(data) {
+                selectBrd()
+            }
+        })
+    }
+    function ResettingWords(){
+        $('#page').val(1);
+        $('#btnSearch').trigger('click');
+        $.ajax({
+            type:'get',dataType:'json',
+            url:'SearchWordReJstf',
+            data:'',
+            success:function(){
             }
         })
     }

@@ -13,6 +13,7 @@ public interface iBoard {
 	void delBD(int seq);
 	void updateBD(String title,String content,int seq);
 	int selPage();
+	int selQnAPage();
 	int searchBDTitle(String title);
 	ArrayList<boardDTO> selBDTitle(String title,int page1, int page2);
 	ArrayList<boardDTO> selBDTitle2(String title,int page1, int page2);
@@ -20,11 +21,10 @@ public interface iBoard {
 	ArrayList<boardDTO> selBDTitleView2(String title,int page1, int page2);
 	ArrayList<boardDTO> PNBD(int seq);
 	ArrayList<boardDTO> PNBD2(int seq);
-	ArrayList<boardDTO> selQnABrd(int page1,int page2);
-	ArrayList<boardDTO> selQnABrd_views(int page1,int page2);
-	ArrayList<boardDTO> selQnATitle(String title,int page1, int page2);
-	ArrayList<boardDTO> selQnATitleView(String title,int page1, int page2);
-	int selQnAPage();
+	ArrayList<boardDTO> selQnABrd1(String title,int page1,int page2);
+	ArrayList<boardDTO> selQnABrd2(String title,int page1,int page2);
+	ArrayList<boardDTO> selQnABrdView1(String title,int page1, int page2);
+	ArrayList<boardDTO> selQnABrdView2(String title,int page1, int page2);
 	int searchQnATitle(String title);
 	ArrayList<boardDTO> smallQnA(int page1,int page2);
 }
