@@ -116,8 +116,8 @@
 						게시판
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
-						<li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
+						<li><a class="dropdown-item" href="/SearchWordReJstf?goto=1" >우리들의 이야기</a></li>
+						<li><a class="dropdown-item" href="/SearchWordReJstf?goto=2">Q&A</a></li>
 					</ul>
 				</li>
 			</ul>
