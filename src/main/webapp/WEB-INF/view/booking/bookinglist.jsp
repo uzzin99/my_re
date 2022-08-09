@@ -145,7 +145,7 @@
             <div class="tabBox on" style="height:500px; overflow:auto;">
                     <c:forEach var='blist' items='${list}'>
                         <c:if test="${blist.HCheck == 0 }">
-                        <table align="center" style="overflow:auto;">
+                        <table align="center" style="overflow:auto;" class= "wait">
                             <tr><td rowspan="4"><input type="button" class="check" id="${blist.HSeqno}" value="예약확정" style="height: 30px; margin-left:10px;"><br>
                             <input type="button" class="checkdel" id="${blist.HSeqno}" value="예약거절" style="height: 30px; margin-left:10px;"></td></tr>
                             <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
@@ -158,7 +158,7 @@
             <div class="tabBox" style="height:500px; overflow:auto;">
                     <c:forEach var='blist' items='${list}'>
                         <c:if test="${blist.HCheck == 1 }">
-                        <table align="center">
+                        <table align="center" class="Confirmation">
                             <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
                             <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
                             <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
@@ -169,16 +169,16 @@
             <div class="tabBox" style="height:500px; overflow:auto;">
                 <c:forEach var='blist' items='${list}'>
                     <c:if test="${blist.HCheck == 5 }">
-                        <table align="center">
+                        <table align="center" class="cencletable">
+                            <tr><td rowspan="4" style="width: 20%;"></td></tr>
                             <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
                             <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
                             <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>
                         </table>
                     </c:if>
                     <c:if test="${blist.HCheck == 4 }">
-                        <table align="center">
-                            <tr><td colspan="4" style="text-align: center;>">
-                                    <span style="background: linear-gradient(to top, #39c0c0 30%, transparent 30%);">"손님이예약을취소하셨습니다"</span></td></tr>
+                        <table align="center" class="cencletable">
+                            <tr><td rowspan="4" style="width: 20%; text-align: center;"><span>"손님이 예약을<br>취소 하였습니다."</span></td></tr>
                             <tr><td>예약날짜</td><td>${blist.HDate}</td><td>인원수</td><td>${blist.HPeople}</td></tr>
                             <tr><td>예약시간</td><td>${blist.HTime}</td><td>예약자</td><td>${blist.HOnepeople}</td></tr>
                             <tr><td>예약번호</td><td>NO.${blist.HSeqno}</td><td>연락처</td><td>${blist.HMobile}</td></tr>

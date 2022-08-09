@@ -165,7 +165,7 @@ public class CartController {
 			throw new RuntimeException(e);
 		}
 
-		return "store/cart";
+		return "redirect:/signUp/payment";
 	}
 	
 }

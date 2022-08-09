@@ -38,6 +38,10 @@ table {
     height: 90px;
 }
 
+.cencletable td {
+    width: 20%;
+}
+
 
 .check {
     height: 30px;
@@ -62,3 +66,14 @@ table {
 
 }
 
+.cencletable span {
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+}
+
+.Confirmation td {
+    width: 25%;
+}
+
+.wait td{
+    width: 20%;
+}
