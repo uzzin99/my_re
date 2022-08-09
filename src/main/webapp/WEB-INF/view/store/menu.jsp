@@ -207,7 +207,15 @@
                     </c:if>
 					<input readonly type="text" value="${i.menuName }">
 					<input readonly type="text" value="${i.menuPrice }원">
-					<input readonly type="text" value="${i.menuCal }kcal">
+<%--                    <input readonly type="text" value="${i.menuCal }kcal">--%>
+                    <c:if test="${i.menuCal!=null}">
+                        <input readonly type="text" value="${i.menuCal }kcal">
+                    </c:if>
+                    <c:if test="${i.menuCal==null}">
+                        <input readonly type="text" value=" - kcal">
+                    </c:if>
+<%--                    <input readonly type="text" value="${i.menuEx }">--%>
+
 				</div>
 			</div>
 		</c:forEach>

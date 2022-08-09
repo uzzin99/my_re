@@ -141,7 +141,7 @@
             </div>
             <div class="insert-box">
                 <p><span class="span">상호 명</span>
-                   <input type=text id=storename name=storename value="${sVO.SName}"/></p>
+                   <input type=text id=storename name=storename value="${sVO.SName}" maxlength="20" placeholder="최대 20자"/></p>
                 <p><span class="span">가게 주소</span>
                    <input type="text" id=postcode name=postcode placeholder="우편번호" style="width:80px" value="${sVO.SPostcode}">&nbsp;
                    <input type="button" id=btnAddress value="우편번호찾기"></p>

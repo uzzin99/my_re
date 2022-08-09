@@ -138,7 +138,7 @@
                 <input type=hidden id=member_id name=member_id value="${userinfo}"><br>
             </div>
             <div class="insert-box">
-                <p><span class="span">상호 명</span><input type=text id=storename name=storename /></p>
+                <p><span class="span">상호 명</span><input type=text id=storename name=storename maxlength="20" placeholder="최대 20자"/></p>
                 <p><span class="span">가게 주소</span><input type="text" id=postcode name=postcode placeholder="우편번호" style="width:80px">&nbsp;
                 <input type="button" id=btnAddress value="우편번호찾기"></p>
                 <p><span class="span"></span><input type="text" id=address name=address placeholder="주소" readonly></p>
@@ -154,7 +154,6 @@
                                                         </c:forEach>
                                                     </select></p>
                 <p><span class="span">가게 로고 등록하기</span>
-                    <label for="s_img" id="imgbtn">로고선택</label>
                     <input type=file id=s_img name="file"></p>
             </div>
             <div class="submit-box">
