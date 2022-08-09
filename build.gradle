@@ -31,6 +31,8 @@ dependencies {
 	implementation group: 'com.oracle.database.security', name: 'oraclepki', version: '21.5.0.0'
 
 	compileOnly 'org.springframework.boot:spring-boot-devtools'
+
+	implementation 'commons-io:commons-io:2.6'
 }
 
 tasks.named('test') {
