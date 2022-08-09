@@ -182,8 +182,8 @@ a:hover{
                 <a><span style="background: linear-gradient(to top, #39c0c0 30%, transparent 30%);">
                     내 가게:</span>&nbsp;&nbsp;${sVO.SName}</a>
               </button></p>
-              <p><span style="display:inline; width:100px;float: right;" onclick=location.href='booking/orderlist?sSeqno=${sVO.SSeqno}'>주문내역📄</span>
-                <span style="display:inline; width:100px;float: right;" onclick=location.href='booking/bookinglist?sSeqno=${sVO.SSeqno}'>예약내역📄</span></p>
+              <p><span style="display:inline; width:100px;float: right;" onclick=location.href='booking/orderlist?sSeqno=${sVO.SSeqno}'>주문내역</span>
+                <span style="display:inline; width:100px;float: right;" onclick=location.href='booking/bookinglist?sSeqno=${sVO.SSeqno}'>예약내역</span></p>
             </div>
         </c:if>
         </c:if>
@@ -192,15 +192,15 @@ a:hover{
     <div class="Kategorie"><br>
       <div style="margin-left: 20px;">
         <div class="three">
-          <span class="todaymenu">메뉴 카테고리🍟</span>
+          <span class="todaymenu">메뉴 카테고리</span>
         </div>
 
         <div class="three">
-          <span class="todaymenu">모두의 광장🏰</span>
+          <span class="todaymenu">모두의 광장</span>
         </div>
 
         <div class="three">
-          <span class="todaymenu">이런 일도 한답니다💌</span>
+          <span class="todaymenu">이런 일도 한답니다</span>
         </div>
       </div>
 
