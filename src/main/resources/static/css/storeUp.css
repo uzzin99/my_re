@@ -57,28 +57,18 @@ input[type="number"]::-webkit-inner-spin-button {/*number 화살표 모양 없�
     border-radius: 5px;
     border: 1px solid #c4c2c2;
 }
-#imgbtn{ /*로고선택 버튼*/
-    display: inline-block;
-    padding: .5em .75em;
-    color: #8a8a8a;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: 5px;
-}
-#s_img{  /* 파일 필드 숨기기 */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip:rect(0,0,0,0);
-    border: 0;
-}
 /*버튼 모양 디자인 끝*/
 
+#hidlogo{
+    text-decoration: none;
+    width: 230px;
+}
+#s_img{
+    text-decoration: none;
+    width: 230px;
+}
+
+#hidlogo{
+    width: 300px;
+    color:#707070;
+}

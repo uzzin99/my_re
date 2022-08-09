@@ -32,35 +32,19 @@ input[type="number"]::-webkit-inner-spin-button {/*화살표 모양 없애기*/
 #menuUp-box{
     float:left;
     width:450px;
-    height:400px;
+    height:500px;
     outline:none;
 }
 
-/*이미지 업로드 버튼 시작*/
-.filebox label, .imgMo-box label {
-    display: inline-block;
-    padding: .5em .75em;
-    color: #999;
-    font-size: inherit;
-    line-height: normal;
-    vertical-align: middle;
-    background-color: #fdfdfd;
-    cursor: pointer;
-    border: 1px solid #ebebeb;
-    border-bottom-color: #e2e2e2;
-    border-radius: 5px;
+#m_img, #img_mo{
+    width: 200px;
 }
-.filebox input[type="file"], .imgMo-box input[type="file"] {  /* 파일 필드 숨기기 */
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip:rect(0,0,0,0);
-    border: 0;
+#title{
+    width: 250px;
+    color:#707070;
 }
 /*이미지 업로드 버튼 끝*/
+
 h3 {
     background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
     width: 180px;
@@ -94,7 +78,6 @@ h3 {
     border-radius: 5px;
     border: 1px solid #c4c2c2;
 }
-
 
 /*메뉴등록하기 끝*/
 
@@ -152,7 +135,7 @@ h3 {
 }
 #menu-box::-webkit-scrollbar-thumb {
     width: 10px;
-    background-color: #39c0c0;
+    background-color: #b4b3b3;
     border-radius: 10px;
 }
 /* 스크롤바 디자인 끝 */

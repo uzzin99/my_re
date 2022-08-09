@@ -140,10 +140,10 @@
       <div class="s_list">
 
         <c:if test="${item.SImg!=null}">
-        <img class="sImg" src="/image/${item.SImg}" style="float: left;">
+        <img class="sImg" src="static/upload/${item.SImg}" style="float: left;">
         </c:if>
         <c:if test="${item.SImg==null}">
-          <img class="sImg" src="/image/imgload.png" style="float: left;">
+          <img class="sImg" src="static/upload/imgload.png" style="float: left;">
         </c:if>
         <p align="center"><input readonly type="text" class="sName" value='${item.SName}'></p>
 

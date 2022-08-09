@@ -30,7 +30,7 @@ public class MemberController {
 	private final iStore store;
 	private final iCart ica;
 
-	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
+	//private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
 
 		@RequestMapping("/reviewDel")
 		@ResponseBody
@@ -165,6 +165,8 @@ public class MemberController {
 				String simg=ims.delstorelogo((String)session.getAttribute("userid"));
 				System.out.println("가게로고이미지="+simg);
 
+				String uploadfolder = request.getServletContext().getRealPath("/static/upload");
+				System.out.println("상대 경로는 "+uploadfolder);
 				//메뉴이미지 및 목록 삭제
 				ArrayList<StoreDTO> sDTO=ims.delmenuimg((String)session.getAttribute("userid"));
 				System.out.println("메뉴 목록 리스트="+sDTO);
@@ -172,7 +174,7 @@ public class MemberController {
 					StoreDTO list = sDTO.get(i);
 					System.out.println("mimg="+list.getMenuImg());
 					if(list.getMenuImg()!=null){
-						File dfile = new File(upLoadDirectory2,list.getMenuImg());
+						File dfile = new File(uploadfolder,list.getMenuImg());
 						dfile.delete();
 						System.out.println("메뉴번호="+i);
 					}
@@ -181,7 +183,7 @@ public class MemberController {
 
 				//가게로고 및 정보 삭제
 				if(simg!=null){
-					File dfile = new File(upLoadDirectory2,simg);
+					File dfile = new File(uploadfolder,simg);
 					dfile.delete();
 				}
 				ims.deleteStore((String)session.getAttribute("userid"));
