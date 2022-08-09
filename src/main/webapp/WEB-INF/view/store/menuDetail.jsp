@@ -23,10 +23,10 @@
 		<tr>
 			<td colspan="2">
 				<c:if test="${menu.menuImg==null}">
-					<img class="menuImg" src="/image/imgload.png">
+					<img class="menuImg" src="static/upload/imgload.png">
 				</c:if>
 				<c:if test="${menu.menuImg!=null}">
-					<img class="menuImg" src="/image/${menu.menuImg }">
+					<img class="menuImg" src="static/upload/${menu.menuImg }">
 				</c:if>
 			</td>
 		</tr>

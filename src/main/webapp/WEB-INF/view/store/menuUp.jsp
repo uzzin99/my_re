@@ -136,6 +136,7 @@
 		<div id="menuUp-box">
 			<form action="menuAdd" method="post" enctype="multipart/form-data">
 				<span><h3>메뉴 등록하기</h3></span>
+				<br>
 				<input type=hidden id=s_seq name=sSeq value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
 				<input type=hidden id="m_seq" name="mSeq" value="0">
 				<p><span class="span">메뉴이름</span>  <input type=text id=menuname name=menuname ></p>
@@ -146,8 +147,7 @@
 
 				<div class=filebox>
 					<p><span class="span" id="menu_img">메뉴이미지</span>
-					<label for="m_img" id="imgbtn">업로드</label><input type=file id=m_img name=file>
-					<input type="hidden" id="hdFName"></p>
+						<input type=file id=m_img name=file></p>
 				</div>
 				<div class="btndiv">
 				<input type=submit id=btnIn value="추가">&nbsp;&nbsp;
@@ -160,22 +160,25 @@
 			<!-- 이미지만 수정하기 -->
 			<div class="imgMo-box">
 				<form action="img_mo" method="post" enctype="multipart/form-data">
-					<p><span class="span" id="menu_img2" >이미지 변경</span>
+					<p><span class="span" > 이미지 변경 전</span>
+						<input type="text" id="title" name="title" readonly></p>
+					<p><span class="span" id="menu_img2" >이미지 선택</span>
 					<input type=hidden id=s_seq2 name=sSeq2 value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
-					<input type=hidden id="m_seq2" name="mSeq2" value="0">
-					<label for="img_mo" id="imgbtn2">업로드</label>&nbsp;&nbsp;
-					<input type=file id=img_mo name=file2>
-					<input type="hidden" id="title" name="title">
-					<input type=submit id=btnMo value="사진 수정하기" ></p>
+					<input type=hidden id="m_seq2" name="mSeq2">
+					<input type=file id=img_mo name=file2></p>
+
+					<p style="width:300px" align="center"><input type=submit id=btnMo value="사진 수정하기"></p>
 				</form>
 			</div>
 			<div class="back">
 				<input type=button id=btnReturn value="돌아가기" method='get' onclick="location.href='s_info'">
 			</div>
 		</div>
+
 		<!-- 등록된 메뉴리스트 불러오기 -->
 		<div id="list-box">
 			<span><h3>메뉴 목록</h3></span>
+			<br>
 			<input type=hidden id="s_seq3" name="sSeq3" value="${sVO.SSeqno}">
 			<div id="menu-box"></div><!-- 메뉴리스트 생성 -->
 		</div>
@@ -213,6 +216,7 @@ $(document)
 	// $('#btnMo').hide();
 	// $('#imgbtn2').hide();
 	// $('#menu_img2').hide();
+	// $('#hdFName').hide();
 	$('.imgMo-box').hide();
 
 })
@@ -223,7 +227,8 @@ $(document)
 	$('#menuprice').val('');
 	$('#menukcal').val('');
 	$('#menuex').val('');
-	$('#m_img').text('');
+	$('#m_img').val('');
+	$('#img_mo').val('');
 	$('#btnIn').val('추가');
 	$('#m_seq').val(0);
 	$('#m_seq2').val('');
@@ -232,8 +237,8 @@ $(document)
 	// $('#imgbtn2').hide();
 	// $('#menu_img2').hide();
 	$('.imgMo-box').hide();
-	$('#imgbtn').show();
-	$('#menu_img').show();
+	$('.filebox').show();
+
 })
 
 //수정 전 데이터 불러오기
@@ -242,8 +247,7 @@ $(document)
 	// $('#imgbtn2').show();
 	// $('#menu_img2').show();
 	$('.imgMo-box').show();
-	$('#imgbtn').hide();
-	$('#menu_img').hide();
+	$('.filebox').hide();
 	//$('#img-box').append($('#img_mo').show(),$('#btnMo').show()); //폼태그 안에 넣으면 그에 해당하는 폼이 동작됨
 
 	var m_seq=$(this).parent().find('input:eq(1)').val();
@@ -325,9 +329,9 @@ function loadmenulist(){
 					//console.log(jo['m_img']);
 					str+="<div class=a>";
 					if(jo['m_img']==null){
-						str+="<img src='image/imgload.png' style='width:100px;height:100px;float:left;'>";
+						str+="<img src='static/upload/imgload.png' style='width:100px;height:100px;float:left;'>";
 					}else{
-						str+="<img src='image/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
+						str+="<img src='static/upload/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
 					}
 					str+="<p>메뉴이름: "+jo['mName']+"</p>";
 					str+="<p>가격: "+jo['m_price']+" 원</p>";

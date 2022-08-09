@@ -43,8 +43,9 @@ public class MenuStoreController {
 
 	private final iMenuStore ims;
 
-	private String upLoadDirectory = "C:\\Users\\admin\\Downloads\\delivery\\delivery\\src\\main\\resources\\static\\upload";
-	private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
+	//private String upLoadDirectory = "C:\\Users\\admin\\Downloads\\delivery\\delivery\\src\\main\\resources\\static\\upload";
+	//private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
+	//private String upLoadDirectory3 = "C:\\Users\\admin\\Downloads\\team_a\\src\\main\\resources\\static\\image";
 
 
 	//가게등록하기
@@ -82,7 +83,9 @@ public class MenuStoreController {
 		uploadFileName = uuid.toString() + "_" + uploadFileName; //랜덤이름_업로드파일명
 		//System.out.println("uploadFileName=" + uploadFileName);
 
-		File f = new File(upLoadDirectory2, uploadFileName);
+		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+		System.out.println("상대 경로는 "+uploadfolder);
+		File f = new File(uploadfolder, uploadFileName);
 		String[]  str=uploadFileName.split("_");
 		try {
 			if(str.length==2){
@@ -123,7 +126,9 @@ public class MenuStoreController {
 		UUID uuid = UUID.randomUUID(); //랜덤이름생성
 		storelogo = uuid.toString() + "_" + storelogo; //랜덤이름_업로드파일명
 
-		File f = new File(upLoadDirectory2, storelogo);
+		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+		System.out.println("상대 경로는 "+uploadfolder);
+		File f = new File(uploadfolder, storelogo);
 		String[]  str=storelogo.split("_");
 		try {
 			if(str.length==2){
@@ -171,18 +176,20 @@ public class MenuStoreController {
 
 		String storelogo = file.getOriginalFilename();
 		storelogo = storelogo.substring(storelogo.lastIndexOf("/") + 1); //문자열 자르기
-
 		UUID uuid = UUID.randomUUID(); //랜덤이름생성
 		storelogo = uuid.toString() + "_" + storelogo; //랜덤이름_업로드파일명
 
-		File f = new File(upLoadDirectory2, storelogo);
+		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+		System.out.println("상대 경로는 "+uploadfolder);
+
+		File f = new File(uploadfolder, storelogo);
 		String[]  str=storelogo.split("_");
 		try {
 			if(str.length==2){
 				ims.modifyStore1(m_id,s_name,postcode,storeAds,detailAds,extraAds,s_num,s_mobile,s_type,storelogo);
 				file.transferTo(f);
 				//기존파일 삭제하기
-				File dfile = new File(upLoadDirectory2, title);
+				File dfile = new File(uploadfolder, title);
 				if(title !="imgload.png"){
 					dfile.delete();
 				}
@@ -225,7 +232,10 @@ public class MenuStoreController {
 		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 		UUID uuid = UUID.randomUUID();
 		uploadFileName = uuid.toString() + "_" + uploadFileName;
-		File f = new File(upLoadDirectory2, uploadFileName);
+
+		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+		System.out.println("상대 경로는 "+uploadfolder);
+		File f = new File(uploadfolder, uploadFileName);
 		try {
 			if (mSeq == 0) {
 				String[]  str=uploadFileName.split("_");
@@ -260,14 +270,17 @@ public class MenuStoreController {
 		uploadFileName2 = uploadFileName2.substring(uploadFileName2.lastIndexOf("/") + 1);
 		UUID uuid = UUID.randomUUID();
 		uploadFileName2 = uuid.toString() + "_" + uploadFileName2;
-		File f = new File(upLoadDirectory2, uploadFileName2);
+
+		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+		System.out.println("상대 경로는 "+uploadfolder);
+		File f = new File(uploadfolder, uploadFileName2);
 		try {
 			String[]  str=uploadFileName2.split("_");
 			if(str.length==2){
 				ims.modifyImage(uploadFileName2, mSeq, sSeq);
 				file.transferTo(f);
 				//기존파일 삭제하기
-				File dfile = new File(upLoadDirectory2, title);
+				File dfile = new File(uploadfolder, title);
 				if(title !="imgload.png"){
 					dfile.delete();
 				}
@@ -325,10 +338,12 @@ public class MenuStoreController {
 
 	@RequestMapping("/delete")
 	public String delFile(@RequestParam("mSe") int mSeq, @RequestParam("sSe") int sSeq,
-										  @RequestParam("deleteFile") String filename) {
+						  @RequestParam("deleteFile") String filename, HttpServletRequest req) {
 		log.info("delete?mSe=" + mSeq + "&sSe=" + sSeq + "&deleteFile=" + filename);
 
-		File f = new File(upLoadDirectory2, filename);
+		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+		System.out.println("상대 경로는 "+uploadfolder);
+		File f = new File(uploadfolder, filename);
 		try {
 			if(filename =="imgload.png"){
 				ims.deleteMenu(mSeq, sSeq);

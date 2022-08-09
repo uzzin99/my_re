@@ -161,8 +161,8 @@
                         <table class="storeIntro"><br><br>
                             <tr>
                                 <td rowspan=3 class="img" style="width: 250px;" align="center">
-                                    <c:if test="${sVO.SImg==null}"><img id=logoImg src="/image/imgload.png"> </c:if>
-                                    <c:if test="${sVO.SImg!=null}"><img id=logoImg src='/image/${sVO.SImg}'></c:if>
+                                    <c:if test="${sVO.SImg==null}"><img id=logoImg src="static/upload/imgload.png"> </c:if>
+                                    <c:if test="${sVO.SImg!=null}"><img id=logoImg src='static/upload/${sVO.SImg}'></c:if>
                                 </td>
                                 <td style="width: 100px;">가게명</td>
                                 <td style="width: 450px;">${sVO.SName}</td>
