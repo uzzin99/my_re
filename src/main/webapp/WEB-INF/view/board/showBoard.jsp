@@ -97,8 +97,8 @@
 						게시판
 					</a>
 					<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-						<li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
-						<li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
+						<li><a class="dropdown-item" href="/SearchWordReJstf?goto=1" >우리들의 이야기</a></li>
+						<li><a class="dropdown-item" href="/SearchWordReJstf?goto=2">Q&A</a></li>
 					</ul>
 				</li>
 			</ul>
@@ -376,22 +376,6 @@
 				$('#cmtList').empty();
 				for(i=0;i<data.length;i++) {
 					var cmt = data[i];
-					// $('#cmtList').append("<table id='"+cmt['seqCmt']+"' style='width:798px;'><tr>"
-					// 		+"<td style='width:100px;'>"+cmt['writer']
-					// 		+"</td><td>"+cmt['content']+"</td><td style='width:150px;'>"
-					// 		+cmt['date']+"</td><td style='width: 89px;'><div style='width: 89px;' class='dropdown'>"
-					// 		+"<a class='btn btn-secondary dropdown-toggle btn-sm' href='#' role='button'"
-					// 		+"id='dropdownMenuLink' data-bs-toggle='dropdown' aria-expanded='false'>"
-					// 		+"&nbsp;&nbsp;&nbsp;메뉴&nbsp;&nbsp;&nbsp;</a>"
-					// 		+"<ul class='dropdown-menu dropdown-menu-dark' aria-labelledby='dropdownMenuLink'>"
-					// 		+"<li><a class='dropdown-item' id='delCmt'>삭제</a></li>"
-					// 		+"<li><a class='dropdown-item' id=reply>답글</a></li>"
-					// 		+"</ul></div></td></tr>"
-					// 		+"<tr style='display:none' class='replyWdw'><td hidden>"
-					// 		+cmt['seqCmt']+"</td><td hidden>"
-					// 		+cmt['deep']+"</td><td id='repbox' colspan=3><textarea placeholder='답글을 입력해 주세요'></textarea></td>"
-					// 		+"<td><input type=button class='btn btn-sm' style='width:80px;height:50px;' value='답글달기'  id='addRep'></td>"
-					// 		+"</tr></table>");
 					//일반 게시글 댓글 기능
 					if(Type==1){
 						$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right; width: 100%; border-bottom: 0.5px solid #c4c2c2;'

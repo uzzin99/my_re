@@ -8,49 +8,25 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/css/boardList.css" rel="stylesheet" type="text/css" />
     <title>QnA</title>
 </head>
 <style>
-    #boardFunction{
-        margin: auto;
-        width: 700px;
-        height: 80px;
+    .page_nation .pprev {
+        background:#f8f8f8 url('image/page_pprev.png') no-repeat center center;
+        margin-left:0;
     }
-    #boardFunction input{
-        height: 40px;
-        float: right;
+    .page_nation .prev {
+        background:#f8f8f8 url('image/page_prev.png') no-repeat center center;
+        margin-right:7px;
     }
-    tr td:nth-child(3){
-        width:280px;
-        text-overflow: ellipsis;  /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
-        white-space  : nowrap;    /* 줄바꿈을 하지 않습니다. */
-        overflow     : hidden;    /* 내용이 길면 감춤니다 */
+    .page_nation .next {
+        background:#f8f8f8 url('image/page_next.png') no-repeat center center;
+        margin-left:7px;
     }
-    #btnSearch{
-        margin-right: 55px;
-        height: 40px;
-    }
-    #word{
-        font-size: 16px;
-        width: 300px;
-        height: 36px;
-    }
-    #brdTable{
-        margin-left:auto;
-        margin-right:auto;
-        width:700px;
-    }
-    #BoardMain{
-        width:800px;
-        margin:auto;
-        text-align: center;
-    }
-    #divOB > a{
-        font-size: x-small;
-        color: #ababab;
-    }
-    #PageNav{
-        height: 40px;
+    .page_nation .nnext {
+        background:#f8f8f8 url('image/page_nnext.png') no-repeat center center;
+        margin-right:0;
     }
     a:hover{
         cursor:pointer;
@@ -145,8 +121,8 @@
                         게시판
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/home" >우리들의 이야기</a></li>
-                        <li><a class="dropdown-item" onclick="ResettingWords()" href="/QnA">Q&A</a></li>
+                        <li><a class="dropdown-item" href="/SearchWordReJstf?goto=1" >우리들의 이야기</a></li>
+                        <li><a class="dropdown-item" href="/SearchWordReJstf?goto=2">Q&A</a></li>
                     </ul>
                 </li>
             </ul>
@@ -159,8 +135,8 @@
 </nav>
 <section>
     <div id="BoardMain">
-        <span class="todaymenu" style="float: left;font-size:xx-large;margin-bottom: 20px;">QnA게시판</span>
-        <table id="brdTable" class="table table-sm table-hover">
+        <div id="BDType">QnA게시판</div>
+        <table id="brdTable"class="table table-sm table-hover">
             <thead>
             <tr><th>작성시각</th><th>제목</th><th>작성자</th><th>조회수</th><th>
                 <div id="divOB">
@@ -191,10 +167,10 @@
             <input class="btn btn-outline-dark" type=button id="btnSearch" value="검색">
             <input type=text class="form-control me-2" placeholder="Search" name=word id=word>
         </div>
-        <nav id="PageNav" aria-label="Page navigation example">
-            <ul id="PageList" class="pagination justify-content-center align-self-center">
-            </ul>
-        </nav>
+        <div class="page_wrap">
+            <div class="page_nation">
+            </div>
+        </div>
         <br>
         <br>
         <input type=number id="maxpage" value="${Maxpage}" hidden>
@@ -256,8 +232,8 @@
                 }
             })
         })
-        .on('click','.page-link',function(){
-            if($(this).text()=='Previous'){
+        .on('click','.page_nation a',function(){
+            if($(this).attr('class')=='arrow pprev'){
                 //Previous를 눌러서 페이지를 10씩 당겨보기
                 if($('#pageIdx').val()==1){
                     $('#pageIdx').val(1)
@@ -268,14 +244,20 @@
                 }
                 console.log("페이지 인덱스 :"+$('#pageIdx').val());
                 console.log("페이지 :"+$('#page').val());
-//		1씩 감소
-// 		if($('#page').val()==1){
-// 			$('#page').val(1)
-// 		}else{
-// 			$('#page').val($('#page').val()-1)
-// 		}
             }
-            else if($(this).text()=='Next'){
+            //		1씩 감소
+            else if($(this).attr('class')=='arrow prev'){
+                if($('#page').val()==1){
+                    $('#page').val(1)
+                }else{
+                    if($('#page').val()==((($('#pageIdx').val()-1)*10)+1)){
+                        $('a.arrow.pprev').trigger('click');
+                    }else{
+                        $('#page').val($('#page').val()-1)
+                    }
+                }
+            }
+            else if($(this).attr('class')=='arrow nnext'){
                 //next를 눌러서 페이지를 10씩 미뤄보기
                 if($('#pageIdx').val()==Math.ceil(x/10)){
                     $('#pageIdx').val(Math.ceil(x/10))
@@ -286,18 +268,29 @@
                 }
                 console.log("페이지 인덱스 :"+$('#pageIdx').val());
                 console.log("페이지 :"+$('#page').val());
-//		1씩 증가
-// 		if($('#page').val()==$(this).closest('li').prev('li').find('a').text()){
-// 			$('#page').val($(this).closest('li').prev('li').find('a').text())
-// 		}else{
-// 			$('#page').val(parseInt($('#page').val())+1)
-// 		}
+            }
+            //		1씩 증가
+            else if($(this).attr('class')=='arrow next'){
+                if($('#page').val()==Math.ceil($('#maxpage').val()/12)){
+                    $('#page').val(Math.ceil($('#maxpage').val()/12));
+                }
+                else{
+                    if($('#page').val()==($('#pageIdx').val()*10)){
+                        console.log("i'm in")
+                        $('a.arrow.nnext').trigger('click');
+                    }else{
+                        $('#page').val(parseInt($('#page').val())+1)
+                    }
+                }
             }
             else{
                 //번호를 눌렀을 경우
                 $('#page').val($(this).text())
             }
-            console.log($('#page').val());
+            console.log("x="+x)
+            console.log("maxPage="+Math.ceil($('#maxpage').val()/12))
+            console.log("pageIdx="+$('#pageIdx').val());
+            console.log("page="+$('#page').val());
             selectBrd();
         })
         .on('click','#title',function(){
@@ -372,7 +365,7 @@
                 for(i=0;i<data.length;i++) {
                     let brd = data[i];
                     let date = brd['date'].split(' ');
-                    $('#maxpage').val(brd['maxPage']);
+                    $('#maxpage').val(brd['Maxpage']);
                     $('#brdList').append("<tr><td hidden>"+brd['seq']+"</td><td>"
                         +date[0]+"</td><td><a href='/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
                         +brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
@@ -395,18 +388,20 @@
         //x=최대 게시글 수 / 보여줄 게시글의 수 = 페이지의 수
         x = Math.ceil($('#maxpage').val()/12);
         console.log("페이지의 수 = "+x);
-        $('#PageList').empty()
-        $('#PageList').append('<li id="btnPrv" class="page-item"><a class="page-link">Previous</a></li>'
-            +'<li class="page-item"><a class="page-link">Next</a></li>')
+        $('.page_nation').empty()
+        $('.page_nation').append('<a class="arrow pprev" href="#" onclick="return false;"></a>'
+            +'<a class="arrow prev" href="#" onclick="return false;"></a>'
+            +'<a class="arrow next" href="#" onclick="return false;"></a>'
+            +'<a class="arrow nnext" href="#" onclick="return false;"></a>')
         y=$('#pageIdx').val()*10;
         if(y>x){
             y=x;
         }
         console.log($('#maxpage').val()+'/12='+x)
         for(i=y;i>=1;i--){
-            $('#btnPrv').after('<li class="page-item"><a class="page-link">'+i+'</a></li>')
+            $('.arrow.prev').after('<a href="#" onclick="return false;">'+i+'</a>')
             if(i==$('#page').val()){
-                $('#btnPrv').next('li').attr('class','page-item active')
+                $('.arrow.prev').next('a').attr('class','active')
             }
             if(i==((($('#pageIdx').val()-1)*10)+1)){
                 break;
@@ -423,17 +418,5 @@
             }
         })
     }
-    function ResettingWords(){
-        $('#page').val(1);
-        $('#btnSearch').trigger('click');
-        $.ajax({
-            type:'get',dataType:'json',
-            url:'SearchWordReJstf',
-            data:'',
-            success:function(){
-            }
-        })
-    }
-
 </script>
 </html>

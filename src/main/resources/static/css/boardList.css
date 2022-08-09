@@ -1,0 +1,88 @@
+date{
+    font-size: smaller;
+}
+.page_wrap {
+    text-align:center;
+    font-size:0;
+}
+.page_nation {
+    display:inline-block;
+}
+.page_nation .none {
+    display:none;
+}
+.page_nation a {
+    display:block;
+    margin:0 3px;
+    float:left;
+    border:1px solid #e6e6e6;
+    width:28px;
+    height:28px;
+    line-height:28px;
+    text-align:center;
+    background-color:#fff;
+    font-size:13px;
+    color:#999999;
+    text-decoration:none;
+}
+.page_nation .arrow {
+    border:1px solid #ccc;
+}
+.page_nation a.active {
+    background-color:#42454c;
+    color:#fff;
+    border:1px solid #42454c;
+}
+#boardFunction{
+    margin: auto;
+    width: 700px;
+    height: 80px;
+}
+#boardFunction input{
+    height: 40px;
+    float: right;
+}
+tr td:nth-child(3){
+    width:280px;
+    text-overflow: ellipsis;  /* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
+    white-space  : nowrap;    /* 줄바꿈을 하지 않습니다. */
+    overflow     : hidden;    /* 내용이 길면 감춤니다 */
+}
+#btnSearch{
+    margin-right: 55px;
+    height: 40px;
+}
+#word{
+    font-size: 16px;
+    width: 300px;
+    height: 36px;
+}
+#brdTable{
+    margin-left:auto;
+    margin-right:auto;
+    margin-top: 30px;
+    width:700px;
+}
+#BoardMain{
+    width:800px;
+    margin:auto;
+    padding-top: 20px;
+    text-align: center;
+}
+#divOB > a{
+    font-size: x-small;
+    color: #ababab;
+}
+#BDType{
+    font-family: 'GongGothicMedium';
+    font-size: xx-large;
+    float: left;
+    margin-bottom: 15px;
+    text-shadow:10px 10px #39c0c0b4;
+}
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}

@@ -114,7 +114,7 @@ public class BoardController {
 			jo.put("date", bdto.getBDate());
 			jo.put("title", bdto.getTitle());
 			jo.put("views", bdto.getViews());
-			jo.put("maxPage",brd.searchBDTitle(bName));
+			jo.put("Maxpage",brd.searchBDTitle(bName));
 			ja.add(jo);
 		}
 		return ja.toJSONString();
@@ -173,7 +173,12 @@ public class BoardController {
 		session.setAttribute("orderBy",1);
 		session.removeAttribute("bName");
 		System.out.println("들어왔는디");
-		return "";
+		if(Integer.parseInt(req.getParameter("goto"))==1){
+			return "redirect:/home";
+		}
+		else{
+			return "redirect:/QnA";
+		}
 	}
 	@ResponseBody
 	@RequestMapping(value = "/selBD", method = RequestMethod.POST,produces="application/text;charset=utf-8")
@@ -440,7 +445,7 @@ public class BoardController {
 			jo.put("date", bdto.getBDate());
 			jo.put("title", bdto.getTitle());
 			jo.put("views", bdto.getViews());
-			jo.put("maxPage",brd.searchQnATitle(bName));
+			jo.put("Maxpage",brd.searchQnATitle(bName));
 			ja.add(jo);
 		}
 		return ja.toJSONString();
