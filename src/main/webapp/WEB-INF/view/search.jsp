@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
+         pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,12 +46,14 @@
     <div class="login">
 
       <c:if test="${userType == '손님' }">
-        <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+        <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
       </c:if>
       <c:if test="${userType == '사장님' }">
-        <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+        <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
       </c:if>
-
+      <c:if test="${userType == 'admin'}">
+        <p align=right><a onclick=location.href='/main'>관리자님</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+      </c:if>
     </div>
 
 
@@ -68,9 +70,9 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Menu</a>
-          </li>
+<%--          <li class="nav-item">--%>
+<%--            <a class="nav-link active" aria-current="page" href="#">Menu</a>--%>
+<%--          </li>--%>
 
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -157,8 +159,8 @@
               <input type="checkbox" name="rating" value="2" id="rat5" <c:if test="${i.avg > 0 && i.avg <= 2}">checked="checked"</c:if> disabled="disabled"/><label for="rat5">⭐</label>  <!-- 젤 왼쪽 별 -->
             </div>
             <p style="float: left;">&nbsp;&nbsp;
-              <c:if test="${i.avg != null}">${i.avg}</c:if>
-              <c:if test="${i.avg == null}">0.0</c:if></p>
+              <c:if test="${i.avg != null}"><fmt:formatNumber value="${i.avg}" pattern="#.##"/></c:if>
+              <c:if test="${i.avg == null}"></c:if></p>
           <p style="float: left"><span>최소주문</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="10,000"></p>
           <p style="float:left"><span>소요시간</span>&nbsp;&nbsp;&nbsp;<input readonly type="text" value="30~40분"></p>
         </div>

@@ -39,21 +39,27 @@
     #zlog:hover{
         cursor:pointer;
     }
+    #adlogo:hover{
+        cursor:pointer;
+    }
 </style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
-        <c:if test="${userinfo == null }">
+        <c:if test="${mname == null }">
             <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/login'>로그인</a> &nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
-        <c:if test="${userinfo != '' }">
+        <c:if test="${mname != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+            </c:if>
+            <c:if test="${userType == 'admin'}">
+                <p align=right><a onclick=location.href='/main'>관리자님</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
@@ -71,9 +77,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Menu</a>
-                </li>
+<%--                <li class="nav-item">--%>
+<%--                    <a class="nav-link active" aria-current="page" href="#">Menu</a>--%>
+<%--                </li>--%>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -154,7 +160,7 @@
                     </div>
                 <p style="float: left;">&nbsp;&nbsp;
                     <c:if test="${cnt != ''}">${avg}</c:if>
-                    <c:if test="${cnt == ''}">0.0</c:if></p>
+                    <c:if test="${cnt == ''}">0</c:if></p>
                 <p style="clear: both">최근리뷰
                     <c:if test="${cnt != ''}">${cnt}</c:if>
                     <c:if test="${cnt == ''}">0</c:if>
@@ -164,12 +170,17 @@
                     </c:if>
 
                     <c:if test="${userinfo != null}">
-                        <c:if test="${count==0}">
-                            <label for="btnchoice" id="choice1"><input type="button" id="btnchoice">🤍 ${zcnt} </label>
+                        <c:if test="${userType == '손님'}">
+                            <c:if test="${count==0}">
+                                <label for="btnchoice" id="choice1"><input type="button" id="btnchoice">🤍 ${zcnt} </label>
+                            </c:if>
+                            <c:if test="${count==1}">
+                                <label for="btnchoice" id="choice2"><input type="button" id="btnchoice">
+                                    <span id="zlogo">❤</span> ${zcnt} </label>
+                            </c:if>
                         </c:if>
-                        <c:if test="${count==1}">
-                            <label for="btnchoice" id="choice2"><input type="button" id="btnchoice">
-                                <span id="zlogo">❤</span> ${zcnt} </label>
+                        <c:if test="${userType == '사장님' || userType == 'admin'}">
+                            <label><span id="adlogo">❤</span> ${zcnt} </label>
                         </c:if>
                     </c:if>
                     | 공유</p>
@@ -201,6 +212,13 @@
 			</div>
 		</c:forEach>
 
+        <c:if test="${rlist.size() < 1}">
+        <div class="conbox con2">
+            <div id="b">
+            <br><h5>등록된 리뷰가 없습니다.</h5>
+            </div>
+        </div>
+        </c:if>
 		<c:forEach var="i" items="${rlist }">
 			<div class="conbox con2">
 				<div id="b">
@@ -214,15 +232,19 @@
                     </div>
 					<input readonly type="text" style="float: right; margin-right: 10px; width: auto; color: #333333" value="${i.RDate }"><br>
 					<textarea readonly style="width: 70%; height: 100px;"><c:out value="${i.RContent }" /></textarea>
+                    <c:if  test="${userinfo == 'admin'}">
+                        <input type="button" class="adminDel" id="${i.RSeqno}" value="삭제" style="color: orangered;">
+                    </c:if>
 				</div>
 			</div>
 		</c:forEach>
 		
 		<div class="conbox con3">
-            <div>
+            <div><br>
                 대표자명: ${member.MName}<br>
                 상호명: ${storename.SName}<br>
-                사업자주소: ${storename.SAddress}<br>${storename.SDetailaddress}<br>
+                가게번호: ${storename.SMobile}<br>
+                사업자주소: ${storename.SAddress}${storename.SExtraaddress},<br>${storename.SDetailaddress}<br>
                 사업자등록번호: ${storename.bsNum}
                 <div id="map" style="width:500px;height:300px;margin-right: auto;margin-left: auto;"></div>
             </div>
@@ -255,8 +277,28 @@
 </body>
 <script>
 $(document)
-    .ready(function(){
+    .on('click','.adminDel',function(){
+        let admindel = $(this).attr("id");
+        console.log(admindel);
+        $.ajax({
+            url:'/reviewDel',
+            type:'get',
+            dataType:'json',
+            data:{delSe:admindel},
+            success:function(data){
+                console.log(data);
+                if(data == 1){
+                    alert("삭제되었습니다.");
+                    location.reload();
+                }else{
+                    alert("다시 시도해주세요");
+                }
+            }
+        })
+    })
 
+    .on('click','#adlogo',function(){
+        alert("손님으로 로그인해주세요.");
     })
     .on('click','#zlog',function(){
         alert("로그인 후 사용가능합니다.");

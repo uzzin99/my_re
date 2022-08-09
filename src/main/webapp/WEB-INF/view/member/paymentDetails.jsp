@@ -43,15 +43,18 @@
 <!-- 여기가 헤드 -->
 <header>
     <div class="login">
-        <c:if test="${userinfo == null }">
+        <c:if test="${mname == null }">
             <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/login'>로그인</a> &nbsp;<a onclick=location.href='signin'>회원가입</a></p>
         </c:if>
-        <c:if test="${userinfo != '' }">
+        <c:if test="${mname != '' }">
             <c:if test="${userType == '손님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님🍮</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
             <c:if test="${userType == '사장님' }">
-                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userinfo} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+                <p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님👩🏻‍🍳</a> &nbsp;<a href='/logout'>로그아웃</a></p>
+            </c:if>
+            <c:if test="${userType == 'admin'}">
+                <p align=right><a onclick=location.href='/main'>관리자님</a> &nbsp;<a href='/logout'>로그아웃</a></p>
             </c:if>
         </c:if>
     </div>
@@ -69,9 +72,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Menu</a>
-                </li>
+<%--                <li class="nav-item">--%>
+<%--                    <a class="nav-link active" aria-current="page" href="#">Menu</a>--%>
+<%--                </li>--%>
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -134,20 +137,6 @@
 </nav>
 
 <section>
-    <%--<div class="conbox con1">
-        <div class="mar">
-            <p>날짜</p>
-            <div>
-                <a href="/review">리뷰작성</a>
-            </div>
-            <div class="sName">
-                <a>가게이름</a>
-            </div>
-            <div class="price">
-                가격
-            </div>
-        </div>
-    </div>--%>
         <div class="tab"><br>
             <input type="radio" name="tabmenu" id="tab01"  checked>
             <label for="tab01">주문내역</label>

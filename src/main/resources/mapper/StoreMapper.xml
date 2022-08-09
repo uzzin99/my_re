@@ -54,7 +54,7 @@
 	
 <!-- 가게리뷰리스트 -->
 <select id="reviewlist"  resultType="com.team.delivery.DTO.reviewDTO">
-	select b.s_name, a.m_id, a. r_content, a.r_date, a.score
+	select b.s_name, a.m_id, a. r_content, a.r_date, a.score, a.r_seqno
 	from review a,  store b
 	where b.s_seqno=#{param1}
 	and a.s_seqno = b.s_seqno

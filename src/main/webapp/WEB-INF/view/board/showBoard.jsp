@@ -66,21 +66,30 @@
 		margin-left:auto;
 		margin-right:auto;
 	}
+	a:hover{
+		cursor:pointer;
+	}
+	.logo:hover{
+		cursor:pointer;
+	}
 </style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->
 <header>
 	<div class="login">
-		<c:if test="${userid == null }">
+		<c:if test="${mname == null }">
 			<p align=right><a href="/cart">🛒</a> <a onclick=location.href='login'>로그인</a>&nbsp;<a onclick=location.href='signin'>회원가입</a></p>
 		</c:if>
-		<c:if test="${userid != '' }">
+		<c:if test="${mname != '' }">
 			<c:if test="${userType == '손님' }">
-				<p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userid} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
+				<p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님🍮</a> &nbsp;<a href='logout'>로그아웃</a></p>
 			</c:if>
 			<c:if test="${userType == '사장님' }">
-				<p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${userid} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+				<p align=right><a href="/cart">🛒</a> <a onclick=location.href='/signUp'>${mname} 님👩🏻‍🍳</a> &nbsp;<a href='logout'>로그아웃</a></p>
+			</c:if>
+			<c:if test="${userType == 'admin'}">
+				<p align=right><a onclick=location.href='/main'>관리자님</a> &nbsp;<a href='/logout'>로그아웃</a></p>
 			</c:if>
 		</c:if>
 	</div>
@@ -97,9 +106,9 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarNavDropdown">
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Menu</a>
-				</li>
+<%--				<li class="nav-item">--%>
+<%--					<a class="nav-link active" aria-current="page" href="#">Menu</a>--%>
+<%--				</li>--%>
 
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"

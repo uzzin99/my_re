@@ -54,6 +54,7 @@ public class MenuStoreController {
 
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
 
 		ArrayList<stypeVO> ar = ims.sType();
 		model.addAttribute("list", ar);
@@ -102,9 +103,13 @@ public class MenuStoreController {
 	@RequestMapping("/s_info")
 	public String doSinfo(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
-		model.addAttribute("userinfo", session.getAttribute("userid"));
+
+		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
+
 		StoreDTO sVO = ims.selStore((String) session.getAttribute("userid"));
 		model.addAttribute("sVO", sVO);
+
 		return "member/storeinfo";
 	}
 
@@ -139,6 +144,8 @@ public class MenuStoreController {
 	public String doStoreList(HttpServletRequest req, Model model){
 		HttpSession session = req.getSession();
 		model.addAttribute("userinfo", session.getAttribute("userid"));
+		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
 
 		StoreDTO sVO=ims.selStore((String) session.getAttribute("userid"));
 		model.addAttribute("sVO",sVO);
@@ -168,49 +175,6 @@ public class MenuStoreController {
 		UUID uuid = UUID.randomUUID(); //랜덤이름생성
 		storelogo = uuid.toString() + "_" + storelogo; //랜덤이름_업로드파일명
 
-
-		//test
-//		try{
-//			String path="C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image\\168";
-//			//Path path = Paths.get("C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image\\"+sSe+"\\");
-//			//Path path = Paths.get("image\\"+sSe+"\\");
-//			File f=new File(path);
-//			if(f.mkdir()){
-//				System.out.println("디렉토리 생성 성공");
-//			}else{
-//				System.out.println("디렉토리 생성 실패");
-//			}
-//
-////			Path path = Paths.get("static\\image\\"+sSe);
-////			Path temp = Files.createTempFile(String.valueOf(path), storelogo);
-////			System.out.println("Temp file : " + temp);
-////			File f = new File(path,storelogo);
-////			if(!path.exists()) {
-////			// 폴더를 생성합니다.
-////			f.mkdirs();
-////			System.out.println("폴더를 생성합니다.");
-////			// 정성적으로 폴더 생성시 true를 반환합니다.
-////			System.out.println("폴더가 존재하는지 체크 true/false : "+f.exists());
-////			} else {
-////				System.out.println("이미 해당 폴더가 존재합니다.");
-////			}
-//
-//			String[]  str=storelogo.split("_");
-//			if(str.length==2){
-//				ims.modifyStore1(m_id,s_name,postcode,storeAds,detailAds,extraAds,s_num,s_mobile,s_type,storelogo);
-//				file.transferTo(f);
-//				//기존파일 삭제하기
-//				File dfile = new File(upLoadDirectory2, title);
-//				dfile.delete();
-//			}else if(str.length==1){
-//				ims.modifyStore2(m_id, s_name, postcode, storeAds, detailAds, extraAds, s_num, s_mobile, s_type);
-//			}
-//
-//		}catch (IOException e) {
-//			e.printStackTrace();
-//		}
-		//여기까지
-
 		File f = new File(upLoadDirectory2, storelogo);
 		String[]  str=storelogo.split("_");
 		try {
@@ -238,8 +202,10 @@ public class MenuStoreController {
 	@RequestMapping("/m_up")
 	public String doMup(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
-		model.addAttribute("userinfo",session.getAttribute("userid"));
+
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
+
 		StoreDTO sVO = ims.selStore((String) session.getAttribute("userid"));
 		model.addAttribute("sVO", sVO);
 		return "store/menuUp";

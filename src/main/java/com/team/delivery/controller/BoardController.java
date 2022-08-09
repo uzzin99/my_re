@@ -34,6 +34,8 @@ public class BoardController {
 		//session.setAttribute("userid", (String)session.getAttribute("userid"));
 		model.addAttribute("userid", session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
+
 
 		//System.out.println("page="+brd.selPage());
 		model.addAttribute("Maxpage",brd.selPage());
@@ -152,6 +154,8 @@ public class BoardController {
 		model.addAttribute("userid", session.getAttribute("userid"));
 		model.addAttribute("seq",seq);
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
+
 		System.out.println("userType= "+session.getAttribute("userType"));
 		return "board/showBoard";
 	}
@@ -215,6 +219,8 @@ public class BoardController {
 		HttpSession session = req.getSession();
 		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
+
 		return "board/newBoard";
 	}
 	@RequestMapping(value = "/addBoard", method = RequestMethod.POST,produces="application/text;charset=utf-8")
@@ -253,8 +259,9 @@ public class BoardController {
 		model.addAttribute("date",bDTO.getBDate());
 		model.addAttribute("content",bDTO.getContent());
 		model.addAttribute("title",bDTO.getTitle());
-		model.addAttribute("userinfo",session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
+
 		return "board/updateBoard";
 	}
 	@RequestMapping(value = "/updateBoard", method = RequestMethod.POST,produces="application/text;charset=utf-8")
@@ -354,7 +361,6 @@ public class BoardController {
 	@RequestMapping(value = "/QnA", method = RequestMethod.GET)
 	public String goQnA(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
-		//session.setAttribute("userid", (String)session.getAttribute("userid"));
 		model.addAttribute("userid", session.getAttribute("userid"));
 		model.addAttribute("userType",session.getAttribute("userType"));
 
@@ -366,10 +372,15 @@ public class BoardController {
 		if(session.getAttribute("selType")==null) {
 			session.setAttribute("selType","all");
 		}
+
+		model.addAttribute("userType",session.getAttribute("userType"));
+		model.addAttribute("mname",session.getAttribute("mName"));
+
 		if(session.getAttribute("orderBy")==null) {
 			session.setAttribute("orderBy",1);
 		}
 		model.addAttribute("orderBy",session.getAttribute("orderBy"));
+
 		model.addAttribute("selType",session.getAttribute("selType"));
 		System.out.println("현재 페이지="+session.getAttribute("crtpage"));
 		model.addAttribute("crtpage",session.getAttribute("crtpage"));
