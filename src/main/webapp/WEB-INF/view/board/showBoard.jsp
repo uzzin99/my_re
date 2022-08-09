@@ -8,71 +8,11 @@
 	<title>title</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 	<link href="css/base.css" rel="stylesheet" type="text/css" />
+	<link href="css/showBoard.css" rel="stylesheet" type="text/css" />
 </head>
-<style>
-	section{
-		width: 100%;
-		height: 100%;
-	}
-	date{
-		font-size: smaller;
-	}
-	#cmtdiv,#btnBack{
-		width:800px;
-		margin-left:auto;
-		margin-right:auto;
-	}
-	#cmtdiv > table{
-		border: #333333 1px solid;
-	}
-	#board > *, #cmtdiv > table{
-		width:800px;
-		margin-left:auto;
-		margin-right:auto;
-	}
-	#boardInfo{
-		height: 100px;
-		background: #cccccc;
-		border-top: #333333 solid 5px;
-		border-bottom: #333333 solid 1px;
-	}
-	#boardContent{
-		height:450px;
-	}
-	#TWD{
-		margin: 20px 20px 40px 40px;
-	}
-	#TWD b{
-		font-size: larger;
-	}
-	#conPadding{
-		margin: 20px 20px 40px 40px;
-	}
-	textarea{
-		width: 100%;
-		height: 100%;
-		border: none;
-		resize: none;
-	}
-	textarea::placeholder{
-		color: #999999;
-	}
-	#repbox , #datbox{
-		padding: 10px 10px 10px 10px;
-	}
-	#PNdiv{
-		width: 800px;
-		margin-left:auto;
-		margin-right:auto;
-	}
-	a:hover{
-		cursor:pointer;
-	}
-	.logo:hover{
-		cursor:pointer;
-	}
-</style>
+
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
 <!-- 여기가 헤드 -->
@@ -170,6 +110,7 @@
 	</form>
 </nav>
 <section>
+
 	<div id="board">
 		<div id="boardInfo">
 
@@ -177,23 +118,19 @@
 		<div id="boardContent">
 
 		</div>
+		<div id="btnBack">
+		</div>
 	</div>
 
-	<%--<table class="board">--%>
-	<%--<tr><td>제목:</td><td><input type=text id=title name=title readonly></td></tr>--%>
-	<%--<tr><td>작성자:</td><td><input type=text id=writer name=writer readonly></td></tr>--%>
-	<%--<tr><td>작성일자:</td><td><input type=text id=joindate name=joindate readonly></td></tr>--%>
-	<%--<tr><td style="vertical-align:top;">내용:</td><td><div id=content></div></td></tr>--%>
 	<%--</table>--%>
 	<br>
+
 	<div id="cmtdiv">
 	</div>
 
 	<div id="PNdiv">
 	</div>
 	<br>
-	<div id="btnBack">
-	</div>
 	<br>
 	<input type=text id=uid hidden>
 </section>
@@ -384,6 +321,7 @@
 			success:function(data){
 				let brd = data[0];
 				Type = brd['type'];
+				// $('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" onclick=location.href="home">')
 				$('#boardInfo').append('<div id="TWD"><b>'+brd['title']+'</b><br>'+brd['writer']+'&nbsp;|&nbsp;<date>'+brd['date']+'</date></div>');
 				$('#boardContent').append('<div id=conPadding>'+brd['content']+'</div>');
 				// $('#title').val(brd['title']);
@@ -400,9 +338,9 @@
 						+' placeholder="댓글을 입력해 주세요"></textarea></td>'
 						+'<td style="width:90px;height:60px"><input type=button id=btnPut value="댓글달기" class="btn btn-sm"'
 						+' style="width:80px;height:50px" ></td></tr></table>'
-						+'<table border="1px solid" id="cmtList" style="width:800px;justify-content: space-between;">'
+						+'<table id="cmtList" style="width:70%; border: none; justify-content: space-between;">'
 						+'</table><br>')
-					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" onclick=location.href="home">')
+					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" style="float:right;" onclick=location.href="home">')
 				}
 				//QnA 구성: 댓글, QnA목록으로 귀환
 				else if(brd['type']==2){
@@ -456,8 +394,8 @@
 					// 		+"</tr></table>");
 					//일반 게시글 댓글 기능
 					if(Type==1){
-						$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right;width: 800px;border: 1px solid black;'
-								+'padding-left: 10px;padding-right: 10px;">'
+						$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right; width: 100%; border-bottom: 0.5px solid #c4c2c2;'
+								+'padding-left: 10px; padding-right: 10px;">'
 								+'<b style="font-size: larger">'+cmt['writer']+'</b>'
 								+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
 								+cmt['content']+'<br>'
@@ -502,14 +440,15 @@
 			success:function(data){
 				for(i=0;i<data.length;i++) {
 					var cmt = data[i];
-					var adw = 800-(20*cmt['deep'])
-					$('#'+pSeq).after('<div id='+cmt['seqCmt']+'><div style="float: right;width: '+adw+'px;border: 1px solid black;'
+					var adw = 100-(6*cmt['deep'])
+					// var arrow = 100-adw;
+					$('#'+pSeq).after('<div id='+cmt['seqCmt']+'><div style="float: right; width: '+adw+'%;border-bottom: 1px solid #c4c2c2;'
 							+'padding-left: 10px;padding-right: 10px;">'
-							+'<b style="font-size: larger">'+cmt['writer']+'</b>'
+							+'<b style="font-size: larger"><i class="bi bi-arrow-return-right"></i>'+cmt['writer']+'</b>'
 							+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
-							+cmt['content']+'<br>'
+							+'<a style="margin-left: 20px;">'+cmt['content']+'</a><br>'
 							+'<span style="float: right"><a onclick="return false;" href="#" id="upCmt">수정</a> <a onclick="return false;" href="#" id="delCmt">삭제</a> <a onclick="return false;" href="#" id=reply>댓글달기</a></span></div>'
-							+'<div id="repbox" class=replyWdw style="float: right;width: '+adw+'px;border: 1px solid black;display: none">'
+							+'<div id="repbox" class=replyWdw style="float: right; width: '+adw+'%; border-bottom: 1px solid #c4c2c2; display: none">'
 							+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
 							+'<input type=button class="btn btn-sm" style="width:80px;'
 							+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'

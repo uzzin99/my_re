@@ -299,11 +299,14 @@ $(document)
 	let m_seq=$('#m_seq').val();
 	let filename=$('#title').val();
 	//console.log("file name="+filename);
-
-	if(!confirm("선택한 메뉴를 삭제하시겠습니까?")) return false;
-	document.location="delete?mSe="+m_seq+"&sSe="+s_seq+"&deleteFile="+filename;
-	loadmenulist();
-	$('#btnReset').trigger('click');
+	if($("#menuname").val()==''){
+		alert("선택한 메뉴가 없습니다.");
+	}else{
+		if(!confirm("선택한 메뉴를 삭제하시겠습니까?")) return false;
+		document.location="delete?mSe="+m_seq+"&sSe="+s_seq+"&deleteFile="+filename;
+		loadmenulist();
+		$('#btnReset').trigger('click');
+	}
 })
 
 

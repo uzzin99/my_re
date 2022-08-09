@@ -120,7 +120,7 @@ a:hover{
   <section>
     <div class="parent">
       <div style="margin-left: 20px;"><br>
-        <span class="todaymenu">오늘의 가게 추천</span>
+        <span class="todaymenu" style="margin-left: 40px;">오늘의 가게 추천</span>
       </div>
 
       <div class="slider-div">
@@ -290,7 +290,6 @@ a:hover{
 
       <div class="slidershape">
         <div id="slider">
-
           <div class="mySlideDiv" style="background-image: url('https://betaimg-cdn.baemin.com/fw/ceoImage/2022/7/4/23894220_content.jpg');">
             <div class="content">비오는 날,<br>진짜 전이 많이 <br>팔릴까?</div>
             <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
