@@ -334,7 +334,7 @@ function loadmenulist(){
 					if(jo['m_img']==null){
 						str+="<img src='static/upload/imgload.png' style='width:100px;height:100px;float:left;'>";
 					}else{
-						str+="<img src='static/upload/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
+						str+="<img src='static/upload/"+s_seq+"/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
 					}
 					str+="<p>메뉴이름: "+jo['mName']+"</p>";
 					str+="<p>가격: "+jo['m_price']+" 원</p>";
