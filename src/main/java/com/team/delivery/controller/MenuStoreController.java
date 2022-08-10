@@ -42,12 +42,8 @@ public class MenuStoreController {
 
 
 	private final iMenuStore ims;
-//	@Value("${part.upload.path}")
-//	private String uploadfolder;
-	//private String upLoadDirectory = "C:\\Users\\admin\\Downloads\\delivery\\delivery\\src\\main\\resources\\static\\upload";
-	//private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
-	//private String upLoadDirectory3 = "C:\\Users\\admin\\Downloads\\team_a\\src\\main\\resources\\static\\image";
-
+	@Value("${part.upload.path}")
+	private String uploadfolder;
 
 	//가게등록하기
 	@RequestMapping("/s_up")
@@ -76,15 +72,11 @@ public class MenuStoreController {
 		int s_type = Integer.parseInt(req.getParameter("menutype"));
 
 		String uploadFileName = file.getOriginalFilename();
-		//System.out.println("file=" + uploadFileName + ",menuname=" + s_name);
 		uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("/") + 1); //문자열 자르기
-		//System.out.println("upload=" + uploadFileName);
 		UUID uuid = UUID.randomUUID(); //랜덤이름생성
-		//System.out.println("uuid=" + uuid);
 		uploadFileName = uuid.toString() + "_" + uploadFileName; //랜덤이름_업로드파일명
-		//System.out.println("uploadFileName=" + uploadFileName);
 
-		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+//		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
 		System.out.println("상대 경로는 "+uploadfolder);
 		File f = new File(uploadfolder, uploadFileName);
 		String[]  str=uploadFileName.split("_");
@@ -127,7 +119,7 @@ public class MenuStoreController {
 		UUID uuid = UUID.randomUUID(); //랜덤이름생성
 		storelogo = uuid.toString() + "_" + storelogo; //랜덤이름_업로드파일명
 
-		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+//		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
 		System.out.println("상대 경로는 "+uploadfolder);
 		File f = new File(uploadfolder, storelogo);
 		String[]  str=storelogo.split("_");
@@ -180,7 +172,7 @@ public class MenuStoreController {
 		UUID uuid = UUID.randomUUID(); //랜덤이름생성
 		storelogo = uuid.toString() + "_" + storelogo; //랜덤이름_업로드파일명
 
-		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+//		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
 		System.out.println("상대 경로는 "+uploadfolder);
 
 		File f = new File(uploadfolder, storelogo);
@@ -234,7 +226,7 @@ public class MenuStoreController {
 		UUID uuid = UUID.randomUUID();
 		uploadFileName = uuid.toString() + "_" + uploadFileName;
 
-		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+//		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
 		System.out.println("상대 경로는 "+uploadfolder);
 		File f = new File(uploadfolder, uploadFileName);
 		try {
@@ -272,7 +264,7 @@ public class MenuStoreController {
 		UUID uuid = UUID.randomUUID();
 		uploadFileName2 = uuid.toString() + "_" + uploadFileName2;
 
-		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+//		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
 		System.out.println("상대 경로는 "+uploadfolder);
 		File f = new File(uploadfolder, uploadFileName2);
 		try {
@@ -342,7 +334,7 @@ public class MenuStoreController {
 						  @RequestParam("deleteFile") String filename, HttpServletRequest req) {
 		log.info("delete?mSe=" + mSeq + "&sSe=" + sSeq + "&deleteFile=" + filename);
 
-		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+//		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
 		System.out.println("상대 경로는 "+uploadfolder);
 		File f = new File(uploadfolder, filename);
 		try {

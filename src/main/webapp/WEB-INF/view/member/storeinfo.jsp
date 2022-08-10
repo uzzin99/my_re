@@ -3,10 +3,11 @@
 <%@ page session="false" %>
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="http://example.com/myicon.png">
     <!-- <script src="https://kit.fontawesome.com/c07327e483.js" crossorigin="anonymous"></script> -->
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -155,7 +156,7 @@
                 <td style="width:200px">가게로고이미지</td>
                 <c:if test="${sVO.SImg!=null}">
                     <td>
-                        <img src="static/upload/${sVO.SImg}" style="width:200px;height:180px;">
+                        <img src="/img/${sVO.SImg}" style="width:200px;height:180px;">
                     </td>
                 </c:if>
                 <c:if test="${sVO.SImg==null}"><%--가게 로고 등록하기--%>
