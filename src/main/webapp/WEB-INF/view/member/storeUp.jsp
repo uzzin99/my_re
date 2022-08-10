@@ -145,8 +145,8 @@
                 <p><span class="span"></span><input type="text" id=detailAddress name=detailAddress placeholder="상세주소">&nbsp;
                 <input type="text" id=extraAddress name=extraAddress placeholder="참고항목" readonly></p>
 
-                <p><span class="span">사업자등록번호</span><input type=number id=storenum name="storenum"/></p>
-                <p><span class="span">가게 전화번호</span><input type=number id=storetel name="storetel"/></p>
+                <p><span class="span">사업자등록번호</span><input type=number id=storenum name="storenum" maxlength="20"/></p>
+                <p><span class="span">가게 전화번호</span><input type=number id=storetel name="storetel" maxlength="15"/></p>
                 <p><span class="span">메뉴타입</span><select id=menutype name="menutype">
                                                         <option value=0>타입선택</option>
                                                         <c:forEach var="li" items="${list}">
