@@ -203,7 +203,13 @@
 <script>
 $(document)
 .ready(function(){
+    $("input:file[name='file']").change(function () {
+        var str = $(this).val();
+        var fileName = str.split('\\').pop().toLowerCase();
+        //alert(fileName);
 
+        checkFileName(fileName);
+    });
 })
 
 //가게 등록하기버튼
@@ -243,7 +249,23 @@ $(document)
 .on('click','#btnAddress',function(){
     roadMap();
 })
+function checkFileName(str){
 
+    //1. 확장자 체크
+    var ext =  str.split('.').pop().toLowerCase();
+    if($.inArray(ext, ['bmp' , 'hwp', 'jpg', 'pdf', 'png', 'xls', 'zip', 'pptx', 'xlsx', 'jpeg', 'doc', 'gif', 'jfif']) == -1) {
+
+        //alert(ext);
+        alert(ext+'파일은 업로드 하실 수 없습니다.');
+    }
+
+    //2. 파일명에 특수문자 체크
+    var pattern =   /[\{\}\/?,;:|*~`!^\+<>@\#$%&\\\=\'\"]/gi;
+    if(pattern.test(str) ){
+        //alert("파일명에 허용된 특수문자는 '-', '_', '(', ')', '[', ']', '.' 입니다.");
+        alert('파일명에 특수문자를 제거해주세요.');
+    }
+}
 //주소 찾기 API 함수
 function roadMap(){
     new daum.Postcode({

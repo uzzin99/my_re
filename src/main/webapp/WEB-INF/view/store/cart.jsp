@@ -401,8 +401,8 @@
         amount: $('#totalSum').val(),
         orderId: getUUID(),
         orderName: ODname,
-        successUrl: 'http://localhost:8080/orderList?sSe='+$('.cart_body_menu').attr('id'),
-        failUrl: 'http://localhost:8080/cart',
+        successUrl: 'http://152.70.235.205:8080/orderList?sSe='+$('.cart_body_menu').attr('id'),
+        failUrl: 'http://152.70.235.205:8080/cart',
         })
     })
 

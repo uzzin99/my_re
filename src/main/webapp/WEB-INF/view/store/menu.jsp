@@ -200,7 +200,7 @@
 			<div class="conbox con1" onclick=openPop(${i.menuSeqno},${i.SSe})>
 				<div id="a">
                     <c:if test="${i.menuImg!=null}">
-					<img class="menuImg" src="/static/upload/${i.SSe}/${i.menuImg }">
+					<img class="menuImg" src="/img/${i.SSe}/${i.menuImg }">
                     </c:if>
                     <c:if test="${i.menuImg==null}">
                         <img class="menuImg" src="/static/upload/imgload.png">

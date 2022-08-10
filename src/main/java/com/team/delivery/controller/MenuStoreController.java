@@ -227,9 +227,9 @@ public class MenuStoreController {
 
 //		String uploadfolder = req.getServletContext().getRealPath("/static/upload/"+sSeq);
 
-		System.out.println("상대 경로는 "+uploadfolder);
+		System.out.println("상대 경로는 "+uploadfolder+sSeq);
 
-		Path directoryPath = Paths.get(uploadfolder);
+		Path directoryPath = Paths.get(uploadfolder+sSeq);
 		try{
 			Files.createDirectory(directoryPath);
 		}catch (FileAlreadyExistsException e){
@@ -278,8 +278,8 @@ public class MenuStoreController {
 
 //		String uploadfolder = req.getServletContext().getRealPath("/static/upload/"+sSeq);
 
-		System.out.println("상대 경로는 "+uploadfolder);
-		Path directoryPath = Paths.get(uploadfolder);
+		System.out.println("상대 경로는 "+uploadfolder+sSeq);
+		Path directoryPath = Paths.get(uploadfolder+sSeq);
 		try{
 			Files.createDirectory(directoryPath);
 		}catch (FileAlreadyExistsException e){
@@ -360,9 +360,9 @@ public class MenuStoreController {
 
 //		String uploadfolder = req.getServletContext().getRealPath("/static/upload/"+sSeq);
 
-		System.out.println("상대 경로는 "+uploadfolder);
+		System.out.println("상대 경로는 "+uploadfolder+sSeq);
 
-		Path directoryPath = Paths.get(uploadfolder);
+		Path directoryPath = Paths.get(uploadfolder+sSeq);
 		try{
 			Files.createDirectory(directoryPath);
 		}catch (FileAlreadyExistsException e){

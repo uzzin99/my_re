@@ -266,7 +266,7 @@ a:hover{
         <div id="slider">
           <div class="mySlideDiv" style="background-image: url('https://betaimg-cdn.baemin.com/fw/ceoImage/2022/7/4/23894220_content.jpg');">
             <div class="content">비오는 날,<br>진짜 전이 많이 <br>팔릴까?</div>
-            <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
+            <div class="img-cover" onclick="location.href='https://ceo.baemin.com/knowhow/8393?utm_source=baeminapp&utm_medium=esg&utm_campaign=knowhow_220710';"></div>
           </div>
 
           <div class="mySlideDiv" style="background-image: url('https://post-phinf.pstatic.net/MjAxODA4MTZfMTkw/MDAxNTM0NDA3Njg5MTg2.EiX2Z8zlcmK-dFj73jnWkaF8N_216ibyI8246cK_l4sg.5-ROC_DF4DTNz7eiHs-oktP2nKFiPLw4mK6JzmKKjucg.JPEG/6.jpg?type=w1200');">
@@ -344,7 +344,7 @@ a:hover{
 				$('#slider-div').empty();
 				for(i=0;i<data.length;i++) {
 					let store = data[i];
-                  $('#slider-div').append('<div><a href="store/menu?sSeqno='+store['Sseqno']+'"><img class="item" src="/static/upload/'+store['Simg']+'"></a></div>')
+                  $('#slider-div').append('<div><a href="store/menu?sSeqno='+store['Sseqno']+'"><img class="item" src="/img/'+store['Simg']+'"></a></div>')
 				}
                 $('#slider-div').slick({
                 slide: 'div',        //슬라이드 되어야 할 태그 ex) div, li

@@ -237,7 +237,7 @@ function checkFileName(str){
 
     //1. 확장자 체크
     var ext =  str.split('.').pop().toLowerCase();
-    if($.inArray(ext, ['bmp' , 'hwp', 'jpg', 'pdf', 'png', 'xls', 'zip', 'pptx', 'xlsx', 'jpeg', 'doc', 'gif']) == -1) {
+    if($.inArray(ext, ['bmp' , 'hwp', 'jpg', 'pdf', 'png', 'xls', 'zip', 'pptx', 'xlsx', 'jpeg', 'doc', 'gif', 'jfif']) == -1) {
 
         //alert(ext);
         alert(ext+'파일은 업로드 하실 수 없습니다.');
