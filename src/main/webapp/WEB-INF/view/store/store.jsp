@@ -146,7 +146,7 @@ a:hover{
         <div class="s_list">
 
           <c:if test="${item.SImg!=null}">
-            <img class="sImg" src="static/upload/${item.SImg}" style="float: left;">
+            <img class="sImg" src="/img/${item.SImg}" style="float: left;">
           </c:if>
           <c:if test="${item.SImg==null}">
             <img class="sImg" src="static/upload/imgload.png" style="float: left;">
