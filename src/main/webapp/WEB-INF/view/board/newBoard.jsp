@@ -30,19 +30,28 @@
     .logo:hover{
         cursor:pointer;
     }
-    /*.btn{
-        border: 2px solid gray;
-        border-radius:2rem;
+    .btn{
+        /*border: 2px solid black;*/
+        /*border-radius:2rem;*/
         height:45px;
-        padding:0 20px 0 20px;
-        font-size:x-large;
-        width: 140px;
+        /*padding:0 20px 0 20px;*/
+        /*font-size:x-large;*/
+        width: 100px;
+        font-family: 'GongGothicMedium';
+        border: none;
     }
 
     .btn:hover{
-        background-color:black;
-        color:white;
-    }*/
+        background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+        border: none;
+    }
+    #BDType{
+        font-family: 'GongGothicMedium';
+        font-size: xx-large;
+        float: left;
+        margin-bottom: 15px;
+        text-shadow:10px 10px #39c0c0b4;
+    }
 </style>
 <body>
 <div id="wrap" class="wrap mx-auto"></div>
@@ -141,12 +150,12 @@
     </form>
 </nav>
 <section>
-    <div style="padding: 30px;width:800px;margin:auto;text-align: center;">
-        <span class="todaymenu" style="float: left;font-size:xx-large;margin-bottom: 20px">새 글쓰기</span>
+    <div style="margin-top:50px; padding: 30px;width:800px;margin:auto;text-align: center;">
+        <span id="BDType" style="float: left; margin-bottom: 20px">새 글쓰기</span>
         <form action="addBoard" method="post">
             <table style="width: 800px;margin-left: auto;margin-right: auto;">
-                <tr><td><input type=text id=title name=title placeholder="제목을 입력하세요">
-                    <select id=btype name=btype>
+                <tr><td><input type=text id=title name=title placeholder="제목을 입력하세요" style="border: 2px solid #c4c2c2">
+                    &nbsp;&nbsp;<select id=btype name=btype style="border: 2px solid #c4c2c2">
                         <option value=1>게시판</option>
                         <option value=2>QnA</option>
                         <c:if test="${userinfo == 'admin'}"><option value=3>자주묻는 질문</option></c:if>

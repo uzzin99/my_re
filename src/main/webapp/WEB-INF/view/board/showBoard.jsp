@@ -349,18 +349,19 @@
 								+' placeholder="댓글을 입력해 주세요"></textarea></td>'
 								+'<td style="width:90px;height:60px"><input type=button id=btnPut value="댓글달기" class="btn btn-sm"'
 								+' style="width:80px;height:50px" ></td></tr></table>'
-								+'<table border="1px solid" id="cmtList" style="width:800px;justify-content: space-between;">'
+								+'<table id="cmtList" style="width:70%; border: none; justify-content: space-between;">'
 								+'</table><br>')
+						$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" style="float:right;" onclick=location.href="QnA">')
 					}
 					else{
-						$('#cmtdiv').append('<table border="1px solid" id="cmtList" style="width:800px;justify-content: space-between;">'
+						$('#cmtdiv').append('<table id="cmtList" style="width:70%; justify-content: space-between;">'
 								+'</table><br>')
 					}
-					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" onclick=location.href="QnA">')
+					// $('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" style="float:right;" onclick=location.href="QnA">')
 				}
 				//자주묻는 질문: 구성 no 댓글, QnA목록으로 귀환
 				else{
-					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" onclick=location.href="QnA">')
+					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" style="float:right;" onclick=location.href="QnA">')
 				}
 				selCmt();
 			}
@@ -386,7 +387,7 @@
 								+'<span style="float: right"><a id="upCmt" onclick="return false;" href="#">수정</a> '
 								+'<a id="delCmt" onclick="return false;" href="#">삭제</a> <a id=reply onclick="return false;" href="#">댓글달기</a></span>'
 								+'</div>'
-								+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: 1px solid black;display: none">'
+								+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: none;display: none">'
 								+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
 								+'<input type=button class="btn btn-sm" style="width:80px;'
 								+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'
@@ -395,15 +396,15 @@
 					}
 					//QnA 댓글 기능
 					else if(Type==2){
-						$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right;width: 800px;border: 1px solid black;'
-								+'padding-left: 10px;padding-right: 10px;">'
+						$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right; width: 100%; border-bottom: 0.5px solid #c4c2c2;'
+								+'padding-left: 10px; padding-right: 10px;">'
 								+'<b style="font-size: larger">'+cmt['writer']+'</b>'
 								+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
 								+cmt['content']+'<br><c:if test="${userid=='admin'}">'
 								+'<span style="float: right"><a id="upCmt" onclick="return false;" href="#">수정</a> '
 								+'<a id="delCmt" onclick="return false;" href="#">삭제</a> <a id=reply onclick="return false;" href="#">댓글달기</a></span></c:if>'
 								+'</div>'
-								+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: 1px solid black;display: none">'
+								+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: none;display: none">'
 								+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
 								+'<input type=button class="btn btn-sm" style="width:80px;'
 								+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'
