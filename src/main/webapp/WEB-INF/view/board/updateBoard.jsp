@@ -153,6 +153,7 @@
                 <c:if test="${type!=1}">
                     <input type=button class='btn' value='취소' onclick="location.href='QnA'">
                 </c:if>
+                <input type="hidden" name="type" value="${type}">
             </td></tr>
         </table>
         <input type=hidden id=seq name=seq value="${seq}">
