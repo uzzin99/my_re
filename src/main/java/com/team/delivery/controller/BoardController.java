@@ -110,6 +110,7 @@ public class BoardController {
 			boardDTO bdto = arBrd.get(i);
 			JSONObject jo = new JSONObject();
 			jo.put("seq", bdto.getBSeqno());
+			jo.put("cntCmt",cmt.cntCmt(bdto.getBSeqno()));
 			jo.put("writer", bdto.getWriter());
 			jo.put("date", bdto.getBDate());
 			jo.put("title", bdto.getTitle());
