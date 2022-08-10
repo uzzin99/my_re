@@ -169,11 +169,15 @@ public class MemberController {
 				System.out.println("메뉴 목록 리스트="+sDTO);
 				for(int i=0;i<sDTO.size();i++){
 					StoreDTO list = sDTO.get(i);
+					//System.out.println("i ["+i+"] ["+list.getMenuImg()+"]");
 					//System.out.println("mimg="+list.getMenuImg());
-					if((list.getMenuImg())!=null){
-						File dfile = new File(uploadfolder,list.getMenuImg());
-						dfile.delete();
-						System.out.println("메뉴번호="+i);
+					if(list !=null ){
+						if(list.getMenuImg() != null) {
+							System.out.println("its not null");
+							File dfile = new File(uploadfolder, list.getMenuImg());
+							dfile.delete();
+							System.out.println("메뉴번호=" + i);
+						}
 					}
 				}
 				ims.deleteAllMenu((String)session.getAttribute("userid"));
