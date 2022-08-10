@@ -180,8 +180,9 @@
                 </c:if>
             </div>
         </c:if><br>
-        <a id=back class="back">돌아가기</a>&nbsp;&nbsp;&nbsp;<a id=delInformation class="back 01">회원탈퇴</a>
-        <input type="hidden" id="delseq" name="delseq"><%--삭제시 가게 시퀀스 호출--%>
+        <a id=back class="back">돌아가기</a>&nbsp;&nbsp;&nbsp;
+        <a id=delInformation class="back 01" onclick=location.href='signUp/delInformation?SSe=${sVO.SSeqno}'>회원탈퇴</a>
+<%--        <input type="hidden" id="delseq" name="delseq" value="${sVO.SSeqno}">&lt;%&ndash;삭제시 가게 시퀀스 호출&ndash;%&gt;--%>
     </div>
 </section>
 

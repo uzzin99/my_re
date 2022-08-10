@@ -142,8 +142,9 @@
 </nav>
 <section>
     <form action="updateBoard" method="post">
-        <table style="width: 800px;margin-left: auto;margin-right: auto;">
+        <table style="margin-top:50px; width: 800px; margin-left: auto;margin-right: auto;">
             <tr><td><input type=text id=title name=title value="${title}"></td></tr>
+            <tr><td style="height: 20px;"></td></tr>
             <tr><td style="text-align: left"><textarea id="summernote" name="editordata">${content}</textarea></td></tr>
             <tr><td>
                 <input type=submit class='btn' value=작성완료>
@@ -153,6 +154,7 @@
                 <c:if test="${type!=1}">
                     <input type=button class='btn' value='취소' onclick="location.href='QnA'">
                 </c:if>
+                <input type="hidden" name="type" value="${type}">
             </td></tr>
         </table>
         <input type=hidden id=seq name=seq value="${seq}">

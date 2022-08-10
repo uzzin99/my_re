@@ -1,6 +1,8 @@
 package com.team.delivery.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -148,10 +150,11 @@ public class MemberController {
 		}
 		
 		@RequestMapping("/signUp/delInformation")
-		public String delInformation(HttpServletRequest request) {
+		public String delInformation(HttpServletRequest request, @RequestParam("SSe") int sSe) {
 			HttpSession session=request.getSession();
 //			int sSe=Integer.parseInt(request.getParameter("delseq"));
 			System.out.println("userType="+session.getAttribute("userType"));
+
 			if(session.getAttribute("userType").equals("손님")){
 				System.out.println("회원탈퇴 usertype="+session.getAttribute("userType"));
 				ime.delInformation((String)session.getAttribute("userid"));
@@ -162,8 +165,10 @@ public class MemberController {
 				String simg=ims.delstorelogo((String)session.getAttribute("userid"));
 				System.out.println("가게로고이미지="+simg);
 
-				String uploadfolder = request.getServletContext().getRealPath("/static/upload");
-				System.out.println("상대 경로는 "+uploadfolder);
+				String uploadfolder = request.getServletContext().getRealPath("/static/upload/"+sSe);
+				System.out.println("메뉴이미지삭제 경로는 "+uploadfolder);
+				Path directoryPath = Paths.get(uploadfolder);
+
 				//메뉴이미지 및 목록 삭제
 				ArrayList<StoreDTO> sDTO=ims.delmenuimg((String)session.getAttribute("userid"));
 				System.out.println("메뉴 목록 리스트="+sDTO);
@@ -174,7 +179,7 @@ public class MemberController {
 					if(list !=null ){
 						if(list.getMenuImg() != null) {
 							System.out.println("its not null");
-							File dfile = new File(uploadfolder, list.getMenuImg());
+							File dfile = new File(String.valueOf(directoryPath), list.getMenuImg());
 							dfile.delete();
 							System.out.println("메뉴번호=" + i);
 						}
@@ -182,9 +187,21 @@ public class MemberController {
 				}
 				ims.deleteAllMenu((String)session.getAttribute("userid"));
 
+				File folder = new File(String.valueOf(directoryPath));
+				try {
+					File[] listFiles = folder.listFiles();
+					if (listFiles.length == 0 && folder.isDirectory()) {
+						folder.delete();
+					}
+				} catch (Exception e){
+					e.printStackTrace();
+				}
+
 				//가게로고 및 정보 삭제
+				String deletefile = request.getServletContext().getRealPath("/static/upload");
+				System.out.println("가게로고삭제 경로는 "+deletefile);
 				if(simg!=null){
-					File dfile = new File(uploadfolder,simg);
+					File dfile = new File(deletefile,simg);
 					dfile.delete();
 				}
 				ims.deleteStore((String)session.getAttribute("userid"));

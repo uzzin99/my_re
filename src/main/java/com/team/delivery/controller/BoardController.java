@@ -245,13 +245,16 @@ public class BoardController {
 		//System.out.println("내용= "+content);
 		System.out.println("타입="+type);
 		brd.addBD(title, content, writer,type);
-		return "redirect:/home";
+		return "redirect:/SearchWordReJstf?goto="+type;
 	}
 	@RequestMapping(value = "/delBD", method = RequestMethod.GET,produces="application/text;charset=utf-8")
 	public String doDelBD(HttpServletRequest req) {
 		int seq = Integer.parseInt(req.getParameter("seq"));
+		boardDTO bDTO = brd.showBrd(seq);
+		cmt.delCmtinBD(seq);
 		brd.delBD(seq);
-		return "redirect:/home";
+		int type = bDTO.getBtype();
+		return "redirect:/SearchWordReJstf?goto="+type;
 	}
 	@RequestMapping(value = "/upBD", method = RequestMethod.GET,produces="application/text;charset=utf-8")
 	public String goUpdateBD(HttpServletRequest req, Model model) {
@@ -274,8 +277,9 @@ public class BoardController {
 		int seq = Integer.parseInt(req.getParameter("seq"));
 		String content = req.getParameter("editordata");
 		String title = req.getParameter("title");
+		int type = Integer.parseInt(req.getParameter("type"));
 		brd.updateBD(title, content,seq);
-		return "redirect:/home";
+		return "redirect:/SearchWordReJstf?goto="+type;
 	}
 	@ResponseBody
 	@RequestMapping(value = "/addDat", method = RequestMethod.POST,produces="application/text;charset=utf-8")
