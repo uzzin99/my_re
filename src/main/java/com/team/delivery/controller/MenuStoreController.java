@@ -1,8 +1,6 @@
 package com.team.delivery.controller;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -234,9 +232,21 @@ public class MenuStoreController {
 		UUID uuid = UUID.randomUUID();
 		uploadFileName = uuid.toString() + "_" + uploadFileName;
 
-		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+		String uploadfolder = req.getServletContext().getRealPath("/static/upload/"+sSeq);
 		System.out.println("상대 경로는 "+uploadfolder);
-		File f = new File(uploadfolder, uploadFileName);
+
+		Path directoryPath = Paths.get(uploadfolder);
+		try{
+			Files.createDirectory(directoryPath);
+		}catch (FileAlreadyExistsException e){
+			System.out.println("디렉토리가 이미 존재합니다");
+		}catch (NoSuchFileException e){
+			System.out.println("디렉토리 경로가 존재하지 않습니다");
+		} catch (IOException e) {
+		e.printStackTrace();
+		}
+
+		File f = new File(String.valueOf(directoryPath),uploadFileName);
 		try {
 			if (mSeq == 0) {
 				String[]  str=uploadFileName.split("_");
@@ -272,16 +282,28 @@ public class MenuStoreController {
 		UUID uuid = UUID.randomUUID();
 		uploadFileName2 = uuid.toString() + "_" + uploadFileName2;
 
-		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+
+		String uploadfolder = req.getServletContext().getRealPath("/static/upload/"+sSeq);
 		System.out.println("상대 경로는 "+uploadfolder);
-		File f = new File(uploadfolder, uploadFileName2);
+		Path directoryPath = Paths.get(uploadfolder);
+		try{
+			Files.createDirectory(directoryPath);
+		}catch (FileAlreadyExistsException e){
+			System.out.println("디렉토리가 이미 존재합니다");
+		}catch (NoSuchFileException e){
+			System.out.println("디렉토리 경로가 존재하지 않습니다");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		File f = new File(String.valueOf(directoryPath), uploadFileName2);
 		try {
 			String[]  str=uploadFileName2.split("_");
 			if(str.length==2){
 				ims.modifyImage(uploadFileName2, mSeq, sSeq);
 				file.transferTo(f);
 				//기존파일 삭제하기
-				File dfile = new File(uploadfolder, title);
+				File dfile = new File(String.valueOf(directoryPath), title);
 				if(title !="imgload.png"){
 					dfile.delete();
 				}
@@ -342,9 +364,20 @@ public class MenuStoreController {
 						  @RequestParam("deleteFile") String filename, HttpServletRequest req) {
 		log.info("delete?mSe=" + mSeq + "&sSe=" + sSeq + "&deleteFile=" + filename);
 
-		String uploadfolder = req.getServletContext().getRealPath("/static/upload");
+		String uploadfolder = req.getServletContext().getRealPath("/static/upload/"+sSeq);
 		System.out.println("상대 경로는 "+uploadfolder);
-		File f = new File(uploadfolder, filename);
+
+		Path directoryPath = Paths.get(uploadfolder);
+		try{
+			Files.createDirectory(directoryPath);
+		}catch (FileAlreadyExistsException e){
+			System.out.println("디렉토리가 이미 존재합니다");
+		}catch (NoSuchFileException e){
+			System.out.println("디렉토리 경로가 존재하지 않습니다");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		File f = new File(String.valueOf(directoryPath), filename);
 		try {
 			if(filename =="imgload.png"){
 				ims.deleteMenu(mSeq, sSeq);
