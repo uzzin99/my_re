@@ -10,6 +10,7 @@ public interface iComments {
 	void addCmt(int seq,String content,String writer);
 	ArrayList<commentDTO> selCmt(int seq);
 	void delCmt(int seq);
+	void delCmtinBD(int seq);
 	void addRep(int pSe,int bSe,String content,String writer,int deep);
 	ArrayList<commentDTO> selRep(int seq);
 	void upCmt(String comment, int seq);

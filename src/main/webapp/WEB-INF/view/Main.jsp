@@ -344,7 +344,7 @@ a:hover{
 				$('#slider-div').empty();
 				for(i=0;i<data.length;i++) {
 					let store = data[i];
-                  $('#slider-div').append('<div><a href="store/menu?sSeqno='+store['Sseqno']+'"><img class="item" src="/image/'+store['Simg']+'"></a></div>')
+                  $('#slider-div').append('<div><a href="store/menu?sSeqno='+store['Sseqno']+'"><img class="item" src="/static/upload/'+store['Simg']+'"></a></div>')
 				}
                 $('#slider-div').slick({
                 slide: 'div',        //슬라이드 되어야 할 태그 ex) div, li
