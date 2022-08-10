@@ -196,6 +196,9 @@ public class MemberController {
 				} catch (Exception e){
 					e.printStackTrace();
 				}
+				//찜목록 삭제
+				store.zzimListDelete(sSe);
+
 
 				//가게로고 및 정보 삭제
 				String deletefile = request.getServletContext().getRealPath("/static/upload");
