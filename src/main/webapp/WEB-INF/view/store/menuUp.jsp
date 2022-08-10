@@ -219,6 +219,21 @@ $(document)
 	// $('#hdFName').hide();
 	$('.imgMo-box').hide();
 
+	$("input:file[name='file']").change(function () {
+		var str = $(this).val();
+		var fileName = str.split('\\').pop().toLowerCase();
+		//alert(fileName);
+
+		checkFileName(fileName);
+	});
+	$("input:file[name='file2']").change(function () {
+		var str = $(this).val();
+		var fileName = str.split('\\').pop().toLowerCase();
+		//alert(fileName);
+
+		checkFileName(fileName);
+	});
+
 })
 
 //비우기 버튼
@@ -313,6 +328,23 @@ $(document)
 	}
 })
 
+function checkFileName(str){
+
+	//1. 확장자 체크
+	var ext =  str.split('.').pop().toLowerCase();
+	if($.inArray(ext, ['bmp' , 'hwp', 'jpg', 'pdf', 'png', 'xls', 'zip', 'pptx', 'xlsx', 'jpeg', 'doc', 'gif', 'jfif']) == -1) {
+
+		//alert(ext);
+		alert(ext+'파일은 업로드 하실 수 없습니다.');
+	}
+
+	//2. 파일명에 특수문자 체크
+	var pattern =   /[\{\}\/?,;:|*~`!^\+<>@\#$%&\\\=\'\"]/gi;
+	if(pattern.test(str) ){
+		//alert("파일명에 허용된 특수문자는 '-', '_', '(', ')', '[', ']', '.' 입니다.");
+		alert('파일명에 특수문자를 제거해주세요.');
+	}
+}
 
 //메뉴목록 리스트 보여주기
 function loadmenulist(){
@@ -334,7 +366,7 @@ function loadmenulist(){
 					if(jo['m_img']==null){
 						str+="<img src='static/upload/imgload.png' style='width:100px;height:100px;float:left;'>";
 					}else{
-						str+="<img src='static/upload/"+s_seq+"/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
+						str+="<img src='/img/"+s_seq+"/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
 					}
 					str+="<p>메뉴이름: "+jo['mName']+"</p>";
 					str+="<p>가격: "+jo['m_price']+" 원</p>";

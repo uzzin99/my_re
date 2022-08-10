@@ -148,6 +148,8 @@
                 <p>배송지 관리 (총 ${cnt }건)</p>
                 <p>현재 주소지: ${mdto.MAddress } ${mdto.MExtraAddress}, ${mdto.MDetailAddress }</p>
             </div>
+            <a id=back class="back">돌아가기</a>&nbsp;&nbsp;&nbsp;
+            <a id=delInformationu class="back 01">회원탈퇴</a>
         </c:if>
         <c:if test="${userType == '사장님' }">
             <div>
@@ -162,7 +164,7 @@
                             <tr>
                                 <td rowspan=3 class="img" style="width: 250px;" align="center">
                                     <c:if test="${sVO.SImg==null}"><img id=logoImg src="static/upload/imgload.png"> </c:if>
-                                    <c:if test="${sVO.SImg!=null}"><img id=logoImg src='static/upload/${sVO.SImg}'></c:if>
+                                    <c:if test="${sVO.SImg!=null}"><img id=logoImg src='/img/${sVO.SImg}'></c:if>
                                 </td>
                                 <td style="width: 100px;">가게명</td>
                                 <td style="width: 450px;">${sVO.SName}</td>
@@ -179,10 +181,11 @@
                     </div>
                 </c:if>
             </div>
+            <a id=back class="back">돌아가기</a>&nbsp;&nbsp;&nbsp;
+            <a id=delInformation class="back 01">회원탈퇴</a>
         </c:if><br>
-        <a id=back class="back">돌아가기</a>&nbsp;&nbsp;&nbsp;
-        <a id=delInformation class="back 01" onclick=location.href='signUp/delInformation?SSe=${sVO.SSeqno}'>회원탈퇴</a>
-<%--        <input type="hidden" id="delseq" name="delseq" value="${sVO.SSeqno}">&lt;%&ndash;삭제시 가게 시퀀스 호출&ndash;%&gt;--%>
+<%--        <a id=back class="back">돌아가기</a>&nbsp;&nbsp;&nbsp;--%>
+<%--        <a id=delInformation class="back 01" onclick=location.href='signUp/delInformation?SSe=${sVO.SSeqno}'>회원탈퇴</a>--%>
     </div>
 </section>
 
@@ -214,10 +217,36 @@
         .on('click', '#back', function () {
             location.href = 'main';
         })
+        //손님탈퇴
+        .on('click', '#delInformationu', function () {
+            answer = confirm("정말 탈퇴하시겠습니까??");
+            if (answer) {
+                $.ajax({
+                    url:'signUp/delInformationu',
+                    type:'get',
+                    dataType:'json',
+                    data:'',
+                    success:function(data){
+
+                        location.href = '/main';
+                    }
+                })
+
+            }
+        })
+        //사장탈퇴
         .on('click', '#delInformation', function () {
             answer = confirm("정말 탈퇴하시겠습니까??");
             if (answer) {
-                location.href = 'signUp/delInformation';
+                $.ajax({
+                    url:'signUp/delInformation?SSe=${sVO.SSeqno}',
+                    type:'get',
+                    dataType:'json',
+                    data:'',
+                    success:function(data){
+                        location.href = '/main';
+                    }
+                })
             }
         })
 </script>
