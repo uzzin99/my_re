@@ -135,7 +135,7 @@
 	<div id="container">
 		<div id="menuUp-box">
 			<form action="menuAdd" method="post" enctype="multipart/form-data">
-				<span><h3>메뉴 등록하기</h3></span>
+				<span><h3>&nbsp;메뉴 등록하기</h3></span>
 				<br>
 				<input type=hidden id=s_seq name=sSeq value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
 				<input type=hidden id="m_seq" name="mSeq" value="0">
@@ -177,7 +177,7 @@
 
 		<!-- 등록된 메뉴리스트 불러오기 -->
 		<div id="list-box">
-			<span><h3>메뉴 목록</h3></span>
+			<span><h3 style="width: 130px;">&nbsp;메뉴 목록</h3></span>
 			<br>
 			<input type=hidden id="s_seq3" name="sSeq3" value="${sVO.SSeqno}">
 			<div id="menu-box"></div><!-- 메뉴리스트 생성 -->

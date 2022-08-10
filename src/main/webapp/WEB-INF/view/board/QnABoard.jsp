@@ -316,6 +316,9 @@
             }
             else{
                 if('${userid}'==writer[0]||'${userid}'=='admin'){
+                    if(!confirm('정말로 삭제하시겠습니까?')){
+                        return false;
+                    }
                     document.location="delBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
                 }
                 else{
@@ -336,9 +339,6 @@
             }
             else{
                 if(writer[0]=='${userid}'){
-                    if(!confirm('정말로 삭제하시겠습니까?')){
-                        return false;
-                    }
                     document.location="upBD?seq="+$(this).closest('tr').find('td:eq(0)').text()
                 }
                 else{
