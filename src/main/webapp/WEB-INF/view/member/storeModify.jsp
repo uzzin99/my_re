@@ -152,9 +152,9 @@
                    <input type="text" id=extraAddress name=extraAddress placeholder="참고항목" value="${sVO.SExtraaddress}"readonly></p>
 
                 <p><span class="span">사업자등록번호</span>
-                   <input type=number id=storenum name="storenum" value="${sVO.bsNum}"/></p>
+                   <input type=number id=storenum name="storenum" value="${sVO.bsNum}" maxlength="20"/></p>
                 <p><span class="span">가게 전화번호</span>
-                   <input type=number id=storetel name="storetel" value="${sVO.SMobile}"/></p>
+                   <input type=number id=storetel name="storetel" value="${sVO.SMobile}" maxlength="15"/></p>
                 <p><span class="span">메뉴타입</span>
                    <select id=menutype name="menutype">
                         <option value="${sVO.SType}" style="background:#FBF5BF;">${sVO.typeName}</option>
