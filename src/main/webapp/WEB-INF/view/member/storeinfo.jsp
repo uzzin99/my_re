@@ -161,7 +161,6 @@
                 <c:if test="${sVO.SImg==null}"><%--가게 로고 등록하기--%>
                     <form action="sImg_mo" method="POST" enctype="multipart/form-data">
                         <td>
-                            <label for="sfile" id="storeimgbtn">로고선택</label>
                             <input type="file" id="sfile" name="sfile">&nbsp;&nbsp;
                             <input type="submit" id="storeimg" name="storeimg" value="로고등록">
                             <input type="hidden" id="s_seq" name="s_seq" value="${sVO.SSeqno}">

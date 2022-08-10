@@ -139,7 +139,7 @@
 				<br>
 				<input type=hidden id=s_seq name=sSeq value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
 				<input type=hidden id="m_seq" name="mSeq" value="0">
-				<p><span class="span">메뉴이름</span>  <input type=text id=menuname name=menuname ></p>
+				<p><span class="span">메뉴이름</span>  <input type=text id=menuname name=menuname maxlength=20></p>
 				<p><span class="span">가격</span>  <input type=number id=menuprice name=menuprice min=0 placeholder="0"> 원</p>
 				<p><span class="span">칼로리</span>  <input type=number id=menukcal name=menukcal min=0 placeholder="0"> kcal</p>
 				<p><span class="span">설명</span>
