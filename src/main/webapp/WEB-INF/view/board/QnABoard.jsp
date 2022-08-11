@@ -356,6 +356,7 @@
         })
     //board 테이블 을 조회해서 목록을 출력
     function selectBrd(){
+        let str;
         $.ajax({
             type:'post',dataType:'json',
             url:'selQnABrd',
@@ -363,11 +364,17 @@
             success:function(data){
                 $('#brdList').empty();
                 for(i=0;i<data.length;i++) {
+                    str="";
                     let brd = data[i];
                     let date = brd['date'].split(' ');
                     $('#maxpage').val(brd['Maxpage']);
-                    $('#brdList').append("<tr><td hidden>"+brd['seq']+"</td><td>"
-                        +date[0]+"</td><td><a href='/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
+                    str += "<tr><td hidden>"+brd['seq']+"</td><td>"
+                        +date[0]+"</td><td><a href='/show?seq="+brd['seq']+"' id='title'>"
+                        +brd['title'];
+                    if(brd['btype']!=3){
+                        str+=" ("+brd['cntCmt']+")";
+                    }
+                    str +="</a></td><td>"
                         +brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
                         +"<div class='dropdown'>"
                         +"<a class='btn dropdown-toggle btn-sm' href='#' role='button'"
@@ -376,7 +383,9 @@
                         +"<ul class='dropdown-menu' aria-labelledby='dropdownMenuLink'>"
                         +"<li><a class='dropdown-item' id='delBD'>삭제</a></li>"
                         +"<li><a class='dropdown-item' id='upBD'>수정</a></li>"
-                        +"</ul></div></td></tr>");
+                        +"</ul></div></td></tr>";
+
+                    $('#brdList').append(str);
                 }
                 selectPage();
             }
