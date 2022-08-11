@@ -190,9 +190,9 @@ a:hover{
     </div>
 
     <div class="Kategorie"><br>
-      <div style="margin-left: 20px;">
+      <div>
         <div class="three">
-          <span class="todaymenu">메뉴 카테고리</span>
+          <span class="todaymenu" style="margin-left: 30px">메뉴 카테고리</span>
         </div>
 
         <div class="three">
@@ -253,7 +253,7 @@ a:hover{
 
       <div class="tab"><br>
         <input type="radio" name="tabmenu" id="tab01" checked>
-        <label for="tab01" style="margin-left: 30px;">우리들의 이야기</label>
+        <label for="tab01" style="margin-left: 30%;">우리들의 이야기</label>
         <input type="radio" name="tabmenu" id="tab02">
         <label for="tab02">Q&A</label>
 
@@ -262,37 +262,11 @@ a:hover{
 
       </div>
 
-     <%-- <div class="slideshow-container">
-        <div class="mySlideDiv fade active"
-             style="background-image: url('https://betaimg-cdn.baemin.com/fw/ceoImage/2022/7/4/23894220_content.jpg');">
-          <div class="content">비오는 날,<br>진짜 전이 많이 <br>팔릴까?</div>
-          <div class="img-cover" onclick="location.href='https://ceo.baemin.com/knowhow/8393';"></div>
-        </div>
-
-        <div class="mySlideDiv fade "
-             style="background-image: url('https://post-phinf.pstatic.net/MjAxODA4MTZfMTkw/MDAxNTM0NDA3Njg5MTg2.EiX2Z8zlcmK-dFj73jnWkaF8N_216ibyI8246cK_l4sg.5-ROC_DF4DTNz7eiHs-oktP2nKFiPLw4mK6JzmKKjucg.JPEG/6.jpg?type=w1200');">
-          <div class="content">여름철 식중독 예방,<br>이것만은 꼭 지키세요.</div>
-          <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
-        </div>
-
-        <div class="mySlideDiv fade"
-             style="background-image: url('https://story.baemin.com/wp-content/uploads/2022/07/220517_%E1%84%87%E1%85%A2%E1%84%86%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A1%E1%86%BC%E1%84%92%E1%85%ACPB_%E1%84%8E%E1%85%AC%E1%84%92%E1%85%A7%E1%86%AB%E1%84%8C%E1%85%B53036-scaled.jpg');">
-          <div class="content">우아한형제들<br>구성원들이 말하는<br>진짜 배민이야기.</div>
-          <div class="img-cover" onclick="location.href='https://story.baemin.com/?s=%EC%A7%81%EB%AC%B4%EC%9D%B8%ED%84%B0%EB%B7%B0';"></div>
-        </div>
-
-        <div class="mySlideDiv fade"
-             style="background-image: url('https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FDO9Pu%2Fbtq5kYCYMlA%2Fpay71Bn2dPVEomhoxcTY00%2Fimg.jpg');">
-          <div class="content">일상 속,<br>플라스틱 사용 줄이기!</div>
-          <div class="img-cover" onclick="location.href='https://brunch.co.kr/@euni8828/16';"></div>
-        </div>
-      </div>--%>
-
       <div class="slidershape">
         <div id="slider">
           <div class="mySlideDiv" style="background-image: url('https://betaimg-cdn.baemin.com/fw/ceoImage/2022/7/4/23894220_content.jpg');">
             <div class="content">비오는 날,<br>진짜 전이 많이 <br>팔릴까?</div>
-            <div class="img-cover" onclick="location.href='https://post.naver.com/viewer/postView.naver?volumeNo=16515598&memberNo=15460571&vType=VERTICAL';"></div>
+            <div class="img-cover" onclick="location.href='https://ceo.baemin.com/knowhow/8393?utm_source=baeminapp&utm_medium=esg&utm_campaign=knowhow_220710';"></div>
           </div>
 
           <div class="mySlideDiv" style="background-image: url('https://post-phinf.pstatic.net/MjAxODA4MTZfMTkw/MDAxNTM0NDA3Njg5MTg2.EiX2Z8zlcmK-dFj73jnWkaF8N_216ibyI8246cK_l4sg.5-ROC_DF4DTNz7eiHs-oktP2nKFiPLw4mK6JzmKKjucg.JPEG/6.jpg?type=w1200');">
@@ -370,7 +344,7 @@ a:hover{
 				$('#slider-div').empty();
 				for(i=0;i<data.length;i++) {
 					let store = data[i];
-                  $('#slider-div').append('<div><a href="store/menu?sSeqno='+store['Sseqno']+'"><img class="item" src="/static/upload/'+store['Simg']+'"></a></div>')
+                  $('#slider-div').append('<div><a href="store/menu?sSeqno='+store['Sseqno']+'"><img class="item" src="/img/'+store['Simg']+'"></a></div>')
 				}
                 $('#slider-div').slick({
                 slide: 'div',        //슬라이드 되어야 할 태그 ex) div, li

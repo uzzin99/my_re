@@ -1,6 +1,8 @@
 package com.team.delivery.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,7 @@ import com.team.delivery.mappers.*;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +33,8 @@ public class MemberController {
 	private final iStore store;
 	private final iCart ica;
 
-	//private String upLoadDirectory2 = "C:\\Users\\admin\\Desktop\\team_a-master\\team_a\\src\\main\\resources\\static\\image";
+	@Value("${part.upload.path}")
+	private String uploadfolder;
 
 		@RequestMapping("/reviewDel")
 		@ResponseBody
@@ -146,24 +150,44 @@ public class MemberController {
 			
 			return "member/deliveryUp";
 		}
-		
+
+		@RequestMapping("/signUp/delInformationu")
+		@ResponseBody
+		public String delInformationUser(HttpServletRequest request){
+			HttpSession session=request.getSession();
+			System.out.println("userType="+session.getAttribute("userType"));
+
+			if(session.getAttribute("userType").equals("손님")) {
+				System.out.println("회원탈퇴 usertype=" + session.getAttribute("userType"));
+				ime.delInformation((String) session.getAttribute("userid"));
+				ime.delDelivery((String) session.getAttribute("userid"));
+			}
+			session.invalidate();
+			return Integer.toString(1);
+		}
 		@RequestMapping("/signUp/delInformation")
-		public String delInformation(HttpServletRequest request) {
+		@ResponseBody
+		public String delInformation(HttpServletRequest request, @RequestParam("SSe") int sSe) {
 			HttpSession session=request.getSession();
 //			int sSe=Integer.parseInt(request.getParameter("delseq"));
+			log.info("가게번호는={}",sSe);
 			System.out.println("userType="+session.getAttribute("userType"));
-			if(session.getAttribute("userType").equals("손님")){
-				System.out.println("회원탈퇴 usertype="+session.getAttribute("userType"));
-				ime.delInformation((String)session.getAttribute("userid"));
-				ime.delDelivery((String)session.getAttribute("userid"));
 
-			}else if(session.getAttribute("userType").equals("사장님")){
+//			if(session.getAttribute("userType").equals("손님")){
+//				System.out.println("회원탈퇴 usertype="+session.getAttribute("userType"));
+//				ime.delInformation((String)session.getAttribute("userid"));
+//				ime.delDelivery((String)session.getAttribute("userid"));
+//
+//			}else if(session.getAttribute("userType").equals("사장님")){
+			if(session.getAttribute("userType").equals("사장님")){
 
 				String simg=ims.delstorelogo((String)session.getAttribute("userid"));
 				System.out.println("가게로고이미지="+simg);
 
-				String uploadfolder = request.getServletContext().getRealPath("/static/upload");
-				System.out.println("상대 경로는 "+uploadfolder);
+//				String uploadfolder = request.getServletContext().getRealPath("/static/upload/"+sSe);
+				System.out.println("메뉴이미지삭제 경로는 "+uploadfolder+sSe);
+				Path directoryPath = Paths.get(uploadfolder+sSe);
+
 				//메뉴이미지 및 목록 삭제
 				ArrayList<StoreDTO> sDTO=ims.delmenuimg((String)session.getAttribute("userid"));
 				System.out.println("메뉴 목록 리스트="+sDTO);
@@ -174,7 +198,7 @@ public class MemberController {
 					if(list !=null ){
 						if(list.getMenuImg() != null) {
 							System.out.println("its not null");
-							File dfile = new File(uploadfolder, list.getMenuImg());
+							File dfile = new File(String.valueOf(directoryPath), list.getMenuImg());
 							dfile.delete();
 							System.out.println("메뉴번호=" + i);
 						}
@@ -182,7 +206,22 @@ public class MemberController {
 				}
 				ims.deleteAllMenu((String)session.getAttribute("userid"));
 
+				File folder = new File(String.valueOf(directoryPath));
+				try {
+					File[] listFiles = folder.listFiles();
+					if (listFiles.length == 0 && folder.isDirectory()) {
+						folder.delete();
+					}
+				} catch (Exception e){
+					e.printStackTrace();
+				}
+				//찜목록 삭제
+				store.zzimListDelete(sSe);
+
+
 				//가게로고 및 정보 삭제
+//				String deletefile = request.getServletContext().getRealPath("/static/upload");
+				System.out.println("가게로고삭제 경로는 "+uploadfolder);
 				if(simg!=null){
 					File dfile = new File(uploadfolder,simg);
 					dfile.delete();
@@ -195,7 +234,7 @@ public class MemberController {
 			}
 
 			session.invalidate();
-			return "redirect:/main";
+			return Integer.toString(1);
 		}
 		
 		@RequestMapping(value="/signUp/informationUpdate", method=RequestMethod.POST)

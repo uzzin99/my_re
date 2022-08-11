@@ -26,7 +26,7 @@
 					<img class="menuImg" src="static/upload/imgload.png">
 				</c:if>
 				<c:if test="${menu.menuImg!=null}">
-					<img class="menuImg" src="static/upload/${menu.menuImg }">
+					<img class="menuImg" src="/img/${menu.SSe}/${menu.menuImg }">
 				</c:if>
 			</td>
 		</tr>

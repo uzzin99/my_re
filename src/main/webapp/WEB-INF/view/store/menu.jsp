@@ -200,7 +200,7 @@
 			<div class="conbox con1" onclick=openPop(${i.menuSeqno},${i.SSe})>
 				<div id="a">
                     <c:if test="${i.menuImg!=null}">
-					<img class="menuImg" src="/static/upload/${i.menuImg }">
+					<img class="menuImg" src="/img/${i.SSe}/${i.menuImg }">
                     </c:if>
                     <c:if test="${i.menuImg==null}">
                         <img class="menuImg" src="/static/upload/imgload.png">
@@ -247,6 +247,7 @@
 			</div>
 		</c:forEach>
 		
+
 		<div class="conbox con3">
             <div style="padding-left: 125px;text-align: left"><br>
                 <div style="width: 20%;float: left;">
@@ -265,8 +266,7 @@
                     ${storename.bsNum}
                 </div>
                 <div id="map" style="width:500px;height:300px;margin-right: auto;margin-left: auto;"></div>
-            </div>
-        </div>
+      </div>
 	</div>
   </section>
 

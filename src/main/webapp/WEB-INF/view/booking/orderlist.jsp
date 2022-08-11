@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
-    <link href="/css/bookinglist.css" rel="stylesheet" type="text/css" />
+    <link href="/css/orderlist.css" rel="stylesheet" type="text/css" />
     <title>DeliveryUp</title>
 </head>
 <style>
@@ -145,8 +145,8 @@
             <div class="tabBox on">
                 <c:forEach var='before' items='${olist}'>
                     <c:if test="${before.OStatus == null }">
-                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
-                            <tr><td rowspan="5"><input type="button" class="orderGet" id="${before.OSeqno}" value="주문받기" style="height: 30px;width:70px;margin-left:10px;"><br>
+                        <table align="center" style="overflow:auto;" class= "wait">
+                            <tr><td rowspan="5"><input type="button" class="orderGet" id="${before.OSeqno}" value="주문받기" style="height: 30px;width:70px;margin-left:10px;margin-bottom: 10px;"><br>
                                 <input type="button" class="orderCancle" id="${before.OSeqno}" value="주문거절" style="height: 30px; width:70px; margin-left:10px;"></td></tr>
                                 <tr><td>주문번호</td><td>No.${before.OSeqno}</td><td>메뉴이름</td><td>${before.OName}</td></tr>
                             <tr><td>주문날짜</td><td>${before.ODate}</td><td>주문금액</td><td>${before.OPrice}</td></tr>
@@ -155,10 +155,10 @@
                     </c:if>
                 </c:forEach>
             </div>
-            <div class="tabBox">
+            <div class="tabBox" style="height:500px; overflow:auto;">
                 <c:forEach var='after' items='${olist}'>
                     <c:if test="${after.OStatus == 1 }">
-                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                        <table align="center" class="Confirmation">
                             <tr><td>주문번호</td><td>No.${after.OSeqno}</td><td>메뉴이름</td><td>${after.OName}</td></tr>
                             <tr><td>주문날짜</td><td>${after.ODate}</td><td>주문금액</td><td>${after.OPrice}</td></tr>
                             <tr><td>회원이름</td><td>${after.MName}</td><td>회원연락처</td><td>${after.MMobile}</td></tr>
@@ -169,14 +169,16 @@
             <div class="tabBox">
                 <c:forEach var='cancle' items='${olist}'>
                     <c:if test="${cancle.OStatus == 4 }">
-                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                        <table align="center" class="cencletable">
+                            <tr><td rowspan="4" style="width: 20%; text-align: center;"><span>"손님이 주문을<br>취소 하였습니다."</span></td></tr>
                             <tr><td>주문번호</td><td>No.${cancle.OSeqno}</td><td>메뉴이름</td><td>${cancle.OName}</td></tr>
                             <tr><td>주문날짜</td><td>${cancle.ODate}</td><td>주문금액</td><td>${cancle.OPrice}</td></tr>
-                            <tr><td>회원이름</td><td>${cancle.MName} <span style="color:red">(취소된 주문)</span></td><td>회원연락처</td><td>${cancle.MMobile}</td></tr>
+                            <tr><td>회원이름</td><td>${cancle.MName}</td><td>회원연락처</td><td>${cancle.MMobile}</td></tr>
                         </table>
                     </c:if>
                     <c:if test="${cancle.OStatus == 5 }">
-                        <table align="center" style="border: 1px solid black; margin: auto; width: 600px; height: 70px;">
+                        <table align="center" class="cencletable">
+                            <tr><td rowspan="4" style="width: 20%;"></td></tr>
                             <tr><td>주문번호</td><td>No.${cancle.OSeqno}</td><td>메뉴이름</td><td>${cancle.OName}</td></tr>
                             <tr><td>주문날짜</td><td>${cancle.ODate}</td><td>주문금액</td><td>${cancle.OPrice}</td></tr>
                             <tr><td>회원이름</td><td>${cancle.MName}</td><td>회원연락처</td><td>${cancle.MMobile}</td></tr>

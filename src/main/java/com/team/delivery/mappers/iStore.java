@@ -28,4 +28,5 @@ public interface iStore {
 	int zzimstorecount(String mid);
 	ArrayList<StoreDTO> zzimlist(String mid);
 	ArrayList<StoreDTO> zzimstoremenulist(String mis, int sSe);
+	void zzimListDelete(int sse);
 }

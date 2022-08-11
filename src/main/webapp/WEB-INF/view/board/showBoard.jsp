@@ -349,18 +349,19 @@
 								+' placeholder="댓글을 입력해 주세요"></textarea></td>'
 								+'<td style="width:90px;height:60px"><input type=button id=btnPut value="댓글달기" class="btn btn-sm"'
 								+' style="width:80px;height:50px" ></td></tr></table>'
-								+'<table border="1px solid" id="cmtList" style="width:800px;justify-content: space-between;">'
+								+'<table id="cmtList" style="width:70%; border: none; justify-content: space-between;">'
 								+'</table><br>')
+						$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" style="float:right;" onclick=location.href="QnA">')
 					}
 					else{
-						$('#cmtdiv').append('<table border="1px solid" id="cmtList" style="width:800px;justify-content: space-between;">'
+						$('#cmtdiv').append('<table id="cmtList" style="width:70%; justify-content: space-between;">'
 								+'</table><br>')
 					}
-					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" onclick=location.href="QnA">')
+					// $('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" style="float:right;" onclick=location.href="QnA">')
 				}
 				//자주묻는 질문: 구성 no 댓글, QnA목록으로 귀환
 				else{
-					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" onclick=location.href="QnA">')
+					$('#btnBack').append('<input type=button value="목록으로 돌아가기" class="btn" style="float:right;" onclick=location.href="QnA">')
 				}
 				selCmt();
 			}

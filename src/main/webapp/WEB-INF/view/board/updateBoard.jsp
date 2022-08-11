@@ -144,6 +144,7 @@
     <form action="updateBoard" method="post" onsubmit="return confirm();">
         <table style="width: 800px;margin-left: auto;margin-right: auto;">
             <tr><td><input type=text id=title name=title value="${title}"></td></tr>
+            <tr><td style="height: 20px;"></td></tr>
             <tr><td style="text-align: left"><textarea id="summernote" name="editordata">${content}</textarea></td></tr>
             <tr><td>
                 <input type=submit class='btn' value=작성완료>

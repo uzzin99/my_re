@@ -135,13 +135,13 @@
 	<div id="container">
 		<div id="menuUp-box">
 			<form action="menuAdd" method="post" enctype="multipart/form-data">
-				<span><h3>메뉴 등록하기</h3></span>
+				<span><h3>&nbsp;메뉴 등록하기</h3></span>
 				<br>
 				<input type=hidden id=s_seq name=sSeq value="${sVO.SSeqno}"> <!-- 가게시퀀스 -->
 				<input type=hidden id="m_seq" name="mSeq" value="0">
 				<p><span class="span">메뉴이름</span>  <input type=text id=menuname name=menuname maxlength=20></p>
 				<p><span class="span">가격</span>  <input type=number id=menuprice name=menuprice min=0 placeholder="0"> 원</p>
-				<p><span class="span">칼로리</span>  <input type=number id=menukcal name=menukcal min=0 placeholder="0"> kcal</p>
+				<p><span class="span">칼로리</span>  <input type=number id=menukcal name=menukcal min=0 maxlength="20" placeholder="0"> kcal</p>
 				<p><span class="span">설명</span>
 				<textarea id=menuex name=menuex maxlength=20 placeholder="최대 20자"></textarea></p>
 
@@ -177,7 +177,7 @@
 
 		<!-- 등록된 메뉴리스트 불러오기 -->
 		<div id="list-box">
-			<span><h3>메뉴 목록</h3></span>
+			<span><h3 style="width: 130px;">&nbsp;메뉴 목록</h3></span>
 			<br>
 			<input type=hidden id="s_seq3" name="sSeq3" value="${sVO.SSeqno}">
 			<div id="menu-box"></div><!-- 메뉴리스트 생성 -->
@@ -218,6 +218,21 @@ $(document)
 	// $('#menu_img2').hide();
 	// $('#hdFName').hide();
 	$('.imgMo-box').hide();
+
+	$("input:file[name='file']").change(function () {
+		var str = $(this).val();
+		var fileName = str.split('\\').pop().toLowerCase();
+		//alert(fileName);
+
+		checkFileName(fileName);
+	});
+	$("input:file[name='file2']").change(function () {
+		var str = $(this).val();
+		var fileName = str.split('\\').pop().toLowerCase();
+		//alert(fileName);
+
+		checkFileName(fileName);
+	});
 
 })
 
@@ -313,6 +328,23 @@ $(document)
 	}
 })
 
+function checkFileName(str){
+
+	//1. 확장자 체크
+	var ext =  str.split('.').pop().toLowerCase();
+	if($.inArray(ext, ['bmp' , 'hwp', 'jpg', 'pdf', 'png', 'xls', 'zip', 'pptx', 'xlsx', 'jpeg', 'doc', 'gif', 'jfif']) == -1) {
+
+		//alert(ext);
+		alert(ext+'파일은 업로드 하실 수 없습니다.');
+	}
+
+	//2. 파일명에 특수문자 체크
+	var pattern =   /[\{\}\/?,;:|*~`!^\+<>@\#$%&\\\=\'\"]/gi;
+	if(pattern.test(str) ){
+		//alert("파일명에 허용된 특수문자는 '-', '_', '(', ')', '[', ']', '.' 입니다.");
+		alert('파일명에 특수문자를 제거해주세요.');
+	}
+}
 
 //메뉴목록 리스트 보여주기
 function loadmenulist(){
@@ -334,7 +366,7 @@ function loadmenulist(){
 					if(jo['m_img']==null){
 						str+="<img src='static/upload/imgload.png' style='width:100px;height:100px;float:left;'>";
 					}else{
-						str+="<img src='static/upload/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
+						str+="<img src='/img/"+s_seq+"/"+jo['m_img']+"' style='width:100px;height:100px;float:left;'>";
 					}
 					str+="<p>메뉴이름: "+jo['mName']+"</p>";
 					str+="<p>가격: "+jo['m_price']+" 원</p>";

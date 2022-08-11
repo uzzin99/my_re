@@ -139,7 +139,7 @@
         <div class="s_box" onclick="location.href='/store/menu?sSeqno='+${zli.SSeqno}">
             <div class="zzim-storelogo">
                 <p><c:if test="${zli.SImg==null}"><img src="static/upload/imgload.png"></c:if>
-                   <c:if test="${zli.SImg!=null}"><img src="static/upload/${zli.SImg}"></c:if></p>
+                   <c:if test="${zli.SImg!=null}"><img src="/img/${zli.SImg}"></c:if></p>
             </div>
             <div class="zzimlist-box">
                 <input type="hidden" id="sSe" value="${zli.SSeqno}">
