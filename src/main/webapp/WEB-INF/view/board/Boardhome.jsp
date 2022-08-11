@@ -369,7 +369,7 @@
 					let date = brd['date'].split(' ');
 					$('#maxpage').val(brd['Maxpage']);
 					$('#brdList').append("<tr><td hidden>"+brd['seq']+"</td><td>"
-							+date[0]+"</td><td><a href='/show?seq="+brd['seq']+"' id='title'>"+brd['title']+"</a></td><td>"
+							+date[0]+"</td><td><a href='/show?seq="+brd['seq']+"' id='title'>"+brd['title']+" ("+brd['cntCmt']+")</a></td><td>"
 							+brd['writer']+"</td><td style='text-align:center;'>"+brd['views']+"</td><td>"
 							+"<div class='dropdown'>"
 							+"<a class='btn dropdown-toggle btn-sm' href='#' role='button'"
