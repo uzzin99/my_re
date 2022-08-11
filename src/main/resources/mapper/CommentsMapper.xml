@@ -4,10 +4,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.team.delivery.mappers.iComments">
 <insert id="addCmt">
-	insert into comments values(test_c_sq.nextval,0,#{param1},#{param2},#{param3},to_char(current_date,'YY-MM-DD HH24:MI:SS'),0,test_cg_sq.nextval)
+	insert into comments values(test_c_sq.nextval,0,#{param1},#{param2},#{param3},to_char(current_date,'YY-MM-DD HH24:MI:SS'),0)
 </insert>
 <select id="selCmt" resultType="com.team.delivery.DTO.commentDTO">
-	select c_seqno,p_se,b_se,content,writer,c_date,deep,groupno from comments where b_se=#{param1} and deep=0 order by c_date
+	select c_seqno,p_se,b_se,content,writer,c_date,deep from comments where b_se=#{param1} and deep=0 order by c_date
 </select>
 <delete	id="delCmt">
 	delete from comments where c_seqno=#{param1}
@@ -16,15 +16,21 @@
 	delete from comments where b_se=#{param1}
 </delete>
 <insert id="addRep">
-	insert into comments values(test_c_sq.nextval,#{param1},#{param2},#{param3},#{param4},to_char(current_date,'YY-MM-DD HH24:MI:SS'),#{param5},test_cg_sq.nextval)
+	insert into comments values(test_c_sq.nextval,#{param1},#{param2},#{param3},#{param4},to_char(current_date,'YY-MM-DD HH24:MI:SS'),#{param5})
 </insert>
 <select id="selRep" resultType="com.team.delivery.DTO.commentDTO">
-	select c_seqno,p_se,b_se,content,writer,c_date,deep,groupno from comments where p_se=#{param1} order by c_date
+	select c_seqno,p_se,b_se,content,writer,c_date,deep from comments where p_se=#{param1} order by c_date
 </select>
 <update id="upCmt">
 	update comments set content=#{param1} where c_seqno=#{param2}
 </update>
 <select id="cntCmt" resultType="int">
 	select count(*) from comments where b_se=#{param1}
+</select>
+<select id="selcntseq" resultType="int">
+	select count(c_seqno) from comments where p_se=#{param1}
+</select>
+<select id="selseq" resultType="int">
+	select c_seqno from comments where p_se=#{param1}
 </select>
 </mapper>

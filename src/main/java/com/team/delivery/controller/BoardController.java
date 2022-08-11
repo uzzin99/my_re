@@ -328,9 +328,18 @@ public class BoardController {
 	@RequestMapping(value = "/delCmt", method = RequestMethod.POST,produces="application/text;charset=utf-8")
 	public String doDelCmt(HttpServletRequest req) {
 		int seq = Integer.parseInt(req.getParameter("seq"));
-		int bdseq = Integer.parseInt(req.getParameter("bdseq"));
 		cmt.delCmt(seq);
+		repdel(seq);
 		return "0";
+	}
+	private void repdel(int seq){
+		int repseq;
+		if(cmt.selcntseq(seq)!=0){
+			repseq = cmt.selseq(seq);
+			cmt.delCmt(repseq);
+			System.out.println("지울 seq="+repseq);
+			repdel(repseq);
+		}
 	}
 	@ResponseBody
 	@RequestMapping(value = "/addRep", method = RequestMethod.POST,produces="application/text;charset=utf-8")
