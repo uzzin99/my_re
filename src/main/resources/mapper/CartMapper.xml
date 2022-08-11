@@ -76,7 +76,7 @@
 	</delete>
 	<select id="selOrder" resultType="com.team.delivery.DTO.orderDTO">
 		select a.o_seqno,a.m_id m_id,a.s_se,a.o_price,a.o_date,a.o_name,a.o_status,a.cnt_review,b.s_name
-		from orderend a,store b where a.s_se = b.s_seqno and a.m_id=#{parma1}
+		from orderend a,store b where a.s_se = b.s_seqno and a.m_id=#{parma1} order by a.o_date desc
 	</select>
 	<select id="selDetail" resultType="com.team.delivery.DTO.oDetailDTO">
 		select * from o_detailed
