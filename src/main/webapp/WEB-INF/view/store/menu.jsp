@@ -183,7 +183,7 @@
                             <label><span id="adlogo">❤</span> ${zcnt} </label>
                         </c:if>
                     </c:if>
-                    | 공유</p>
+                </p>
 			</td>
 		</tr>
 	</table>
