@@ -18,4 +18,9 @@ public class orderDTO {
     private String mName;
     private String mMobile;
 
+    //o_detailed table
+    private int oSe;
+    private int oQty;
+    private int qtyPrice;
+    private int hab;
 }
