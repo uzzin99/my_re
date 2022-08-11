@@ -197,7 +197,7 @@
                 <c:if test="${item.HCheck == 0}">
                     <div class="conbox con2" style="border: 2px solid #c4c2c2; margin-top: 20px;">
                         <input type="text" class="check2" value="예약대기중" style="width:100px; float:left; border: none; margin-left: 20px; margin-top: 20px;">
-                        <table align="center"  class="list" style="margin: auto; margin-top:10px; margin-left: 300px;">
+                        <table align="center"  class="list" style="margin: auto; margin-top:25px;">
                             <tr><td style="width: 100px; height: 35px;">가게명</td><td style="width: 150px;">${item.SName}</td>
                                 <td style="width: 100px;">예약날짜</td><td>${item.HDate}</td></tr>
                             <tr><td style="height: 35px;">예약시간</td><td>${item.HTime}</td>

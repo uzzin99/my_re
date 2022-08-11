@@ -165,7 +165,7 @@ public class CartController {
 			throw new RuntimeException(e);
 		}
 
-		return "redirect:/orderdetail";
+		return "redirect:/orderdetail?ose="+ica.getCurrSeq();
 	}
 	
 }

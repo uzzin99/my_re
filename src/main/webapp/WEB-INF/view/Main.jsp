@@ -257,8 +257,8 @@ a:hover{
         <input type="radio" name="tabmenu" id="tab02">
         <label for="tab02">Q&A</label>
 
-        <div class="conbox con1"><ul id="boardList"></ul></div>
-        <div class="conbox con2"><ul id="QnAList"></ul></div>
+        <div class="conbox con1"><div id="boardList"></div></div>
+        <div class="conbox con2"><div id="QnAList"></div></div>
 
       </div>
 
@@ -380,6 +380,7 @@ a:hover{
 			}
 		})
   }
+
   function selectBrd() {
     $.ajax({
       type: 'post', dataType: 'json',
@@ -390,8 +391,8 @@ a:hover{
         for (i = 0; i < data.length; i++) {
           let brd = data[i];
           let date = brd['date'].split(' ');
-          $('#boardList').append("<li><a id='"+brd['seqno']+"' href='/show?seq=" + brd['seqno'] + "'>"
-                  + date[0] + " <b id='smTitle'>" + brd['title'] + "</b> (" + brd['cntCmt'] + ")</a><br></li>");
+          $('#boardList').append("<div><a id='"+brd['seqno']+"' href='/show?seq=" + brd['seqno'] + "'><div id=date>"
+                  + date[0] + "</div><div id=titles> <b>" + brd['title'] + "</b></div> <div id=cntcmt>(" + brd['cntCmt'] + ")</div></a><div>");
         }
       }
     })
@@ -406,8 +407,8 @@ a:hover{
         for(i=0;i<data.length;i++) {
           let brd = data[i];
           let date = brd['date'].split(' ');
-          $('#QnAList').append("<li><a href='/show?seq="+brd['seqno']+"'>"
-                  +date[0]+" <b id='smTitle'>"+brd['title']+"</b> ("+brd['cntCmt']+")</a><br></li>");
+          $('#QnAList').append("<div><a id='"+brd['seqno']+"' href='/show?seq=" + brd['seqno'] + "'><div id=date>"
+                  + date[0] + "</div><div id=titles> <b>" + brd['title'] + "</b></div> <div id=cntcmt>(" + brd['cntCmt'] + ")</div></a><div>");
         }
       }
     })
