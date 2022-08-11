@@ -264,7 +264,7 @@
                         <input type="checkbox" name="rating" value="2" id="rate5" <c:if test="${i.score == 2}">checked="checked"</c:if> disabled="disabled"/><label for="rate5">⭐</label>  <!-- 젤 왼쪽 별 -->
                     </div>
                     <input readonly type="text" style="float: right; margin-right: 10px; width: auto; color: #333333" value="${i.RDate }"><br>
-                    <textarea readonly style="width: 70%; height: 30px;"><c:out value="${i.RContent }" /></textarea>
+                    <textarea readonly style="width: 70%; height: 100px;"><c:out value="${i.RContent }" /></textarea>
                     <c:if  test="${userinfo == 'admin'}">
                         <input type="button" class="adminDel" id="${i.RSeqno}" value="삭제" style="color: orangered;">
                     </c:if>

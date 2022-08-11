@@ -144,7 +144,7 @@
       <div class="s_box" onclick=location.href='/store/menu?sSeqno=${i.SSeqno }'>
         <div class="s_list">
           <c:if test="${i.SImg!=null}">
-            <img class="sImg" src="/img/${item.SImg}" style="float: left;">
+            <img class="sImg" src="/img/${i.SImg}" style="float: left;">
           </c:if>
           <c:if test="${i.SImg==null}">
             <img class="sImg" src="static/upload/imgload.png" style="float: left;">
