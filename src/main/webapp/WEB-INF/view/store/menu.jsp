@@ -247,15 +247,23 @@
 			</div>
 		</c:forEach>
 		
-		<div class="conbox con3">
-            <div><br>
-                대표자명: ${member.MName}<br>
-                상호명: ${storename.SName}<br>
-                가게번호: ${storename.SMobile}<br>
-                사업자주소: ${storename.SAddress}${storename.SExtraaddress},<br>${storename.SDetailaddress}<br>
-                사업자등록번호: ${storename.bsNum}
-                <div id="map" style="width:500px;height:300px;margin-right: auto;margin-left: auto;"></div>
+		<div class="conbox con3"><br>
+            <div style="width: 20%;float: left;">
+                대표자명:<br>
+                상호명:<br>
+                가게번호:<br>
+                사업자주소:<br>
+                세부주소:<br>
+                사업자등록번호:
             </div>
+            <div style="width: 80%;float: left;">
+                ${member.MName}<br>
+                ${storename.SName}<br>
+                ${storename.SMobile}<br>
+                ${storename.SAddress}${storename.SExtraaddress},<br>${storename.SDetailaddress}<br>
+                ${storename.bsNum}
+            </div>
+            <div id="map" style="width:500px;height:300px;margin-right: auto;margin-left: auto;"></div>
         </div>
 	</div>
   </section>
