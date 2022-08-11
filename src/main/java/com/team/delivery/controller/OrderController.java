@@ -66,4 +66,19 @@ public class OrderController {
         return "redirect:/signUp/payment";
     }
 
+    @RequestMapping("/orderdetail")
+    public String doOrderDetail(@RequestParam("ose") int ose, Model model){
+        System.out.println("ose="+ose);
+        ArrayList<orderDTO> detail=iod.orderDetail(ose);
+        System.out.println("detail="+detail);
+        int hab=iod.orderTotalPrace(ose);
+        System.out.println("hab="+hab);
+
+        model.addAttribute("detail",detail);
+        model.addAttribute("hab",hab);
+        model.addAttribute("ose",ose);
+
+        return "/booking/orderdetail";
+    }
+
 }

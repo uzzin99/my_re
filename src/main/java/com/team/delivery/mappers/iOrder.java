@@ -10,7 +10,9 @@ public interface iOrder {
 
     void orderget_cancle(int status, int upor);
     ArrayList<orderDTO> orderlist(int sse);
-//    void orderdelete(int oseq);
+    ArrayList<orderDTO> orderDetail(int oSe);
+    int orderTotalPrace(int oSe);
+
 
 
 }

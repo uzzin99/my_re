@@ -18,8 +18,12 @@
 <update id="orderget_cancle">
     update orderend set o_status=#{param1} where o_seqno=#{param2}
 </update>
-<!--<delete id="orderdelete">-->
-<!--    delete from orderend where o_seq=#{param1}-->
-<!--</delete>-->
 
+<!--주문내역 디테일-->
+<select id="orderDetail" resultType="com.team.delivery.DTO.orderDTO">
+    select * from o_detailed where o_se=#{param1}
+</select>
+<select id="orderTotalPrace" resultType="int">
+    select sum(qty_price) hap from o_detailed where o_se=#{param1}
+</select>
 </mapper>

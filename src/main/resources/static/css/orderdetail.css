@@ -1,0 +1,65 @@
+@charset "EUC-KR";
+* {
+    font-family: 'GongGothicMedium';
+}
+
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+section {
+    overflow: auto;
+    font-family: 'GongGothicMedium';
+    background-color: #f8f9fa;
+}
+
+/*section 안의 스크롤바 숨기기*/
+section::-webkit-scrollbar {
+    display: none;
+}
+
+h3 {
+    background: linear-gradient(to top, #39c0c0 30%, transparent 30%);
+    width: 150px;
+    position: relative;
+    margin: auto;
+
+}
+
+.receipt {
+    width:500px;
+    height:600px;
+    margin-left: 30%;
+    margin-top: 30px;
+    position: absolute;
+}
+
+.endlist {
+    margin: auto;
+    margin-top: 30px;
+}
+
+.endlist tr {
+    height: 40px;
+    border-bottom: 2px solid #c4c2c2;
+    align-self: center;
+}
+
+.bacon {
+    width: 250px;
+    height: 70px;
+    position: relative;
+}
+
+.endlist th{
+    width: 120px;
+    text-align: center;
+}
+
+.endlist tr td{
+    width: 120px;
+    text-align: center;
+}

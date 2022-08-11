@@ -25,6 +25,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <!-- css -->
     <link href="/css/base.css" rel="stylesheet" type="text/css" />
     <link href="/css/paymentDetails.css" rel="stylesheet" type="text/css" />
@@ -152,7 +153,8 @@
                         <table align="center" style="float: left; margin-top:13px;">
                             <tr><td style="width: 100px; height: 30px;">주문일</td><td>${OL.ODate}</td></tr>
                             <tr><td style="width: 100px; height: 30px;">가게명</td><td><a href="/store/menu?sSeqno=${OL.SSe}">${OL.SName}</a></td></tr>
-                            <tr><td style="width: 100px; height: 30px;">가격</td><td>${OL.OPrice}원</td></tr>
+                            <tr><td style="width: 100px; height: 30px;">가격</td><td>${OL.OPrice}원
+                                 <a href="/orderdetail?ose=${OL.OSeqno}"><i id="btndetail" title="주문내역 상세보기 클릭!" class="bi bi-question-circle"></i></a></td></tr>
                         </table>
 
                         <c:if test="${OL.OStatus==null}">
