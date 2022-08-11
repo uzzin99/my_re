@@ -239,7 +239,7 @@
 
             <p style="text-align: right;">인원수 <input type="text" id="Bnum" ></p>
             <p style="text-align: right;">예약자 <input type="text" id="Bname" value="${mName}"></p>
-            <p style="text-align: right;">예약자ID <input type="text" id="BId" value="${userinfo}"></p>
+            <p style="text-align: right;">예약자ID <input type="text" id="BId" value="${userinfo}" readonly></p>
             <p style="text-align: right;">연락처 <input type="text" id="Bmobile" value="${mMobile}"></p>
             <p style="text-align: right;">요청사항 <input type="text" id="Brequest"></p>
             <input type="button" id="order" value="주문하기">

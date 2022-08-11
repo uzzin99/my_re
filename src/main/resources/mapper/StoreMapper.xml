@@ -122,4 +122,8 @@
     and a.m_id=#{param1}
     and b.s_se=#{param2}
 </select>
+<!--W찜목록 삭제하기-->
+<delete id="zzimListDelete">
+	delete from zzim where s_se=#{param1}
+</delete>
 </mapper>
