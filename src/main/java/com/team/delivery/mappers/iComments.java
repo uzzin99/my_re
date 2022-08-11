@@ -15,4 +15,6 @@ public interface iComments {
 	ArrayList<commentDTO> selRep(int seq);
 	void upCmt(String comment, int seq);
 	int cntCmt(int seq);
+	int selcntseq(int seq);
+	int selseq(int seq);
 }

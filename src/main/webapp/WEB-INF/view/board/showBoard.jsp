@@ -386,7 +386,7 @@
 								+'<span style="float: right"><a id="upCmt" onclick="return false;" href="#">수정</a> '
 								+'<a id="delCmt" onclick="return false;" href="#">삭제</a> <a id=reply onclick="return false;" href="#">댓글달기</a></span>'
 								+'</div>'
-								+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: 1px solid black;display: none">'
+								+'<div id="repbox" class=replyWdw style="float: right;width: 100%;border: none;display: none;">'
 								+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
 								+'<input type=button class="btn btn-sm" style="width:80px;'
 								+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'
@@ -395,15 +395,15 @@
 					}
 					//QnA 댓글 기능
 					else if(Type==2){
-						$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right;width: 800px;border: 1px solid black;'
-								+'padding-left: 10px;padding-right: 10px;">'
+						$('#cmtList').append('<div id='+cmt['seqCmt']+'><div style="float: right; width: 100%; border-bottom: 0.5px solid #c4c2c2;'
+								+'padding-left: 10px; padding-right: 10px;">'
 								+'<b style="font-size: larger">'+cmt['writer']+'</b>'
 								+'<a style="float: right;font-size: smaller">'+cmt['date']+'</a><br>'
 								+cmt['content']+'<br><c:if test="${userid=='admin'}">'
 								+'<span style="float: right"><a id="upCmt" onclick="return false;" href="#">수정</a> '
 								+'<a id="delCmt" onclick="return false;" href="#">삭제</a> <a id=reply onclick="return false;" href="#">댓글달기</a></span></c:if>'
 								+'</div>'
-								+'<div id="repbox" class=replyWdw style="float: right;width: 800px;border: 1px solid black;display: none">'
+								+'<div id="repbox" class=replyWdw style="float: right;width: 100%;border: none;display: none;">'
 								+'<textarea placeholder="답글을 입력해 주세요"style="height: 80px"></textarea>'
 								+'<input type=button class="btn btn-sm" style="width:80px;'
 								+'height:50px;float: right" value="답글달기" name='+cmt['seqCmt']+' id="addRep">'

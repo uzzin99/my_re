@@ -143,7 +143,7 @@
 <section>
     <div style="padding: 30px;width:800px;margin:auto;text-align: center;">
         <span class="todaymenu" style="float: left;font-size:xx-large;margin-bottom: 20px">새 글쓰기</span>
-        <form action="addBoard" method="post">
+        <form action="addBoard" method="post" onsubmit="return confirm();">
             <table style="width: 800px;margin-left: auto;margin-right: auto;">
                 <tr><td><input type=text id=title name=title placeholder="제목을 입력하세요">
                     <select id=btype name=btype>
@@ -153,9 +153,10 @@
                     </select></td></tr>
                 <tr><td style="text-align: left;padding-top: 20px"><textarea id="summernote" name="editordata"></textarea></td></tr>
                 <tr><td style="padding-top: 20px">
-                    <input type=submit value=작성완료 class='btn'>&nbsp;<input type=button value='취소' id=btnList class='btn'></td></tr>
+                    <input type=submit value=작성완료 id="submit" class='btn'>&nbsp;<input type=button value='취소' id=btnList class='btn'></td></tr>
             </table>
         </form>
+        <a id="confirm" hidden></a>
     </div>
     <br>
 </section>
@@ -194,6 +195,7 @@
                     ['para', ['ul', 'ol', 'paragraph']],
                     ['height', ['height']]
                 ],
+                required:true,
                 height: 450,                 // 에디터 높이
                 minHeight: 200,             // 최소 높이
                 maxHeight: 450,             // 최대 높이
@@ -206,10 +208,27 @@
         .on('click','#btnList',function(){
             document.location='/home'
         })
-    // var checkUnload = true;
-    // $(window).on("beforeunload",function(){
-    //     console.log(checkUnload);
-    //     if(checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다";
-    // })
+        function confirm(){
+            $('#confirm').empty();
+            $('#confirm').append($('#summernote').val());
+            if (!checking($('#confirm').text())) {
+                alert('내용을 입력해 주세요');
+                return false;
+            }
+            if (!checking($('#title').val())) {
+                console.log('titleIsEmpty');
+                alert('제목을 입력해 주세요');
+                return false;
+            }
+        }
+        function checking(str){
+            const regExp = /[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
+            if(regExp.test(str)) {
+                return true;
+            }else{
+                return false;
+            }
+
+        }
 </script>
 </html>

@@ -10,7 +10,6 @@ public class commentDTO {
 	private String content;
 	private String writer;
 	private int deep;
-	private int groupno;
 	private String cDate;
 	
 	public commentDTO() {

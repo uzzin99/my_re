@@ -141,7 +141,7 @@
     </form>
 </nav>
 <section>
-    <form action="updateBoard" method="post">
+    <form action="updateBoard" method="post" onsubmit="return confirm();">
         <table style="width: 800px;margin-left: auto;margin-right: auto;">
             <tr><td><input type=text id=title name=title value="${title}"></td></tr>
             <tr><td style="text-align: left"><textarea id="summernote" name="editordata">${content}</textarea></td></tr>
@@ -157,6 +157,7 @@
             </td></tr>
         </table>
         <input type=hidden id=seq name=seq value="${seq}">
+        <a id="confirm" hidden></a>
 
     </form>
 <br>
@@ -204,11 +205,29 @@ $(document)
 		lang: "ko-KR",					// 한글 설정
 		placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정  
 	});
-    var checkUnload = true;
-    $(window).on("beforeunload",function(){
-        console.log(checkUnload);
-        if(checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다";
-    })
+
 })
+function confirm(){
+    $('#confirm').empty();
+    $('#confirm').append($('#summernote').val());
+    if (!checking($('#confirm').text())) {
+        alert('내용을 입력해 주세요');
+        return false;
+    }
+    if (!checking($('#title').val())) {
+        console.log('titleIsEmpty');
+        alert('제목을 입력해 주세요');
+        return false;
+    }
+}
+function checking(str){
+    const regExp = /[0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
+    if(regExp.test(str)) {
+        return true;
+    }else{
+        return false;
+    }
+
+}
 </script>
 </html>
