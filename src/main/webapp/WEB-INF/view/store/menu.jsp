@@ -265,7 +265,7 @@
                     ${storename.SAddress}${storename.SExtraaddress},<br>${storename.SDetailaddress}<br>
                     ${storename.bsNum}
                 </div>
-                <div id="map" style="width:500px;height:300px;margin-right: auto;margin-left: auto;"></div>
+                <div id="map" style="width:500px;height:300px;"></div>
             </div>
         </div>
 	</div>

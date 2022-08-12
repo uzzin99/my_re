@@ -67,12 +67,16 @@ public class OrderController {
     }
 
     @RequestMapping("/orderdetail")
-    public String doOrderDetail(@RequestParam("ose") int ose, Model model){
+    public String doOrderDetail(@RequestParam("ose") int ose,HttpServletRequest request, Model model){
+        HttpSession session=request.getSession();
         System.out.println("ose="+ose);
         ArrayList<orderDTO> detail=iod.orderDetail(ose);
         System.out.println("detail="+detail);
         int hab=iod.orderTotalPrace(ose);
         System.out.println("hab="+hab);
+
+        model.addAttribute("userType",session.getAttribute("userType"));
+        model.addAttribute("mname",session.getAttribute("mName"));
 
         model.addAttribute("detail",detail);
         model.addAttribute("hab",hab);
