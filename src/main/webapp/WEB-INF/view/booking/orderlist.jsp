@@ -93,18 +93,18 @@
                         홀예약
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" href="store?type=1">한식</a></li>
-                        <li><a class="dropdown-item" href="store?type=2">중식</a></li>
-                        <li><a class="dropdown-item" href="store?type=3">일식</a></li>
-                        <li><a class="dropdown-item" href="store?type=4">양식</a></li>
-                        <li><a class="dropdown-item" href="store?type=5">치킨</a></li>
-                        <li><a class="dropdown-item" href="store?type=6">피자</a></li>
-                        <li><a class="dropdown-item" href="store?type=7">분식</a></li>
-                        <li><a class="dropdown-item" href="store?type=8">디저트</a></li>
-                        <li><a class="dropdown-item" href="store?type=9">족발/보쌈</a></li>
-                        <li><a class="dropdown-item" href="store?type=10">고기/구이</a></li>
-                        <li><a class="dropdown-item" href="store?type=11">아시안</a></li>
-                        <li><a class="dropdown-item" href="store?type=12">패스트푸드</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=1">한식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=2">중식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=3">일식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=4">양식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=5">치킨</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=6">피자</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=7">분식</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=8">디저트</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=9">족발/보쌈</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=10">고기/구이</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=11">아시안</a></li>
+                        <li><a class="dropdown-item" href="/hall?type=12">패스트푸드</a></li>
                     </ul>
 
                 <li class="nav-item dropdown">
@@ -204,11 +204,11 @@
                     <li><a href="#">개시중단요청서비스</a></li>
                     <li><a href="#">고객센터</a></li>
                 </ul>
-                <address>
-                    Cappyright ㉿
-                    <a href="http://naver.com"><strong>NAVER.</strong>
-                    </a>
-                </address>
+<%--                <address>--%>
+<%--                    Cappyright ㉿--%>
+<%--                    <a href="http://naver.com"><strong>NAVER.</strong>--%>
+<%--                    </a>--%>
+<%--                </address>--%>
             </div>
         </div>
     </div>

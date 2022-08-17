@@ -202,11 +202,11 @@
                     <li><a href="#">개시중단요청서비스</a></li>
                     <li><a href="#">고객센터</a></li>
                 </ul>
-                <address>
-                    Cappyright ㉿
-                    <a href="http://naver.com"><strong>NAVER.</strong>
-                    </a>
-                </address>
+<%--                <address>--%>
+<%--                    Cappyright ㉿--%>
+<%--                    <a href="http://naver.com"><strong>NAVER.</strong>--%>
+<%--                    </a>--%>
+<%--                </address>--%>
             </div>
         </div>
     </div>

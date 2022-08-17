@@ -242,7 +242,7 @@
             <p style="text-align: right;">예약자ID <input type="text" id="BId" value="${userinfo}" readonly></p>
             <p style="text-align: right;">연락처 <input type="text" id="Bmobile" value="${mMobile}" readonly></p>
             <p style="text-align: right;">요청사항 <input type="text" id="Brequest"></p>
-            <input type="button" id="order" value="주문하기">
+            <input type="button" id="order" value="예약하기">
         </div>
 
         <c:if test="${rlist.size() < 1}">
@@ -273,13 +273,23 @@
         </c:forEach>
 
         <div class="conbox con3">
-            <div><br>
-                대표자명: ${member.MName}<br>
-                상호명: ${storename.SName}<br>
-                가게번호: ${storename.SMobile}<br>
-                사업자주소: ${storename.SAddress}${storename.SExtraaddress},<br>${storename.SDetailaddress}<br>
-                사업자등록번호: ${storename.bsNum}
-                <div id="map" style="width:500px;height:300px;margin-right: auto;margin-left: auto;"></div>
+            <div style="padding-left: 125px;text-align: left"><br>
+                <div style="width: 20%;float: left;">
+                    대표자명:<br>
+                    상호명:<br>
+                    가게번호:<br>
+                    사업자주소:<br>
+                    세부주소:<br>
+                    사업자등록번호:
+                </div>
+                <div style="width: 80%;float: left;">
+                    ${member.MName}<br>
+                    ${storename.SName}<br>
+                    ${storename.SMobile}<br>
+                    ${storename.SAddress}${storename.SExtraaddress},<br>${storename.SDetailaddress}<br>
+                    ${storename.bsNum}
+                </div>
+                <div id="map" style="width:500px;height:300px;"></div>
             </div>
         </div>
     </div>
@@ -298,11 +308,11 @@
                     <li><a href="#">개시중단요청서비스</a></li>
                     <li><a href="#">고객센터</a></li>
                 </ul>
-                <address>
-                    Cappyright ㉿
-                    <a href="http://naver.com"><strong>NAVER.</strong>
-                    </a>
-                </address>
+<%--                <address>--%>
+<%--                    Cappyright ㉿--%>
+<%--                    <a href="http://naver.com"><strong>NAVER.</strong>--%>
+<%--                    </a>--%>
+<%--                </address>--%>
             </div>
         </div>
     </div>
