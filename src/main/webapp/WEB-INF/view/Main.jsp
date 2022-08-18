@@ -147,7 +147,8 @@ a:hover{
       <c:if test="${userType == 'admin'}">
         <div class="login2" float="left">
           <h4 style="color: #333333">관리자님,<br>반갑습니다</h4>
-          <p style="float: right;"><a href='logout' align="right">로그아웃</a></p>
+          <p style="float: right;"><span style="margin-right:20px;"><a href="/memberlist" align="right">회원관리</a></span>
+                                  <span><a href='logout' align="right">로그아웃</a></span></p>
         </div>
       </c:if>
         <c:if test="${userType == '손님' }">

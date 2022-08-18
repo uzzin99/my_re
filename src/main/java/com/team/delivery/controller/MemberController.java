@@ -427,4 +427,13 @@ public class MemberController {
 
 			return "member/signin";
 		}
+
+
+		@RequestMapping("/memberlist")
+		public String doMemberlist(){
+
+
+
+			return "member/memberlist";
+		}
 }

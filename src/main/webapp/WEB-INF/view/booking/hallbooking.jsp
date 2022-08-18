@@ -16,6 +16,10 @@
 <!-- 달력 불러오기 -->
 <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"><%--추가--%>
+<link rel="stylesheet" href="/resources/demos/style.css"><%--추가--%>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script><%--추가--%>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script><%--추가--%>
 
 <!-- css -->
 <link href="/css/base.css" rel="stylesheet" type="text/css" />
@@ -200,7 +204,8 @@
         <label for="tab03">가게정보</label>
 
         <div class="conbox con1" align="center">
-            <p>예약날짜 <input type='date' id="currentDate" style="margin-top: 15px;"/></p>
+<%--            <p>예약날짜 <input type='date' id="currentDate" style="margin-top: 15px;" /></p>--%>
+            <p>예약날짜 <input type='text' id="datepicker" style="margin-top: 15px;" placeholder="날짜 선택" readonly/></p>
             <p>예약시간선택</p>
             <div class="time">
                 <input type="radio" name="touch" id="time01" value="14:00" checked>
@@ -310,8 +315,18 @@
 </body>
 <script>
     $(document)
-    /*현재날짜*/
-    document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+        // .ready(function(){
+        //     var now_utc = Date.now() // 지금 날짜를 밀리초로
+        //     // getTimezoneOffset()은 현재 시간과의 차이를 분 단위로 반환
+        //     var timeOff = new Date().getTimezoneOffset()*60000; // 분단위를 밀리초로 변환
+        //     // new Date(today-timeOff).toISOString()은 '2022-05-11T18:09:38.134Z'를 반환
+        //     var today = new Date(now_utc-timeOff).toISOString().substring(0, 16);
+        //
+        //     document.getElementById("currentDate").setAttribute("min", today);
+        //     /*현재날짜*/
+        //     document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+        // })
+
 
     $('.adminDel').on('click',function(){
         let admindel = $(this).attr("id");
@@ -346,7 +361,7 @@
                 data: {
                     hTime: $("input[type=radio][name=touch]:checked").val(),
                     sSeqno: $("#sSe").val(),
-                    hDate: $("#currentDate").val(),
+                    hDate: $("#datepicker").val(),
                     // hTime:$("#currentTime").val(),
                     hPeople: $("#Bnum").val(),
                     hOnepeople: $("#Bname").val(),
@@ -429,5 +444,11 @@
                 }
             });
         })
+    //날짜 선택(이전날짜 비활성화)
+    $("#datepicker").datepicker({
+        dateFormat: "yy-mm-dd",
+        minDate:"0"
+    });
+
 </script>
 </html>
