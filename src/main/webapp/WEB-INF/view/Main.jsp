@@ -125,12 +125,12 @@ a:hover{
 
       <div class="slider-div">
         <div id="slider-div" align="center">
-          <div><img class="item" src="../food3/음식1.jpg"></div>
-          <div><img class="item" src="../food3/음식2.jpg"></div>
-          <div><img class="item" src="../food3/음식3.jpg"></div>
-          <div><img class="item" src="../food3/고양이.jpg"></div>
-          <div><img class="item" src="../food3/고양이2.jpg"></div>
-          <div><img class="item" src="../food3/고양이3.jpg"></div>
+<%--          <div><img class="item" src="../food3/음식1.jpg"></div>--%>
+<%--          <div><img class="item" src="../food3/음식2.jpg"></div>--%>
+<%--          <div><img class="item" src="../food3/음식3.jpg"></div>--%>
+<%--          <div><img class="item" src="../food3/고양이.jpg"></div>--%>
+<%--          <div><img class="item" src="../food3/고양이2.jpg"></div>--%>
+<%--          <div><img class="item" src="../food3/고양이3.jpg"></div>--%>
         </div>
       </div>
 
@@ -140,7 +140,7 @@ a:hover{
           <p class="default">로그인을 해주세요</p>
           <p align=center><input type="button" class="btn btn-primary" onclick=location.href='login'
                                  value="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;배달의민족 로그인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></p>
-          <p style="display:inline;">🔒아이디.비밀번호 찾기</p>
+          <p style="display:inline;">🔒<a href="/member/findId">아이디</a>.<a href="/member/findPwd">비밀번호 찾기</a></p>
           <p style="display:inline; float: right;" onclick=location.href='signin'>회원가입</p>
         </div>
       </c:if>
