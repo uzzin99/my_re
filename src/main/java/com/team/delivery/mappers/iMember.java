@@ -31,6 +31,12 @@ public interface iMember {
 			String mPwd);
 	mDTO profile(String mId,
 			String mPwd);
+	ArrayList<mDTO> findId(String mEmail);
+	int findIdCheck(String mEmail);
+	int findPwd(String mPwd,
+				String mEmail,
+				String mId);
+	int findPwdCheck(String mEmail, String mId);
 	
 	mDTO userList(String mId);
 	int cntAddress(String mId);

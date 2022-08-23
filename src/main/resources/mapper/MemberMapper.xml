@@ -22,6 +22,18 @@
 <select id="profile" resultType="com.team.delivery.DTO.mDTO">
 	select * from member where m_id=#{param1} and m_pwd=#{param2}
 </select>
+	<select id="findId" resultType="com.team.delivery.DTO.mDTO">
+		select * from member where m_email=#{mEmail}
+	</select>
+	<select id="findIdCheck" resultType="int">
+		select count(*) from member where m_email=#{mEmail}
+	</select>
+	<update id="findPwd">
+		update member set m_pwd=#{mPwd} where m_email=#{mEmail} and m_id=#{mId}
+	</update>
+	<select id="findPwdCheck" resultType="int">
+		select count(*) from member where m_email=#{mEmail} and m_id=#{mId}
+	</select>
 
 <!-- 회원정보수정 -->
 <select id="userList" resultType="com.team.delivery.DTO.mDTO">

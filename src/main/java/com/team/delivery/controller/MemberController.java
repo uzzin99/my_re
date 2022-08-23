@@ -2,19 +2,28 @@ package com.team.delivery.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 
 import com.team.delivery.DTO.*;
+import com.team.delivery.MailUtils;
+import com.team.delivery.TempKey;
 import com.team.delivery.mappers.*;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +36,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequiredArgsConstructor
 public class MemberController {
 
+	private final JavaMailSender javaMailSender;
 	private final iMember ime;
 	private final iMenuStore ims;
   	private final iBooking ibo;
 	private final iStore store;
 	private final iCart ica;
 
+	@Value("${spring.mail.username}")
+	private String fromMail;
 	@Value("${part.upload.path}")
 	private String uploadfolder;
 
@@ -362,6 +374,58 @@ public class MemberController {
 			String redirect = destination != null ? (String) destination : (String) "/main";
 
 			return "redirect:"+redirect;
+		}
+
+		@RequestMapping("/member/findId")
+		public String findId(){
+			return "member/findId";
+		}
+		@RequestMapping(value = "/member/findIdView", method = RequestMethod.POST)
+		public String findIdView(@RequestParam("memberEmail") String email, Model model){
+			log.info("email={}",email);
+
+			if(ime.findIdCheck(email) == 0){
+				model.addAttribute("msg","아이디가 존재하지않습니다, 이메일을 확인해주세요.");
+				return "/member/findId";
+			}else{
+				model.addAttribute("member",ime.findId(email));
+				return "/member/findIdView";
+			}
+		}
+		@RequestMapping("/member/findPwd")
+		public String findPwd(){
+			return "member/findPwd";
+		}
+		@RequestMapping(value = "/member/findPwdView",method = RequestMethod.POST)
+		public String findPwdView(@RequestParam("memberId") String mid,
+								  @RequestParam("memberEmail") String email,
+								  Model model) throws MessagingException, UnsupportedEncodingException {
+
+			if(ime.findPwdCheck(email,mid) == 0){
+				model.addAttribute("msg","아이디와 이메일을 확인해주세요.");
+				return "/member/findPwd";
+			}else{
+				String memberKey = new TempKey().getKey(6,false);
+				MailUtils sendMail = new MailUtils(javaMailSender);
+//				MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+//				MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage,true,"UTF-8");
+				sendMail.setFrom(fromMail,"빠르조");
+				sendMail.setTo(email);
+				sendMail.setSubject("배달의 민족 임시 비밀번호 입니다.");
+				sendMail.setText(
+						"<h1>임시비밀번호 발급</h1>" +
+								"<br/>"+mid+"님 "+
+								"<br/>배달의 민족 임시 비밀번호입니다."+
+								"<br/>임시비밀번호 :   <h2>"+memberKey+"</h2>"+
+								"<br/>로그인 후 비밀번호 변경을 해주세요.");
+				sendMail.send();
+				log.info("임시비밀번호={}",memberKey);
+				ime.findPwd(memberKey,email,mid);
+
+				model.addAttribute("member",email);
+				return "/member/findPwdView";
+			}
+//			return "member/findPwdView";
 		}
 
 		@RequestMapping("/errorLogin")
