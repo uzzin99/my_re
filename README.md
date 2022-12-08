@@ -15,7 +15,3 @@
 * Framework: SpringBoot 2.7.2
 * ORM: Mybatis
 
-
-### 📟메인화면
-***
-![mainpr](https://user-images.githubusercontent.com/106142534/200535514-704595df-c8ff-4cf9-b9b2-b93bb2c14bcf.PNG)
